@@ -44,9 +44,10 @@ namespace NoNameGame.Maps
             Origin = Vector2.Zero;
         }
 
-        public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 destinationPosition) 
+        public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 destinationPosition, TileRotation rotation) 
         {
             this.layer = layer;
+            Rotation = rotation;
             DestinationPosition = destinationPosition;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);

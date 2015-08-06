@@ -33,17 +33,17 @@ namespace NoNameGame.Maps
         {
             TileSheet.LoadContent();
 
-            Vector2 position = -TileDimensions;
+            Vector2 position = -Vector2.One;
             foreach (string row in TileMapString.Rows)
             {
-                position.Y += TileDimensions.Y;
+                position.Y++;
 
                 string[] split = row.Split(']');
                 foreach (string s in split)
                 {
                     if (s != String.Empty)
                     {
-                        position.X += TileDimensions.X;
+                        position.X++;
                         if (!s.Contains("x"))
                         {
                             Tile newTile = new Tile();
@@ -52,12 +52,22 @@ namespace NoNameGame.Maps
                             int valueX = int.Parse(str.Substring(0, str.IndexOf(':')));
                             int valueY = int.Parse(str.Substring(str.IndexOf(':') + 1));
 
-                            newTile.LoadContent(this, new Vector2(valueX, valueY), position);
+                            Tile.TileRotation rotation;
+                            if (TileMapString.Rotation90Tiles.Contains("[" + position.X.ToString() + ":" + position.Y.ToString() + "]"))
+                                rotation = Tile.TileRotation.Clockwise90;
+                            else if (TileMapString.Rotation180Tiles.Contains("[" + position.X.ToString() + ":" + position.Y.ToString() + "]"))
+                                rotation = Tile.TileRotation.Clockwise180;
+                            else if (TileMapString.Rotation270Tiles.Contains("[" + position.X.ToString() + ":" + position.Y.ToString() + "]"))
+                                rotation = Tile.TileRotation.Clockwise270;
+                            else
+                                rotation = 0.0f;
+
+                            newTile.LoadContent(this, new Vector2(valueX, valueY), position * TileDimensions, rotation);
                             tileMap.Add(newTile);
                         }
                     }
                 }
-                position.X = -TileDimensions.X;
+                position.X = -1;
             }
         }
 

@@ -11,6 +11,9 @@ namespace NoNameGame.Maps
     {
         [XmlElement("Row")]
         public List<string> Rows;
+        public string Rotation90Tiles;
+        public string Rotation180Tiles;
+        public string Rotation270Tiles;
 
         public TileMapString ()
         {
