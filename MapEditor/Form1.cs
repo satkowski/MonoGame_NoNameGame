@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using MapEditor.Managers;
 using MapEditor.Maps;
 using MapEditor.Windows;
+using MapEditor.Extension;
 
 namespace MapEditor
 {
@@ -196,6 +197,46 @@ namespace MapEditor
             offsetXTextBox.Text = editor1.CurrentLayer.Offset.X.ToString();
             offsetYTextBox.Text = editor1.CurrentLayer.Offset.Y.ToString();
             tileSheetTextBox.Text = editor1.CurrentLayer.TileSheet.Path;
+        }
+
+        private void upButton_Click (object sender, EventArgs e)
+        {
+            if (layerCheckedListBox.SelectedIndices.Count == 1)
+            {
+                if (layerCheckedListBox.SelectedIndex > 0)
+                {
+                    editor1.Map.Layers = (List<Layer>)editor1.Map.Layers.Swap<Layer>(layerCheckedListBox.SelectedIndex, layerCheckedListBox.SelectedIndex - 1);
+
+                    CheckState thisCheckState = layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex);
+                    CheckState upperCheckState = layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex - 1);
+                    int selectedIndex = layerCheckedListBox.SelectedIndex;
+
+                    layerCheckedListBox.SetItemCheckState(selectedIndex, upperCheckState);
+                    layerCheckedListBox.SetSelected(selectedIndex, false);
+                    layerCheckedListBox.SetItemCheckState(selectedIndex - 1, thisCheckState);
+                    layerCheckedListBox.SetSelected(selectedIndex - 1, true);
+                }
+            }
+        }
+
+        private void downButton_Click (object sender, EventArgs e)
+        {
+            if (layerCheckedListBox.SelectedIndices.Count == 1)
+            {
+                if (layerCheckedListBox.SelectedIndex < editor1.Map.Layers.Count - 1)
+                {
+                    editor1.Map.Layers = (List<Layer>)editor1.Map.Layers.Swap<Layer>(layerCheckedListBox.SelectedIndex, layerCheckedListBox.SelectedIndex + 1);
+
+                    CheckState thisCheckState = layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex);
+                    CheckState lowerCheckState = layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex - 1);
+                    int selectedIndex = layerCheckedListBox.SelectedIndex;
+
+                    layerCheckedListBox.SetItemCheckState(selectedIndex, lowerCheckState);
+                    layerCheckedListBox.SetSelected(selectedIndex, false);
+                    layerCheckedListBox.SetItemCheckState(selectedIndex + 1, thisCheckState);
+                    layerCheckedListBox.SetSelected(selectedIndex + 1, true);
+                }
+            }
         }
     }
 }
