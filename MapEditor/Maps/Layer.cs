@@ -115,6 +115,12 @@ namespace MapEditor.Maps
                         while (tileMap[cY].Count <= cX)
                             tileMap[cY].Add(null);
 
+                        if (tileMap[cY][cX] == null)
+                        {
+                            tileMap[cY][cX] = new Tile();
+                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, Tile.TileRotation.None);
+                        }
+
                         tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
                         tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
                         tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
@@ -158,7 +164,7 @@ namespace MapEditor.Maps
                             rotation = Tile.TileRotation.Clockwise270;
                         else
                             rotation = 0.0f;
-
+                        
                         newTile.Initialize(this, new Vector2(valueX, valueY), position * TileDimensions, rotation);
                     }
                     else

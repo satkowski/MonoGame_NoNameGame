@@ -48,6 +48,7 @@ namespace MapEditor
                 layerCheckedListBox.Items.Clear();
                 for (int c = 0; c < editor1.Map.Layers.Count; c++)
                     layerCheckedListBox.Items.Add(c);
+                editor1.OneLayerActive = false;
             }
         }
 

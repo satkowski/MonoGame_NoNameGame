@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Layer>
+    <TileSheet>
+      <Path>TileSheets/TileSheet_01</Path>
+    </TileSheet>
+    <Offset>
+      <X>0</X>
+      <Y>0</Y>
+    </Offset>
+    <TileDimensions>
+      <X>64</X>
+      <Y>64</Y>
+    </TileDimensions>
+    <TileMapString>
+      <Row>[0:0][1:0][1:0][1:0][1:0]</Row>
+      <Row>[x:x][x:x][x:x][x:x][x:x][x:x][3:0]</Row>
+      <Row>[x:x][x:x][x:x][x:x][x:x][x:x][3:0][3:0][3:0]</Row>
+      <Row>[x:x][x:x][3:0][x:x][3:0][3:0][3:0][3:0][3:0]</Row>
+      <Row>[x:x][x:x][3:0][3:0][3:0][3:0][3:0][3:0][3:0]</Row>
+      <Row>[x:x][x:x][3:0][3:0][3:0][3:0][x:x][3:0][x:x][3:0]</Row>
+      <Row>[x:x][x:x][x:x][x:x][x:x][3:0][3:0][3:0][3:0][3:0]</Row>
+      <Rotation90Tiles />
+      <Rotation180Tiles />
+      <Rotation270Tiles />
+    </TileMapString>
+  </Layer>
+</Map>
