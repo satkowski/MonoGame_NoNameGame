@@ -132,7 +132,7 @@ namespace MapEditor.Maps
 
         public void Initialize (ContentManager content)
         {
-            TileSheet.Initialize(content);
+            TileSheet.Initialize(content, Offset);
             TileSheetImage.Path = TileSheet.Path;
             TileSheetImage.Initialize(content);
 
@@ -191,9 +191,13 @@ namespace MapEditor.Maps
         {
             position /= TileDimensions;
 
+            TileSheet.DrawOffset = Vector2.Zero;
+
             Tile drawTile = new Tile();
             drawTile.Initialize(this, position, Vector2.Zero, rotation);
             drawTile.Draw(spriteBatch);
+
+            TileSheet.DrawOffset = Offset;
         }
     }
 }

@@ -25,17 +25,21 @@ namespace MapEditor.Images
         public float Alpha;
         [XmlIgnore]
         public Color Color;
+        [XmlIgnore]
+        public Vector2 DrawOffset;
 
         public TileSheet ()
         {
             Alpha = 1.0f;
             Path = String.Empty;
             Color = Color.White;
+            DrawOffset = Vector2.Zero;
         }
 
-        public void Initialize (ContentManager content)
+        public void Initialize (ContentManager content, Vector2 offset)
         {
             this.content = new ContentManager(content.ServiceProvider, "Content");
+            DrawOffset = offset;
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);
@@ -44,7 +48,7 @@ namespace MapEditor.Images
         public void Draw (SpriteBatch spriteBatch, Tile tile)
         {
             if(Texture != null)
-                spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin, tile.TileSheetRectangle, Color * Alpha, 
+                spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset, tile.TileSheetRectangle, Color * Alpha, 
                                  tile.Rotation.GetRotationValue(), tile.Origin, tile.Scale, SpriteEffects.None, 0.0f);
         }
     }
