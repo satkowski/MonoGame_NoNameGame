@@ -16,9 +16,12 @@ namespace MapEditor
 {
     public partial class Form1 : Form
     {
+        private string savePath;
+
         public Form1 ()
         {
             InitializeComponent();
+            savePath = String.Empty;
         }
 
         private void speichernAlsToolStripMenuItem_Click (object sender, EventArgs e)
@@ -28,7 +31,10 @@ namespace MapEditor
             sfd.Title = "Speicher Map";
 
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
                 editor1.Map.Save(sfd.FileName);
+                savePath = sfd.FileName;
+            }
         }
 
         private void mapÖffnenToolStripMenuItem_Click (object sender, EventArgs e)
@@ -44,6 +50,8 @@ namespace MapEditor
                 editor1.Map.Initialize(editor1.Content);
                 editor1.ResetSelector();
                 tileDisplay1.SetNewTileImage();
+
+                savePath = ofd.FileName;
 
                 layerCheckedListBox.Items.Clear();
                 for (int c = 0; c < editor1.Map.Layers.Count; c++)
@@ -111,6 +119,14 @@ namespace MapEditor
             layerCheckedListBox.Items.Clear();
             for (int c = 0; c < editor1.Map.Layers.Count; c++)
                 layerCheckedListBox.Items.Add(c);
+        }
+
+        private void speichernToolStripMenuItem_Click (object sender, EventArgs e)
+        {
+            if (savePath != String.Empty)
+                editor1.Map.Save(savePath);
+            else
+                speichernAlsToolStripMenuItem_Click(null, null);
         }
     }
 }
