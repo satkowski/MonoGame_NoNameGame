@@ -48,10 +48,11 @@ namespace NoNameGame.Maps
         {
             this.layer = layer;
             DestinationPosition = destinationPosition;
+            TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
+                                               (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
             Origin = new Vector2(TileSheetRectangle.Width / 2, TileSheetRectangle.Height / 2);
 
-            TileSheetRectangle = new Rectangle((int)tileSheetPosition.X, (int)tileSheetPosition.Y, (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
             CurrentDestinationRectangle = new Rectangle((int)DestinationPosition.X + layer.Offset, (int)DestinationPosition.Y + layer.Offset,
                                                         (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
         }
