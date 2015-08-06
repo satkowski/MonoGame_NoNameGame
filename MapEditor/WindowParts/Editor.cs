@@ -45,6 +45,8 @@ namespace MapEditor.WindowParts
         public Rectangle SelectedTileRegion;
         public List<Vector2> SelectedTiles;
 
+        public bool OneLayerActive;
+
         public List<Image> Selector;
 
         public Editor ()
@@ -55,6 +57,7 @@ namespace MapEditor.WindowParts
             SelectedTileRegion = new Rectangle(0, 0, 0, 0);
             SelectedTiles = new List<Vector2>();
             SelectedTiles.Add(Vector2.Zero);
+            OneLayerActive = false;
 
             Selector = new List<Image>();
             for (int c = 0; c < 4; c++)
@@ -69,8 +72,11 @@ namespace MapEditor.WindowParts
 
         void Editor_MouseDown (object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            CurrentLayer.ReplaceTiles(mousePosition, SelectedTileRegion);
-            isMouseDown = true;
+            if (OneLayerActive)
+            {
+                CurrentLayer.ReplaceTiles(mousePosition, SelectedTileRegion);
+                isMouseDown = true;
+            }
         }
 
         void Editor_MouseMove (object sender, System.Windows.Forms.MouseEventArgs e)

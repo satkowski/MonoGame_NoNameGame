@@ -43,6 +43,10 @@ namespace MapEditor
                 editor1.Map.Initialize(editor1.Content);
                 editor1.ResetSelector();
                 tileDisplay1.SetNewTileImage();
+
+                layerCheckedListBox.Items.Clear();
+                for (int c = 0; c < editor1.Map.Layers.Count; c++)
+                    layerCheckedListBox.Items.Add(c);
             }
         }
 
@@ -54,6 +58,36 @@ namespace MapEditor
         private void rotateRightButton_Click (object sender, EventArgs e)
         {
             tile1.RotateTile(1);
+        }
+
+        private void layerCheckedListBox_ItemCheck (object sender, ItemCheckEventArgs e)
+        {
+            CheckedListBox clb = (CheckedListBox)sender;
+            // Switch off event handler
+            clb.ItemCheck -= layerCheckedListBox_ItemCheck;
+            clb.SetItemCheckState(e.Index, e.NewValue);
+            // Switch on event handler
+            clb.ItemCheck += layerCheckedListBox_ItemCheck;
+
+            int layerCount = 0;
+            for (int c = 0; c < editor1.Map.Layers.Count; c++)
+            {
+                if (layerCheckedListBox.CheckedIndices.Contains(c))
+                    editor1.Map.Layers[c].Active = true;
+                else
+                    editor1.Map.Layers[c].Active = false;
+
+                if (editor1.Map.Layers[c].Active)
+                    layerCount++;
+            }
+            if (layerCount != 1)
+                editor1.OneLayerActive = false;
+            else
+                editor1.OneLayerActive = true;
+
+            editor1.Invalidate();
+            tile1.Invalidate();
+            tileDisplay1.Invalidate();
         }
     }
 }

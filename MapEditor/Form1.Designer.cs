@@ -33,7 +33,6 @@
             this.tileDisplay1 = new WindowParts.TileDisplay(editor1, tile1);
             this.rotateLeftButton = new System.Windows.Forms.Button();
             this.rotateRightButton = new System.Windows.Forms.Button();
-            this.layerComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.neueMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +41,7 @@
             this.speichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernAlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.layerCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,14 +88,6 @@
             this.rotateRightButton.Text = "Rechts drehen";
             this.rotateRightButton.UseVisualStyleBackColor = true;
             this.rotateRightButton.Click += new System.EventHandler(this.rotateRightButton_Click);
-            // 
-            // layerComboBox
-            // 
-            this.layerComboBox.FormattingEnabled = true;
-            this.layerComboBox.Location = new System.Drawing.Point(12, 522);
-            this.layerComboBox.Name = "layerComboBox";
-            this.layerComboBox.Size = new System.Drawing.Size(121, 21);
-            this.layerComboBox.TabIndex = 5;
             // 
             // menuStrip1
             // 
@@ -157,12 +149,21 @@
             this.hinzufügenToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.hinzufügenToolStripMenuItem.Text = "Hinzufügen";
             // 
+            // layerCheckedListBox
+            // 
+            this.layerCheckedListBox.FormattingEnabled = true;
+            this.layerCheckedListBox.Location = new System.Drawing.Point(12, 522);
+            this.layerCheckedListBox.Name = "layerCheckedListBox";
+            this.layerCheckedListBox.Size = new System.Drawing.Size(120, 64);
+            this.layerCheckedListBox.TabIndex = 7;
+            this.layerCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.layerCheckedListBox_ItemCheck);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(931, 601);
-            this.Controls.Add(this.layerComboBox);
+            this.Controls.Add(this.layerCheckedListBox);
             this.Controls.Add(this.rotateRightButton);
             this.Controls.Add(this.rotateLeftButton);
             this.Controls.Add(this.tile1);
@@ -186,7 +187,6 @@
         private WindowParts.Tile tile1;
         private System.Windows.Forms.Button rotateLeftButton;
         private System.Windows.Forms.Button rotateRightButton;
-        private System.Windows.Forms.ComboBox layerComboBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem neueMapToolStripMenuItem;
@@ -195,6 +195,7 @@
         private System.Windows.Forms.ToolStripMenuItem speichernToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem speichernAlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hinzufügenToolStripMenuItem;
+        private System.Windows.Forms.CheckedListBox layerCheckedListBox;
     }
 }
 

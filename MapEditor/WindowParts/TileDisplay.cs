@@ -72,16 +72,19 @@ namespace MapEditor.WindowParts
 
         void TileDisplay_MouseDown (object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (!isMouseDown)
+            if (editor.OneLayerActive)
             {
-                clickPosition = mousePosition;
-                foreach (Image img in selector)
-                    img.Position = mousePosition;
-                Tile.Rotation = Maps.Tile.TileRotation.None;
+                if (!isMouseDown)
+                {
+                    clickPosition = mousePosition;
+                    foreach (Image img in selector)
+                        img.Position = mousePosition;
+                    Tile.Rotation = Maps.Tile.TileRotation.None;
+                }
+                isMouseDown = true;
+                Invalidate();
+                tile.Invalidate();
             }
-            isMouseDown = true;
-            Invalidate();
-            tile.Invalidate();
         }
 
         void TileDisplay_MouseMove (object sender, System.Windows.Forms.MouseEventArgs e)
@@ -122,12 +125,15 @@ namespace MapEditor.WindowParts
         {
             GraphicsDevice.Clear(Color.Green);
 
-            spriteBatch.Begin();
-            if(tileSheet != null)
-                tileSheet.Draw(spriteBatch);
-            foreach (Image img in selector)
-                img.Draw(spriteBatch);
-            spriteBatch.End();
+            if (editor.OneLayerActive)
+            {
+                spriteBatch.Begin();
+                if (tileSheet != null)
+                    tileSheet.Draw(spriteBatch);
+                foreach (Image img in selector)
+                    img.Draw(spriteBatch);
+                spriteBatch.End();
+            }
         }
     }
 }

@@ -20,17 +20,20 @@ namespace MapEditor.Maps
         public TileSheet TileSheet;
         [XmlIgnore]
         public Image TileSheetImage;
-        public int Offset;
+        public Vector2 Offset;
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
+        [XmlIgnore]
+        public bool Active;
 
         public Layer ()
         {
-            Offset = 0;
+            Offset = Vector2.Zero;
             TileMapString = new TileMapString();
             tileMap = new List<List<Tile>>();
             TileDimensions = Vector2.Zero;
             TileSheetImage = new Image();
+            Active = false;
         }
         public void Save ()
         {
@@ -169,10 +172,11 @@ namespace MapEditor.Maps
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            foreach (List<Tile> tileRow in tileMap)
-                foreach (Tile tile in tileRow)
-                    if(tile != null)
-                        tile.Draw(spriteBatch);
+            if(Active)
+                foreach (List<Tile> tileRow in tileMap)
+                    foreach (Tile tile in tileRow)
+                        if(tile != null)
+                            tile.Draw(spriteBatch);
         }
 
         public void DrawTile (SpriteBatch spriteBatch, Vector2 position, Tile.TileRotation rotation)
