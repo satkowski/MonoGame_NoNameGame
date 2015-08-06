@@ -49,15 +49,15 @@ namespace MapEditor.Maps
                     else
                     {
                         Vector2 tilePosition = new Vector2(tileMap[cY][cX].TileSheetRectangle.X / TileDimensions.X, tileMap[cY][cX].TileSheetRectangle.Y / TileDimensions.Y);
-                        string str = "[" + tilePosition.X.ToString() + ":" + tilePosition.Y.ToString() + "]";
-                        row += str;
+                        row += "[" + tilePosition.X.ToString() + ":" + tilePosition.Y.ToString() + "]";
 
+                        string posStr = "[" + cX.ToString() + ":" + cY.ToString() + "]";
                         if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise90)
-                            TileMapString.Rotation90Tiles += str;
+                            TileMapString.Rotation90Tiles += posStr;
                         else if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise180)
-                            TileMapString.Rotation180Tiles += str;
+                            TileMapString.Rotation180Tiles += posStr;
                         else if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise270)
-                            TileMapString.Rotation270Tiles += str;                        
+                            TileMapString.Rotation270Tiles += posStr;                        
                     }
                 }
                 TileMapString.Rows.Add(row);
