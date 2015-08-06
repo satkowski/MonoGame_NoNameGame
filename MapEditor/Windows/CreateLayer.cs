@@ -37,8 +37,10 @@ namespace MapEditor.Windows
         {
             int tDimesionX = int.Parse(tileDimensionX.Text);
             int tDimesionY = int.Parse(tileDimensionY.Text);
+            int offsetX = int.Parse(offsetXTextBox.Text);
+            int offsetY = int.Parse(offsetYTextBox.Text);
 
-            editor.Map.CreateNewLayer(editor.Content, new Vector2(tDimesionX, tDimesionY), sheetPathTextBox.Text);
+            editor.Map.CreateNewLayer(editor.Content, new Vector2(tDimesionX, tDimesionY), new Vector2(offsetX, offsetY), sheetPathTextBox.Text);
 
             editor.Map.Initialize(editor.Content);
             editor.ResetSelector();

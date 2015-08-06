@@ -96,6 +96,7 @@ namespace MapEditor
             {
                 editor1.OneLayerActive = true;
                 editor1.CurrentLayerNumber = layer[0];
+                editor1.ResetSelector();
             }
 
             editor1.Invalidate();

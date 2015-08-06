@@ -37,6 +37,11 @@
             this.tileDimensionY = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.sheetPathTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.offsetXTextBox = new System.Windows.Forms.TextBox();
+            this.offsetYTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // abortButton
@@ -45,7 +50,7 @@
             this.abortButton.Location = new System.Drawing.Point(586, 23);
             this.abortButton.Name = "abortButton";
             this.abortButton.Size = new System.Drawing.Size(75, 23);
-            this.abortButton.TabIndex = 18;
+            this.abortButton.TabIndex = 15;
             this.abortButton.Text = "Abbrechen";
             this.abortButton.UseVisualStyleBackColor = true;
             this.abortButton.Click += new System.EventHandler(this.abortButton_Click);
@@ -56,7 +61,7 @@
             this.createButton.Location = new System.Drawing.Point(505, 23);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(75, 23);
-            this.createButton.TabIndex = 17;
+            this.createButton.TabIndex = 14;
             this.createButton.Text = "Erstellen";
             this.createButton.UseVisualStyleBackColor = true;
             this.createButton.Click += new System.EventHandler(this.createButton_Click);
@@ -107,7 +112,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 47);
+            this.label1.Location = new System.Drawing.Point(12, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 13;
@@ -115,16 +120,64 @@
             // 
             // sheetPathTextBox
             // 
-            this.sheetPathTextBox.Location = new System.Drawing.Point(134, 47);
+            this.sheetPathTextBox.Location = new System.Drawing.Point(134, 92);
             this.sheetPathTextBox.Name = "sheetPathTextBox";
             this.sheetPathTextBox.Size = new System.Drawing.Size(260, 20);
             this.sheetPathTextBox.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 59);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Offset";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(132, 60);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(14, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "X";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(261, 57);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(14, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Y";
+            // 
+            // offsetXTextBox
+            // 
+            this.offsetXTextBox.Location = new System.Drawing.Point(153, 57);
+            this.offsetXTextBox.Name = "offsetXTextBox";
+            this.offsetXTextBox.Size = new System.Drawing.Size(100, 20);
+            this.offsetXTextBox.TabIndex = 11;
+            this.offsetXTextBox.Text = "0";
+            // 
+            // offsetYTextBox
+            // 
+            this.offsetYTextBox.Location = new System.Drawing.Point(282, 56);
+            this.offsetYTextBox.Name = "offsetYTextBox";
+            this.offsetYTextBox.Size = new System.Drawing.Size(100, 20);
+            this.offsetYTextBox.TabIndex = 12;
+            this.offsetYTextBox.Text = "0";
             // 
             // CreateLayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 76);
+            this.ClientSize = new System.Drawing.Size(686, 128);
+            this.Controls.Add(this.offsetYTextBox);
+            this.Controls.Add(this.offsetXTextBox);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.sheetPathTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tileDimensionY);
@@ -152,5 +205,10 @@
         private System.Windows.Forms.TextBox tileDimensionY;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox sheetPathTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox offsetXTextBox;
+        private System.Windows.Forms.TextBox offsetYTextBox;
     }
 }
