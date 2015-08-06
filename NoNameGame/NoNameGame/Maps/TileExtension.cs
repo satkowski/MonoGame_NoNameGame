@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace NoNameGame.Maps
 {
-    public class TileExtension
+    public static class TileExtension
     {
-        public float GetRotationValue (this Tile.TileRotation rotation)
+        public static float GetRotationValue (this Tile.TileRotation rotation)
         {
             switch (rotation)
             {            

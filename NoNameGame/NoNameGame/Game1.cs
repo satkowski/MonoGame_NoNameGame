@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using NoNameGame.Managers;
+
 namespace NoNameGame
 {
     /// <summary>
@@ -19,10 +21,14 @@ namespace NoNameGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static bool ExitGame;
+
         public Game1 ()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            ExitGame = false;
         }
 
         /// <summary>
@@ -33,7 +39,10 @@ namespace NoNameGame
         /// </summary>
         protected override void Initialize ()
         {
-            // TODO: Add your initialization logic here
+            // Setzen der bevorzugten Buffergröße
+            graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.Dimensions.X;
+            graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.Dimensions.Y;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -47,7 +56,9 @@ namespace NoNameGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            ScreenManager.Instance.GraphicsDevice = GraphicsDevice;
+            ScreenManager.Instance.SpriteBatch = spriteBatch;
+            ScreenManager.Instance.LoadContent(Content);
         }
 
         /// <summary>
@@ -56,7 +67,7 @@ namespace NoNameGame
         /// </summary>
         protected override void UnloadContent ()
         {
-            // TODO: Unload any non ContentManager content here
+            ScreenManager.Instance.UnloadContent();
         }
 
         /// <summary>
@@ -67,10 +78,10 @@ namespace NoNameGame
         protected override void Update (GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || ExitGame)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            ScreenManager.Instance.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -81,9 +92,11 @@ namespace NoNameGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw (GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGreen);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            ScreenManager.Instance.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

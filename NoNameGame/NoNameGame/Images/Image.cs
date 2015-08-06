@@ -9,12 +9,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using NoNameGame.Managers;
+
 namespace NoNameGame.Images
 {
     public class Image
     {
         Vector2 origin;
-        Vector2 scaleOrigin;
         ContentManager content;
         Vector2 position;
 
@@ -54,12 +55,11 @@ namespace NoNameGame.Images
             MergeOffset = 0;
             Color = Color.White;
             origin = Vector2.Zero;
-            scaleOrigin = Vector2.Zero;
         }
 
-        public void LoadContent (ContentManager content)
+        public void LoadContent ()
         {
-            this.content = content;
+            content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);
@@ -73,7 +73,6 @@ namespace NoNameGame.Images
         public void Update (GameTime gameTime)
         {
             origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
-            scaleOrigin = new Vector2(SourceRectangle.Width * Scale / 2, SourceRectangle.Height * Scale / 2);
 
             PrevRectangle = CurrentRectangle;
             CurrentRectangle = new Rectangle((int)(Position.X), (int)(Position.Y),

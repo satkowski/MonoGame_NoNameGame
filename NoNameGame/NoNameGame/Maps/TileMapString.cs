@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Xml.Serialization;
+
 namespace NoNameGame.Maps
 {
     public class TileMapString
     {
-        List<string> Rows;
+        [XmlElement("Row")]
+        public List<string> Rows;
 
         public TileMapString ()
         {
