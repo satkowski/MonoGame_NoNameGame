@@ -53,8 +53,30 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphicsDeviceControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GraphicsDeviceService.cs" />
+    <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\TileSheet.cs" />
+    <Compile Include="Managers\XmlManager.cs" />
+    <Compile Include="Maps\Layer.cs" />
+    <Compile Include="Maps\Map.cs" />
+    <Compile Include="Maps\Tile.cs" />
+    <Compile Include="Maps\TileExtension.cs" />
+    <Compile Include="Maps\TileMapString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContainer.cs" />
+    <Compile Include="WindowParts\Editor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WindowParts\Tile.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WindowParts\TileDisplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -82,6 +104,9 @@
       <Project>{9fc701ea-fe77-4baf-beed-11acd45894f3}</Project>
       <Name>ContentLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Windows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
