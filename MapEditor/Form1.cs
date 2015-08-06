@@ -174,7 +174,11 @@ namespace MapEditor
             CreateLayer newLayer = new CreateLayer(editor1, tileDisplay1);
             DialogResult dialogResult = newLayer.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.Abort || dialogResult == System.Windows.Forms.DialogResult.Cancel)
+            {
+                if (editor1.CurrentLayer == null)
+                    editor1.Map = null;
                 return;
+            }
 
             layerCheckedListBox.Items.Add(editor1.Map.Layers.Count - 1);
         }

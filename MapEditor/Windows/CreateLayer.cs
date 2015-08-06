@@ -29,7 +29,6 @@ namespace MapEditor.Windows
 
         private void abortButton_Click (object sender, EventArgs e)
         {
-            editor.Map = null;
             Close();
         }
 
@@ -42,7 +41,6 @@ namespace MapEditor.Windows
 
             editor.Map.CreateNewLayer(editor.Content, new Vector2(tDimesionX, tDimesionY), new Vector2(offsetX, offsetY), sheetPathTextBox.Text);
 
-            editor.Map.Initialize(editor.Content);
             editor.ResetSelector();
             tileDisplay.SetNewTileImage();
 
