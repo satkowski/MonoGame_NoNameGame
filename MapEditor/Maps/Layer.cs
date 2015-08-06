@@ -30,6 +30,37 @@ namespace MapEditor.Maps
             TileMapString = new TileMapString();
             tileMap = new List<List<Tile>>();
             TileDimensions = Vector2.Zero;
+            TileSheetImage = new Image();
+        }
+        public void Save ()
+        {
+            TileMapString.Rows = new List<string>();
+            TileMapString.Rotation90Tiles = String.Empty;
+            TileMapString.Rotation180Tiles = String.Empty;
+            TileMapString.Rotation270Tiles = String.Empty;
+
+            for (int cY = 0; cY < tileMap.Count; cY++)
+            {
+                string row = String.Empty;
+                for (int cX = 0; cX < tileMap[cY].Count; cX++)
+                {
+                    if (tileMap[cY][cX] == null)
+                        row += "[x:x]";
+                    else
+                    {
+                        string str = "[" + tileMap[cY][cX].TileSheetRectangle.X.ToString() + ":" + tileMap[cY][cX].TileSheetRectangle.Y.ToString() + "]";
+                        row += str;
+
+                        if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise90)
+                            TileMapString.Rotation90Tiles += str;
+                        else if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise180)
+                            TileMapString.Rotation180Tiles += str;
+                        else if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise270)
+                            TileMapString.Rotation270Tiles += str;                        
+                    }
+                }
+                TileMapString.Rows.Add(row);
+            }
         }
 
         public void ReplaceTiles (Vector2 postion, Rectangle selectedRegion)
@@ -137,12 +168,14 @@ namespace MapEditor.Maps
         {
             foreach (List<Tile> tileRow in tileMap)
                 foreach (Tile tile in tileRow)
-                    tile.Draw(spriteBatch);
+                    if(tile != null)
+                        tile.Draw(spriteBatch);
         }
 
-        public void DrawTile (SpriteBatch spriteBatch, Vector2 position)
+        public void DrawTile (SpriteBatch spriteBatch, Vector2 position, Tile.TileRotation rotation)
         {
             position /= TileDimensions;
+            tileMap[(int)position.X][(int)position.Y].Rotation = rotation;
 
             tileMap[(int)position.X][(int)position.Y].Draw(spriteBatch);
         }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using MapEditor.WindowParts;
 using MapEditor.Images;
+using MapEditor.Maps;
 
 namespace MapEditor.WindowParts
 {
@@ -17,12 +18,12 @@ namespace MapEditor.WindowParts
         Editor editor;
         SpriteBatch spriteBatch;
 
-        public float Rotation;
+        public MapEditor.Maps.Tile.TileRotation Rotation;
 
         public Tile (Editor editor)
         {
             this.editor = editor;
-            Rotation = 0.0f;
+            Rotation = Maps.Tile.TileRotation.None;
         }
 
         protected override void Initialize ()
@@ -45,19 +46,16 @@ namespace MapEditor.WindowParts
                 }
 
                 spriteBatch.Begin();
-                editor.CurrentLayer.DrawTile(spriteBatch, lastPosition);
+                editor.CurrentLayer.DrawTile(spriteBatch, lastPosition, Rotation);
                 spriteBatch.End();
             }
         }
 
-        public void RotateTile (float rotation)
+        public void RotateTile (int rotation)
         {
-            this.Rotation += rotation;
-
-            if (this.Rotation >= MathHelper.TwoPi)
-                this.Rotation -= MathHelper.TwoPi;
-            else if (this.Rotation <= -MathHelper.TwoPi)
-                this.Rotation += MathHelper.TwoPi;
+            int newRotation = (int)Rotation + rotation;
+            newRotation = (newRotation + 4) % 4;
+            Rotation = Rotation.GetValueFromInt(newRotation);
 
             Invalidate();
         }

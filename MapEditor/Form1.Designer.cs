@@ -36,12 +36,12 @@
             this.layerComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.neueMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.speichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernAlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +77,7 @@
             this.rotateLeftButton.TabIndex = 3;
             this.rotateLeftButton.Text = "Links drehen";
             this.rotateLeftButton.UseVisualStyleBackColor = true;
+            this.rotateLeftButton.Click += new System.EventHandler(this.rotateLeftButton_Click);
             // 
             // rotateRightButton
             // 
@@ -86,6 +87,7 @@
             this.rotateRightButton.TabIndex = 4;
             this.rotateRightButton.Text = "Rechts drehen";
             this.rotateRightButton.UseVisualStyleBackColor = true;
+            this.rotateRightButton.Click += new System.EventHandler(this.rotateRightButton_Click);
             // 
             // layerComboBox
             // 
@@ -118,12 +120,6 @@
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
-            // hinzufügenToolStripMenuItem
-            // 
-            this.hinzufügenToolStripMenuItem.Name = "hinzufügenToolStripMenuItem";
-            this.hinzufügenToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.hinzufügenToolStripMenuItem.Text = "Hinzufügen";
-            // 
             // neueMapToolStripMenuItem
             // 
             this.neueMapToolStripMenuItem.Name = "neueMapToolStripMenuItem";
@@ -135,6 +131,7 @@
             this.mapÖffnenToolStripMenuItem.Name = "mapÖffnenToolStripMenuItem";
             this.mapÖffnenToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.mapÖffnenToolStripMenuItem.Text = "Map öffnen";
+            this.mapÖffnenToolStripMenuItem.Click += new System.EventHandler(this.mapÖffnenToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -152,6 +149,13 @@
             this.speichernAlsToolStripMenuItem.Name = "speichernAlsToolStripMenuItem";
             this.speichernAlsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.speichernAlsToolStripMenuItem.Text = "Speichern als ...";
+            this.speichernAlsToolStripMenuItem.Click += new System.EventHandler(this.speichernAlsToolStripMenuItem_Click);
+            // 
+            // hinzufügenToolStripMenuItem
+            // 
+            this.hinzufügenToolStripMenuItem.Name = "hinzufügenToolStripMenuItem";
+            this.hinzufügenToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.hinzufügenToolStripMenuItem.Text = "Hinzufügen";
             // 
             // Form1
             // 

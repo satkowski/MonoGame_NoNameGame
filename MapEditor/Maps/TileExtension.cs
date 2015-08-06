@@ -23,5 +23,20 @@ namespace MapEditor.Maps
                     return 0.0f;
             }
         }
+
+        public static Tile.TileRotation GetValueFromInt (this Tile.TileRotation r, int value)
+        {
+            switch (value)
+            {
+                case 1:
+                    return Tile.TileRotation.Clockwise90;
+                case 2:
+                    return Tile.TileRotation.Clockwise180;
+                case 3:
+                    return Tile.TileRotation.Clockwise270;
+                default:
+                    return Tile.TileRotation.None;
+            }
+        }
     }
 }
