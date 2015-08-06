@@ -81,17 +81,21 @@ namespace MapEditor.WindowParts
 
         void Editor_MouseMove (object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            mousePosition = new Vector2((int)(e.X / CurrentLayer.TileDimensions.X),
-                                        (int)(e.Y / CurrentLayer.TileDimensions.Y));
+            mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X) / CurrentLayer.TileDimensions.X),
+                                        (int)((e.Y - CurrentLayer.Offset.Y) / CurrentLayer.TileDimensions.Y));
+            if (e.X - CurrentLayer.Offset.X < 0)
+                mousePosition.X -= 1;
+            if (e.Y - CurrentLayer.Offset.Y < 0)
+                mousePosition.Y -= 1;
             mousePosition *= CurrentLayer.TileDimensions.X;
 
             int width = (int)(SelectedTileRegion.Width * CurrentLayer.TileDimensions.X);
             int heigth = (int)(SelectedTileRegion.Height * CurrentLayer.TileDimensions.Y);
 
-            Selector[0].Position = mousePosition;
-            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y);
-            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth);
-            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth);
+            Selector[0].Position = mousePosition + CurrentLayer.Offset;
+            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) + CurrentLayer.Offset;
+            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) + CurrentLayer.Offset;
+            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) + CurrentLayer.Offset;
 
             if (isMouseDown)
                 Editor_MouseDown(this, null);
