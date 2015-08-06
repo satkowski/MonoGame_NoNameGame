@@ -117,6 +117,7 @@
             this.neueMapToolStripMenuItem.Name = "neueMapToolStripMenuItem";
             this.neueMapToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.neueMapToolStripMenuItem.Text = "Neue Map";
+            this.neueMapToolStripMenuItem.Click += new System.EventHandler(this.neueMapToolStripMenuItem_Click);
             // 
             // mapÖffnenToolStripMenuItem
             // 

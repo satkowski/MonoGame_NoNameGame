@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 using MapEditor.Managers;
+using MapEditor.Images;
 
 namespace MapEditor.Maps
 {
@@ -21,6 +22,19 @@ namespace MapEditor.Maps
         public Map ()
         {
             Layers = new List<Layer>();
+        }
+
+        public void CreateNewLayer (ContentManager content, Vector2 tileDimension, string imagePaths)
+        {
+            Layer newLayer = new Layer();
+            newLayer.TileDimensions = tileDimension;
+
+            TileSheet tileSheet = new TileSheet();
+            tileSheet.Path = imagePaths;
+            newLayer.TileSheet = tileSheet;
+
+            newLayer.Initialize(content);
+            Layers.Add(newLayer);
         }
 
         public void Save (string filePath)

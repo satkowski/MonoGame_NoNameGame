@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using MapEditor.Managers;
 using MapEditor.Maps;
+using MapEditor.Windows;
 
 namespace MapEditor
 {
@@ -88,6 +89,27 @@ namespace MapEditor
             editor1.Invalidate();
             tile1.Invalidate();
             tileDisplay1.Invalidate();
+        }
+
+        private void neueMapToolStripMenuItem_Click (object sender, EventArgs e)
+        {
+            DialogResult dialogResult;
+
+            CreateMap newMap = new CreateMap(editor1);
+            editor1.CreateNewMap = true;
+            dialogResult = newMap.ShowDialog();
+            editor1.CreateNewMap = false;
+            if (dialogResult == System.Windows.Forms.DialogResult.Abort || dialogResult == System.Windows.Forms.DialogResult.Cancel)
+                return;
+
+            CreateLayer newLayer = new CreateLayer(editor1, tileDisplay1);
+            dialogResult = newLayer.ShowDialog();
+            if (dialogResult == System.Windows.Forms.DialogResult.Abort || dialogResult == System.Windows.Forms.DialogResult.Cancel)
+                return;
+
+            layerCheckedListBox.Items.Clear();
+            for (int c = 0; c < editor1.Map.Layers.Count; c++)
+                layerCheckedListBox.Items.Add(c);
         }
     }
 }

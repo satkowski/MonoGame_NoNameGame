@@ -31,10 +31,12 @@ namespace MapEditor.Maps
             Offset = Vector2.Zero;
             TileMapString = new TileMapString();
             tileMap = new List<List<Tile>>();
-            TileDimensions = Vector2.Zero;
+            TileDimensions = Vector2.One;
+            TileSheet = new TileSheet();
             TileSheetImage = new Image();
             Active = false;
         }
+
         public void Save ()
         {
             TileMapString.Rows = new List<string>();
