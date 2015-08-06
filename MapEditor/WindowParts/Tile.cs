@@ -18,7 +18,7 @@ namespace MapEditor.WindowParts
         Editor editor;
         SpriteBatch spriteBatch;
 
-        public MapEditor.Maps.Tile.TileRotation Rotation;
+        public static MapEditor.Maps.Tile.TileRotation Rotation;
 
         public Tile (Editor editor)
         {

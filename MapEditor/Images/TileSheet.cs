@@ -21,7 +21,9 @@ namespace MapEditor.Images
         [XmlIgnore]
         public Texture2D Texture;
         public string Path;
+        [XmlIgnore]
         public float Alpha;
+        [XmlIgnore]
         public Color Color;
 
         public TileSheet ()

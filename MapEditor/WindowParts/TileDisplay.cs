@@ -77,6 +77,7 @@ namespace MapEditor.WindowParts
                 clickPosition = mousePosition;
                 foreach (Image img in selector)
                     img.Position = mousePosition;
+                Tile.Rotation = Maps.Tile.TileRotation.None;
             }
             isMouseDown = true;
             Invalidate();

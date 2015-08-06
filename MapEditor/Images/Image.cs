@@ -31,8 +31,6 @@ namespace MapEditor.Images
         public Rectangle PrevRectangle;
         public int MergeOffset;
 
-        public event EventHandler OnPositionChange;
-
         public Image ()
         {
             Position = Vector2.Zero;
@@ -54,6 +52,8 @@ namespace MapEditor.Images
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);
+            if (SourceRectangle == Rectangle.Empty)
+                SourceRectangle = Texture.Bounds;
         }
 
         public void Draw (SpriteBatch spriteBatch)

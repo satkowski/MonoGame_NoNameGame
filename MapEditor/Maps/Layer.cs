@@ -48,7 +48,8 @@ namespace MapEditor.Maps
                         row += "[x:x]";
                     else
                     {
-                        string str = "[" + tileMap[cY][cX].TileSheetRectangle.X.ToString() + ":" + tileMap[cY][cX].TileSheetRectangle.Y.ToString() + "]";
+                        Vector2 tilePosition = new Vector2(tileMap[cY][cX].TileSheetRectangle.X / TileDimensions.X, tileMap[cY][cX].TileSheetRectangle.Y / TileDimensions.Y);
+                        string str = "[" + tilePosition.X.ToString() + ":" + tilePosition.Y.ToString() + "]";
                         row += str;
 
                         if (tileMap[cY][cX].Rotation == Tile.TileRotation.Clockwise90)
@@ -86,8 +87,9 @@ namespace MapEditor.Maps
 
                     try
                     {
-                        tileMap[cY][cX].TileSheetRectangle.X = (int)mapIndex.X;
-                        tileMap[cY][cX].TileSheetRectangle.Y = (int)mapIndex.Y;
+                        tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
+                        tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
+                        tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
                     }
                     catch (Exception e) // Wenn die jetzige Map zu klein ist, wird diese erweitert
                     {
@@ -108,8 +110,9 @@ namespace MapEditor.Maps
                         while (tileMap[cY].Count <= cX)
                             tileMap[cY].Add(null);
 
-                        tileMap[cY][cX].TileSheetRectangle.X = (int)mapIndex.X;
-                        tileMap[cY][cX].TileSheetRectangle.Y = (int)mapIndex.Y;
+                        tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
+                        tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
+                        tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
                     }
                     tileIndex.X++;
                 }
@@ -175,9 +178,10 @@ namespace MapEditor.Maps
         public void DrawTile (SpriteBatch spriteBatch, Vector2 position, Tile.TileRotation rotation)
         {
             position /= TileDimensions;
-            tileMap[(int)position.X][(int)position.Y].Rotation = rotation;
 
-            tileMap[(int)position.X][(int)position.Y].Draw(spriteBatch);
+            Tile drawTile = new Tile();
+            drawTile.Initialize(this, position, Vector2.Zero, rotation);
+            drawTile.Draw(spriteBatch);
         }
     }
 }
