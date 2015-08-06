@@ -41,8 +41,18 @@
             this.speichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernAlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.layerCheckedListBox = new System.Windows.Forms.CheckedListBox();
             this.neuesLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.layerCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.offsetYTextBox = new System.Windows.Forms.TextBox();
+            this.offsetXTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tileSheetTextBox = new System.Windows.Forms.TextBox();
+            this.saveChangesButton = new System.Windows.Forms.Button();
+            this.resetChangesButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -154,27 +164,129 @@
             this.hinzufügenToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.hinzufügenToolStripMenuItem.Text = "Hinzufügen";
             // 
+            // neuesLayerToolStripMenuItem
+            // 
+            this.neuesLayerToolStripMenuItem.Name = "neuesLayerToolStripMenuItem";
+            this.neuesLayerToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.neuesLayerToolStripMenuItem.Text = "Neues Layer ...";
+            this.neuesLayerToolStripMenuItem.Click += new System.EventHandler(this.neuesLayerToolStripMenuItem_Click);
+            // 
             // layerCheckedListBox
             // 
             this.layerCheckedListBox.FormattingEnabled = true;
             this.layerCheckedListBox.Location = new System.Drawing.Point(12, 522);
             this.layerCheckedListBox.Name = "layerCheckedListBox";
-            this.layerCheckedListBox.Size = new System.Drawing.Size(120, 64);
+            this.layerCheckedListBox.Size = new System.Drawing.Size(120, 79);
             this.layerCheckedListBox.TabIndex = 7;
             this.layerCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.layerCheckedListBox_ItemCheck);
             // 
-            // neuesLayerToolStripMenuItem
+            // offsetYTextBox
             // 
-            this.neuesLayerToolStripMenuItem.Name = "neuesLayerToolStripMenuItem";
-            this.neuesLayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.neuesLayerToolStripMenuItem.Text = "Neues Layer ...";
-            this.neuesLayerToolStripMenuItem.Click += new System.EventHandler(this.neuesLayerToolStripMenuItem_Click);
+            this.offsetYTextBox.Enabled = false;
+            this.offsetYTextBox.Location = new System.Drawing.Point(383, 547);
+            this.offsetYTextBox.Name = "offsetYTextBox";
+            this.offsetYTextBox.Size = new System.Drawing.Size(100, 20);
+            this.offsetYTextBox.TabIndex = 23;
+            // 
+            // offsetXTextBox
+            // 
+            this.offsetXTextBox.Enabled = false;
+            this.offsetXTextBox.Location = new System.Drawing.Point(254, 548);
+            this.offsetXTextBox.Name = "offsetXTextBox";
+            this.offsetXTextBox.Size = new System.Drawing.Size(100, 20);
+            this.offsetXTextBox.TabIndex = 22;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(362, 548);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(14, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Y";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(233, 551);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(14, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "X";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(164, 550);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "Offset";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(164, 576);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Tile Sheet";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(139, 522);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(127, 13);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Layer Eigentschaften";
+            // 
+            // tileSheetTextBox
+            // 
+            this.tileSheetTextBox.Enabled = false;
+            this.tileSheetTextBox.Location = new System.Drawing.Point(236, 574);
+            this.tileSheetTextBox.Name = "tileSheetTextBox";
+            this.tileSheetTextBox.Size = new System.Drawing.Size(247, 20);
+            this.tileSheetTextBox.TabIndex = 29;
+            // 
+            // saveChangesButton
+            // 
+            this.saveChangesButton.Enabled = false;
+            this.saveChangesButton.Location = new System.Drawing.Point(508, 544);
+            this.saveChangesButton.Name = "saveChangesButton";
+            this.saveChangesButton.Size = new System.Drawing.Size(130, 23);
+            this.saveChangesButton.TabIndex = 30;
+            this.saveChangesButton.Text = "Änderung speichern";
+            this.saveChangesButton.UseVisualStyleBackColor = true;
+            this.saveChangesButton.Click += new System.EventHandler(this.saveChangesButton_Click);
+            // 
+            // resetChangesButton
+            // 
+            this.resetChangesButton.Enabled = false;
+            this.resetChangesButton.Location = new System.Drawing.Point(508, 574);
+            this.resetChangesButton.Name = "resetChangesButton";
+            this.resetChangesButton.Size = new System.Drawing.Size(130, 23);
+            this.resetChangesButton.TabIndex = 31;
+            this.resetChangesButton.Text = "Änderung zurücksetzen";
+            this.resetChangesButton.UseVisualStyleBackColor = true;
+            this.resetChangesButton.Click += new System.EventHandler(this.resetChangesButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 601);
+            this.ClientSize = new System.Drawing.Size(931, 618);
+            this.Controls.Add(this.resetChangesButton);
+            this.Controls.Add(this.saveChangesButton);
+            this.Controls.Add(this.tileSheetTextBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.offsetYTextBox);
+            this.Controls.Add(this.offsetXTextBox);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.layerCheckedListBox);
             this.Controls.Add(this.rotateRightButton);
             this.Controls.Add(this.rotateLeftButton);
@@ -209,6 +321,16 @@
         private System.Windows.Forms.ToolStripMenuItem hinzufügenToolStripMenuItem;
         private System.Windows.Forms.CheckedListBox layerCheckedListBox;
         private System.Windows.Forms.ToolStripMenuItem neuesLayerToolStripMenuItem;
+        private System.Windows.Forms.TextBox offsetYTextBox;
+        private System.Windows.Forms.TextBox offsetXTextBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tileSheetTextBox;
+        private System.Windows.Forms.Button saveChangesButton;
+        private System.Windows.Forms.Button resetChangesButton;
     }
 }
 

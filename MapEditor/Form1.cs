@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Microsoft.Xna.Framework;
+
 using MapEditor.Managers;
 using MapEditor.Maps;
 using MapEditor.Windows;
@@ -23,6 +25,31 @@ namespace MapEditor
             InitializeComponent();
             savePath = String.Empty;
         }
+
+        private void enableLayerProperties ()
+        {
+            resetChangesButton_Click(null, null);
+
+            offsetXTextBox.Enabled = true;
+            offsetYTextBox.Enabled = true;
+            tileSheetTextBox.Enabled = true;
+            saveChangesButton.Enabled = true;
+            resetChangesButton.Enabled = true;
+
+        }
+        private void disableLayerProperties ()
+        {
+            offsetXTextBox.Text = String.Empty;
+            offsetYTextBox.Text = String.Empty;
+            tileSheetTextBox.Text = String.Empty;
+
+            offsetXTextBox.Enabled = false;
+            offsetYTextBox.Enabled = false;
+            tileSheetTextBox.Enabled = false;
+            saveChangesButton.Enabled = false;
+            resetChangesButton.Enabled = false;
+        }
+
 
         private void speichernAlsToolStripMenuItem_Click (object sender, EventArgs e)
         {
@@ -57,6 +84,8 @@ namespace MapEditor
                 for (int c = 0; c < editor1.Map.Layers.Count; c++)
                     layerCheckedListBox.Items.Add(c);
                 editor1.OneLayerActive = false;
+
+                disableLayerProperties();
             }
         }
 
@@ -91,12 +120,18 @@ namespace MapEditor
                     layer.Add(c);
             }
             if (layer.Count != 1)
+            {
                 editor1.OneLayerActive = false;
+
+                disableLayerProperties();
+            }
             else
             {
                 editor1.OneLayerActive = true;
                 editor1.CurrentLayerNumber = layer[0];
                 editor1.ResetSelector();
+
+                enableLayerProperties();
             }
 
             editor1.Invalidate();
@@ -141,6 +176,26 @@ namespace MapEditor
                 return;
 
             layerCheckedListBox.Items.Add(editor1.Map.Layers.Count - 1);
+        }
+
+        private void saveChangesButton_Click (object sender, EventArgs e)
+        {
+            int offsetX = int.Parse(offsetXTextBox.Text);
+            int offsetY = int.Parse(offsetYTextBox.Text);
+
+            editor1.CurrentLayer.Offset = new Vector2(offsetX, offsetY);
+            editor1.CurrentLayer.TileSheet.Path = tileSheetTextBox.Text;
+
+            editor1.Invalidate();
+            tileDisplay1.Invalidate();
+            tile1.Invalidate();
+        }
+
+        private void resetChangesButton_Click (object sender, EventArgs e)
+        {
+            offsetXTextBox.Text = editor1.CurrentLayer.Offset.X.ToString();
+            offsetYTextBox.Text = editor1.CurrentLayer.Offset.Y.ToString();
+            tileSheetTextBox.Text = editor1.CurrentLayer.TileSheet.Path;
         }
     }
 }
