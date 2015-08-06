@@ -79,7 +79,7 @@ namespace MapEditor
             // Switch on event handler
             clb.ItemCheck += layerCheckedListBox_ItemCheck;
 
-            int layerCount = 0;
+            List<int> layer = new List<int>();
             for (int c = 0; c < editor1.Map.Layers.Count; c++)
             {
                 if (layerCheckedListBox.CheckedIndices.Contains(c))
@@ -88,12 +88,15 @@ namespace MapEditor
                     editor1.Map.Layers[c].Active = false;
 
                 if (editor1.Map.Layers[c].Active)
-                    layerCount++;
+                    layer.Add(c);
             }
-            if (layerCount != 1)
+            if (layer.Count != 1)
                 editor1.OneLayerActive = false;
             else
+            {
                 editor1.OneLayerActive = true;
+                editor1.CurrentLayerNumber = layer[0];
+            }
 
             editor1.Invalidate();
             tile1.Invalidate();
@@ -127,6 +130,16 @@ namespace MapEditor
                 editor1.Map.Save(savePath);
             else
                 speichernAlsToolStripMenuItem_Click(null, null);
+        }
+
+        private void neuesLayerToolStripMenuItem_Click (object sender, EventArgs e)
+        {
+            CreateLayer newLayer = new CreateLayer(editor1, tileDisplay1);
+            DialogResult dialogResult = newLayer.ShowDialog();
+            if (dialogResult == System.Windows.Forms.DialogResult.Abort || dialogResult == System.Windows.Forms.DialogResult.Cancel)
+                return;
+
+            layerCheckedListBox.Items.Add(editor1.Map.Layers.Count - 1);
         }
     }
 }

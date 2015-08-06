@@ -42,6 +42,7 @@
             this.speichernAlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layerCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.neuesLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -147,6 +148,8 @@
             // 
             // hinzufügenToolStripMenuItem
             // 
+            this.hinzufügenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.neuesLayerToolStripMenuItem});
             this.hinzufügenToolStripMenuItem.Name = "hinzufügenToolStripMenuItem";
             this.hinzufügenToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.hinzufügenToolStripMenuItem.Text = "Hinzufügen";
@@ -159,6 +162,13 @@
             this.layerCheckedListBox.Size = new System.Drawing.Size(120, 64);
             this.layerCheckedListBox.TabIndex = 7;
             this.layerCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.layerCheckedListBox_ItemCheck);
+            // 
+            // neuesLayerToolStripMenuItem
+            // 
+            this.neuesLayerToolStripMenuItem.Name = "neuesLayerToolStripMenuItem";
+            this.neuesLayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.neuesLayerToolStripMenuItem.Text = "Neues Layer ...";
+            this.neuesLayerToolStripMenuItem.Click += new System.EventHandler(this.neuesLayerToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -198,6 +208,7 @@
         private System.Windows.Forms.ToolStripMenuItem speichernAlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hinzufügenToolStripMenuItem;
         private System.Windows.Forms.CheckedListBox layerCheckedListBox;
+        private System.Windows.Forms.ToolStripMenuItem neuesLayerToolStripMenuItem;
     }
 }
 

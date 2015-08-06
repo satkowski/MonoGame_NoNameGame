@@ -22,8 +22,8 @@ namespace MapEditor.WindowParts
         bool isMouseDown = false;
         bool mouseOnScreen = false;
         Vector2 mousePosition;
-        int currentLayer;
 
+        public int CurrentLayerNumber;
         public bool CreateNewMap = false;
         public event EventHandler OnInitialize;
         public Layer CurrentLayer
@@ -31,7 +31,7 @@ namespace MapEditor.WindowParts
             get 
             {
                 if (Map != null && !CreateNewMap)
-                    return Map.Layers[currentLayer];
+                    return Map.Layers[CurrentLayerNumber];
                 else
                     return new Layer();
             }
@@ -51,7 +51,7 @@ namespace MapEditor.WindowParts
 
         public Editor ()
         {
-            currentLayer = 0;
+            CurrentLayerNumber = 0;
             Selector = new List<Image>();
             SelectorDimensions = Vector2.Zero;
             SelectedTileRegion = new Rectangle(0, 0, 0, 0);
