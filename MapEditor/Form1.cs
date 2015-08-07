@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Input;
 
 using Microsoft.Xna.Framework;
 
@@ -83,8 +85,11 @@ namespace MapEditor
 
                 layerCheckedListBox.Items.Clear();
                 for (int c = 0; c < editor1.Map.Layers.Count; c++)
+                {
                     layerCheckedListBox.Items.Add(c);
-                editor1.OneLayerActive = false;
+                    layerCheckedListBox.SetItemChecked(c, true);
+                }
+                editor1.DrawingAllowed = false;
 
                 disableLayerProperties();
             }
@@ -109,30 +114,32 @@ namespace MapEditor
             // Switch on event handler
             clb.ItemCheck += layerCheckedListBox_ItemCheck;
 
-            List<int> layer = new List<int>();
             for (int c = 0; c < editor1.Map.Layers.Count; c++)
             {
                 if (layerCheckedListBox.CheckedIndices.Contains(c))
                     editor1.Map.Layers[c].Active = true;
                 else
                     editor1.Map.Layers[c].Active = false;
-
-                if (editor1.Map.Layers[c].Active)
-                    layer.Add(c);
             }
-            if (layer.Count != 1)
-            {
-                editor1.OneLayerActive = false;
 
-                disableLayerProperties();
-            }
-            else
+            layerCheckedListBox_SelectedIndexChanged(null, null);
+        }
+
+        private void layerCheckedListBox_SelectedIndexChanged (object sender, EventArgs e)
+        {
+            if (layerCheckedListBox.CheckedIndices.Contains(layerCheckedListBox.SelectedIndex))
             {
-                editor1.OneLayerActive = true;
-                editor1.CurrentLayerNumber = layer[0];
+                editor1.DrawingAllowed = true;
+                editor1.CurrentLayerNumber = layerCheckedListBox.SelectedIndex;
                 editor1.ResetSelector();
 
                 enableLayerProperties();
+            }
+            else
+            {
+                editor1.DrawingAllowed = false;
+
+                disableLayerProperties();
             }
 
             editor1.Invalidate();
@@ -249,6 +256,16 @@ namespace MapEditor
                     tile1.Invalidate();
                 }
             }
+        }
+
+        private void Form1_KeyPress (object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void Form1_KeyDown (object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

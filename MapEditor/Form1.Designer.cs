@@ -181,6 +181,7 @@
             this.layerCheckedListBox.Size = new System.Drawing.Size(120, 79);
             this.layerCheckedListBox.TabIndex = 7;
             this.layerCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.layerCheckedListBox_ItemCheck);
+            this.layerCheckedListBox.SelectedIndexChanged += new System.EventHandler(this.layerCheckedListBox_SelectedIndexChanged);
             // 
             // offsetYTextBox
             // 
@@ -321,6 +322,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

@@ -72,7 +72,7 @@ namespace MapEditor.WindowParts
 
         void TileDisplay_MouseDown (object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (editor.OneLayerActive)
+            if (editor.DrawingAllowed)
             {
                 if (!isMouseDown)
                 {
@@ -125,7 +125,7 @@ namespace MapEditor.WindowParts
         {
             GraphicsDevice.Clear(Color.Green);
 
-            if (editor.OneLayerActive)
+            if (editor.DrawingAllowed)
             {
                 spriteBatch.Begin();
                 if (tileSheet != null)
