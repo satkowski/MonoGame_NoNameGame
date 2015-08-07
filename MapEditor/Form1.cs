@@ -27,6 +27,7 @@ namespace MapEditor
         {
             InitializeComponent();
             savePath = String.Empty;
+            layerCheckedListBox.GotFocus += layerCheckedListBox_GotFocus;
         }
 
         private void enableLayerProperties ()
@@ -91,8 +92,6 @@ namespace MapEditor
                 }
                 layerCheckedListBox.SetSelected(0, true);
                 editor1.DrawingAllowed = true;
-
-                disableLayerProperties();
             }
         }
 
@@ -267,11 +266,11 @@ namespace MapEditor
                     upButton_Click(null, null);
                 else if (e.KeyCode == Keys.D) // D
                     downButton_Click(null, null);
-                else if (e.KeyCode == Keys.Left) // Left
+                else if (e.KeyCode == Keys.L) // Left
                     rotateLeftButton_Click(null, null);
-                else if (e.KeyCode == Keys.Right) // Right
+                else if (e.KeyCode == Keys.R) // Right
                     rotateRightButton_Click(null, null);
-                else if (e.KeyCode == Keys.Oemplus) // Up
+                else if (e.KeyCode == Keys.Up) // Up
                 {
                     if (layerCheckedListBox.SelectedIndex > 0)
                     {
@@ -279,7 +278,7 @@ namespace MapEditor
                         layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex - 1, true);
                     }
                 }
-                else if (e.KeyCode == Keys.OemMinus) // Down
+                else if (e.KeyCode == Keys.Down) // Down
                 {
                     if (layerCheckedListBox.SelectedIndex < editor1.Map.Layers.Count - 1)
                     {
@@ -287,6 +286,8 @@ namespace MapEditor
                         layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex + 1, true);
                     }
                 }
+                else
+                    return;
 
                 editor1.Invalidate();
                 tileDisplay1.Invalidate();
@@ -301,11 +302,12 @@ namespace MapEditor
                     layerCheckedListBox.SetItemCheckState(layerCheckedListBox.SelectedIndex, CheckState.Unchecked);
                 else if (layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex) == CheckState.Unchecked)
                     layerCheckedListBox.SetItemCheckState(layerCheckedListBox.SelectedIndex, CheckState.Checked);
-
-                editor1.Invalidate();
-                tileDisplay1.Invalidate();
-                tile1.Invalidate();
             }
+        }
+
+        void layerCheckedListBox_GotFocus (object sender, EventArgs e)
+        {
+            this.Focus();
         }
     }
 }
