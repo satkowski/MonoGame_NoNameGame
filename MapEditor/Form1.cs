@@ -89,7 +89,8 @@ namespace MapEditor
                     layerCheckedListBox.Items.Add(c);
                     layerCheckedListBox.SetItemChecked(c, true);
                 }
-                editor1.DrawingAllowed = false;
+                layerCheckedListBox.SetSelected(0, true);
+                editor1.DrawingAllowed = true;
 
                 disableLayerProperties();
             }
@@ -258,14 +259,53 @@ namespace MapEditor
             }
         }
 
-        private void Form1_KeyPress (object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void Form1_KeyDown (object sender, KeyEventArgs e)
         {
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.U) // U
+                    upButton_Click(null, null);
+                else if (e.KeyCode == Keys.D) // D
+                    downButton_Click(null, null);
+                else if (e.KeyCode == Keys.Left) // Left
+                    rotateLeftButton_Click(null, null);
+                else if (e.KeyCode == Keys.Right) // Right
+                    rotateRightButton_Click(null, null);
+                else if (e.KeyCode == Keys.Oemplus) // Up
+                {
+                    if (layerCheckedListBox.SelectedIndex > 0)
+                    {
+                        layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex, false);
+                        layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex - 1, true);
+                    }
+                }
+                else if (e.KeyCode == Keys.OemMinus) // Down
+                {
+                    if (layerCheckedListBox.SelectedIndex < editor1.Map.Layers.Count - 1)
+                    {
+                        layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex, false);
+                        layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex + 1, true);
+                    }
+                }
 
+                editor1.Invalidate();
+                tileDisplay1.Invalidate();
+                tile1.Invalidate();
+
+                return;
+            }
+
+            if (e.KeyCode == Keys.Space) // Space
+            {
+                if (layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex) == CheckState.Checked)
+                    layerCheckedListBox.SetItemCheckState(layerCheckedListBox.SelectedIndex, CheckState.Unchecked);
+                else if (layerCheckedListBox.GetItemCheckState(layerCheckedListBox.SelectedIndex) == CheckState.Unchecked)
+                    layerCheckedListBox.SetItemCheckState(layerCheckedListBox.SelectedIndex, CheckState.Checked);
+
+                editor1.Invalidate();
+                tileDisplay1.Invalidate();
+                tile1.Invalidate();
+            }
         }
     }
 }

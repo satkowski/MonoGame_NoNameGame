@@ -122,39 +122,45 @@
             this.speichernToolStripMenuItem,
             this.speichernAlsToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
+            this.dateiToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // neueMapToolStripMenuItem
             // 
             this.neueMapToolStripMenuItem.Name = "neueMapToolStripMenuItem";
-            this.neueMapToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.neueMapToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.neueMapToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.neueMapToolStripMenuItem.Text = "Neue Map";
             this.neueMapToolStripMenuItem.Click += new System.EventHandler(this.neueMapToolStripMenuItem_Click);
             // 
             // mapÖffnenToolStripMenuItem
             // 
             this.mapÖffnenToolStripMenuItem.Name = "mapÖffnenToolStripMenuItem";
-            this.mapÖffnenToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.mapÖffnenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.mapÖffnenToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.mapÖffnenToolStripMenuItem.Text = "Map öffnen";
             this.mapÖffnenToolStripMenuItem.Click += new System.EventHandler(this.mapÖffnenToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(277, 6);
             // 
             // speichernToolStripMenuItem
             // 
             this.speichernToolStripMenuItem.Name = "speichernToolStripMenuItem";
-            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.speichernToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.speichernToolStripMenuItem.Text = "Speichern";
             this.speichernToolStripMenuItem.Click += new System.EventHandler(this.speichernToolStripMenuItem_Click);
             // 
             // speichernAlsToolStripMenuItem
             // 
             this.speichernAlsToolStripMenuItem.Name = "speichernAlsToolStripMenuItem";
-            this.speichernAlsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.speichernAlsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.speichernAlsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.speichernAlsToolStripMenuItem.Text = "Speichern als ...";
             this.speichernAlsToolStripMenuItem.Click += new System.EventHandler(this.speichernAlsToolStripMenuItem_Click);
             // 
@@ -163,6 +169,7 @@
             this.hinzufügenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.neuesLayerToolStripMenuItem});
             this.hinzufügenToolStripMenuItem.Name = "hinzufügenToolStripMenuItem";
+            this.hinzufügenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
             this.hinzufügenToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.hinzufügenToolStripMenuItem.Text = "Hinzufügen";
             // 
@@ -319,11 +326,11 @@
             this.Controls.Add(this.tileDisplay1);
             this.Controls.Add(this.editor1);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
