@@ -15,8 +15,8 @@ namespace MapEditor.Maps
 {
     public class Layer
     {
-        public List<List<Tile>> tileMap;
-        public Vector2 size;
+        List<List<Tile>> tileMap;
+        Vector2 size;
 
         public TileSheet TileSheet;
         [XmlIgnore]
