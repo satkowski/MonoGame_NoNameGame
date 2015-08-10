@@ -89,10 +89,10 @@ namespace MapEditor.WindowParts
 
             mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X + windowPixelOffset.X) / CurrentLayer.TileDimensions.X),
                                         (int)((e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y) / CurrentLayer.TileDimensions.Y));
-            if (e.X - CurrentLayer.Offset.X < 0)
-                mousePosition.X -= 1;
-            if (e.Y - CurrentLayer.Offset.Y < 0)
-                mousePosition.Y -= 1;
+            //if (e.X - CurrentLayer.Offset.X + windowPixelOffset.X < 0)
+            //    mousePosition.X -= 1;
+            //if (e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y < 0)
+            //    mousePosition.Y -= 1;
             mousePosition *= CurrentLayer.TileDimensions;
 
             int width = (int)(SelectedTileRegion.Width * CurrentLayer.TileDimensions.X);
