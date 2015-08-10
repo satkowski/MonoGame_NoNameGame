@@ -178,13 +178,13 @@ namespace MapEditor.Maps
             }
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)
         {
             if(Active)
                 foreach (List<Tile> tileRow in tileMap)
                     foreach (Tile tile in tileRow)
                         if(tile != null)
-                            tile.Draw(spriteBatch);
+                            tile.Draw(spriteBatch, windowPosition);
         }
 
         public void DrawTile (SpriteBatch spriteBatch, Vector2 position, Tile.TileRotation rotation)
@@ -195,7 +195,7 @@ namespace MapEditor.Maps
 
             Tile drawTile = new Tile();
             drawTile.Initialize(this, position, Vector2.Zero, rotation);
-            drawTile.Draw(spriteBatch);
+            drawTile.Draw(spriteBatch, Vector2.Zero);
 
             TileSheet.DrawOffset = Offset;
         }

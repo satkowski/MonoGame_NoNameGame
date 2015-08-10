@@ -54,10 +54,10 @@ namespace MapEditor.Maps
                 layer.Initialize(content);
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)
         {
             foreach (Layer layer in Layers)
-                layer.Draw(spriteBatch);
+                layer.Draw(spriteBatch, windowPosition);
         }
     }
 }

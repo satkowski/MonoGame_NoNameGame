@@ -44,10 +44,12 @@ namespace MapEditor.WindowParts
         public Vector2 SelectorDimensions;
         public Rectangle SelectedTileRegion;
         public List<Vector2> SelectedTiles;
+        public List<Image> Selector;
 
         public bool DrawingAllowed;
 
-        public List<Image> Selector;
+        public Vector2 WindowPosition;
+
 
         public Editor ()
         {
@@ -58,6 +60,7 @@ namespace MapEditor.WindowParts
             SelectedTiles = new List<Vector2>();
             SelectedTiles.Add(Vector2.Zero);
             DrawingAllowed = false;
+            WindowPosition = Vector2.Zero;
 
             Selector = new List<Image>();
             for (int c = 0; c < 4; c++)
@@ -130,10 +133,10 @@ namespace MapEditor.WindowParts
 
             spriteBatch.Begin();
             if(Map != null)
-                Map.Draw(spriteBatch);
+                Map.Draw(spriteBatch, WindowPosition);
             if (mouseOnScreen)
                 foreach (Image img in Selector)
-                    img.Draw(spriteBatch);
+                    img.Draw(spriteBatch, Vector2.Zero);
             spriteBatch.End();
         }
     }

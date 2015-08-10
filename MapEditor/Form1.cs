@@ -54,7 +54,6 @@ namespace MapEditor
             resetChangesButton.Enabled = false;
         }
 
-
         private void speichernAlsToolStripMenuItem_Click (object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -308,6 +307,26 @@ namespace MapEditor
         void layerCheckedListBox_GotFocus (object sender, EventArgs e)
         {
             this.Focus();
+        }
+
+        private void HandleScrollingTileDisplay (object sender, ScrollEventArgs e)
+        {
+            if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+                tileDisplay1.WindowPosition.X = e.NewValue;
+            else // e.ScrollOrientation == ScrollOrientation.VerticalScroll 
+                tileDisplay1.WindowPosition.Y = e.NewValue;
+
+            tileDisplay1.Invalidate();
+        }
+
+        private void HandleScrollingEditor (object sender, ScrollEventArgs e)
+        {
+            if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+                editor1.WindowPosition.X = e.NewValue;
+            else // e.ScrollOrientation == ScrollOrientation.VerticalScroll 
+                editor1.WindowPosition.Y = e.NewValue;
+
+            editor1.Invalidate();
         }
     }
 }

@@ -45,10 +45,10 @@ namespace MapEditor.Images
                 Texture = content.Load<Texture2D>(Path);
         }
 
-        public void Draw (SpriteBatch spriteBatch, Tile tile)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition, Tile tile)
         {
             if(Texture != null)
-                spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset, tile.TileSheetRectangle, Color * Alpha, 
+                spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha, 
                                  tile.Rotation.GetRotationValue(), tile.Origin, tile.Scale, SpriteEffects.None, 0.0f);
         }
     }

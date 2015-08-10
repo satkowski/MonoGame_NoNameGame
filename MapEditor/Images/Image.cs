@@ -54,9 +54,9 @@ namespace MapEditor.Images
                 SourceRectangle = Texture.Bounds;
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)
         {
-            spriteBatch.Draw(Texture, Position + origin, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(Texture, Position + origin - windowPosition, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
     }
 }

@@ -25,6 +25,8 @@ namespace MapEditor.WindowParts
         Vector2 mousePosition;
         Vector2 clickPosition;
 
+        public Vector2 WindowPosition;
+
         public TileDisplay (Editor editor, Tile tile)
         {
             this.editor = editor;
@@ -32,6 +34,7 @@ namespace MapEditor.WindowParts
             editor.OnInitialize += LoadContent;
             isMouseDown = false;
             selectorPositons = new List<Vector2>();
+            WindowPosition = Vector2.Zero;
         }
 
         void LoadContent (object sender, EventArgs e)
@@ -130,9 +133,9 @@ namespace MapEditor.WindowParts
 
                 spriteBatch.Begin();
                 if (tileSheet != null)
-                    tileSheet.Draw(spriteBatch);
+                    tileSheet.Draw(spriteBatch, WindowPosition);
                 foreach (Image img in editor.Selector)
-                    img.Draw(spriteBatch);
+                    img.Draw(spriteBatch, Vector2.Zero);
                 spriteBatch.End();
 
                 for (int c = 0; c < 4; c++)

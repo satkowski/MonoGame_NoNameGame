@@ -61,9 +61,9 @@ namespace MapEditor.Maps
                                                         (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)
         {
-            layer.TileSheet.Draw(spriteBatch, this);
+            layer.TileSheet.Draw(spriteBatch, windowPosition, this);
         }
     }
 }
