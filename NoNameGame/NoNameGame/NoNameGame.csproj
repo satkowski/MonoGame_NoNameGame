@@ -72,8 +72,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\UserControlledEntity.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TileSheet.cs" />
+    <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />
     <Compile Include="Maps\Layer.cs" />
@@ -91,6 +94,9 @@
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
+    </Content>
+    <Content Include="Load\Entities\Players\Player_01.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Load\Maps\Map_001.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -82,6 +82,7 @@ namespace NoNameGame
                 this.Exit();
 
             ScreenManager.Instance.Update(gameTime);
+            InputManager.Instance.Update(gameTime);
 
             base.Update(gameTime);
         }

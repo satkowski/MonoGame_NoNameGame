@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControlledEntity>
+  <MoveSpeed>220</MoveSpeed>
+  <Image>
+    <Path>Entities/Players/Player_01_Part01</Path>
+  </Image>
+</UserControlledEntity>

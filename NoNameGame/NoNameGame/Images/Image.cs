@@ -32,7 +32,8 @@ namespace NoNameGame.Images
             set
             {
                 position = value;
-                OnPositionChange(position, null);
+                if(OnPositionChange != null)
+                    OnPositionChange(position, null);
             }
         }
         public Rectangle SourceRectangle;
