@@ -39,8 +39,10 @@ namespace MapEditor
             tileSheetTextBox.Enabled = true;
             saveChangesButton.Enabled = true;
             resetChangesButton.Enabled = true;
-
+            tileDisplayHScrollBar.Enabled = true;
+            tileDisplayVScrollBar.Enabled = true;
         }
+
         private void disableLayerProperties ()
         {
             offsetXTextBox.Text = String.Empty;
@@ -52,6 +54,8 @@ namespace MapEditor
             tileSheetTextBox.Enabled = false;
             saveChangesButton.Enabled = false;
             resetChangesButton.Enabled = false;
+            tileDisplayHScrollBar.Enabled = false;
+            tileDisplayVScrollBar.Enabled = false;
         }
 
         private void speichernAlsToolStripMenuItem_Click (object sender, EventArgs e)
@@ -88,10 +92,31 @@ namespace MapEditor
                 {
                     layerCheckedListBox.Items.Add(c);
                     layerCheckedListBox.SetItemChecked(c, true);
+                    editor1.Map.Layers[c].OnSizeChanged += editorLayerSizeChanged;
                 }
                 layerCheckedListBox.SetSelected(0, true);
                 editor1.DrawingAllowed = true;
+
+                editorLayerSizeChanged(this, null);
+                tileDisplayLayerChanged();
             }
+        }
+
+        void editorLayerSizeChanged (object sender, EventArgs e)
+        {
+            int scrollMaxX = (int)editor1.CurrentLayer.Size.X - editor1.Size.Width;
+            scrollMaxX = scrollMaxX < 0 ? 0 : scrollMaxX;
+            int scrollMaxY = (int)editor1.CurrentLayer.Size.Y - editor1.Size.Height;
+            scrollMaxY = scrollMaxY < 0 ? 0 : scrollMaxY;
+
+            editorHScrollBar.Maximum = scrollMaxX + 3 * (int)editor1.CurrentLayer.TileDimensions.X;
+            editorVScrollBar.Maximum = scrollMaxY + 3 * (int)editor1.CurrentLayer.TileDimensions.Y;
+        }
+
+        void tileDisplayLayerChanged ()
+        {
+            tileDisplayHScrollBar.Maximum = editor1.CurrentLayer.TileSheet.Texture.Bounds.Width;
+            tileDisplayVScrollBar.Maximum = editor1.CurrentLayer.TileSheet.Texture.Bounds.Height;
         }
 
         private void rotateLeftButton_Click (object sender, EventArgs e)
@@ -121,7 +146,7 @@ namespace MapEditor
                     editor1.Map.Layers[c].Active = false;
             }
 
-            layerCheckedListBox_SelectedIndexChanged(null, null);
+            layerCheckedListBox_SelectedIndexChanged(this, null);
         }
 
         private void layerCheckedListBox_SelectedIndexChanged (object sender, EventArgs e)
@@ -130,6 +155,13 @@ namespace MapEditor
             {
                 editor1.DrawingAllowed = true;
                 editor1.CurrentLayerNumber = layerCheckedListBox.SelectedIndex;
+
+                editorLayerSizeChanged(this, null);
+                tileDisplayLayerChanged();
+                tileDisplayHScrollBar.Value = 0;
+                tileDisplayVScrollBar.Value = 0;
+                tileDisplay1.WindowPosition = Vector2.Zero;
+                
                 editor1.ResetSelector();
 
                 enableLayerProperties();
@@ -186,7 +218,13 @@ namespace MapEditor
                 return;
             }
 
+            editor1.Map.Layers[editor1.Map.Layers.Count - 1].OnSizeChanged += editorLayerSizeChanged;
+            editorLayerSizeChanged(this, null);
+            tileDisplayLayerChanged();
             layerCheckedListBox.Items.Add(editor1.Map.Layers.Count - 1);
+
+            layerCheckedListBox.SetItemChecked(editor1.Map.Layers.Count - 1, true);
+            layerCheckedListBox.SetSelected(editor1.Map.Layers.Count - 1, true);
         }
 
         private void saveChangesButton_Click (object sender, EventArgs e)
@@ -261,11 +299,9 @@ namespace MapEditor
         {
             if (e.Control)
             {
-                if (e.Alt &&
-                    e.KeyCode == Keys.U) // U
+                if (e.Alt && e.KeyCode == Keys.U) // U
                     upButton_Click(null, null);
-                else if (e.Alt &&
-                         e.KeyCode == Keys.D) // D
+                else if (e.Alt && e.KeyCode == Keys.D) // D
                     downButton_Click(null, null);
                 else if (e.KeyCode == Keys.L) // Left
                     rotateLeftButton_Click(null, null);

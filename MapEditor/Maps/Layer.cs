@@ -15,7 +15,8 @@ namespace MapEditor.Maps
 {
     public class Layer
     {
-        List<List<Tile>> tileMap;
+        public List<List<Tile>> tileMap;
+        public Vector2 size;
 
         public TileSheet TileSheet;
         [XmlIgnore]
@@ -25,6 +26,18 @@ namespace MapEditor.Maps
         public TileMapString TileMapString;
         [XmlIgnore]
         public bool Active;
+        [XmlIgnore]
+        public Vector2 Size
+        {
+            get { return size; }
+            set
+            {
+                size = value;
+                if(OnSizeChanged != null)
+                    OnSizeChanged(this, null);
+            }
+        }
+        public event EventHandler OnSizeChanged;
 
         public Layer ()
         {
@@ -35,6 +48,7 @@ namespace MapEditor.Maps
             TileSheet = new TileSheet();
             TileSheetImage = new Image();
             Active = false;
+            Size = Vector2.Zero;
         }
 
         public void Save ()
@@ -83,6 +97,7 @@ namespace MapEditor.Maps
 
                 tileIndex.X = selectedRegion.X;
                 tileIndex.Y++;
+
                 for (int cX = (int)startIndex.X; cX <= startIndex.X + selectedRegion.Width; cX++)
                 {
                     if (tileIndex.X * TileDimensions.X > TileSheet.Texture.Width ||
@@ -93,6 +108,11 @@ namespace MapEditor.Maps
 
                     try
                     {
+                        if (tileMap[cY][cX] == null)
+                        {
+                            tileMap[cY][cX] = new Tile();
+                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, Tile.TileRotation.None);
+                        }
                         tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
                         tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
                         tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
@@ -126,9 +146,14 @@ namespace MapEditor.Maps
                         tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
                         tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
                     }
-                    tileIndex.X++;
                 }
+                tileIndex.X++;
             }
+
+            int maxX = 0;
+            foreach(List<Tile> row in tileMap)
+                maxX = maxX < row.Count ? row.Count : maxX;
+            Size = new Vector2(maxX, tileMap.Count) * TileDimensions;
         }
 
         public void Initialize (ContentManager content)
@@ -138,6 +163,7 @@ namespace MapEditor.Maps
             TileSheetImage.Initialize(content);
 
             Vector2 position = -Vector2.One;
+            int maxX = 0;
             foreach (string row in TileMapString.Rows)
             {
                 position.Y++;
@@ -176,7 +202,9 @@ namespace MapEditor.Maps
                 tileMap.Add(tempTileMap);
 
                 position.X = -1;
+                maxX = maxX < tempTileMap.Count ? tempTileMap.Count : maxX;
             }
+            size = new Vector2(maxX, tileMap.Count) * TileDimensions;
         }
 
         public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)

@@ -64,6 +64,8 @@
             // 
             // editor1
             // 
+            this.editor1.ActualLayerSizeX = 0;
+            this.editor1.ActualLayerSizeY = 0;
             this.editor1.Location = new System.Drawing.Point(12, 35);
             this.editor1.Name = "editor1";
             this.editor1.Size = new System.Drawing.Size(640, 480);
@@ -308,7 +310,9 @@
             // 
             // editorHScrollBar
             // 
+            this.editorHScrollBar.LargeChange = 1;
             this.editorHScrollBar.Location = new System.Drawing.Point(12, 515);
+            this.editorHScrollBar.Maximum = 0;
             this.editorHScrollBar.Name = "editorHScrollBar";
             this.editorHScrollBar.Size = new System.Drawing.Size(640, 20);
             this.editorHScrollBar.TabIndex = 34;
@@ -316,6 +320,7 @@
             // 
             // tileDisplayHScrollBar
             // 
+            this.tileDisplayHScrollBar.Enabled = false;
             this.tileDisplayHScrollBar.Location = new System.Drawing.Point(687, 515);
             this.tileDisplayHScrollBar.Name = "tileDisplayHScrollBar";
             this.tileDisplayHScrollBar.Size = new System.Drawing.Size(320, 20);
@@ -324,7 +329,9 @@
             // 
             // editorVScrollBar
             // 
+            this.editorVScrollBar.LargeChange = 1;
             this.editorVScrollBar.Location = new System.Drawing.Point(652, 35);
+            this.editorVScrollBar.Maximum = 0;
             this.editorVScrollBar.Name = "editorVScrollBar";
             this.editorVScrollBar.Size = new System.Drawing.Size(20, 480);
             this.editorVScrollBar.TabIndex = 36;
@@ -332,6 +339,7 @@
             // 
             // tileDisplayVScrollBar
             // 
+            this.tileDisplayVScrollBar.Enabled = false;
             this.tileDisplayVScrollBar.Location = new System.Drawing.Point(1007, 35);
             this.tileDisplayVScrollBar.Name = "tileDisplayVScrollBar";
             this.tileDisplayVScrollBar.Size = new System.Drawing.Size(20, 480);

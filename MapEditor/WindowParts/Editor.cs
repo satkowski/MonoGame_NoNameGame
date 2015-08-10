@@ -49,7 +49,8 @@ namespace MapEditor.WindowParts
         public bool DrawingAllowed;
 
         public Vector2 WindowPosition;
-
+        public int ActualLayerSizeX { get; set; }
+        public int ActualLayerSizeY { get; set; }
 
         public Editor ()
         {
@@ -61,6 +62,8 @@ namespace MapEditor.WindowParts
             SelectedTiles.Add(Vector2.Zero);
             DrawingAllowed = false;
             WindowPosition = Vector2.Zero;
+            ActualLayerSizeX = 0;
+            ActualLayerSizeY = 0;
 
             Selector = new List<Image>();
             for (int c = 0; c < 4; c++)
@@ -89,10 +92,6 @@ namespace MapEditor.WindowParts
 
             mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X + windowPixelOffset.X) / CurrentLayer.TileDimensions.X),
                                         (int)((e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y) / CurrentLayer.TileDimensions.Y));
-            //if (e.X - CurrentLayer.Offset.X + windowPixelOffset.X < 0)
-            //    mousePosition.X -= 1;
-            //if (e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y < 0)
-            //    mousePosition.Y -= 1;
             mousePosition *= CurrentLayer.TileDimensions;
 
             int width = (int)(SelectedTileRegion.Width * CurrentLayer.TileDimensions.X);
