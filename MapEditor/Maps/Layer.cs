@@ -108,11 +108,11 @@ namespace MapEditor.Maps
 
                     try
                     {
-                        if (tileMap[cY][cX] == null)
-                        {
-                            tileMap[cY][cX] = new Tile();
-                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, Tile.TileRotation.None);
-                        }
+                        //if (tileMap[cY][cX] == null)
+                        //{
+                        //    tileMap[cY][cX] = new Tile();
+                        //    tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, Tile.TileRotation.None);
+                        //}
                         tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
                         tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
                         tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
@@ -146,8 +146,8 @@ namespace MapEditor.Maps
                         tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
                         tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
                     }
+                    tileIndex.X++;
                 }
-                tileIndex.X++;
             }
 
             int maxX = 0;
