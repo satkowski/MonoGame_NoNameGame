@@ -64,6 +64,8 @@ namespace NoNameGame.Images
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);
+            if (SourceRectangle == Rectangle.Empty)
+                SourceRectangle = Texture.Bounds;
         }
 
         public void UnloadContent ()

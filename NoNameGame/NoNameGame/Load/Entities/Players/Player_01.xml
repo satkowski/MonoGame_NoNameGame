@@ -3,5 +3,6 @@
   <MoveSpeed>220</MoveSpeed>
   <Image>
     <Path>Entities/Players/Player_01_Part01</Path>
+    <Scale>0.45</Scale>
   </Image>
 </UserControlledEntity>
