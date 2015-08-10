@@ -55,7 +55,8 @@ namespace MapEditor.WindowParts
             {
                 isMouseDown = false;
 
-                Rectangle selectedTileRegion = new Rectangle((int)selectorPositons[0].X, (int)selectorPositons[0].Y,
+                Rectangle selectedTileRegion = new Rectangle((int)(selectorPositons[0].X + WindowPosition.X), 
+                                                             (int)(selectorPositons[0].Y + WindowPosition.Y),
                                                              (int)(selectorPositons[1].X - selectorPositons[0].X),
                                                              (int)(selectorPositons[2].Y - selectorPositons[0].Y));
                 selectedTileRegion.X /= (int)editor.CurrentLayer.TileDimensions.X;
