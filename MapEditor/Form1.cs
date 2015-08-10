@@ -200,14 +200,7 @@ namespace MapEditor
             if (dialogResult == System.Windows.Forms.DialogResult.Abort || dialogResult == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
-            CreateLayer newLayer = new CreateLayer(editor1, tileDisplay1);
-            dialogResult = newLayer.ShowDialog();
-            if (dialogResult == System.Windows.Forms.DialogResult.Abort || dialogResult == System.Windows.Forms.DialogResult.Cancel)
-                return;
-
-            layerCheckedListBox.Items.Clear();
-            for (int c = 0; c < editor1.Map.Layers.Count; c++)
-                layerCheckedListBox.Items.Add(c);
+            neuesLayerToolStripMenuItem_Click(this, null);
         }
 
         private void speichernToolStripMenuItem_Click (object sender, EventArgs e)
