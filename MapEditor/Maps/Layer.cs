@@ -69,9 +69,10 @@ namespace MapEditor.Maps
             }
         }
 
-        public void ReplaceTiles (Vector2 postion, Rectangle selectedRegion)
+        public void ReplaceTiles (Vector2 postion, Rectangle selectedRegion, Vector2 windowPosition)
         {
-            Vector2 startIndex = new Vector2(postion.X / TileDimensions.X, postion.Y / TileDimensions.Y);
+            Vector2 startIndex = new Vector2((postion.X + windowPosition.X) / TileDimensions.X, 
+                                             (postion.Y + windowPosition.Y) / TileDimensions.Y);
             Vector2 tileIndex = new Vector2(selectedRegion.X, selectedRegion.Y - 1);
             Vector2 mapIndex = Vector2.Zero;
 

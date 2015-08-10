@@ -77,7 +77,7 @@ namespace MapEditor.WindowParts
         {
             if (DrawingAllowed)
             {
-                CurrentLayer.ReplaceTiles(mousePosition, SelectedTileRegion);
+                CurrentLayer.ReplaceTiles(mousePosition, SelectedTileRegion, WindowPosition);
                 isMouseDown = true;
             }
         }
@@ -95,10 +95,13 @@ namespace MapEditor.WindowParts
             int width = (int)(SelectedTileRegion.Width * CurrentLayer.TileDimensions.X);
             int heigth = (int)(SelectedTileRegion.Height * CurrentLayer.TileDimensions.Y);
 
-            Selector[0].Position = mousePosition + CurrentLayer.Offset;
-            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) + CurrentLayer.Offset;
-            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) + CurrentLayer.Offset;
-            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) + CurrentLayer.Offset;
+            Vector2 windowOffset = new Vector2((int)WindowPosition.X % (int)CurrentLayer.TileDimensions.X,
+                                               (int)WindowPosition.Y % (int)CurrentLayer.TileDimensions.Y);
+
+            Selector[0].Position = mousePosition + CurrentLayer.Offset - windowOffset;
+            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) + CurrentLayer.Offset - windowOffset;
+            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) + CurrentLayer.Offset - windowOffset;
+            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) + CurrentLayer.Offset - windowOffset;
 
             if (isMouseDown)
                 Editor_MouseDown(this, null);
