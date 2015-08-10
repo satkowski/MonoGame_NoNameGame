@@ -95,6 +95,9 @@
     <Content Include="Load\Maps\Map_001.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Load\Maps\Map_004.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NoNameGameContent\NoNameGameContent.contentproj">

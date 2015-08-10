@@ -24,7 +24,7 @@ namespace NoNameGame.Screens
             base.LoadContent();
 
             XmlManager<Map> mapLoader = new XmlManager<Map>();
-            Map = mapLoader.Load("Load/Maps/Map_001.xml");
+            Map = mapLoader.Load("Load/Maps/Map_004.xml");
             Map.LoadContent();
         }
 

@@ -54,14 +54,14 @@ namespace NoNameGame.Maps
 
             Origin = new Vector2(TileSheetRectangle.Width / 2, TileSheetRectangle.Height / 2);
 
-            CurrentDestinationRectangle = new Rectangle((int)DestinationPosition.X + layer.Offset, (int)DestinationPosition.Y + layer.Offset,
+            CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), (int)(DestinationPosition.Y + layer.Offset.Y),
                                                         (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
         }
 
         public void Update (GameTime gameTime)
         {
             PrevDestinationRectangle = CurrentDestinationRectangle;
-            CurrentDestinationRectangle = new Rectangle((int)DestinationPosition.X + layer.Offset, (int)DestinationPosition.Y + layer.Offset,
+            CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), (int)(DestinationPosition.Y + layer.Offset.Y),
                                                         (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
         }
 
