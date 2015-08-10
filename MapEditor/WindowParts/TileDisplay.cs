@@ -83,8 +83,12 @@ namespace MapEditor.WindowParts
                 if (!isMouseDown)
                 {
                     clickPosition = mousePosition;
+
+                    Vector2 windowPixelOffset = new Vector2((int)WindowPosition.X % (int)editor.CurrentLayer.TileDimensions.X,
+                                                           (int)WindowPosition.Y % (int)editor.CurrentLayer.TileDimensions.Y);
+
                     for (int c = 0; c < 4; c++)
-                        selectorPositons[c] = mousePosition;
+                        selectorPositons[c] = mousePosition - windowPixelOffset;
                     Tile.Rotation = Maps.Tile.TileRotation.None;
                 }
                 isMouseDown = true;
@@ -95,24 +99,26 @@ namespace MapEditor.WindowParts
 
         void TileDisplay_MouseMove (object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            mousePosition = new Vector2((int)(e.X / editor.CurrentLayer.TileDimensions.X),
-                                        (int)(e.Y / editor.CurrentLayer.TileDimensions.Y));
-            mousePosition.X *= editor.CurrentLayer.TileDimensions.X;
-            mousePosition.Y *= editor.CurrentLayer.TileDimensions.Y;
+            Vector2 windowPixelOffset = new Vector2((int)WindowPosition.X % (int)editor.CurrentLayer.TileDimensions.X,
+                                                   (int)WindowPosition.Y % (int)editor.CurrentLayer.TileDimensions.Y);
+
+            mousePosition = new Vector2((int)((e.X + windowPixelOffset.X) / editor.CurrentLayer.TileDimensions.X),
+                                        (int)((e.Y + windowPixelOffset.Y) / editor.CurrentLayer.TileDimensions.Y));
+            mousePosition*= editor.CurrentLayer.TileDimensions;
 
             if (mousePosition != clickPosition && isMouseDown)
             {
                 for (int c = 0; c < 4; c++)
                 {
                     if (c % 2 == 0 && mousePosition.X < clickPosition.X)
-                        selectorPositons[c] = new Vector2(mousePosition.X, selectorPositons[c].Y);
+                        selectorPositons[c] = new Vector2(mousePosition.X - windowPixelOffset.X, selectorPositons[c].Y);
                     else if (c % 2 == 1 && mousePosition.X > clickPosition.X)
-                        selectorPositons[c] = new Vector2(mousePosition.X, selectorPositons[c].Y);
+                        selectorPositons[c] = new Vector2(mousePosition.X - windowPixelOffset.X, selectorPositons[c].Y);
 
                     if (c < 2 && mousePosition.Y < clickPosition.Y)
-                        selectorPositons[c] = new Vector2(selectorPositons[c].X, mousePosition.Y);
+                        selectorPositons[c] = new Vector2(selectorPositons[c].X, mousePosition.Y - windowPixelOffset.Y);
                     else if (c >= 2 && mousePosition.Y > clickPosition.Y)
-                        selectorPositons[c] = new Vector2(selectorPositons[c].X, mousePosition.Y);
+                        selectorPositons[c] = new Vector2(selectorPositons[c].X, mousePosition.Y - windowPixelOffset.Y);
                 }
                 Invalidate();
             }

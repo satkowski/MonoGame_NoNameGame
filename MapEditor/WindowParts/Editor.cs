@@ -84,24 +84,24 @@ namespace MapEditor.WindowParts
 
         void Editor_MouseMove (object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X) / CurrentLayer.TileDimensions.X),
-                                        (int)((e.Y - CurrentLayer.Offset.Y) / CurrentLayer.TileDimensions.Y));
+            Vector2 windowPixelOffset = new Vector2((int)WindowPosition.X % (int)CurrentLayer.TileDimensions.X,
+                                                   (int)WindowPosition.Y % (int)CurrentLayer.TileDimensions.Y);
+
+            mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X + windowPixelOffset.X) / CurrentLayer.TileDimensions.X),
+                                        (int)((e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y) / CurrentLayer.TileDimensions.Y));
             if (e.X - CurrentLayer.Offset.X < 0)
                 mousePosition.X -= 1;
             if (e.Y - CurrentLayer.Offset.Y < 0)
                 mousePosition.Y -= 1;
-            mousePosition *= CurrentLayer.TileDimensions.X;
+            mousePosition *= CurrentLayer.TileDimensions;
 
             int width = (int)(SelectedTileRegion.Width * CurrentLayer.TileDimensions.X);
             int heigth = (int)(SelectedTileRegion.Height * CurrentLayer.TileDimensions.Y);
 
-            Vector2 windowOffset = new Vector2((int)WindowPosition.X % (int)CurrentLayer.TileDimensions.X,
-                                               (int)WindowPosition.Y % (int)CurrentLayer.TileDimensions.Y);
-
-            Selector[0].Position = mousePosition + CurrentLayer.Offset - windowOffset;
-            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) + CurrentLayer.Offset - windowOffset;
-            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) + CurrentLayer.Offset - windowOffset;
-            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) + CurrentLayer.Offset - windowOffset;
+            Selector[0].Position = mousePosition + CurrentLayer.Offset - windowPixelOffset;
+            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) + CurrentLayer.Offset - windowPixelOffset;
+            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) + CurrentLayer.Offset - windowPixelOffset;
+            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) + CurrentLayer.Offset - windowPixelOffset;
 
             if (isMouseDown)
                 Editor_MouseDown(this, null);
