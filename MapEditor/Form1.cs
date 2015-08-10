@@ -261,15 +261,17 @@ namespace MapEditor
         {
             if (e.Control)
             {
-                if (e.KeyCode == Keys.U) // U
+                if (e.Alt &&
+                    e.KeyCode == Keys.U) // U
                     upButton_Click(null, null);
-                else if (e.KeyCode == Keys.D) // D
+                else if (e.Alt &&
+                         e.KeyCode == Keys.D) // D
                     downButton_Click(null, null);
                 else if (e.KeyCode == Keys.L) // Left
                     rotateLeftButton_Click(null, null);
                 else if (e.KeyCode == Keys.R) // Right
                     rotateRightButton_Click(null, null);
-                else if (e.KeyCode == Keys.Up) // Up
+                else if (e.KeyCode == Keys.U) // Up
                 {
                     if (layerCheckedListBox.SelectedIndex > 0)
                     {
@@ -277,7 +279,7 @@ namespace MapEditor
                         layerCheckedListBox.SetSelected(layerCheckedListBox.SelectedIndex - 1, true);
                     }
                 }
-                else if (e.KeyCode == Keys.Down) // Down
+                else if (e.KeyCode == Keys.D) // Down
                 {
                     if (layerCheckedListBox.SelectedIndex < editor1.Map.Layers.Count - 1)
                     {
