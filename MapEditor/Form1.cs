@@ -104,9 +104,19 @@ namespace MapEditor
 
         void editorLayerSizeChanged (object sender, EventArgs e)
         {
-            int scrollMaxX = (int)editor1.CurrentLayer.Size.X - editor1.Size.Width;
+            int scrollMaxX = 0;
+            int scrollMaxY = 0;
+            foreach (Layer layer in editor1.Map.Layers)
+            {
+                if (layer.Active)
+                {
+                    scrollMaxX = scrollMaxX < layer.Size.X ? (int)layer.Size.X : scrollMaxX;
+                    scrollMaxY = scrollMaxY < layer.Size.Y ? (int)layer.Size.Y : scrollMaxY;
+                }
+            }
+            scrollMaxY -= editor1.Size.Height; 
+            scrollMaxX -= editor1.Size.Width;
             scrollMaxX = scrollMaxX < 0 ? 0 : scrollMaxX;
-            int scrollMaxY = (int)editor1.CurrentLayer.Size.Y - editor1.Size.Height;
             scrollMaxY = scrollMaxY < 0 ? 0 : scrollMaxY;
 
             editorHScrollBar.Maximum = scrollMaxX + 3 * (int)editor1.CurrentLayer.TileDimensions.X;
@@ -156,7 +166,6 @@ namespace MapEditor
                 editor1.DrawingAllowed = true;
                 editor1.CurrentLayerNumber = layerCheckedListBox.SelectedIndex;
 
-                editorLayerSizeChanged(this, null);
                 tileDisplayLayerChanged();
                 tileDisplayHScrollBar.Value = 0;
                 tileDisplayVScrollBar.Value = 0;
@@ -172,6 +181,8 @@ namespace MapEditor
 
                 disableLayerProperties();
             }
+
+            editorLayerSizeChanged(this, null);
 
             editor1.Invalidate();
             tile1.Invalidate();
