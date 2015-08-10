@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 using MapEditor.Images;
+using MapEditor.Extension;
 
 namespace MapEditor.WindowParts
 {
@@ -18,8 +19,8 @@ namespace MapEditor.WindowParts
         SpriteBatch spriteBatch;
         Editor editor;
         Tile tile;
+        List<Vector2> selectorPositons;
         Image tileSheet;
-        List<Image> selector;
         bool isMouseDown;
         Vector2 mousePosition;
         Vector2 clickPosition;
@@ -30,13 +31,15 @@ namespace MapEditor.WindowParts
             this.tile = tile;
             editor.OnInitialize += LoadContent;
             isMouseDown = false;
+            selectorPositons = new List<Vector2>();
         }
 
         void LoadContent (object sender, EventArgs e)
         {
             if (editor.CurrentLayer.TileSheet != null)
                 tileSheet = editor.CurrentLayer.TileSheetImage;
-            selector = editor.Selector;
+            foreach (Image img in editor.Selector)
+                selectorPositons.Add(img.Position);
         }
 
         protected override void Initialize ()
@@ -49,17 +52,17 @@ namespace MapEditor.WindowParts
             {
                 isMouseDown = false;
 
-                List<Image> selector = editor.Selector;
-
-                Rectangle selectedTileRegion = new Rectangle((int)selector[0].Position.X, (int)selector[0].Position.Y,
-                                                             (int)(selector[1].Position.X - selector[0].Position.X),
-                                                             (int)(selector[2].Position.Y - selector[0].Position.Y));
+                Rectangle selectedTileRegion = new Rectangle((int)selectorPositons[0].X, (int)selectorPositons[0].Y,
+                                                             (int)(selectorPositons[1].X - selectorPositons[0].X),
+                                                             (int)(selectorPositons[2].Y - selectorPositons[0].Y));
                 selectedTileRegion.X /= (int)editor.CurrentLayer.TileDimensions.X;
                 selectedTileRegion.Y /= (int)editor.CurrentLayer.TileDimensions.Y;
                 selectedTileRegion.Width /= (int)editor.CurrentLayer.TileDimensions.X;
                 selectedTileRegion.Height /= (int)editor.CurrentLayer.TileDimensions.Y;
 
                 editor.SelectedTileRegion = selectedTileRegion;
+
+                tile.Invalidate();
             };
         }
 
@@ -77,13 +80,13 @@ namespace MapEditor.WindowParts
                 if (!isMouseDown)
                 {
                     clickPosition = mousePosition;
-                    foreach (Image img in selector)
-                        img.Position = mousePosition;
+                    for (int c = 0; c < 4; c++)
+                        selectorPositons[c] = mousePosition;
                     Tile.Rotation = Maps.Tile.TileRotation.None;
                 }
                 isMouseDown = true;
+
                 Invalidate();
-                tile.Invalidate();
             }
         }
 
@@ -99,25 +102,16 @@ namespace MapEditor.WindowParts
                 for (int c = 0; c < 4; c++)
                 {
                     if (c % 2 == 0 && mousePosition.X < clickPosition.X)
-                        selector[c].Position.X = mousePosition.X;
+                        selectorPositons[c] = new Vector2(mousePosition.X, selectorPositons[c].Y);
                     else if (c % 2 == 1 && mousePosition.X > clickPosition.X)
-                        selector[c].Position.X = mousePosition.X;
+                        selectorPositons[c] = new Vector2(mousePosition.X, selectorPositons[c].Y);
 
                     if (c < 2 && mousePosition.Y < clickPosition.Y)
-                        selector[c].Position.Y = mousePosition.Y;
+                        selectorPositons[c] = new Vector2(selectorPositons[c].X, mousePosition.Y);
                     else if (c >= 2 && mousePosition.Y > clickPosition.Y)
-                        selector[c].Position.Y = mousePosition.Y;
+                        selectorPositons[c] = new Vector2(selectorPositons[c].X, mousePosition.Y);
                 }
                 Invalidate();
-                tile.Invalidate();
-            }
-            else if (isMouseDown)
-            {
-                foreach (Image img in selector)
-                    img.Position = mousePosition;
-
-                Invalidate();
-                tile.Invalidate();
             }
         }
 
@@ -127,12 +121,22 @@ namespace MapEditor.WindowParts
 
             if (editor.DrawingAllowed)
             {
+                List<Vector2> originalPositions = new List<Vector2>();
+                for (int c = 0; c < 4; c++)
+                {
+                    originalPositions.Add(editor.Selector[c].Position);
+                    editor.Selector[c].Position = selectorPositons[c];
+                }
+
                 spriteBatch.Begin();
                 if (tileSheet != null)
                     tileSheet.Draw(spriteBatch);
-                foreach (Image img in selector)
+                foreach (Image img in editor.Selector)
                     img.Draw(spriteBatch);
                 spriteBatch.End();
+
+                for (int c = 0; c < 4; c++)
+                    editor.Selector[c].Position = originalPositions[c];
             }
         }
     }

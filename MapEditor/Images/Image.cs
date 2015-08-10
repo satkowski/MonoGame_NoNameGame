@@ -29,7 +29,6 @@ namespace MapEditor.Images
         public Rectangle SourceRectangle;
         public Rectangle CurrentRectangle;
         public Rectangle PrevRectangle;
-        public int MergeOffset;
 
         public Image ()
         {
@@ -41,7 +40,6 @@ namespace MapEditor.Images
             SourceRectangle = Rectangle.Empty;
             PrevRectangle = Rectangle.Empty;
             CurrentRectangle = Rectangle.Empty;
-            MergeOffset = 0;
             Color = Color.White;
             origin = Vector2.Zero;
         }

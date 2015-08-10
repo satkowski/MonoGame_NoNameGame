@@ -37,17 +37,23 @@ namespace MapEditor.WindowParts
             {
                 GraphicsDevice.Clear(Color.Violet);
 
-                Vector2 lastPosition = editor.Selector[0].Position;
-                for (int c = 1; c < editor.Selector.Count; c++)
+                //Vector2 lastPosition = editor.Selector[0].Position;
+                //for (int c = 1; c < editor.Selector.Count; c++)
+                //{
+                //    if (lastPosition != editor.Selector[c].Position)
+                //        return;
+                //    lastPosition = editor.Selector[c].Position;
+                //}
+                if(editor.SelectedTileRegion.Width == 0 &&
+                   editor.SelectedTileRegion.Height == 0)
                 {
-                    if (lastPosition != editor.Selector[c].Position)
-                        return;
-                    lastPosition = editor.Selector[c].Position;
+                    spriteBatch.Begin();
+                    editor.CurrentLayer.DrawTile(spriteBatch, 
+                                                 new Vector2(editor.SelectedTileRegion.X * editor.CurrentLayer.TileDimensions.X,
+                                                             editor.SelectedTileRegion.Y * editor.CurrentLayer.TileDimensions.Y), 
+                                                 Rotation);
+                    spriteBatch.End();
                 }
-
-                spriteBatch.Begin();
-                editor.CurrentLayer.DrawTile(spriteBatch, lastPosition, Rotation);
-                spriteBatch.End();
             }
         }
 
