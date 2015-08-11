@@ -141,7 +141,7 @@ namespace MapEditor.Maps
                         if (tileMap[cY][cX] == null)
                         {
                             tileMap[cY][cX] = new Tile();
-                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, Tile.TileRotation.None);
+                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, 1.0f, Tile.TileRotation.None);
                         }
 
                         tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
@@ -194,7 +194,7 @@ namespace MapEditor.Maps
                         else
                             rotation = 0.0f;
                         
-                        newTile.Initialize(this, new Vector2(valueX, valueY), position * TileDimensions, rotation);
+                        newTile.Initialize(this, new Vector2(valueX, valueY), position * TileDimensions, 1.0f, rotation);
                     }
                     else
                         newTile = null;
@@ -218,14 +218,14 @@ namespace MapEditor.Maps
                             tile.Draw(spriteBatch, windowPosition);
         }
 
-        public void DrawTile (SpriteBatch spriteBatch, Vector2 position, Tile.TileRotation rotation)
+        public void DrawTile (SpriteBatch spriteBatch, Vector2 position, float scale, Tile.TileRotation rotation)
         {
             position /= TileDimensions;
 
             TileSheet.DrawOffset = Vector2.Zero;
 
             Tile drawTile = new Tile();
-            drawTile.Initialize(this, position, Vector2.Zero, rotation);
+            drawTile.Initialize(this, position, Vector2.Zero, scale, rotation);
             drawTile.Draw(spriteBatch, Vector2.Zero);
 
             TileSheet.DrawOffset = Offset;

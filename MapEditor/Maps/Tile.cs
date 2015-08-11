@@ -41,9 +41,10 @@ namespace MapEditor.Maps
             Origin = Vector2.Zero;
         }
 
-        public void Initialize(Layer layer, Vector2 tileSheetPosition, Vector2 destinationPosition, TileRotation rotation) 
+        public void Initialize(Layer layer, Vector2 tileSheetPosition, Vector2 destinationPosition, float scale, TileRotation rotation) 
         {
             this.layer = layer;
+            this.Scale = scale;
             Rotation = rotation;
             DestinationPosition = destinationPosition;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 

@@ -47,10 +47,12 @@ namespace MapEditor.WindowParts
                 if(editor.SelectedTileRegion.Width == 0 &&
                    editor.SelectedTileRegion.Height == 0)
                 {
+                    float scale = Size.Width / editor.CurrentLayer.TileDimensions.X;
                     spriteBatch.Begin();
                     editor.CurrentLayer.DrawTile(spriteBatch, 
                                                  new Vector2(editor.SelectedTileRegion.X * editor.CurrentLayer.TileDimensions.X,
-                                                             editor.SelectedTileRegion.Y * editor.CurrentLayer.TileDimensions.Y), 
+                                                             editor.SelectedTileRegion.Y * editor.CurrentLayer.TileDimensions.Y),
+                                                 scale,
                                                  Rotation);
                     spriteBatch.End();
                 }
