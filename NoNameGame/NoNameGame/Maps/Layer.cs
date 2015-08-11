@@ -89,5 +89,15 @@ namespace NoNameGame.Maps
             foreach (Tile tile in tileMap)
                 tile.Draw(spriteBatch);
         }
+
+        public List<Rectangle> GetCollidingTileRectangles (Rectangle entityRectangle)
+        {
+            List<Rectangle> collidingRectangle = new List<Rectangle>();
+            foreach (Tile tile in tileMap)
+                if (tile.CurrentDestinationRectangle.Intersects(entityRectangle))
+                    collidingRectangle.Add(tile.CurrentDestinationRectangle);
+
+            return collidingRectangle;
+        }
     }
 }

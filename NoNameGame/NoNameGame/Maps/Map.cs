@@ -43,5 +43,14 @@ namespace NoNameGame.Maps
             foreach (Layer layer in Layers)
                 layer.Draw(spriteBatch);
         }
+
+        public List<Rectangle> GetCollidingTileRectangles (Rectangle entityRectangle, int entityLevel)
+        {
+            List<Rectangle> collidingRectangles = new List<Rectangle>();
+            foreach (Layer layer in Layers)
+                collidingRectangles.AddRange(layer.GetCollidingTileRectangles(entityRectangle));
+
+            return collidingRectangles;
+        }
     }
 }
