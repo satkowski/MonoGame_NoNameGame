@@ -20,6 +20,7 @@ namespace NoNameGame.Maps
         public Vector2 Offset;
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
+        public int CollisionLevel;
 
         public Layer ()
         {
@@ -27,6 +28,7 @@ namespace NoNameGame.Maps
             TileMapString = new TileMapString();
             tileMap = new List<Tile>();
             TileDimensions = Vector2.Zero;
+            CollisionLevel = -1;
         }
 
         public void LoadContent ()

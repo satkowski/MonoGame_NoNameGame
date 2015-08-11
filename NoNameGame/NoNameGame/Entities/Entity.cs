@@ -17,10 +17,12 @@ namespace NoNameGame.Entities
         public Image Image;
         [XmlIgnore]
         public Vector2 MoveVelocity;
+        public int CollisionLevel;
 
         protected Entity ()
         {
             MoveVelocity = Vector2.Zero;
+            CollisionLevel = 0;
         }
 
         public virtual void LoadContent ()
