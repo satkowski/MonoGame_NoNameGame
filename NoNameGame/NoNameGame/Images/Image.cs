@@ -16,6 +16,7 @@ namespace NoNameGame.Images
     public class Image
     {
         Vector2 origin;
+        Vector2 scaleOrigin;
         ContentManager content;
         Vector2 position;
 
@@ -32,6 +33,7 @@ namespace NoNameGame.Images
             set
             {
                 position = value;
+                updateRectangles();
                 if(OnPositionChange != null)
                     OnPositionChange(position, null);
             }
@@ -56,6 +58,7 @@ namespace NoNameGame.Images
             MergeOffset = 0;
             Color = Color.White;
             origin = Vector2.Zero;
+            scaleOrigin = Vector2.Zero;
         }
 
         public void LoadContent ()
@@ -75,16 +78,22 @@ namespace NoNameGame.Images
 
         public void Update (GameTime gameTime)
         {
-            origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
-
-            PrevRectangle = CurrentRectangle;
-            CurrentRectangle = new Rectangle((int)(Position.X), (int)(Position.Y),
-                                             (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
+            updateRectangles();
         }
 
         public void Draw (SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position + origin, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
+        }
+
+        private void updateRectangles ()
+        {
+            origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
+            scaleOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
+
+            PrevRectangle = CurrentRectangle;
+            CurrentRectangle = new Rectangle((int)(Position.X + scaleOrigin.X), (int)(Position.Y + scaleOrigin.Y),
+                                             (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
         }
     }
 }

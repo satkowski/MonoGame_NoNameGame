@@ -48,7 +48,8 @@ namespace NoNameGame.Maps
         {
             List<Rectangle> collidingRectangles = new List<Rectangle>();
             foreach (Layer layer in Layers)
-                collidingRectangles.AddRange(layer.GetCollidingTileRectangles(entityRectangle));
+                if(layer.CollisionLevel == entityLevel)
+                    collidingRectangles.AddRange(layer.GetCollidingTileRectangles(entityRectangle));
 
             return collidingRectangles;
         }

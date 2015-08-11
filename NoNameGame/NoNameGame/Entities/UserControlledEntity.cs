@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Managers;
-using Microsoft.Xna.Framework.Input;
+using NoNameGame.Maps;
 
 namespace NoNameGame.Entities
 {
@@ -30,7 +31,7 @@ namespace NoNameGame.Entities
             base.UnloadContent();
         }
 
-        public override void Update (GameTime gameTime)
+        public override void Update (GameTime gameTime, Map map)
         {
             MoveVelocity = Vector2.Zero;
 
@@ -46,7 +47,7 @@ namespace NoNameGame.Entities
 
             Image.Position += MoveVelocity;
 
-            base.Update(gameTime);
+            base.Update(gameTime, map);
         }
 
         public override void Draw (SpriteBatch spriteBatch)

@@ -4,5 +4,9 @@
   <Image>
     <Path>Entities/Players/Player_01_Part01</Path>
     <Scale>0.45</Scale>
+    <Position>
+      <X>90</X>
+      <Y>90</Y>
+    </Position>
   </Image>
 </UserControlledEntity>

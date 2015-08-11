@@ -45,7 +45,7 @@ namespace NoNameGame.Screens
         public override void Update (GameTime gameTime)
         {
             Map.Update(gameTime);
-            Player.Update(gameTime);
+            Player.Update(gameTime, Map);
         }
 
         public override void Draw (SpriteBatch spriteBatch)
