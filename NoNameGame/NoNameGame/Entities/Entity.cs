@@ -19,11 +19,13 @@ namespace NoNameGame.Entities
         public Image Image;
         [XmlIgnore]
         public Vector2 MoveVelocity;
+        public Vector2 CollisionMovement;
         public int CollisionLevel;
 
         protected Entity ()
         {
             MoveVelocity = Vector2.Zero;
+            CollisionMovement = Vector2.Zero;
             CollisionLevel = 0;
         }
 
@@ -40,6 +42,7 @@ namespace NoNameGame.Entities
         public virtual void Update (GameTime gameTime, Map map)
         {
             collisionHandling(map);
+            Image.Position += CollisionMovement;
 
             Image.Update(gameTime);
         }
@@ -51,6 +54,7 @@ namespace NoNameGame.Entities
 
         private void collisionHandling (Map map)
         {
+            CollisionMovement = Vector2.Zero;
             List<Rectangle> collidingEnteties = map.GetCollidingTileRectangles(Image.CurrentRectangle, CollisionLevel);
 
             foreach (Rectangle tileRectangle in collidingEnteties)
@@ -58,7 +62,7 @@ namespace NoNameGame.Entities
                 Vector2 collidingDepth = tileRectangle.GetIntersectionDepth(Image.CurrentRectangle);
                 Vector2 collidingDirection = getCollisionSolving(tileRectangle);
 
-                Image.Position += collidingDirection * collidingDepth;
+                CollisionMovement = collidingDirection * collidingDepth;
             }
         }
 
