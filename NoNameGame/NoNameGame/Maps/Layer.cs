@@ -78,10 +78,13 @@ namespace NoNameGame.Maps
             TileSheet.UnloadContent();
         }
 
-        public void Update (GameTime gameTime)
+        public void Update (GameTime gameTime, Vector2 mapPosition)
         {
             foreach (Tile tile in tileMap)
+            {
+                tile.Offset = mapPosition;
                 tile.Update(gameTime);
+            }
         }
 
         public void Draw (SpriteBatch spriteBatch)

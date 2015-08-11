@@ -50,7 +50,7 @@ namespace NoNameGame.Images
 
         public void Draw (SpriteBatch spriteBatch, Tile tile)
         {
-            spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin, tile.TileSheetRectangle, Color * Alpha, 
+            spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + tile.Offset, tile.TileSheetRectangle, Color * Alpha, 
                              tile.Rotation.GetRotationValue(), tile.Origin, tile.Scale, SpriteEffects.None, 0.0f);
         }
     }

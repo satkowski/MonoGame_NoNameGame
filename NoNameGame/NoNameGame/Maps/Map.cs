@@ -14,10 +14,13 @@ namespace NoNameGame.Maps
     {
         [XmlElement("Layer")]
         public List<Layer> Layers;
+        [XmlIgnore]
+        public Vector2 Position;
 
         public Map ()
         {
             Layers = new List<Layer>();
+            Position = Vector2.Zero;
         }
 
         public void LoadContent ()
@@ -35,7 +38,7 @@ namespace NoNameGame.Maps
         public void Update (GameTime gameTime)
         {
             foreach (Layer layer in Layers)
-                layer.Update(gameTime);
+                layer.Update(gameTime, Position);
         }
 
         public void Draw (SpriteBatch spriteBatch)

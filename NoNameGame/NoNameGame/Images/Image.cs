@@ -19,6 +19,7 @@ namespace NoNameGame.Images
         Vector2 scaleOrigin;
         ContentManager content;
         Vector2 position;
+        Vector2 offset;
 
         [XmlIgnore]
         public Texture2D Texture;
@@ -35,6 +36,17 @@ namespace NoNameGame.Images
                 position = value;
                 updateRectangles();
                 if(OnPositionChange != null)
+                    OnPositionChange(position, null);
+            }
+        }
+        public Vector2 Offset
+        {
+            get { return offset; }
+            set
+            {
+                offset = value;
+                updateRectangles();
+                if (OnPositionChange != null)
                     OnPositionChange(position, null);
             }
         }
@@ -92,7 +104,7 @@ namespace NoNameGame.Images
             scaleOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
 
             PrevRectangle = CurrentRectangle;
-            CurrentRectangle = new Rectangle((int)(Position.X), (int)(Position.Y),
+            CurrentRectangle = new Rectangle((int)(Position.X + Offset.X), (int)(Position.Y + Offset.Y),
                                              (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
         }
     }
