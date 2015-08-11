@@ -23,6 +23,7 @@ namespace MapEditor.Maps
         public Image TileSheetImage;
         public Vector2 Offset;
         public Vector2 TileDimensions;
+        public int CollisionLevel;
         public TileMapString TileMapString;
         [XmlIgnore]
         public bool Active;
@@ -49,6 +50,7 @@ namespace MapEditor.Maps
             TileSheetImage = new Image();
             Active = false;
             Size = Vector2.Zero;
+            CollisionLevel = -1;
         }
 
         public void Save ()

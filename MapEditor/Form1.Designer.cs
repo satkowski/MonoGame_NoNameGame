@@ -59,6 +59,8 @@
             this.tileDisplayHScrollBar = new System.Windows.Forms.HScrollBar();
             this.editorVScrollBar = new System.Windows.Forms.VScrollBar();
             this.tileDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.collisionLevelTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +76,7 @@
             // 
             // tile1
             // 
-            this.tile1.Location = new System.Drawing.Point(804, 550);
+            this.tile1.Location = new System.Drawing.Point(853, 550);
             this.tile1.Name = "tile1";
             this.tile1.Size = new System.Drawing.Size(64, 64);
             this.tile1.TabIndex = 2;
@@ -90,7 +92,7 @@
             // 
             // rotateLeftButton
             // 
-            this.rotateLeftButton.Location = new System.Drawing.Point(875, 550);
+            this.rotateLeftButton.Location = new System.Drawing.Point(777, 627);
             this.rotateLeftButton.Name = "rotateLeftButton";
             this.rotateLeftButton.Size = new System.Drawing.Size(97, 23);
             this.rotateLeftButton.TabIndex = 3;
@@ -100,7 +102,7 @@
             // 
             // rotateRightButton
             // 
-            this.rotateRightButton.Location = new System.Drawing.Point(875, 587);
+            this.rotateRightButton.Location = new System.Drawing.Point(898, 627);
             this.rotateRightButton.Name = "rotateRightButton";
             this.rotateRightButton.Size = new System.Drawing.Size(97, 23);
             this.rotateRightButton.TabIndex = 4;
@@ -191,7 +193,7 @@
             this.layerCheckedListBox.FormattingEnabled = true;
             this.layerCheckedListBox.Location = new System.Drawing.Point(12, 550);
             this.layerCheckedListBox.Name = "layerCheckedListBox";
-            this.layerCheckedListBox.Size = new System.Drawing.Size(120, 79);
+            this.layerCheckedListBox.Size = new System.Drawing.Size(120, 109);
             this.layerCheckedListBox.TabIndex = 7;
             this.layerCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.layerCheckedListBox_ItemCheck);
             this.layerCheckedListBox.SelectedIndexChanged += new System.EventHandler(this.layerCheckedListBox_SelectedIndexChanged);
@@ -233,7 +235,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(238, 582);
+            this.label3.Location = new System.Drawing.Point(213, 583);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 24;
@@ -242,7 +244,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(238, 608);
+            this.label1.Location = new System.Drawing.Point(213, 609);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 27;
@@ -269,7 +271,7 @@
             // saveChangesButton
             // 
             this.saveChangesButton.Enabled = false;
-            this.saveChangesButton.Location = new System.Drawing.Point(582, 576);
+            this.saveChangesButton.Location = new System.Drawing.Point(581, 602);
             this.saveChangesButton.Name = "saveChangesButton";
             this.saveChangesButton.Size = new System.Drawing.Size(130, 23);
             this.saveChangesButton.TabIndex = 30;
@@ -280,7 +282,7 @@
             // resetChangesButton
             // 
             this.resetChangesButton.Enabled = false;
-            this.resetChangesButton.Location = new System.Drawing.Point(582, 606);
+            this.resetChangesButton.Location = new System.Drawing.Point(581, 632);
             this.resetChangesButton.Name = "resetChangesButton";
             this.resetChangesButton.Size = new System.Drawing.Size(130, 23);
             this.resetChangesButton.TabIndex = 31;
@@ -290,7 +292,7 @@
             // 
             // upButton
             // 
-            this.upButton.Location = new System.Drawing.Point(138, 577);
+            this.upButton.Location = new System.Drawing.Point(138, 606);
             this.upButton.Name = "upButton";
             this.upButton.Size = new System.Drawing.Size(45, 23);
             this.upButton.TabIndex = 32;
@@ -300,7 +302,7 @@
             // 
             // downButton
             // 
-            this.downButton.Location = new System.Drawing.Point(138, 606);
+            this.downButton.Location = new System.Drawing.Point(138, 636);
             this.downButton.Name = "downButton";
             this.downButton.Size = new System.Drawing.Size(45, 23);
             this.downButton.TabIndex = 33;
@@ -346,11 +348,30 @@
             this.tileDisplayVScrollBar.TabIndex = 37;
             this.tileDisplayVScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.HandleScrollingTileDisplay);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(213, 637);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(79, 13);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "Kollisions Level";
+            // 
+            // collisionLevelTextBox
+            // 
+            this.collisionLevelTextBox.Enabled = false;
+            this.collisionLevelTextBox.Location = new System.Drawing.Point(310, 634);
+            this.collisionLevelTextBox.Name = "collisionLevelTextBox";
+            this.collisionLevelTextBox.Size = new System.Drawing.Size(247, 20);
+            this.collisionLevelTextBox.TabIndex = 39;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 644);
+            this.ClientSize = new System.Drawing.Size(1038, 664);
+            this.Controls.Add(this.collisionLevelTextBox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.tileDisplayVScrollBar);
             this.Controls.Add(this.editorVScrollBar);
             this.Controls.Add(this.tileDisplayHScrollBar);
@@ -419,6 +440,8 @@
         private System.Windows.Forms.HScrollBar tileDisplayHScrollBar;
         private System.Windows.Forms.VScrollBar editorVScrollBar;
         private System.Windows.Forms.VScrollBar tileDisplayVScrollBar;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox collisionLevelTextBox;
     }
 }
 

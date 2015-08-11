@@ -37,6 +37,7 @@ namespace MapEditor
             offsetXTextBox.Enabled = true;
             offsetYTextBox.Enabled = true;
             tileSheetTextBox.Enabled = true;
+            collisionLevelTextBox.Enabled = true;
             saveChangesButton.Enabled = true;
             resetChangesButton.Enabled = true;
             tileDisplayHScrollBar.Enabled = true;
@@ -52,6 +53,7 @@ namespace MapEditor
             offsetXTextBox.Enabled = false;
             offsetYTextBox.Enabled = false;
             tileSheetTextBox.Enabled = false;
+            collisionLevelTextBox.Enabled = false;
             saveChangesButton.Enabled = false;
             resetChangesButton.Enabled = false;
             tileDisplayHScrollBar.Enabled = false;
@@ -235,9 +237,11 @@ namespace MapEditor
         {
             int offsetX = int.Parse(offsetXTextBox.Text);
             int offsetY = int.Parse(offsetYTextBox.Text);
+            int collisionLevel = int.Parse(collisionLevelTextBox.Text);
 
             editor1.CurrentLayer.Offset = new Vector2(offsetX, offsetY);
             editor1.CurrentLayer.TileSheet.Path = tileSheetTextBox.Text;
+            editor1.CurrentLayer.CollisionLevel = collisionLevel;
 
             editor1.Invalidate();
             tileDisplay1.Invalidate();
@@ -249,6 +253,7 @@ namespace MapEditor
             offsetXTextBox.Text = editor1.CurrentLayer.Offset.X.ToString();
             offsetYTextBox.Text = editor1.CurrentLayer.Offset.Y.ToString();
             tileSheetTextBox.Text = editor1.CurrentLayer.TileSheet.Path;
+            collisionLevelTextBox.Text = editor1.CurrentLayer.CollisionLevel.ToString();
         }
 
         private void upButton_Click (object sender, EventArgs e)

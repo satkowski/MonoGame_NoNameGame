@@ -24,11 +24,12 @@ namespace MapEditor.Maps
             Layers = new List<Layer>();
         }
 
-        public void CreateNewLayer (ContentManager content, Vector2 tileDimension, Vector2 offset, string imagePaths)
+        public void CreateNewLayer (ContentManager content, Vector2 tileDimension, Vector2 offset, int collisionLevel, string imagePaths)
         {
             Layer newLayer = new Layer();
             newLayer.TileDimensions = tileDimension;
             newLayer.Offset = offset;
+            newLayer.CollisionLevel = collisionLevel;
 
             TileSheet tileSheet = new TileSheet();
             tileSheet.Path = imagePaths;
