@@ -9,6 +9,12 @@ namespace NoNameGame.Extensions
 {
     public static class RectangleExtension
     {
+        /// <summary>
+        /// Wie tief ist die Überschneidung dieses Rechtecks mit einem anderen
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Rechteck zum berechnen der Überschneidungstiefe</param>
+        /// <returns></returns>
         public static Vector2 GetIntersectionDepth (this Rectangle rectA, Rectangle rectB)
         {
             Vector2 halfDimensionA = new Vector2(rectA.Width / 2.0f, rectA.Height / 2.0f);
@@ -28,6 +34,20 @@ namespace NoNameGame.Extensions
             depth.Y = minDistance.Y - Math.Abs(distance.Y);
 
             return depth;
+        }
+
+        /// <summary>
+        /// Befindet sich dieses Rechteck in einem anderen
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Recteck in dem sich dieses befinden soll</param>
+        /// <returns></returns>
+        public static bool In (this Rectangle rectA, Rectangle rectB)
+        {
+            return rectA.Top >= rectB.Top && rectA.Top <= rectB.Bottom &&
+                   rectA.Right <= rectB.Right && rectA.Right >= rectB.Left &&
+                   rectA.Bottom <= rectB.Bottom && rectA.Bottom >= rectB.Top &&
+                   rectA.Left >= rectB.Left && rectA.Left <= rectB.Right;
         }
     }
 }
