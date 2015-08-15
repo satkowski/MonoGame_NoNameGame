@@ -16,6 +16,14 @@ namespace NoNameGame.Entities
 {
     public class Entity
     {
+        enum CollisionType
+        {
+            None, Preview,
+            Top, Left, Bottom, Right,
+            TopLeft, TopRight, BottomRight, BottomLeft,
+            TopLeftRight, BottomLeftRight, TopBottomRight, TopBottomLeft
+        }
+
         public Image Image;
         [XmlIgnore]
         public Vector2 MoveVelocity;
@@ -55,125 +63,69 @@ namespace NoNameGame.Entities
         private void collisionHandling (Map map)
         {
             CollisionMovement = Vector2.Zero;
-            List<Rectangle> collidingEnteties = map.GetCollidingTileRectangles(Image.CurrentRectangle, CollisionLevel);
-
-            foreach (Rectangle tileRectangle in collidingEnteties)
+            if (MoveVelocity != Vector2.Zero)
             {
-                Vector2 collidingDepth = tileRectangle.GetIntersectionDepth(Image.CurrentRectangle);
-                Vector2 collidingDirection = getCollisionSolving(tileRectangle);
+                List<Rectangle> collidingRectangles = map.GetCollidingTileRectangles(Image.CurrentRectangle, CollisionLevel);
 
-                CollisionMovement = collidingDirection * collidingDepth;
+                if (collidingRectangles.Count != 0)
+                {
+                    foreach (Rectangle collisionRectangle in collidingRectangles)
+                    {
+                        Vector2 collisionSolving = collisionRectangle.GetIntersectionDepth(Image.CurrentRectangle) * getCollisionSide(collisionRectangle);
+
+                        if (MoveVelocity.X < 0)
+                            CollisionMovement.X = MathHelper.Max(CollisionMovement.X, collisionSolving.X);
+                        else if (MoveVelocity.X > 0)
+                            CollisionMovement.X = MathHelper.Min(CollisionMovement.X, collisionSolving.X);
+                        if (MoveVelocity.Y < 0)
+                            CollisionMovement.Y = MathHelper.Max(CollisionMovement.Y, collisionSolving.Y);
+                        else if (MoveVelocity.Y > 0)
+                            CollisionMovement.Y = MathHelper.Min(CollisionMovement.Y, collisionSolving.Y);
+                    }
+                }
             }
         }
 
-        private Vector2 getCollisionSolving (Rectangle entityRectangle)
+        private Vector2 getCollisionSide (Rectangle entityRectangle)
         {
-            Vector2 collision = Vector2.Zero;
-            if (entityRectangle.Intersects(Image.CurrentRectangle) && !entityRectangle.Intersects(Image.PrevRectangle))
+            Vector2 collisionHandlingDirection = Vector2.Zero;
+
+            if (MoveVelocity.X < 0 &&
+                Image.CurrentRectangle.Left < entityRectangle.Right && Image.CurrentRectangle.Left > entityRectangle.Left)
+                collisionHandlingDirection.X = 1;
+            else if(MoveVelocity.X > 0 &&
+                    Image.CurrentRectangle.Right > entityRectangle.Left && Image.CurrentRectangle.Right < entityRectangle.Right)
+                collisionHandlingDirection.X = -1;
+
+            if (MoveVelocity.Y < 0 &&
+                    Image.CurrentRectangle.Top < entityRectangle.Bottom && Image.CurrentRectangle.Top > entityRectangle.Top)
+                collisionHandlingDirection.Y = 1;
+            else if (MoveVelocity.Y > 0 &&
+                    Image.CurrentRectangle.Bottom > entityRectangle.Top && Image.CurrentRectangle.Bottom < entityRectangle.Bottom)
+                collisionHandlingDirection.Y = -1;
+
+            if (collisionHandlingDirection.X != 0 && collisionHandlingDirection.Y != 0)
             {
-                // welche Seite vom Tile ist mit dem Spieler kollidiert
-                bool leftTileCollision = Image.CurrentRectangle.Right > entityRectangle.Left &&
-                                         Image.CurrentRectangle.Right < entityRectangle.Right;
-                bool rightTileCollision = Image.CurrentRectangle.Left < entityRectangle.Right &&
-                                          Image.CurrentRectangle.Left > entityRectangle.Left;
-                bool topTileCollision = Image.CurrentRectangle.Bottom > entityRectangle.Top &&
-                                        Image.CurrentRectangle.Bottom < entityRectangle.Bottom;
-                bool bottomTileCollision = Image.CurrentRectangle.Top < entityRectangle.Bottom &&
-                                           Image.CurrentRectangle.Top > entityRectangle.Top;
+                float verticalDiff = 0;
+                float horizontalDiff = 0;
 
-                bool playerDirChangeX = Image.PrevRectangle.Right != Image.CurrentRectangle.Right ||
-                                        Image.PrevRectangle.Left != Image.CurrentRectangle.Left;
-                bool playerDirChangeY = Image.PrevRectangle.Bottom != Image.CurrentRectangle.Bottom ||
-                                        Image.PrevRectangle.Top != Image.CurrentRectangle.Top;
+                if (collisionHandlingDirection.X < 0)
+                    horizontalDiff = Image.CurrentRectangle.Right - entityRectangle.Left;
+                else if (collisionHandlingDirection.X > 0)
+                    horizontalDiff = entityRectangle.Right - Image.CurrentRectangle.Left;
 
-                if (bottomTileCollision)
-                {
-                    if (rightTileCollision)
-                    {
-                        if (leftTileCollision)
-                            collision.Y = 1;
-                        else
-                        {
-                            if (playerDirChangeX)
-                            {
-                                if (playerDirChangeY)
-                                    collision.Y = 1;
-                                else
-                                    collision.X = 1;
-                            }
-                            else
-                                if (playerDirChangeY)
-                                    collision.Y = 1;
-                        }
-                    }
-                    else if (leftTileCollision)
-                    {
-                        if (playerDirChangeX)
-                        {
-                            if (playerDirChangeY)
-                                collision.Y = 1;
-                            else
-                                collision.X = -1;
-                        }
-                        else
-                            if (playerDirChangeY)
-                                collision.Y = 1;
-                    }
-                    else
-                        collision.Y = 1;
-                }
-                else if (topTileCollision)
-                {
-                    if (rightTileCollision)
-                    {
-                        if (leftTileCollision)
-                            collision.Y = -1;
-                        else
-                        {
-                            if (playerDirChangeX)
-                            {
-                                if (playerDirChangeY)
-                                    collision.Y = -1;
-                                else
-                                    collision.X = 1;
-                            }
-                            else
-                                if (playerDirChangeY)
-                                    collision.Y = -1;
-                        }
-                    }
-                    else if (leftTileCollision)
-                    {
-                        if (playerDirChangeX)
-                        {
-                            if (playerDirChangeY)
-                                collision.Y = -1;
-                            else
-                                collision.X = -1;
-                        }
-                        else
-                            if (playerDirChangeY)
-                                collision.Y = -1;
-                    }
-                    else
-                        collision.Y = -1;
-                }
-                else if (leftTileCollision)
-                {
-                    //if (topTileCollision && bottomTileCollision)
-                    //    collision.X = -1;
-                    //else
-                    collision.X = -1;
-                }
-                else if (rightTileCollision)
-                {
-                    //if (topTileCollision && bottomTileCollision)
-                    //    collision.X = 1;
-                    //else
-                    collision.X = 1;
-                }
+                if (collisionHandlingDirection.Y < 0)
+                    verticalDiff = Image.CurrentRectangle.Bottom - entityRectangle.Top;
+                else if (collisionHandlingDirection.Y > 0)
+                    verticalDiff = entityRectangle.Bottom - Image.CurrentRectangle.Top;
+
+                if (verticalDiff <= horizontalDiff)
+                    collisionHandlingDirection.X = 0;
+                else
+                    collisionHandlingDirection.Y = 0;
             }
-            return collision;
+
+            return collisionHandlingDirection;
         }
     }
 }
