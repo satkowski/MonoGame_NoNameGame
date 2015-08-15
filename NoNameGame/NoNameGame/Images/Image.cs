@@ -19,7 +19,6 @@ namespace NoNameGame.Images
         Vector2 scaleOrigin;
         ContentManager content;
         Vector2 position;
-        Vector2 offset;
 
         [XmlIgnore]
         public Texture2D Texture;
@@ -39,17 +38,7 @@ namespace NoNameGame.Images
                     OnPositionChange(position, null);
             }
         }
-        public Vector2 Offset
-        {
-            get { return offset; }
-            set
-            {
-                offset = value;
-                updateRectangles();
-                if (OnPositionChange != null)
-                    OnPositionChange(position, null);
-            }
-        }
+        public Vector2 Offset;
         public Rectangle SourceRectangle;
         public Rectangle CurrentRectangle;
         public Rectangle PrevRectangle;
@@ -71,6 +60,8 @@ namespace NoNameGame.Images
             Color = Color.White;
             origin = Vector2.Zero;
             scaleOrigin = Vector2.Zero;
+
+            Offset = Vector2.Zero;
         }
 
         public void LoadContent ()
@@ -95,7 +86,7 @@ namespace NoNameGame.Images
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position + scaleOrigin, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(Texture, Position + scaleOrigin + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
 
         private void updateRectangles ()
@@ -104,7 +95,7 @@ namespace NoNameGame.Images
             scaleOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
 
             PrevRectangle = CurrentRectangle;
-            CurrentRectangle = new Rectangle((int)(Position.X + Offset.X), (int)(Position.Y + Offset.Y),
+            CurrentRectangle = new Rectangle((int)(position.X), (int)(position.Y),
                                              (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
         }
     }

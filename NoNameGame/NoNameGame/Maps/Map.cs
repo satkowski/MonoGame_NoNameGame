@@ -20,8 +20,6 @@ namespace NoNameGame.Maps
 
         [XmlIgnore]
         public Rectangle CamMovingRectangle { private set; get; }
-        [XmlIgnore]
-        public Vector2 Offset;
 
         public Map ()
         {
@@ -29,7 +27,6 @@ namespace NoNameGame.Maps
             Position = Vector2.Zero;
 
             CamMovingRectangle = Rectangle.Empty;
-            Offset = Vector2.Zero;
         }
 
         public void LoadContent ()

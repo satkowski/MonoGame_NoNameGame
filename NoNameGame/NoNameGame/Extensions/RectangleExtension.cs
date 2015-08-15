@@ -37,16 +37,26 @@ namespace NoNameGame.Extensions
         }
 
         /// <summary>
-        /// Befindet sich dieses Rechteck in einem anderen
+        /// Befindet sich dieses Rechteck in einem anderen auf der Y-Achse
         /// </summary>
         /// <param name="rectA">Dieses Rechteck</param>
         /// <param name="rectB">Das Recteck in dem sich dieses befinden soll</param>
         /// <returns></returns>
-        public static bool In (this Rectangle rectA, Rectangle rectB)
+        public static bool InVerticalDirection (this Rectangle rectA, Rectangle rectB)
         {
             return rectA.Top >= rectB.Top && rectA.Top <= rectB.Bottom &&
-                   rectA.Right <= rectB.Right && rectA.Right >= rectB.Left &&
-                   rectA.Bottom <= rectB.Bottom && rectA.Bottom >= rectB.Top &&
+                   rectA.Bottom <= rectB.Bottom && rectA.Bottom >= rectB.Top;
+        }
+
+        /// <summary>
+        /// Befindet sich dieses Rechteck in einem anderen auf der X-Achse
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Recteck in dem sich dieses befinden soll</param>
+        /// <returns></returns>
+        public static bool InHorizontalDirection (this Rectangle rectA, Rectangle rectB)
+        {
+            return rectA.Right <= rectB.Right && rectA.Right >= rectB.Left &&
                    rectA.Left >= rectB.Left && rectA.Left <= rectB.Right;
         }
     }

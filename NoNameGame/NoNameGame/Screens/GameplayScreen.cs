@@ -48,12 +48,17 @@ namespace NoNameGame.Screens
             Map.Update(gameTime);
             Player.Update(gameTime, Map);
 
-            if (Player.Image.CurrentRectangle.In(Map.CamMovingRectangle))
+            Vector2 offsetChange = Vector2.Zero;
+            if (Player.Image.CurrentRectangle.InVerticalDirection(Map.CamMovingRectangle))
+                offsetChange.Y -= Player.MoveVelocity.Y + Player.CollisionMovement.Y;
+            if (Player.Image.CurrentRectangle.InHorizontalDirection(Map.CamMovingRectangle))
+                offsetChange.X -= Player.MoveVelocity.X + Player.CollisionMovement.X;
+
+            if (offsetChange != Vector2.Zero)
             {
-                Vector2 offsetChange = new Vector2(Player.Image.CurrentRectangle.X - Player.Image.PrevRectangle.X,
-                                                   Player.Image.CurrentRectangle.Y - Player.Image.PrevRectangle.Y);
-                Map.Offset += offsetChange;
-                Player.Offset += offsetChange;
+                foreach (Layer layer in Map.Layers)
+                    layer.TileSheet.Offset += offsetChange;
+                Player.Image.Offset += offsetChange;
             }
         }
 
