@@ -21,6 +21,8 @@ namespace NoNameGame.Maps
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
         public int CollisionLevel;
+        [XmlIgnore]
+        public Vector2 Size { private set; get; }
 
         public Layer ()
         {
@@ -29,6 +31,7 @@ namespace NoNameGame.Maps
             tileMap = new List<Tile>();
             TileDimensions = Vector2.Zero;
             CollisionLevel = -1;
+            Size = Vector2.Zero;
         }
 
         public void LoadContent ()
@@ -36,6 +39,7 @@ namespace NoNameGame.Maps
             TileSheet.LoadContent();
 
             Vector2 position = -Vector2.One;
+            int maxX = 0;
             foreach (string row in TileMapString.Rows)
             {
                 position.Y++;
@@ -69,8 +73,10 @@ namespace NoNameGame.Maps
                         }
                     }
                 }
+                maxX = maxX < position.X ? (int)position.X : maxX;
                 position.X = -1;
             }
+            Size = new Vector2(maxX, tileMap.Count) * TileDimensions;
         }
 
         public void UnloadContent ()

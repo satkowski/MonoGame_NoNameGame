@@ -22,11 +22,16 @@ namespace NoNameGame.Entities
         public Vector2 CollisionMovement;
         public int CollisionLevel;
 
+        [XmlIgnore]
+        public Vector2 Offset;
+
         protected Entity ()
         {
             MoveVelocity = Vector2.Zero;
             CollisionMovement = Vector2.Zero;
             CollisionLevel = 0;
+
+            Offset = Vector2.Zero;
         }
 
         public virtual void LoadContent ()

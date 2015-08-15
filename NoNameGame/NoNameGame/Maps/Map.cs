@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NoNameGame.Managers;
 
 namespace NoNameGame.Maps
 {
@@ -17,16 +18,34 @@ namespace NoNameGame.Maps
         [XmlIgnore]
         public Vector2 Position;
 
+        [XmlIgnore]
+        public Rectangle CamMovingRectangle { private set; get; }
+        [XmlIgnore]
+        public Vector2 Offset;
+
         public Map ()
         {
             Layers = new List<Layer>();
             Position = Vector2.Zero;
+
+            CamMovingRectangle = Rectangle.Empty;
+            Offset = Vector2.Zero;
         }
 
         public void LoadContent ()
         {
+            Vector2 maxLayerSize = Vector2.Zero;
             foreach (Layer layer in Layers)
+            {
                 layer.LoadContent();
+                maxLayerSize.X = maxLayerSize.X < layer.Size.X ? layer.Size.X : maxLayerSize.X;
+                maxLayerSize.Y = maxLayerSize.Y < layer.Size.Y ? layer.Size.Y : maxLayerSize.Y;
+            }
+
+            CamMovingRectangle = new Rectangle((int)(ScreenManager.Instance.Dimensions.X / 4),
+                                               (int)(ScreenManager.Instance.Dimensions.Y / 4),
+                                               (int)(maxLayerSize.X - ScreenManager.Instance.Dimensions.X / 2),
+                                               (int)(maxLayerSize.Y - ScreenManager.Instance.Dimensions.Y / 2));
         }
 
         public void UnloadContent ()

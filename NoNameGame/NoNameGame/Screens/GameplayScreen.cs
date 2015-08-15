@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Maps;
 using NoNameGame.Managers;
 using NoNameGame.Entities;
+using NoNameGame.Extensions;
 
 namespace NoNameGame.Screens
 {
@@ -46,6 +47,14 @@ namespace NoNameGame.Screens
         {
             Map.Update(gameTime);
             Player.Update(gameTime, Map);
+
+            if (Player.Image.CurrentRectangle.In(Map.CamMovingRectangle))
+            {
+                Vector2 offsetChange = new Vector2(Player.Image.CurrentRectangle.X - Player.Image.PrevRectangle.X,
+                                                   Player.Image.CurrentRectangle.Y - Player.Image.PrevRectangle.Y);
+                Map.Offset += offsetChange;
+                Player.Offset += offsetChange;
+            }
         }
 
         public override void Draw (SpriteBatch spriteBatch)
