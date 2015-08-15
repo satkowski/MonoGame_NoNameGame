@@ -16,14 +16,6 @@ namespace NoNameGame.Entities
 {
     public class Entity
     {
-        enum CollisionType
-        {
-            None, Preview,
-            Top, Left, Bottom, Right,
-            TopLeft, TopRight, BottomRight, BottomLeft,
-            TopLeftRight, BottomLeftRight, TopBottomRight, TopBottomLeft
-        }
-
         public Image Image;
         [XmlIgnore]
         public Vector2 MoveVelocity;
