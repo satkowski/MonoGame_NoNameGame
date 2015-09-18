@@ -1,5 +1,3 @@
-using System;
-
 namespace NoNameGame
 {
 #if WINDOWS || XBOX
