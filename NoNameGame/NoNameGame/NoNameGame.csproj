@@ -75,6 +75,10 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\UserControlledEntity.cs" />
     <Compile Include="Extensions\RectangleExtension.cs" />
+    <Compile Include="Images\Effects\ImageEffect.cs" />
+    <Compile Include="Images\Effects\RotationEffect.cs" />
+    <Compile Include="Images\Effects\ScalingEffect.cs" />
+    <Compile Include="Images\Effects\SpriteEffect.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TileSheet.cs" />
     <Compile Include="Managers\InputManager.cs" />
