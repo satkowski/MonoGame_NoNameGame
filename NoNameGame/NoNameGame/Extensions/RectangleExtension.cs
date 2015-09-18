@@ -59,5 +59,52 @@ namespace NoNameGame.Extensions
             return rectA.Right <= rectB.Right && rectA.Right >= rectB.Left &&
                    rectA.Left >= rectB.Left && rectA.Left <= rectB.Right;
         }
+
+        /// <summary>
+        /// Überschneidet dieses Rechteck ein anderes auf der linken Seite
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Recteck welches überschnitten sein soll</param>
+        /// <returns></returns>
+        public static bool OverlapLeft (this Rectangle rectA, Rectangle rectB)
+        {
+            return rectA.Right <= rectB.Right && rectA.Right >= rectB.Left;
+        }
+
+
+        /// <summary>
+        /// Überschneidet dieses Rechteck ein anderes auf der rechten Seite
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Recteck welches überschnitten sein soll</param>
+        /// <returns></returns>
+        public static bool OverlapRight (this Rectangle rectA, Rectangle rectB)
+        {
+            return rectA.Left >= rectB.Left && rectA.Left <= rectB.Right;
+        }
+
+
+        /// <summary>
+        /// Überschneidet dieses Rechteck ein anderes auf der oberen Seite
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Recteck welches überschnitten sein soll</param>
+        /// <returns></returns>
+        public static bool OverlapTop (this Rectangle rectA, Rectangle rectB)
+        {
+            return rectA.Bottom <= rectB.Bottom && rectA.Bottom >= rectB.Top;
+        }
+
+
+        /// <summary>
+        /// Überschneidet dieses Rechteck ein anderes auf der unteren Seite
+        /// </summary>
+        /// <param name="rectA">Dieses Rechteck</param>
+        /// <param name="rectB">Das Recteck welches überschnitten sein soll</param>
+        /// <returns></returns>
+        public static bool OverlapBottom (this Rectangle rectA, Rectangle rectB)
+        {
+            return rectA.Top >= rectB.Top && rectA.Top <= rectB.Bottom;
+        }
     }
 }

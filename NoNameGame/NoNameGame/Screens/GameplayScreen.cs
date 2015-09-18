@@ -45,21 +45,40 @@ namespace NoNameGame.Screens
 
         public override void Update (GameTime gameTime)
         {
-            Map.Update(gameTime);
             Player.Update(gameTime, Map);
+            Map.Update(gameTime);
 
-            Vector2 offsetChange = Vector2.Zero;
-            if (Player.Image.CurrentRectangle.InVerticalDirection(Map.CamMovingRectangle))
-                offsetChange.Y -= Player.MoveVelocity.Y + Player.CollisionMovement.Y;
-            if (Player.Image.CurrentRectangle.InHorizontalDirection(Map.CamMovingRectangle))
-                offsetChange.X -= Player.MoveVelocity.X + Player.CollisionMovement.X;
+            Player.Image.Offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position;
+            foreach (Layer layer in Map.Layers)
+                layer.TileSheet.Offset = Player.Image.Offset;
 
-            if (offsetChange != Vector2.Zero)
-            {
-                foreach (Layer layer in Map.Layers)
-                    layer.TileSheet.Offset += offsetChange;
-                Player.Image.Offset += offsetChange;
-            }
+            //Vector2 actualOffset = Player.Image.Offset;
+            //Vector2 offsetChange = Vector2.Zero;
+            //if (Player.Image.CurrentRectangle.InVerticalDirection(Map.CamMovingRectangle))
+            //    offsetChange.Y -= Player.MoveVelocity.Y + Player.CollisionMovement.Y;
+            //else
+            //{
+            //    if (Player.Image.CurrentRectangle.OverlapTop(Map.CamMovingRectangle))
+            //        offsetChange.Y = -actualOffset.Y;
+            //    else if (Player.Image.CurrentRectangle.OverlapBottom(Map.CamMovingRectangle))
+            //        offsetChange.Y = ScreenManager.Instance.Dimensions.Y / 2 + actualOffset.Y;
+            //}
+            //if (Player.Image.CurrentRectangle.InHorizontalDirection(Map.CamMovingRectangle))
+            //    offsetChange.X -= Player.MoveVelocity.X + Player.CollisionMovement.X;
+            //else
+            //{
+            //    if (Player.Image.CurrentRectangle.OverlapLeft(Map.CamMovingRectangle))
+            //        offsetChange.X = -actualOffset.X;
+            //    else if (Player.Image.CurrentRectangle.OverlapRight(Map.CamMovingRectangle))
+            //        offsetChange.X = ScreenManager.Instance.Dimensions.X / 2 + actualOffset.X;
+            //}
+
+            //if (offsetChange != Vector2.Zero)
+            //{
+            //    foreach (Layer layer in Map.Layers)
+            //        layer.TileSheet.Offset += offsetChange;
+            //    Player.Image.Offset += offsetChange;
+            //}
         }
 
         public override void Draw (SpriteBatch spriteBatch)
