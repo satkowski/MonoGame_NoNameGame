@@ -18,16 +18,20 @@ namespace NoNameGame.Entities
         public Vector2 MoveVelocity;
         public Vector2 CollisionMovement;
         public int CollisionLevel;
+        [XmlElement("Effect")]
+        public List<string> Effects;
 
         protected Entity ()
         {
             MoveVelocity = Vector2.Zero;
             CollisionMovement = Vector2.Zero;
             CollisionLevel = 0;
+            Effects = new List<string>();
         }
 
         public virtual void LoadContent ()
         {
+            Image.Effects = Effects;
             Image.LoadContent();
         }
 

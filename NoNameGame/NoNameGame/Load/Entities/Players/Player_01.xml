@@ -1,12 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <UserControlledEntity>
-  <MoveSpeed>220</MoveSpeed>
+  <MoveSpeed>220</MoveSpeed>  
+  <Effect>SpriteEffect-Always</Effect>
+  <Effect>RotationEffect</Effect>
+  
   <Image>
-    <Path>Entities/Players/Player_01_Part01</Path>
+    <Path>Entities/Players/Player_01</Path>
     <Scale>0.45</Scale>
     <Position>
       <X>90</X>
       <Y>90</Y>
     </Position>
+
+    <SpriteEffectAlways>
+      <CicleDirection>Left</CicleDirection>
+      <SpriteType>Always</SpriteType>
+      <Offset>1</Offset>
+      <SheetSize>
+        <X>12</X>
+        <Y>1</Y>
+      </SheetSize>
+      <ChangeSpeed>150</ChangeSpeed>
+    </SpriteEffectAlways>
+
+    <RotationEffect>
+      <CicleDirection>Right</CicleDirection>
+      <RotationDirection>Clockwise</RotationDirection>
+      <RotationPerMillisecond>0.08</RotationPerMillisecond>
+    </RotationEffect>
   </Image>
 </UserControlledEntity>

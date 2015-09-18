@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using System.Xml.Serialization;
 
@@ -7,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Managers;
+using NoNameGame.Images.Effects;
 
 namespace NoNameGame.Images
 {
@@ -16,6 +18,7 @@ namespace NoNameGame.Images
         Vector2 scaleOrigin;
         ContentManager content;
         Vector2 position;
+        Dictionary<string, ImageEffect> effectList;
 
         [XmlIgnore]
         public Texture2D Texture;
@@ -42,6 +45,14 @@ namespace NoNameGame.Images
         public int MergeOffset;
 
         public event EventHandler OnPositionChange;
+        
+        [XmlElement("Effect")]
+        public List<String> Effects;
+        public ScalingEffect ScalingEffect;
+        public RotationEffect RotationEffect;
+        public SpriteEffect SpriteEffectMoving;
+        public SpriteEffect SpriteEffectStanding;
+        public SpriteEffect SpriteEffectAlways;
 
         public Image ()
         {
@@ -57,8 +68,9 @@ namespace NoNameGame.Images
             Color = Color.White;
             origin = Vector2.Zero;
             scaleOrigin = Vector2.Zero;
-
             Offset = Vector2.Zero;
+            effectList = new Dictionary<string, ImageEffect>();
+            Effects = new List<string>();
         }
 
         public void LoadContent ()
@@ -67,8 +79,15 @@ namespace NoNameGame.Images
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);
-            if (SourceRectangle == Rectangle.Empty)
-                SourceRectangle = Texture.Bounds;
+
+            // Setzen der Effekte
+            setEffect<ScalingEffect>(ref ScalingEffect);
+            setEffect<RotationEffect>(ref RotationEffect);
+            setEffect<SpriteEffect>(ref SpriteEffectMoving, "Moving");
+            setEffect<SpriteEffect>(ref SpriteEffectStanding, "Standing");
+            setEffect<SpriteEffect>(ref SpriteEffectAlways, "Always");
+            foreach(string effectName in Effects)
+                ActivateEffect(effectName);
         }
 
         public void UnloadContent ()
@@ -78,6 +97,9 @@ namespace NoNameGame.Images
 
         public void Update (GameTime gameTime)
         {
+            foreach(var effect in effectList)
+                effect.Value.Update(gameTime);
+
             updateRectangles();
         }
 
@@ -94,6 +116,43 @@ namespace NoNameGame.Images
             PrevRectangle = CurrentRectangle;
             CurrentRectangle = new Rectangle((int)(position.X), (int)(position.Y),
                                              (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
+        }
+
+        void setEffect<T>(ref T effect, string effectName = "")
+        {
+            if(effect == null)
+                effect = (T)Activator.CreateInstance(typeof(T));
+            else
+            {
+                (effect as ImageEffect).IsActive = true;
+                var obj = this;
+                (effect as ImageEffect).LoadContent(ref obj);
+            }
+            if(effectName != "")
+                effectName = effectName.Insert(0, "-");
+
+            string effectKeyName = effect.GetType().ToString().Replace("NoNameGame.Images.Effects.", "") + effectName;
+            if(Effects.Contains(effectKeyName))
+                effectList.Add(effectKeyName, (effect as ImageEffect));
+        }
+
+        public void ActivateEffect(string effectName)
+        {
+            if(effectList.ContainsKey(effectName))
+            {
+                effectList[effectName].IsActive = true;
+                var obj = this;
+                effectList[effectName].LoadContent(ref obj);
+            }
+        }
+
+        public void DeactivateEffect(string effectName)
+        {
+            if(effectList.ContainsKey(effectName))
+            {
+                effectList[effectName].IsActive = false;
+                effectList[effectName].UnloadContent();
+            }
         }
     }
 }
