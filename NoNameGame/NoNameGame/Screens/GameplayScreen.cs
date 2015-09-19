@@ -43,7 +43,8 @@ namespace NoNameGame.Screens
             Player.Update(gameTime, Map);
             Map.Update(gameTime);
 
-            Player.Image.Offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position;
+            Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position;
+            Player.Image.Offset = new Vector2((int)offset.X, (int)offset.Y);
             foreach (Layer layer in Map.Layers)
                 layer.TileSheet.Offset = Player.Image.Offset;
 

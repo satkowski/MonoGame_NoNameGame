@@ -90,8 +90,8 @@ namespace NoNameGame.Maps
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            foreach (Tile tile in tileMap)
-                tile.Draw(spriteBatch);
+            foreach(Tile tile in tileMap)
+                TileSheet.Draw(spriteBatch, tile);
         }
 
         public List<Rectangle> GetCollidingTileRectangles (Rectangle entityRectangle)

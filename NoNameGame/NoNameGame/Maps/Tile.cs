@@ -61,10 +61,5 @@ namespace NoNameGame.Maps
                                                         (int)(DestinationPosition.Y + layer.Offset.Y),
                                                         (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
         }
-
-        public void Draw (SpriteBatch spriteBatch)
-        {
-            layer.TileSheet.Draw(spriteBatch, this);
-        }
     }
 }
