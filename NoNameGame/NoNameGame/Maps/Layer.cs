@@ -12,16 +12,28 @@ namespace NoNameGame.Maps
 {
     public class Layer
     {
+        float scale;
         List<Tile> tileMap;
 
         public TileSheet TileSheet;
         public Vector2 Offset;
-        public float Scale;
+        public float Scale
+        {
+            get { return scale; }
+            set
+            {
+                scale = value;
+                if(OnScaleChange != null)
+                    OnScaleChange(null, null);
+            }
+        }
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
         public int CollisionLevel;
         [XmlIgnore]
         public Vector2 Size { private set; get; }
+
+        public event EventHandler OnScaleChange;
 
         public Layer ()
         {
@@ -68,7 +80,7 @@ namespace NoNameGame.Maps
                             else
                                 rotation = 0.0f;
 
-                            newTile.LoadContent(this, new Vector2(valueX, valueY), position * TileDimensions, rotation);
+                            newTile.LoadContent(this, new Vector2(valueX, valueY), position * TileDimensions * Scale, rotation);
                             tileMap.Add(newTile);
                         }
                     }
