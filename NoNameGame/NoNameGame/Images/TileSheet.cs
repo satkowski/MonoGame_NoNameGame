@@ -19,6 +19,7 @@ namespace NoNameGame.Images
         public Texture2D Texture;
         public string Path;
         public float Alpha;
+        public float Scale;
         public Color Color;
 
         public Vector2 Offset;
@@ -27,6 +28,7 @@ namespace NoNameGame.Images
         {
             Alpha = 1.0f;
             Path = String.Empty;
+            Scale = 1.0f;
             Color = Color.White;
 
             Offset = Vector2.Zero;
@@ -49,10 +51,10 @@ namespace NoNameGame.Images
         {
         }
 
-        public void Draw (SpriteBatch spriteBatch, Tile tile)
+        public void Draw (SpriteBatch spriteBatch, float scale, Tile tile)
         {
             spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + Offset, tile.TileSheetRectangle, Color * Alpha, 
-                             tile.Rotation.GetRotationValue(), tile.Origin, tile.Scale, SpriteEffects.None, 0.0f);
+                             tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
         }
     }
 }

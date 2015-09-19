@@ -84,6 +84,8 @@
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />
+    <Compile Include="Maps\Effects\MapEffect.cs" />
+    <Compile Include="Maps\Effects\ZoomingEffect.cs" />
     <Compile Include="Maps\Layer.cs" />
     <Compile Include="Maps\Map.cs" />
     <Compile Include="Maps\Tile.cs" />

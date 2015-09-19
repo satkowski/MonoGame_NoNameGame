@@ -16,6 +16,7 @@ namespace NoNameGame.Maps
 
         public TileSheet TileSheet;
         public Vector2 Offset;
+        public float Scale;
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
         public int CollisionLevel;
@@ -25,6 +26,7 @@ namespace NoNameGame.Maps
         public Layer ()
         {
             Offset = Vector2.Zero;
+            Scale = 1.0f;
             TileMapString = new TileMapString();
             tileMap = new List<Tile>();
             TileDimensions = Vector2.Zero;
@@ -91,7 +93,7 @@ namespace NoNameGame.Maps
         public void Draw (SpriteBatch spriteBatch)
         {
             foreach(Tile tile in tileMap)
-                TileSheet.Draw(spriteBatch, tile);
+                TileSheet.Draw(spriteBatch, Scale, tile);
         }
 
         public List<Rectangle> GetCollidingTileRectangles (Rectangle entityRectangle)

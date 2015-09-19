@@ -19,7 +19,6 @@ namespace NoNameGame.Maps
         private Layer layer;
         
         public TileRotation Rotation;
-        public float Scale;
         public Vector2 DestinationPosition;
         public Rectangle TileSheetRectangle;
         [XmlIgnore]
@@ -32,7 +31,6 @@ namespace NoNameGame.Maps
         public Tile ()
         {
             Rotation = TileRotation.None;
-            Scale = 1.0f;
             DestinationPosition = Vector2.Zero;
             TileSheetRectangle = Rectangle.Empty;
             PrevDestinationRectangle = Rectangle.Empty;
@@ -51,7 +49,7 @@ namespace NoNameGame.Maps
             Origin = new Vector2(TileSheetRectangle.Width / 2, TileSheetRectangle.Height / 2);
 
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), (int)(DestinationPosition.Y + layer.Offset.Y),
-                                                        (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
+                                                        (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
 
         public void Update (GameTime gameTime)
@@ -59,7 +57,7 @@ namespace NoNameGame.Maps
             PrevDestinationRectangle = CurrentDestinationRectangle;
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), 
                                                         (int)(DestinationPosition.Y + layer.Offset.Y),
-                                                        (int)(TileSheetRectangle.Width * Scale), (int)(TileSheetRectangle.Height * Scale));
+                                                        (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
     }
 }
