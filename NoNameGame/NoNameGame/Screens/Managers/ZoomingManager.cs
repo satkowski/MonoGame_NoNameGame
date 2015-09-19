@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using NoNameGame.Maps;
 using NoNameGame.Entities;
 
-namespace NoNameGame.Managers
+namespace NoNameGame.Screens.Managers
 {
     public class ZoomingManager
     {
