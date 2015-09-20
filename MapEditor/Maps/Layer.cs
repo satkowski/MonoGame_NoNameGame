@@ -93,8 +93,8 @@ namespace MapEditor.Maps
 
         public void ReplaceTiles (Vector2 postion, Rectangle selectedRegion, Vector2 windowPosition)
         {
-            Vector2 startIndex = new Vector2((postion.X + windowPosition.X) / TileDimensions.X, 
-                                             (postion.Y + windowPosition.Y) / TileDimensions.Y);
+            Vector2 startIndex = new Vector2((postion.X + windowPosition.X) / (TileDimensions.X * Scale), 
+                                             (postion.Y + windowPosition.Y) / (TileDimensions.Y * Scale));
             Vector2 tileIndex = new Vector2(selectedRegion.X, selectedRegion.Y - 1);
             Vector2 mapIndex = Vector2.Zero;
 
@@ -116,14 +116,9 @@ namespace MapEditor.Maps
 
                     try
                     {
-                        //if (tileMap[cY][cX] == null)
-                        //{
-                        //    tileMap[cY][cX] = new Tile();
-                        //    tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, Tile.TileRotation.None);
-                        //}
                         tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
                         tileMap[cY][cX].TileSheetRectangle.Y = (int)(mapIndex.Y * TileDimensions.Y);
-                        tileMap[cY][cX].Rotation = MapEditor.WindowParts.Tile.Rotation;
+                        tileMap[cY][cX].Rotation = WindowParts.Tile.Rotation;
                     }
                     catch (Exception e) // Wenn die jetzige Map zu klein ist, wird diese erweitert
                     {
@@ -161,7 +156,7 @@ namespace MapEditor.Maps
             int maxX = 0;
             foreach(List<Tile> row in tileMap)
                 maxX = maxX < row.Count ? row.Count : maxX;
-            Size = new Vector2(maxX, tileMap.Count) * TileDimensions;
+            Size = new Vector2(maxX, tileMap.Count) * TileDimensions * Scale;
         }
 
         public void Initialize (ContentManager content)
@@ -214,7 +209,7 @@ namespace MapEditor.Maps
                 position.X = -1;
                 maxX = maxX < tempTileMap.Count ? tempTileMap.Count : maxX;
             }
-            size = new Vector2(maxX, tileMap.Count) * TileDimensions;
+            size = new Vector2(maxX, tileMap.Count) * TileDimensions * Scale;
         }
 
         public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)

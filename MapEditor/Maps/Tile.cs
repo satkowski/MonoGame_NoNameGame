@@ -49,7 +49,7 @@ namespace MapEditor.Maps
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
-            CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), (int)(DestinationPosition.Y + layer.Offset.Y),
+            CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X * layer.Scale), (int)(DestinationPosition.Y + layer.Offset.Y * layer.Scale),
                                                         (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
 

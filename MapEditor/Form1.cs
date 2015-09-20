@@ -124,8 +124,8 @@ namespace MapEditor
             scrollMaxX = scrollMaxX < 0 ? 0 : scrollMaxX;
             scrollMaxY = scrollMaxY < 0 ? 0 : scrollMaxY;
 
-            editorHScrollBar.Maximum = scrollMaxX + 3 * (int)editor1.CurrentLayer.TileDimensions.X;
-            editorVScrollBar.Maximum = scrollMaxY + 3 * (int)editor1.CurrentLayer.TileDimensions.Y;
+            editorHScrollBar.Maximum = scrollMaxX + 3 * (int)(editor1.CurrentLayer.TileDimensions.X * editor1.CurrentLayer.Scale);
+            editorVScrollBar.Maximum = scrollMaxY + 3 * (int)(editor1.CurrentLayer.TileDimensions.Y * editor1.CurrentLayer.Scale);
         }
 
         void tileDisplayLayerChanged ()
