@@ -8,8 +8,8 @@
     <Path>Entities/Players/Player_01</Path>
     <Scale>0.45</Scale>
     <Position>
-      <X>100</X>
-      <Y>100</Y>
+      <X>500</X>
+      <Y>500</Y>
     </Position>
 
     <SpriteEffectAlways>

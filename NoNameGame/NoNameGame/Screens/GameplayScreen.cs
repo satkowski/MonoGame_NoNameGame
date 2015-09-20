@@ -30,7 +30,7 @@ namespace NoNameGame.Screens
             base.LoadContent();
 
             XmlManager<Map> mapLoader = new XmlManager<Map>();
-            Map = mapLoader.Load("Load/Maps/Map_004.xml");
+            Map = mapLoader.Load("Load/Maps/Map_005.xml");
             Map.LoadContent();
 
             XmlManager<UserControlledEntity> playerLoader = new XmlManager<UserControlledEntity>();
