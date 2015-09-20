@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace NoNameGame.Extensions
 {
@@ -6,7 +7,8 @@ namespace NoNameGame.Extensions
     {
         public static Vector2 ConvertToIntVector2(this Vector2 vector)
         {
-            return new Vector2((int)vector.X, (int)vector.Y);
+            return new Vector2((int)Math.Round(vector.X, MidpointRounding.ToEven), 
+                               (int)Math.Round(vector.Y, MidpointRounding.ToEven));
         }
     }
 }
