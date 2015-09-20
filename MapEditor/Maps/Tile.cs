@@ -29,6 +29,9 @@ namespace MapEditor.Maps
         public Rectangle CurrentDestinationRectangle { private set; get; }
         [XmlIgnore]
         public Vector2 Origin { private set; get; }
+        [XmlIgnore]
+        public Vector2 MapPosition
+        { private set; get; }
 
         public Tile ()
         {
@@ -37,13 +40,15 @@ namespace MapEditor.Maps
             TileSheetRectangle = Rectangle.Empty;
             CurrentDestinationRectangle = Rectangle.Empty;
             Origin = Vector2.Zero;
+            MapPosition = Vector2.Zero;
         }
 
-        public void Initialize(Layer layer, Vector2 tileSheetPosition, Vector2 destinationPosition, float scale, TileRotation rotation) 
+        public void Initialize(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation) 
         {
             this.layer = layer;
             Rotation = rotation;
-            DestinationPosition = destinationPosition;
+            this.MapPosition = mapPosition;
+            DestinationPosition = mapPosition * layer.TileDimensions;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
@@ -59,9 +64,9 @@ namespace MapEditor.Maps
                                                         (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
 
-        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition, Vector2 scaledFactor)
         {
-            layer.TileSheet.Draw(spriteBatch, layer.Scale, windowPosition, this);
+            layer.TileSheet.Draw(spriteBatch, layer.Scale, layer.TileDimensions, windowPosition, this, scaledFactor);
         }
     }
 }

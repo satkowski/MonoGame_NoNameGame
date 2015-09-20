@@ -45,11 +45,17 @@ namespace MapEditor.Images
                 Texture = content.Load<Texture2D>(Path);
         }
 
-        public void Draw (SpriteBatch spriteBatch, float scale, Vector2 windowPosition, Tile tile)
+        public void Draw (SpriteBatch spriteBatch, float scale, Vector2 tileDimesion, Vector2 windowPosition, Tile tile, Vector2 scaledOrigin)
         {
             if(Texture != null)
-                spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha, 
-                                 tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
+            {
+                if(scaledOrigin != Vector2.Zero)
+                    spriteBatch.Draw(Texture, tile.MapPosition * tileDimesion * scale + scaledOrigin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha,
+                                     tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
+                else
+                    spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha,
+                                     tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
+            }
         }
     }
 }

@@ -143,7 +143,7 @@ namespace MapEditor.Maps
                         if (tileMap[cY][cX] == null)
                         {
                             tileMap[cY][cX] = new Tile();
-                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY) * TileDimensions, 1.0f, Tile.TileRotation.None);
+                            tileMap[cY][cX].Initialize(this, mapIndex * TileDimensions, new Vector2(cX, cY), Tile.TileRotation.None);
                         }
 
                         tileMap[cY][cX].TileSheetRectangle.X = (int)(mapIndex.X * TileDimensions.X);
@@ -196,7 +196,7 @@ namespace MapEditor.Maps
                         else
                             rotation = 0.0f;
                         
-                        newTile.Initialize(this, new Vector2(valueX, valueY), position * TileDimensions, 1.0f, rotation);
+                        newTile.Initialize(this, new Vector2(valueX, valueY), position,rotation);
                     }
                     else
                         newTile = null;
@@ -217,7 +217,7 @@ namespace MapEditor.Maps
                 foreach (List<Tile> tileRow in tileMap)
                     foreach (Tile tile in tileRow)
                         if(tile != null)
-                            tile.Draw(spriteBatch, windowPosition);
+                            tile.Draw(spriteBatch, windowPosition, new Vector2(TileDimensions.X * Scale / 2, TileDimensions.Y * Scale / 2));
         }
 
         public void DrawTile (SpriteBatch spriteBatch, Vector2 position, float scale, Tile.TileRotation rotation)
@@ -227,8 +227,8 @@ namespace MapEditor.Maps
             TileSheet.DrawOffset = Vector2.Zero;
 
             Tile drawTile = new Tile();
-            drawTile.Initialize(this, position, Vector2.Zero, scale, rotation);
-            drawTile.Draw(spriteBatch, Vector2.Zero);
+            drawTile.Initialize(this, position, Vector2.Zero, rotation);
+            drawTile.Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
 
             TileSheet.DrawOffset = Offset;
         }
