@@ -15,7 +15,6 @@ namespace NoNameGame.Images
     public class Image
     {
         Vector2 origin;
-        Vector2 scaleOrigin;
         ContentManager content;
         Vector2 position;
         Dictionary<string, ImageEffect> effectList;
@@ -43,6 +42,8 @@ namespace NoNameGame.Images
         public Rectangle CurrentRectangle;
         public Rectangle PrevRectangle;
         public int MergeOffset;
+        [XmlIgnore]
+        public Vector2 ScaledOrigin { private set; get; }
 
         public event EventHandler OnPositionChange;
         
@@ -67,7 +68,7 @@ namespace NoNameGame.Images
             MergeOffset = 0;
             Color = Color.White;
             origin = Vector2.Zero;
-            scaleOrigin = Vector2.Zero;
+            ScaledOrigin = Vector2.Zero;
             Offset = Vector2.Zero;
             effectList = new Dictionary<string, ImageEffect>();
             Effects = new List<string>();
@@ -105,13 +106,13 @@ namespace NoNameGame.Images
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position + scaleOrigin + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(Texture, Position + ScaledOrigin + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
 
         private void updateRectangles ()
         {
             origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
-            scaleOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
+            ScaledOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
 
             PrevRectangle = CurrentRectangle;
             CurrentRectangle = new Rectangle((int)(position.X), (int)(position.Y),

@@ -63,7 +63,7 @@ namespace NoNameGame.Maps
 
         private void updateRectangle(object sender, System.EventArgs e)
         {
-            ScaledOrigin = new Vector2(TileSheetRectangle.Width * layer.Scale / 2, TileSheetRectangle.Height * layer.Scale / 2);            
+            ScaledOrigin = new Vector2(TileSheetRectangle.Width * layer.Scale / 2, TileSheetRectangle.Height * layer.Scale / 2);
             DestinationPosition =  mapPosition * layer.TileDimensions * layer.Scale;
             DestinationPosition = DestinationPosition.ConvertToIntVector2();
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X),
