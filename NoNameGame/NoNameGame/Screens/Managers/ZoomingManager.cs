@@ -62,6 +62,7 @@ namespace NoNameGame.Screens.Managers
             {
                 float oldZoom = currentZoom;
                 currentZoom += (float)gameTime.ElapsedGameTime.TotalMilliseconds * (int)Direction * ZoomingFactor;
+
                 if(currentZoom < MinZoom)
                 {
                     currentZoom = MinZoom;

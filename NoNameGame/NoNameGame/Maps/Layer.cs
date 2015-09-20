@@ -23,15 +23,23 @@ namespace NoNameGame.Maps
             set
             {
                 scale = value;
+                TileScaledOrigin = new Vector2(TileDimensions.X * Scale / 2, TileDimensions.Y * Scale / 2);
                 if(OnScaleChange != null)
                     OnScaleChange(null, null);
             }
         }
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
-        public int CollisionLevel;
         [XmlIgnore]
-        public Vector2 Size { private set; get; }
+        public Vector2 TileOrigin
+        { private set; get; }
+        [XmlIgnore]
+        public Vector2 TileScaledOrigin
+        { private set; get; }
+        [XmlIgnore]
+        public Vector2 Size
+        { private set; get; }
+        public int CollisionLevel;
 
         public event EventHandler OnScaleChange;
 
@@ -44,11 +52,15 @@ namespace NoNameGame.Maps
             TileDimensions = Vector2.Zero;
             CollisionLevel = -1;
             Size = Vector2.Zero;
+            TileScaledOrigin = Vector2.Zero;
+            TileOrigin = Vector2.Zero;
         }
 
         public void LoadContent ()
         {
             TileSheet.LoadContent();
+            TileOrigin = new Vector2(TileDimensions.X / 2, TileDimensions.Y * Scale / 2);
+            TileScaledOrigin = new Vector2(TileDimensions.X * Scale / 2, TileDimensions.Y * Scale / 2);
 
             Vector2 position = -Vector2.One;
             int maxX = 0;
@@ -105,7 +117,7 @@ namespace NoNameGame.Maps
         public void Draw (SpriteBatch spriteBatch)
         {
             foreach(Tile tile in tileMap)
-                TileSheet.Draw(spriteBatch, Scale, tile);
+                TileSheet.Draw(spriteBatch, TileOrigin, TileScaledOrigin, Scale, tile);
         }
 
         public List<Rectangle> GetCollidingTileRectangles (Rectangle entityRectangle)

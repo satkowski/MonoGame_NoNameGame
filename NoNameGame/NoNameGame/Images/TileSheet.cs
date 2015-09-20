@@ -51,10 +51,10 @@ namespace NoNameGame.Images
         {
         }
 
-        public void Draw (SpriteBatch spriteBatch, float scale, Tile tile)
+        public void Draw (SpriteBatch spriteBatch, Vector2 origin, Vector2 scaledOrigin, float scale, Tile tile)
         {
-            spriteBatch.Draw(Texture, tile.DestinationPosition + tile.ScaledOrigin + Offset, tile.TileSheetRectangle, Color * Alpha, 
-                             tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(Texture, tile.DestinationPosition + scaledOrigin + Offset, tile.TileSheetRectangle, Color * Alpha, 
+                             tile.Rotation.GetRotationValue(), origin, scale, SpriteEffects.None, 0.0f);
         }
     }
 }
