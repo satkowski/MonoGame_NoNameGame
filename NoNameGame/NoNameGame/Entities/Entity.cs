@@ -16,6 +16,8 @@ namespace NoNameGame.Entities
         public Image Image;
         [XmlIgnore]
         public Vector2 MoveVelocity;
+        [XmlIgnore]
+        public float MoveSpeedFactor;
         public Vector2 CollisionMovement;
         public int CollisionLevel;
         [XmlElement("Effect")]
@@ -24,6 +26,7 @@ namespace NoNameGame.Entities
         protected Entity ()
         {
             MoveVelocity = Vector2.Zero;
+            MoveSpeedFactor = 1.0f;
             CollisionMovement = Vector2.Zero;
             CollisionLevel = 0;
             Effects = new List<string>();

@@ -88,6 +88,7 @@ namespace NoNameGame.Screens.Managers
                 {
                     entities[c].Image.Scale = originalEntityScales[c] * (1 + currentZoom);
                     entities[c].Image.Position *= (1 + currentZoom) / (1 + oldZoom);
+                    entities[c].MoveSpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
                 }
 
                 if(Type == ZoomingType.OneTime)

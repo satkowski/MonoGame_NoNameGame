@@ -32,14 +32,14 @@ namespace NoNameGame.Entities
             MoveVelocity = Vector2.Zero;
 
             if (InputManager.Instance.KeyDown(Keys.D, Keys.Right))
-                MoveVelocity.X = MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.X = MoveSpeed * MoveSpeedFactor * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if (InputManager.Instance.KeyDown(Keys.A, Keys.Left))
-                MoveVelocity.X = -MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.X = -MoveSpeed * MoveSpeedFactor * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (InputManager.Instance.KeyDown(Keys.W, Keys.Up))
-                MoveVelocity.Y = -MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.Y = -MoveSpeed * MoveSpeedFactor * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if (InputManager.Instance.KeyDown(Keys.S, Keys.Down))
-                MoveVelocity.Y = MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.Y = MoveSpeed * MoveSpeedFactor * (float)gameTime.ElapsedGameTime.TotalSeconds;
             //TODO: Zoomfaktor mit in die Berecnung einbauen
             Image.Position += MoveVelocity;
 
