@@ -39,6 +39,9 @@ namespace MapEditor.Maps
                     OnSizeChanged(this, null);
             }
         }
+        [XmlIgnore]
+        public Vector2 Origin
+        { private set; get; }
         public event EventHandler OnSizeChanged;
 
         public Layer ()
@@ -53,6 +56,7 @@ namespace MapEditor.Maps
             Size = Vector2.Zero;
             CollisionLevel = -1;
             Scale = 1.0f;
+            Origin = Vector2.Zero;
         }
 
         public void Save ()
@@ -166,6 +170,8 @@ namespace MapEditor.Maps
             TileSheetImage.Path = TileSheet.Path;
             TileSheetImage.Initialize(content);
 
+            Origin = TileDimensions / 2;
+
             Vector2 position = -Vector2.One;
             int maxX = 0;
             foreach (string row in TileMapString.Rows)
@@ -217,7 +223,7 @@ namespace MapEditor.Maps
                 foreach (List<Tile> tileRow in tileMap)
                     foreach (Tile tile in tileRow)
                         if(tile != null)
-                            tile.Draw(spriteBatch, windowPosition, new Vector2(TileDimensions.X * Scale / 2, TileDimensions.Y * Scale / 2));
+                            tile.Draw(spriteBatch, windowPosition, true);
         }
 
         public void DrawTile (SpriteBatch spriteBatch, Vector2 position, float scale, Tile.TileRotation rotation)
@@ -228,7 +234,7 @@ namespace MapEditor.Maps
 
             Tile drawTile = new Tile();
             drawTile.Initialize(this, position, Vector2.Zero, rotation);
-            drawTile.Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
+            drawTile.Draw(spriteBatch, Vector2.Zero, false);
 
             TileSheet.DrawOffset = Offset;
         }

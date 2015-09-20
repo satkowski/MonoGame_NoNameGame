@@ -28,8 +28,6 @@ namespace MapEditor.Maps
         [XmlIgnore]
         public Rectangle CurrentDestinationRectangle { private set; get; }
         [XmlIgnore]
-        public Vector2 Origin { private set; get; }
-        [XmlIgnore]
         public Vector2 MapPosition
         { private set; get; }
 
@@ -39,7 +37,6 @@ namespace MapEditor.Maps
             DestinationPosition = Vector2.Zero;
             TileSheetRectangle = Rectangle.Empty;
             CurrentDestinationRectangle = Rectangle.Empty;
-            Origin = Vector2.Zero;
             MapPosition = Vector2.Zero;
         }
 
@@ -52,8 +49,6 @@ namespace MapEditor.Maps
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
-            Origin = new Vector2(TileSheetRectangle.Width / 2, TileSheetRectangle.Height / 2);
-
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), (int)(DestinationPosition.Y + layer.Offset.Y),
                                                         (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
@@ -64,9 +59,9 @@ namespace MapEditor.Maps
                                                         (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
 
-        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition, Vector2 scaledFactor)
+        public void Draw (SpriteBatch spriteBatch, Vector2 windowPosition, bool scaled)
         {
-            layer.TileSheet.Draw(spriteBatch, layer.Scale, layer.TileDimensions, windowPosition, this, scaledFactor);
+            layer.TileSheet.Draw(spriteBatch, layer.Scale, layer.TileDimensions, windowPosition, this, layer.Origin, scaled);
         }
     }
 }

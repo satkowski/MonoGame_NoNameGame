@@ -45,16 +45,16 @@ namespace MapEditor.Images
                 Texture = content.Load<Texture2D>(Path);
         }
 
-        public void Draw (SpriteBatch spriteBatch, float scale, Vector2 tileDimesion, Vector2 windowPosition, Tile tile, Vector2 scaledOrigin)
+        public void Draw (SpriteBatch spriteBatch, float scale, Vector2 tileDimensions, Vector2 windowPosition, Tile tile, Vector2 origin, bool scaled)
         {
             if(Texture != null)
             {
-                if(scaledOrigin != Vector2.Zero)
-                    spriteBatch.Draw(Texture, tile.MapPosition * tileDimesion * scale + scaledOrigin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha,
-                                     tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
-                else
-                    spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha,
-                                     tile.Rotation.GetRotationValue(), tile.Origin, 1.0f, SpriteEffects.None, 0.0f);
+
+                if(!scaled)
+                    scale = 64 / tileDimensions.X;
+                Vector2 scaledOrigin = new Vector2(tileDimensions.X * scale / 2, tileDimensions.Y * scale / 2);
+                spriteBatch.Draw(Texture, tile.MapPosition * tileDimensions * scale + scaledOrigin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha,
+                                 tile.Rotation.GetRotationValue(), origin, scale, SpriteEffects.None, 0.0f);
             }
         }
     }
