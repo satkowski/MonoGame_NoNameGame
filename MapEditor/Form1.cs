@@ -42,6 +42,7 @@ namespace MapEditor
             resetChangesButton.Enabled = true;
             tileDisplayHScrollBar.Enabled = true;
             tileDisplayVScrollBar.Enabled = true;
+            scaleTextBox.Enabled = true;
         }
 
         private void disableLayerProperties ()
@@ -49,6 +50,7 @@ namespace MapEditor
             offsetXTextBox.Text = String.Empty;
             offsetYTextBox.Text = String.Empty;
             tileSheetTextBox.Text = String.Empty;
+            scaleTextBox.Text = String.Empty;
 
             offsetXTextBox.Enabled = false;
             offsetYTextBox.Enabled = false;
@@ -58,6 +60,7 @@ namespace MapEditor
             resetChangesButton.Enabled = false;
             tileDisplayHScrollBar.Enabled = false;
             tileDisplayVScrollBar.Enabled = false;
+            scaleTextBox.Enabled = false;
         }
 
         private void speichernAlsToolStripMenuItem_Click (object sender, EventArgs e)
@@ -238,10 +241,12 @@ namespace MapEditor
             int offsetX = int.Parse(offsetXTextBox.Text);
             int offsetY = int.Parse(offsetYTextBox.Text);
             int collisionLevel = int.Parse(collisionLevelTextBox.Text);
+            float scale = float.Parse(scaleTextBox.Text);
 
             editor1.CurrentLayer.Offset = new Vector2(offsetX, offsetY);
             editor1.CurrentLayer.TileSheet.Path = tileSheetTextBox.Text;
             editor1.CurrentLayer.CollisionLevel = collisionLevel;
+            editor1.CurrentLayer.Scale = scale;
 
             editor1.Invalidate();
             tileDisplay1.Invalidate();
@@ -254,6 +259,7 @@ namespace MapEditor
             offsetYTextBox.Text = editor1.CurrentLayer.Offset.Y.ToString();
             tileSheetTextBox.Text = editor1.CurrentLayer.TileSheet.Path;
             collisionLevelTextBox.Text = editor1.CurrentLayer.CollisionLevel.ToString();
+            scaleTextBox.Text = editor1.CurrentLayer.Scale.ToString();
         }
 
         private void upButton_Click (object sender, EventArgs e)

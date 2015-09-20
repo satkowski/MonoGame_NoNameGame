@@ -61,6 +61,8 @@
             this.tileDisplayVScrollBar = new System.Windows.Forms.VScrollBar();
             this.label4 = new System.Windows.Forms.Label();
             this.collisionLevelTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.scaleTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -365,11 +367,30 @@
             this.collisionLevelTextBox.Size = new System.Drawing.Size(247, 20);
             this.collisionLevelTextBox.TabIndex = 39;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(215, 665);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 13);
+            this.label6.TabIndex = 40;
+            this.label6.Text = "Scale";
+            // 
+            // scaleTextBox
+            // 
+            this.scaleTextBox.Enabled = false;
+            this.scaleTextBox.Location = new System.Drawing.Point(310, 663);
+            this.scaleTextBox.Name = "scaleTextBox";
+            this.scaleTextBox.Size = new System.Drawing.Size(247, 20);
+            this.scaleTextBox.TabIndex = 41;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 664);
+            this.ClientSize = new System.Drawing.Size(1038, 688);
+            this.Controls.Add(this.scaleTextBox);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.collisionLevelTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tileDisplayVScrollBar);
@@ -442,6 +463,8 @@
         private System.Windows.Forms.VScrollBar tileDisplayVScrollBar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox collisionLevelTextBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox scaleTextBox;
     }
 }
 

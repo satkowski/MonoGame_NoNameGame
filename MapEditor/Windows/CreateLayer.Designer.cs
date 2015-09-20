@@ -44,12 +44,14 @@
             this.offsetYTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.collisionLevelTextBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.scaleTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // abortButton
             // 
             this.abortButton.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.abortButton.Location = new System.Drawing.Point(449, 128);
+            this.abortButton.Location = new System.Drawing.Point(417, 158);
             this.abortButton.Name = "abortButton";
             this.abortButton.Size = new System.Drawing.Size(75, 23);
             this.abortButton.TabIndex = 15;
@@ -60,7 +62,7 @@
             // createButton
             // 
             this.createButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.createButton.Location = new System.Drawing.Point(449, 91);
+            this.createButton.Location = new System.Drawing.Point(417, 121);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(75, 23);
             this.createButton.TabIndex = 14;
@@ -114,7 +116,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 133);
+            this.label1.Location = new System.Drawing.Point(12, 170);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 13;
@@ -122,9 +124,9 @@
             // 
             // sheetPathTextBox
             // 
-            this.sheetPathTextBox.Location = new System.Drawing.Point(135, 133);
+            this.sheetPathTextBox.Location = new System.Drawing.Point(136, 170);
             this.sheetPathTextBox.Name = "sheetPathTextBox";
-            this.sheetPathTextBox.Size = new System.Drawing.Size(260, 20);
+            this.sheetPathTextBox.Size = new System.Drawing.Size(258, 20);
             this.sheetPathTextBox.TabIndex = 13;
             // 
             // label3
@@ -173,7 +175,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 96);
+            this.label8.Location = new System.Drawing.Point(13, 133);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(79, 13);
             this.label8.TabIndex = 22;
@@ -181,17 +183,35 @@
             // 
             // collisionLevelTextBox
             // 
-            this.collisionLevelTextBox.Location = new System.Drawing.Point(136, 93);
+            this.collisionLevelTextBox.Location = new System.Drawing.Point(136, 130);
             this.collisionLevelTextBox.Name = "collisionLevelTextBox";
-            this.collisionLevelTextBox.Size = new System.Drawing.Size(259, 20);
+            this.collisionLevelTextBox.Size = new System.Drawing.Size(258, 20);
             this.collisionLevelTextBox.TabIndex = 23;
             this.collisionLevelTextBox.Text = "-1";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 88);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(34, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Scale";
+            // 
+            // scaleTextBox
+            // 
+            this.scaleTextBox.Location = new System.Drawing.Point(136, 88);
+            this.scaleTextBox.Name = "scaleTextBox";
+            this.scaleTextBox.Size = new System.Drawing.Size(258, 20);
+            this.scaleTextBox.TabIndex = 25;
             // 
             // CreateLayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 161);
+            this.ClientSize = new System.Drawing.Size(508, 212);
+            this.Controls.Add(this.scaleTextBox);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.collisionLevelTextBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.offsetYTextBox);
@@ -233,5 +253,7 @@
         private System.Windows.Forms.TextBox offsetYTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox collisionLevelTextBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox scaleTextBox;
     }
 }

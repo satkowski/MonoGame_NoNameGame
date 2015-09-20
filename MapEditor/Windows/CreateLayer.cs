@@ -39,8 +39,9 @@ namespace MapEditor.Windows
             int offsetX = int.Parse(offsetXTextBox.Text);
             int offsetY = int.Parse(offsetYTextBox.Text);
             int collisionLevel = int.Parse(collisionLevelTextBox.Text);
+            float scale = float.Parse(scaleTextBox.Text);
 
-            editor.Map.CreateNewLayer(editor.Content, new Vector2(tDimesionX, tDimesionY), new Vector2(offsetX, offsetY), collisionLevel, sheetPathTextBox.Text);
+            editor.Map.CreateNewLayer(editor.Content, new Vector2(tDimesionX, tDimesionY), new Vector2(offsetX, offsetY), scale, collisionLevel, sheetPathTextBox.Text);
 
             editor.ResetSelector();
             tileDisplay.SetNewTileImage();

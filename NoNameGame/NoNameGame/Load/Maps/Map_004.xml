@@ -8,6 +8,7 @@
       <X>0</X>
       <Y>0</Y>
     </Offset>
+    <Scale>1.0</Scale>
     <TileDimensions>
       <X>64</X>
       <Y>64</Y>
@@ -43,6 +44,7 @@
       <X>0</X>
       <Y>0</Y>
     </Offset>
+    <Scale>1.0</Scale>
     <TileDimensions>
       <X>64</X>
       <Y>64</Y>
