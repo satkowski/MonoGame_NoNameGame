@@ -70,10 +70,10 @@ namespace NoNameGame.Screens
             Player.Update(gameTime, Map);
             Map.Update(gameTime);
 
-            //Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.ZoomedPosition;
-            //Player.Image.Offset = offset.ConvertToIntVector2();
-            //foreach (Layer layer in Map.Layers)
-            //    layer.TileSheet.Offset = Player.Image.Offset;
+            Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position;
+            Player.Image.Offset = offset.ConvertToIntVector2();
+            foreach(Layer layer in Map.Layers)
+                layer.TileSheet.Offset = Player.Image.Offset;
 
             //Vector2 actualOffset = Player.Image.Offset;
             //Vector2 offsetChange = Vector2.Zero;
