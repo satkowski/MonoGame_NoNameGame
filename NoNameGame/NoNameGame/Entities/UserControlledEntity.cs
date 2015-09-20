@@ -40,7 +40,7 @@ namespace NoNameGame.Entities
                 MoveVelocity.Y = -MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if (InputManager.Instance.KeyDown(Keys.S, Keys.Down))
                 MoveVelocity.Y = MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            //TODO: Zoomfaktor mit in die Berecnung einbauen
             Image.Position += MoveVelocity;
 
             base.Update(gameTime, map);

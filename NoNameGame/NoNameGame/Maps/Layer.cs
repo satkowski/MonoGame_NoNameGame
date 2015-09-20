@@ -80,7 +80,7 @@ namespace NoNameGame.Maps
                             else
                                 rotation = 0.0f;
 
-                            newTile.LoadContent(this, new Vector2(valueX, valueY), position * TileDimensions * Scale, rotation);
+                            newTile.LoadContent(this, new Vector2(valueX, valueY), position, rotation);
                             tileMap.Add(newTile);
                         }
                     }

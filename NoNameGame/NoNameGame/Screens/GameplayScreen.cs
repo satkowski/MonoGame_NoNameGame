@@ -1,20 +1,26 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using NoNameGame.Maps;
 using NoNameGame.Managers;
 using NoNameGame.Entities;
+using NoNameGame.Screens.Managers;
+using NoNameGame.Extensions;
 
 namespace NoNameGame.Screens
 {
     public class GameplayScreen : Screen
     {
+        ZoomingManager zoomingManager;
+
         public Map Map;
         public UserControlledEntity Player;
 
         public GameplayScreen ()
         {
+            zoomingManager = new ZoomingManager();
             Map = new Maps.Map();
             Player = new UserControlledEntity();
         }
@@ -30,23 +36,44 @@ namespace NoNameGame.Screens
             XmlManager<UserControlledEntity> playerLoader = new XmlManager<UserControlledEntity>();
             Player = playerLoader.Load("Load/Entities/Players/Player_01.xml");
             Player.LoadContent();
+
+            zoomingManager.LoadContent(ref Map, Player);
+
+
+            zoomingManager.Type = ZoomingManager.ZoomingType.OneTime;
+            zoomingManager.MaxZoom = 3.0f;
+            zoomingManager.MinZoom = -0.85f;
+            zoomingManager.ZoomingFactor = 0.001f;
         }
 
         public override void UnloadContent ()
         {
             Map.UnloadContent();
             Player.UnloadContent();
+            zoomingManager.UnloadContent();
         }
 
         public override void Update (GameTime gameTime)
         {
+            if(InputManager.Instance.KeyDown(Keys.OemPlus)) 
+            {
+                zoomingManager.Direction = ZoomingManager.ZoomingDirection.In;
+                zoomingManager.IsActive = true;
+            }
+            else if(InputManager.Instance.KeyDown(Keys.OemMinus))
+            {
+                zoomingManager.Direction = ZoomingManager.ZoomingDirection.Out;
+                zoomingManager.IsActive = true;
+            }
+
             Player.Update(gameTime, Map);
             Map.Update(gameTime);
+            zoomingManager.Update(gameTime);
 
-            Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position;
-            Player.Image.Offset = new Vector2((int)offset.X, (int)offset.Y);
-            foreach (Layer layer in Map.Layers)
-                layer.TileSheet.Offset = Player.Image.Offset;
+            //Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.ZoomedPosition;
+            //Player.Image.Offset = offset.ConvertToIntVector2();
+            //foreach (Layer layer in Map.Layers)
+            //    layer.TileSheet.Offset = Player.Image.Offset;
 
             //Vector2 actualOffset = Player.Image.Offset;
             //Vector2 offsetChange = Vector2.Zero;

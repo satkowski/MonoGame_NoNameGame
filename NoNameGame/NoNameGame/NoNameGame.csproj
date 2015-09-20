@@ -75,6 +75,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\UserControlledEntity.cs" />
     <Compile Include="Extensions\RectangleExtension.cs" />
+    <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
     <Compile Include="Images\Effects\ScalingEffect.cs" />

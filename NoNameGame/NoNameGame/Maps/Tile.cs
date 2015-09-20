@@ -1,8 +1,8 @@
-﻿
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
+using NoNameGame.Extensions;
 
 namespace NoNameGame.Maps
 {
@@ -16,8 +16,9 @@ namespace NoNameGame.Maps
             Clockwise270 = 3
         }
 
-        private Layer layer;
-        
+        Layer layer;
+        Vector2 mapPosition;
+
         public TileRotation Rotation;
         public Vector2 DestinationPosition;
         public Rectangle TileSheetRectangle;
@@ -38,12 +39,13 @@ namespace NoNameGame.Maps
             Origin = Vector2.Zero;
         }
 
-        public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 destinationPosition, TileRotation rotation) 
+        public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation) 
         {
             this.layer = layer;
             layer.OnScaleChange += updateRectangle;
+            this.mapPosition = mapPosition;
             Rotation = rotation;
-            DestinationPosition = destinationPosition;
+            DestinationPosition = mapPosition * layer.TileDimensions * layer.Scale;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
@@ -61,6 +63,8 @@ namespace NoNameGame.Maps
         private void updateRectangle(object sender, System.EventArgs e)
         {
             PrevDestinationRectangle = CurrentDestinationRectangle;
+            DestinationPosition =  mapPosition * layer.TileDimensions * layer.Scale;
+            DestinationPosition = DestinationPosition.ConvertToIntVector2();
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X),
                                                         (int)(DestinationPosition.Y + layer.Offset.Y),
                                                         (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
