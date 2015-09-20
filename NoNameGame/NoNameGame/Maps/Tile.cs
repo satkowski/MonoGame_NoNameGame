@@ -49,13 +49,13 @@ namespace NoNameGame.Maps
 
         public void Update (GameTime gameTime)
         {
-            updateRectangle(null, null);
+            updateRectangle((layer.TileDimensions * layer.Scale).ConvertToIntVector2(), null);
         }
 
         private void updateRectangle(object sender, System.EventArgs e)
         {
-            DestinationPosition =  mapPosition * layer.TileDimensions * layer.Scale;
-            DestinationPosition = DestinationPosition.ConvertToIntVector2();
+            DestinationPosition =  mapPosition * (Vector2)sender;
+
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X),
                                                         (int)(DestinationPosition.Y + layer.Offset.Y),
                                                         (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));

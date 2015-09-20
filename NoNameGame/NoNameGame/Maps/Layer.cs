@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Images;
+using NoNameGame.Extensions;
 
 namespace NoNameGame.Maps
 {
@@ -25,7 +26,7 @@ namespace NoNameGame.Maps
                 scale = value;
                 TileScaledOrigin = new Vector2(TileDimensions.X * Scale / 2, TileDimensions.Y * Scale / 2);
                 if(OnScaleChange != null)
-                    OnScaleChange(null, null);
+                    OnScaleChange((TileDimensions * Scale).ConvertToIntVector2(), null);
             }
         }
         public Vector2 TileDimensions;
