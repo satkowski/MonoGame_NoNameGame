@@ -24,8 +24,6 @@ namespace NoNameGame.Screens.Managers
 
         Map map;
         List<Entity> entities;
-        List<float> originalMapScales;
-        List<float> originalEntityScales;
         float currentZoom;
 
         public bool IsActive;
@@ -38,9 +36,7 @@ namespace NoNameGame.Screens.Managers
         public ZoomingManager()
         {
             IsActive = false;
-            originalMapScales = new List<float>();
             entities = new List<Entity>();
-            originalEntityScales = new List<float>();
             currentZoom = 0.0f;
             MinZoom = 0.0f;
             MaxZoom = 0.0f;
@@ -54,11 +50,6 @@ namespace NoNameGame.Screens.Managers
         {
             this.map = map;
             this.entities.AddRange(entities);
-
-            foreach(Layer layer in map.Layers)
-                originalMapScales.Add(layer.TileSheet.Scale);
-            foreach(Entity entity in entities)
-                originalEntityScales.Add(entity.Image.Scale);
         }
 
         public void UnloadContent()
@@ -83,10 +74,10 @@ namespace NoNameGame.Screens.Managers
                 }
 
                 for(int c = 0; c < map.Layers.Count; c++)
-                    map.Layers[c].Scale = originalMapScales[c] * (1 + currentZoom);
+                    map.Layers[c].Scale *= (1 + currentZoom) / (1 + oldZoom);
                 for(int c = 0; c < entities.Count; c++)
                 {
-                    entities[c].Image.Scale = originalEntityScales[c] * (1 + currentZoom);
+                    entities[c].Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
                     entities[c].Image.Position *= (1 + currentZoom) / (1 + oldZoom);
                     entities[c].MoveSpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
                 }
