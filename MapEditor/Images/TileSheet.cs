@@ -54,7 +54,7 @@ namespace MapEditor.Images
                                      tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
                 else
                     spriteBatch.Draw(Texture, tile.DestinationPosition + tile.Origin + DrawOffset - windowPosition, tile.TileSheetRectangle, Color * Alpha,
-                                     tile.Rotation.GetRotationValue(), tile.Origin, scale, SpriteEffects.None, 0.0f);
+                                     tile.Rotation.GetRotationValue(), tile.Origin, 1.0f, SpriteEffects.None, 0.0f);
             }
         }
     }

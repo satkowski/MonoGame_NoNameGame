@@ -54,7 +54,7 @@
             this.abortButton.Location = new System.Drawing.Point(417, 158);
             this.abortButton.Name = "abortButton";
             this.abortButton.Size = new System.Drawing.Size(75, 23);
-            this.abortButton.TabIndex = 15;
+            this.abortButton.TabIndex = 17;
             this.abortButton.Text = "Abbrechen";
             this.abortButton.UseVisualStyleBackColor = true;
             this.abortButton.Click += new System.EventHandler(this.abortButton_Click);
@@ -65,7 +65,7 @@
             this.createButton.Location = new System.Drawing.Point(417, 121);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(75, 23);
-            this.createButton.TabIndex = 14;
+            this.createButton.TabIndex = 16;
             this.createButton.Text = "Erstellen";
             this.createButton.UseVisualStyleBackColor = true;
             this.createButton.Click += new System.EventHandler(this.createButton_Click);
@@ -127,7 +127,7 @@
             this.sheetPathTextBox.Location = new System.Drawing.Point(136, 170);
             this.sheetPathTextBox.Name = "sheetPathTextBox";
             this.sheetPathTextBox.Size = new System.Drawing.Size(258, 20);
-            this.sheetPathTextBox.TabIndex = 13;
+            this.sheetPathTextBox.TabIndex = 15;
             // 
             // label3
             // 
@@ -186,7 +186,7 @@
             this.collisionLevelTextBox.Location = new System.Drawing.Point(136, 130);
             this.collisionLevelTextBox.Name = "collisionLevelTextBox";
             this.collisionLevelTextBox.Size = new System.Drawing.Size(258, 20);
-            this.collisionLevelTextBox.TabIndex = 23;
+            this.collisionLevelTextBox.TabIndex = 14;
             this.collisionLevelTextBox.Text = "-1";
             // 
             // label9
@@ -203,7 +203,7 @@
             this.scaleTextBox.Location = new System.Drawing.Point(136, 88);
             this.scaleTextBox.Name = "scaleTextBox";
             this.scaleTextBox.Size = new System.Drawing.Size(258, 20);
-            this.scaleTextBox.TabIndex = 25;
+            this.scaleTextBox.TabIndex = 13;
             // 
             // CreateLayer
             // 
