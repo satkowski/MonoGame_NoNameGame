@@ -69,6 +69,7 @@ namespace NoNameGame.Screens.Managers
         {
             if(IsActive && Type != ZoomingType.None)
             {
+                float oldZoom = currentZoom;
                 currentZoom += (float)gameTime.ElapsedGameTime.TotalMilliseconds * (int)Direction * ZoomingFactor;
                 if(currentZoom < MinZoom)
                 {
@@ -86,6 +87,7 @@ namespace NoNameGame.Screens.Managers
                 for(int c = 0; c < entities.Count; c++)
                 {
                     entities[c].Image.Scale = originalEntityScales[c] * (1 + currentZoom);
+                    entities[c].Image.Position *= (1 + currentZoom) / (1 + oldZoom);
                 }
 
                 if(Type == ZoomingType.OneTime)

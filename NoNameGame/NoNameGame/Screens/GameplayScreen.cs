@@ -65,10 +65,10 @@ namespace NoNameGame.Screens
                 zoomingManager.Direction = ZoomingManager.ZoomingDirection.Out;
                 zoomingManager.IsActive = true;
             }
+            zoomingManager.Update(gameTime);
 
             Player.Update(gameTime, Map);
             Map.Update(gameTime);
-            zoomingManager.Update(gameTime);
 
             //Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.ZoomedPosition;
             //Player.Image.Offset = offset.ConvertToIntVector2();
