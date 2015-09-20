@@ -19,6 +19,7 @@ namespace MapEditor.WindowParts
         ContentManager content;
         SpriteBatch spriteBatch;
         string[] selectorPath = { "MapEditor/TopLeft", "MapEditor/TopRight", "MapEditor/BottomLeft", "MapEditor/BottomRight" };
+        List<float> selectorScales;
         bool isMouseDown = false;
         bool mouseOnScreen = false;
         Vector2 mousePosition;
@@ -64,6 +65,7 @@ namespace MapEditor.WindowParts
             WindowPosition = Vector2.Zero;
             ActualLayerSizeX = 0;
             ActualLayerSizeY = 0;
+            selectorScales = new List<float>();
 
             Selector = new List<Image>();
             for (int c = 0; c < 4; c++)
@@ -90,17 +92,21 @@ namespace MapEditor.WindowParts
             Vector2 windowPixelOffset = new Vector2((int)WindowPosition.X % (int)CurrentLayer.TileDimensions.X,
                                                    (int)WindowPosition.Y % (int)CurrentLayer.TileDimensions.Y);
 
-            mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X + windowPixelOffset.X) / CurrentLayer.TileDimensions.X),
-                                        (int)((e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y) / CurrentLayer.TileDimensions.Y));
+            mousePosition = new Vector2((int)((e.X - CurrentLayer.Offset.X + windowPixelOffset.X) / (CurrentLayer.TileDimensions.X * CurrentLayer.Scale)),
+                                        (int)((e.Y - CurrentLayer.Offset.Y + windowPixelOffset.Y) / (CurrentLayer.TileDimensions.Y * CurrentLayer.Scale)));
             mousePosition *= CurrentLayer.TileDimensions;
 
             int width = (int)(SelectedTileRegion.Width * CurrentLayer.TileDimensions.X);
             int heigth = (int)(SelectedTileRegion.Height * CurrentLayer.TileDimensions.Y);
 
-            Selector[0].Position = mousePosition + CurrentLayer.Offset - windowPixelOffset;
-            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) + CurrentLayer.Offset - windowPixelOffset;
-            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) + CurrentLayer.Offset - windowPixelOffset;
-            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) + CurrentLayer.Offset - windowPixelOffset;
+            Selector[0].Position = mousePosition 
+                                   * CurrentLayer.Scale + CurrentLayer.Offset - windowPixelOffset;
+            Selector[1].Position = new Vector2(mousePosition.X + width, mousePosition.Y) 
+                                   * CurrentLayer.Scale + CurrentLayer.Offset - windowPixelOffset;
+            Selector[2].Position = new Vector2(mousePosition.X, mousePosition.Y + heigth) 
+                                   * CurrentLayer.Scale + CurrentLayer.Offset - windowPixelOffset;
+            Selector[3].Position = new Vector2(mousePosition.X + width, mousePosition.Y + heigth) 
+                                   * CurrentLayer.Scale + CurrentLayer.Offset - windowPixelOffset;
 
             if (isMouseDown)
                 Editor_MouseDown(this, null);
@@ -117,6 +123,7 @@ namespace MapEditor.WindowParts
             {
                 Selector[c].Path = selectorPath[c];
                 Selector[c].Initialize(content);
+                selectorScales.Add(Selector[0].Scale * CurrentLayer.Scale);
             }
 
             if (OnInitialize != null)
@@ -125,8 +132,12 @@ namespace MapEditor.WindowParts
 
         public void ResetSelector ()
         {
+            selectorScales.Clear();
             for (int c = 0; c < 4; c++)
+            {
                 Selector[c].Scale = CurrentLayer.TileDimensions.X / Selector[c].Texture.Width;
+                selectorScales.Add(Selector[0].Scale * CurrentLayer.Scale);
+            }
         }
 
         protected override void Draw ()
@@ -137,8 +148,13 @@ namespace MapEditor.WindowParts
             if(Map != null)
                 Map.Draw(spriteBatch, WindowPosition);
             if (mouseOnScreen)
-                foreach (Image img in Selector)
-                    img.Draw(spriteBatch, Vector2.Zero);
+                for(int c = 0; c < Selector.Count; c++)
+                {
+                    float originalScale = Selector[c].Scale;
+                    Selector[c].Scale = selectorScales[c];
+                    Selector[c].Draw(spriteBatch, Vector2.Zero);
+                    Selector[c].Scale = originalScale;
+                }
             spriteBatch.End();
         }
     }

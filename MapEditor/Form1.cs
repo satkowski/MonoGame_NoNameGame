@@ -247,6 +247,7 @@ namespace MapEditor
             editor1.CurrentLayer.TileSheet.Path = tileSheetTextBox.Text;
             editor1.CurrentLayer.CollisionLevel = collisionLevel;
             editor1.CurrentLayer.Scale = scale;
+            editor1.ResetSelector();
 
             editor1.Invalidate();
             tileDisplay1.Invalidate();
