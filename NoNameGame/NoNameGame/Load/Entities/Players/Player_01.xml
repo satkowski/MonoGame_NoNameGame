@@ -24,8 +24,7 @@
     </SpriteEffectAlways>
 
     <RotationEffect>
-      <CicleDirection>Right</CicleDirection>
-      <RotationDirection>Clockwise</RotationDirection>
+        <Direction>Clockwise</Direction>
       <RotationPerMillisecond>0.08</RotationPerMillisecond>
     </RotationEffect>
   </Image>

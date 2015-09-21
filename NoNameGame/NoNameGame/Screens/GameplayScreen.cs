@@ -46,7 +46,7 @@ namespace NoNameGame.Screens
             foreach(AutomatedEntity enemy in Enemies)
                 enemy.LoadContent();
 
-            zoomingManager.LoadContent(ref Map, Player);
+            zoomingManager.LoadContent(ref Map, Player, Enemies[0]);
 
 
             zoomingManager.Type = ZoomingManager.ZoomingType.OneTime;
