@@ -26,7 +26,7 @@ namespace NoNameGame.Maps
                 scale = value;
                 TileScaledOrigin = new Vector2(TileDimensions.X * Scale / 2, TileDimensions.Y * Scale / 2);
                 if(OnScaleChange != null)
-                    OnScaleChange((TileDimensions * Scale).ConvertToIntVector2(), null);
+                    OnScaleChange((TileDimensions * Scale), null);
             }
         }
         public Vector2 TileDimensions;

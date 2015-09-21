@@ -17,7 +17,7 @@ namespace NoNameGame.Maps
         }
 
         Layer layer;
-        Vector2 mapPosition;
+        Vector2 mapTilePosition;
 
         public TileRotation Rotation;
         public Vector2 DestinationPosition;
@@ -37,7 +37,7 @@ namespace NoNameGame.Maps
         {
             this.layer = layer;
             layer.OnScaleChange += updateRectangle;
-            this.mapPosition = mapPosition;
+            this.mapTilePosition = mapPosition;
             Rotation = rotation;
             DestinationPosition = mapPosition * layer.TileDimensions * layer.Scale;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
@@ -49,12 +49,12 @@ namespace NoNameGame.Maps
 
         public void Update (GameTime gameTime)
         {
-            updateRectangle((layer.TileDimensions * layer.Scale).ConvertToIntVector2(), null);
+            updateRectangle((layer.TileDimensions * layer.Scale), null);
         }
 
         private void updateRectangle(object sender, System.EventArgs e)
         {
-            DestinationPosition =  mapPosition * (Vector2)sender;
+            DestinationPosition =  mapTilePosition * (Vector2)sender;
 
             CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X),
                                                         (int)(DestinationPosition.Y + layer.Offset.Y),
