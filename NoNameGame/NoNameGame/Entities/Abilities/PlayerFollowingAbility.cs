@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NoNameGame.Extensions;
 using System;
 
 namespace NoNameGame.Entities.Abilities
@@ -26,15 +27,9 @@ namespace NoNameGame.Entities.Abilities
         {
             if(IsActive && PlayerPosition != null)
             {
-                double distance = Math.Sqrt((PlayerPosition.X - entity.Image.Position.X) * (PlayerPosition.X - entity.Image.Position.X)
-                                    + (PlayerPosition.Y - entity.Image.Position.Y) * (PlayerPosition.Y - entity.Image.Position.Y));
-                if(distance != 0)
-                {
-                    double offsetX = (PlayerPosition.X - entity.Image.Position.X) / distance;
-                    double offsetY = (PlayerPosition.Y - entity.Image.Position.Y) / distance;
-
-                    entity.MoveVelocity += new Vector2((float)offsetX, (float)offsetY) * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                }
+                Vector2? offset = PlayerPosition.GetAngleValues(entity.Image.Position);
+                if(offset.HasValue)
+                    entity.MoveVelocity += offset.Value * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             base.Update(gameTime);

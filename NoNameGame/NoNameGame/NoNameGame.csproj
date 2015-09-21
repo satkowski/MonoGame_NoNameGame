@@ -73,7 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Abilities\EntityAbility.cs" />
+    <Compile Include="Entities\Abilities\MovingAbility.cs" />
     <Compile Include="Entities\Abilities\PlayerFollowingAbility.cs" />
+    <Compile Include="Entities\Abilities\ShootingAbility.cs" />
     <Compile Include="Entities\AutomatedEntity.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\UserControlledEntity.cs" />
@@ -104,6 +106,9 @@
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
+    </Content>
+    <Content Include="Load\Entities\Enemies\Enemy_002.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Load\Entities\Enemies\Enemy_001.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

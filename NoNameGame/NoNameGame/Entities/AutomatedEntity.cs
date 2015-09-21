@@ -15,6 +15,7 @@ namespace NoNameGame.Entities
         [XmlElement("Ability")]
         public List<string> Abilities;
         public PlayerFollowingAbility PlayerFollowingAbility;
+        public MovingAbility MovingAbility;
 
         public AutomatedEntity()
         {
@@ -27,6 +28,7 @@ namespace NoNameGame.Entities
             base.LoadContent();
 
             setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
+            setAbility<MovingAbility>(ref MovingAbility);
             foreach(string abilitiesName in Abilities)
                 ActivateAbility(abilitiesName);
         }
