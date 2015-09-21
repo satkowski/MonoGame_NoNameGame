@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Entities.Abilities;
@@ -11,7 +12,8 @@ namespace NoNameGame.Entities
     {
         Dictionary<string, EntityAbility> abilitiesList;
 
-        List<string> Abilities;
+        [XmlElement("Ability")]
+        public List<string> Abilities;
 
         public AutomatedEntity()
         {

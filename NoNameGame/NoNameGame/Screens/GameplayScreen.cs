@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework.Input;
 
 using NoNameGame.Maps;
@@ -17,12 +19,14 @@ namespace NoNameGame.Screens
 
         public Map Map;
         public UserControlledEntity Player;
+        public List<AutomatedEntity> Enemies;
 
         public GameplayScreen ()
         {
             zoomingManager = new ZoomingManager();
             Map = new Maps.Map();
             Player = new UserControlledEntity();
+            Enemies = new List<AutomatedEntity>();
         }
 
         public override void LoadContent ()
@@ -36,6 +40,11 @@ namespace NoNameGame.Screens
             XmlManager<UserControlledEntity> playerLoader = new XmlManager<UserControlledEntity>();
             Player = playerLoader.Load("Load/Entities/Players/Player_01.xml");
             Player.LoadContent();
+
+            XmlManager<AutomatedEntity> enemyLoader = new XmlManager<AutomatedEntity>();
+            Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_001.xml"));
+            foreach(AutomatedEntity enemy in Enemies)
+                enemy.LoadContent();
 
             zoomingManager.LoadContent(ref Map, Player);
 
@@ -68,6 +77,8 @@ namespace NoNameGame.Screens
             zoomingManager.Update(gameTime);
 
             Player.Update(gameTime, Map);
+            foreach(AutomatedEntity enemy in Enemies)
+                enemy.Update(gameTime, Map);
             Map.Update(gameTime);
 
             Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position - Player.Image.ScaledOrigin;
@@ -108,6 +119,8 @@ namespace NoNameGame.Screens
         {
             Map.Draw(spriteBatch);
             Player.Draw(spriteBatch);
+            foreach(AutomatedEntity enemy in Enemies)
+                enemy.Draw(spriteBatch);
         }
     }
 }
