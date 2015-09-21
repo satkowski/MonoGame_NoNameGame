@@ -10,8 +10,8 @@
     <Path>Entities/Enemies/Enemy_001</Path>
     <Scale>0.6</Scale>
     <Position>
-      <X>200</X>
-      <Y>200</Y>
+      <X>300</X>
+      <Y>300</Y>
     </Position>
 
     <SpriteEffectAlways>

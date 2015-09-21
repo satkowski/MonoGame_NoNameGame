@@ -83,6 +83,8 @@ namespace NoNameGame.Screens
 
             Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position - Player.Image.ScaledOrigin;
             Player.Image.Offset = offset.ConvertToIntVector2();
+            foreach(AutomatedEntity enemy in Enemies)
+                enemy.Image.Offset = Player.Image.Offset;
             foreach(Layer layer in Map.Layers)
                 layer.TileSheet.Offset = Player.Image.Offset;
 
