@@ -4,7 +4,7 @@ namespace NoNameGame.Entities.Abilities
 {
     public class EntityAbility
     {
-        Entity entity;
+        protected Entity entity;
 
         public bool IsActive;
 

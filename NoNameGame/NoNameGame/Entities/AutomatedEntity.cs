@@ -14,6 +14,7 @@ namespace NoNameGame.Entities
 
         [XmlElement("Ability")]
         public List<string> Abilities;
+        public PlayerFollowingAbility PlayerFollowingAbility;
 
         public AutomatedEntity()
         {
@@ -25,11 +26,12 @@ namespace NoNameGame.Entities
         {
             base.LoadContent();
 
+            setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
             foreach(string abilitiesName in Abilities)
                 ActivateAbility(abilitiesName);
         }
 
-        void setAbility<T>(ref T ability, string abilityName)
+        void setAbility<T>(ref T ability, string abilityName = "")
         {
             if(ability == null)
                 ability = (T)Activator.CreateInstance(typeof(T));
@@ -73,8 +75,12 @@ namespace NoNameGame.Entities
 
         public override void Update(GameTime gameTime, Map map)
         {
+            MoveVelocity = Vector2.Zero;
+
             foreach(var ability in abilitiesList)
                 ability.Value.Update(gameTime);
+
+            Image.Position += MoveVelocity * MoveSpeedFactor;
 
             base.Update(gameTime, map);
         }

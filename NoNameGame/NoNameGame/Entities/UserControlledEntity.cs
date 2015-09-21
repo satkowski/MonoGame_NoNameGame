@@ -10,8 +10,6 @@ namespace NoNameGame.Entities
 {
     public class UserControlledEntity : Entity
     {
-        public float MoveSpeed;
-
         public UserControlledEntity ()
         {
             MoveSpeed = 0.0f;

@@ -18,6 +18,7 @@ namespace NoNameGame.Entities
         public Vector2 MoveVelocity;
         [XmlIgnore]
         public float MoveSpeedFactor;
+        public float MoveSpeed;
         public Vector2 CollisionMovement;
         public int CollisionLevel;
         [XmlElement("ImageEffect")]
