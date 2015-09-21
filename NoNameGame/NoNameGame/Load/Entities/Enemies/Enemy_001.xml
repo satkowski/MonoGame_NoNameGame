@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <AutomatedEntity>
-  <MoveSpeed>80</MoveSpeed>
+  <MoveSpeed>250</MoveSpeed>
   <ImageEffect>SpriteEffect-Always</ImageEffect>
   <ImageEffect>RotationEffect</ImageEffect>
 

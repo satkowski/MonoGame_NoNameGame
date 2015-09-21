@@ -28,10 +28,13 @@ namespace NoNameGame.Entities.Abilities
             {
                 double distance = Math.Sqrt((PlayerPosition.X - entity.Image.Position.X) * (PlayerPosition.X - entity.Image.Position.X)
                                     + (PlayerPosition.Y - entity.Image.Position.Y) * (PlayerPosition.Y - entity.Image.Position.Y));
-                double offsetX = (PlayerPosition.X - entity.Image.Position.X) / distance;
-                double offsetY = (PlayerPosition.Y - entity.Image.Position.Y) / distance;
+                if(distance != 0)
+                {
+                    double offsetX = (PlayerPosition.X - entity.Image.Position.X) / distance;
+                    double offsetY = (PlayerPosition.Y - entity.Image.Position.Y) / distance;
 
-                entity.MoveVelocity += new Vector2((float)offsetX, (float)offsetY) * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    entity.MoveVelocity += new Vector2((float)offsetX, (float)offsetY) * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
 
             base.Update(gameTime);

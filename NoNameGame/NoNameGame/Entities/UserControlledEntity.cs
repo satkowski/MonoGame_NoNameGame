@@ -29,15 +29,20 @@ namespace NoNameGame.Entities
         {
             MoveVelocity = Vector2.Zero;
 
+            float offset = 1.0f;
+            if(InputManager.Instance.KeyDown(Keys.D, Keys.Right, Keys.A, Keys.Left)
+               && InputManager.Instance.KeyDown(Keys.W, Keys.Up, Keys.S, Keys.Down))
+                offset = 0.707106781f;
+
             if (InputManager.Instance.KeyDown(Keys.D, Keys.Right))
-                MoveVelocity.X = MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.X = MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if (InputManager.Instance.KeyDown(Keys.A, Keys.Left))
-                MoveVelocity.X = -MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.X = -MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (InputManager.Instance.KeyDown(Keys.W, Keys.Up))
-                MoveVelocity.Y = -MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.Y = -MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if (InputManager.Instance.KeyDown(Keys.S, Keys.Down))
-                MoveVelocity.Y = MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveVelocity.Y = MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             Image.Position += MoveVelocity * MoveSpeedFactor;
 
