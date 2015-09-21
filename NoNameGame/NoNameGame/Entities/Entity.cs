@@ -20,8 +20,8 @@ namespace NoNameGame.Entities
         public float MoveSpeedFactor;
         public Vector2 CollisionMovement;
         public int CollisionLevel;
-        [XmlElement("Effect")]
-        public List<string> Effects;
+        [XmlElement("ImageEffect")]
+        public List<string> ImageEffects;
 
         protected Entity ()
         {
@@ -29,12 +29,12 @@ namespace NoNameGame.Entities
             MoveSpeedFactor = 1.0f;
             CollisionMovement = Vector2.Zero;
             CollisionLevel = 0;
-            Effects = new List<string>();
+            ImageEffects = new List<string>();
         }
 
         public virtual void LoadContent ()
         {
-            Image.Effects = Effects;
+            Image.Effects = ImageEffects;
             Image.LoadContent();
         }
 

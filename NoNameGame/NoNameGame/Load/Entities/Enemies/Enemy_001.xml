@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<UserControlledEntity>
-  <MoveSpeed>220</MoveSpeed>
+<AutomatedEntity>
+  <MoveSpeed>80</MoveSpeed>
   <ImageEffect>SpriteEffect-Always</ImageEffect>
   <ImageEffect>RotationEffect</ImageEffect>
+
+  <Ability>PlayerFollowingAbility</Ability>
   
   <Image>
-    <Path>Entities/Players/Player_01</Path>
-    <Scale>0.45</Scale>
+    <Path>Entities/Enemys/Enemy_001</Path>
+    <Scale>0.6</Scale>
     <Position>
-      <X>500</X>
-      <Y>500</Y>
+      <X>200</X>
+      <Y>200</Y>
     </Position>
 
     <SpriteEffectAlways>
@@ -17,16 +19,16 @@
       <SpriteType>Always</SpriteType>
       <Offset>1</Offset>
       <SheetSize>
-        <X>12</X>
+        <X>8</X>
         <Y>1</Y>
       </SheetSize>
-      <ChangeSpeed>150</ChangeSpeed>
+      <ChangeSpeed>180</ChangeSpeed>
     </SpriteEffectAlways>
 
     <RotationEffect>
-      <CicleDirection>Right</CicleDirection>
+      <CicleDirection>Left</CicleDirection>
       <RotationDirection>Clockwise</RotationDirection>
-      <RotationPerMillisecond>0.08</RotationPerMillisecond>
+      <RotationPerMillisecond>0.06</RotationPerMillisecond>
     </RotationEffect>
   </Image>
-</UserControlledEntity>
+</AutomatedEntity>
