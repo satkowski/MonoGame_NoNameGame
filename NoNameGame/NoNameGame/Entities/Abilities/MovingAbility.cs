@@ -56,30 +56,36 @@ namespace NoNameGame.Entities.Abilities
                             offset = End.GetAngleValues(Start).Value;
 
                         Vector2 moveVelocity = offset * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        bool finished = false;
+                        bool finishedX = true;
+                        bool finishedY = true;
 
-                        if(offset.X < 0 && entity.Image.Position.X + moveVelocity.X < End.X
-                           || offset.Y < 0 && entity.Image.Position.Y + moveVelocity.Y < End.Y)
-                        {
-                            moveVelocity = entity.Image.Position - End;
-                            finished = true;
-                        }
-                        else if(offset.X > 0 && entity.Image.Position.X + moveVelocity.X > End.X
-                                || offset.Y > 0 && entity.Image.Position.Y + moveVelocity.Y > End.Y)
-                        {
-                            moveVelocity = End - entity.Image.Position;
-                            finished = true;
-                        }
+                        if(offset.X < 0 && entity.Image.Position.X + moveVelocity.X <= End.X)
+                            moveVelocity.X = entity.Image.Position.X - End.X;
+                        else if(offset.X > 0 && entity.Image.Position.X + moveVelocity.X >= End.X)
+                            moveVelocity.X = End.X - entity.Image.Position.X;
                         else
-                            entity.MoveVelocity = moveVelocity;
-
-                        if(finished)
                         {
+                            entity.MoveVelocity.X = moveVelocity.X;
+                            finishedX = false;
+                        }
+
+                        if(offset.Y < 0 && entity.Image.Position.Y + moveVelocity.Y <= End.Y)
+                            moveVelocity.Y = entity.Image.Position.Y - End.Y;
+                        else if(offset.Y > 0 && entity.Image.Position.Y + moveVelocity.Y >= End.Y)
+                            moveVelocity.Y = End.Y - entity.Image.Position.Y;
+                        else
+                        {
+                            entity.MoveVelocity.Y = moveVelocity.Y;
+                            finishedY = false;
+                        }
+
+                        if(finishedX && finishedY)
+                        {
+                            offset = Vector2.Zero;
                             if(Type == MovingType.OneWay)
                                 IsActive = false;
                             else if(Type == MovingType.TwoWay)
                             {
-                                offset = Vector2.Zero;
                                 Vector2 tempStart = Start;
                                 Start = End;
                                 End = tempStart;

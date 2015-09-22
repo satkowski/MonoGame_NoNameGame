@@ -52,6 +52,18 @@ namespace NoNameGame.Screens.Managers
             this.entities.AddRange(entities);
         }
 
+        public void AddEntity(Entity entity)
+        {
+            entities.Add(entity);
+            //TODO: Zooming auf die neue Entity anwenden
+        }
+
+        public void DeleteEntity(Entity entity)
+        {
+            entities.Remove(entity);
+            //TODO: Zooming vom entfernten Entity herunternehmen
+        }
+
         public void UnloadContent()
         {
         }

@@ -119,6 +119,9 @@
     <Content Include="Load\Entities\Players\Player_01.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Load\Entities\Shots\LaserShot_01.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Load\Maps\Map_001.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

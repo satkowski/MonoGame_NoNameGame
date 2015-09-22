@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomatedEntity>
+  <MoveSpeed>180</MoveSpeed>
+  <ImageEffect>SpriteEffect-Always</ImageEffect>
+  <ImageEffect>RotationEffect</ImageEffect>
+
+  <Ability>MovingAbility</Ability>
+
+  <MovingAbility>
+    <Type>OneWay</Type>
+  </MovingAbility>
+  
+  <Image>
+    <Path>Entities/Shots/LaserShot_01</Path>
+    <Scale>0.5</Scale>
+
+    <SpriteEffectAlways>
+      <CicleDirection>Left</CicleDirection>
+      <SpriteType>Always</SpriteType>
+      <Offset>1</Offset>
+      <SheetSize>
+        <X>8</X>
+        <Y>1</Y>
+      </SheetSize>
+      <ChangeSpeed>180</ChangeSpeed>
+    </SpriteEffectAlways>
+  </Image>
+</AutomatedEntity>

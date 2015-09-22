@@ -16,6 +16,7 @@ namespace NoNameGame.Entities
         public List<string> Abilities;
         public PlayerFollowingAbility PlayerFollowingAbility;
         public MovingAbility MovingAbility;
+        public ShootingAbility ShootingAbility;
 
         public AutomatedEntity()
         {
@@ -29,6 +30,7 @@ namespace NoNameGame.Entities
 
             setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
             setAbility<MovingAbility>(ref MovingAbility);
+            setAbility<ShootingAbility>(ref ShootingAbility);
             foreach(string abilitiesName in Abilities)
                 ActivateAbility(abilitiesName);
         }

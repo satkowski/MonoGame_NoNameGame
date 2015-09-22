@@ -20,6 +20,7 @@ namespace NoNameGame.Screens
         public Map Map;
         public UserControlledEntity Player;
         public List<AutomatedEntity> Enemies;
+        public List<AutomatedEntity> Shots;
 
         public GameplayScreen ()
         {
@@ -27,6 +28,7 @@ namespace NoNameGame.Screens
             Map = new Maps.Map();
             Player = new UserControlledEntity();
             Enemies = new List<AutomatedEntity>();
+            Shots = new List<AutomatedEntity>();
         }
 
         public override void LoadContent ()
@@ -43,6 +45,7 @@ namespace NoNameGame.Screens
 
             XmlManager<AutomatedEntity> enemyLoader = new XmlManager<AutomatedEntity>();
             Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_001.xml"));
+            Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_002.xml"));
             Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_003.xml"));
             foreach(AutomatedEntity enemy in Enemies)
             {
@@ -50,17 +53,32 @@ namespace NoNameGame.Screens
                 if(enemy.Abilities.Contains("PlayerFollowingAbility"))
                     Player.Image.OnPositionChange += delegate
                     { enemy.PlayerFollowingAbility.PlayerPosition = Player.Image.Position; };
-                else if(enemy.Abilities.Contains("MovingAbility"))
+                if(enemy.Abilities.Contains("MovingAbility"))
                     enemy.MovingAbility.Start = enemy.Image.Position;
+                else if(enemy.Abilities.Contains("ShootingAbility"))
+                {
+                    enemy.ShootingAbility.OnNewShotEntityCreated += ShootingAbility_OnNewShotEntityCreated;
+                    enemy.Image.OnPositionChange += delegate
+                    { enemy.ShootingAbility.StartPosition = enemy.Image.Position; };
+                    if(enemy.ShootingAbility.Type == Entities.Abilities.ShootingAbility.ShootingType.AgainstPlayer)
+                        Player.Image.OnPositionChange += delegate
+                        { enemy.ShootingAbility.DestinationPosition = Player.Image.Position; };
+                }
             }
 
-            zoomingManager.LoadContent(ref Map, Player, Enemies[0], Enemies[1]);
+            zoomingManager.LoadContent(ref Map, Player, Enemies[0], Enemies[1], Enemies[2]);
 
 
             zoomingManager.Type = ZoomingManager.ZoomingType.OneTime;
             zoomingManager.MaxZoom = 3.0f;
             zoomingManager.MinZoom = -0.85f;
             zoomingManager.ZoomingFactor = 0.001f;
+        }
+
+        private void ShootingAbility_OnNewShotEntityCreated(object sender, System.EventArgs e)
+        {
+            Shots.Add((AutomatedEntity)sender);
+            zoomingManager.AddEntity((Entity)sender);
         }
 
         public override void UnloadContent ()
@@ -87,12 +105,17 @@ namespace NoNameGame.Screens
             Player.Update(gameTime, Map);
             foreach(AutomatedEntity enemy in Enemies)
                 enemy.Update(gameTime, Map);
+            foreach(AutomatedEntity shot in Shots)
+                shot.Update(gameTime, Map);
+
             Map.Update(gameTime);
 
             Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position - Player.Image.ScaledOrigin;
             Player.Image.Offset = offset.RoundDownToIntVector2();
             foreach(AutomatedEntity enemy in Enemies)
                 enemy.Image.Offset = Player.Image.Offset;
+            foreach(AutomatedEntity shot in Shots)
+                shot.Image.Offset = Player.Image.Offset;
             foreach(Layer layer in Map.Layers)
                 layer.TileSheet.Offset = Player.Image.Offset;
 
@@ -131,6 +154,8 @@ namespace NoNameGame.Screens
             Player.Draw(spriteBatch);
             foreach(AutomatedEntity enemy in Enemies)
                 enemy.Draw(spriteBatch);
+            foreach(AutomatedEntity shot in Shots)
+                shot.Draw(spriteBatch);
         }
     }
 }
