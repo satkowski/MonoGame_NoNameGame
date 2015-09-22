@@ -20,17 +20,17 @@ namespace NoNameGame.Maps
         Vector2 mapTilePosition;
 
         public TileRotation Rotation;
-        public Vector2 DestinationPosition;
+        public Vector2 Position;
         public Rectangle TileSheetRectangle;
         [XmlIgnore]
-        public Rectangle CurrentDestinationRectangle { private set; get; }
+        public Rectangle CurrentRectangle { private set; get; }
 
         public Tile ()
         {
             Rotation = TileRotation.None;
-            DestinationPosition = Vector2.Zero;
+            Position = Vector2.Zero;
             TileSheetRectangle = Rectangle.Empty;
-            CurrentDestinationRectangle = Rectangle.Empty;
+            CurrentRectangle = Rectangle.Empty;
         }
 
         public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation) 
@@ -39,12 +39,12 @@ namespace NoNameGame.Maps
             layer.OnScaleChange += updateRectangle;
             this.mapTilePosition = mapPosition;
             Rotation = rotation;
-            DestinationPosition = mapPosition * layer.TileDimensions * layer.Scale;
+            Position = mapPosition * layer.TileDimensions * layer.Scale;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
-            CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X), (int)(DestinationPosition.Y + layer.Offset.Y),
-                                                        (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
+            CurrentRectangle = new Rectangle((int)(Position.X - layer.TileScaledOrigin.X), (int)(Position.Y - layer.TileScaledOrigin.X),
+                                             (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
 
         public void Update (GameTime gameTime)
@@ -54,11 +54,9 @@ namespace NoNameGame.Maps
 
         private void updateRectangle(object sender, System.EventArgs e)
         {
-            DestinationPosition =  mapTilePosition * (Vector2)sender;
-
-            CurrentDestinationRectangle = new Rectangle((int)(DestinationPosition.X + layer.Offset.X),
-                                                        (int)(DestinationPosition.Y + layer.Offset.Y),
-                                                        (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
+            Position =  mapTilePosition * (Vector2)sender;
+            CurrentRectangle = new Rectangle((int)(Position.X - layer.TileScaledOrigin.X), (int)(Position.Y - layer.TileScaledOrigin.X),
+                                             (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
     }
 }

@@ -62,7 +62,6 @@ namespace NoNameGame.Entities.Abilities
                     AutomatedEntity newShotEntity = entityLoader.Load(ShotEntityPath);
                     newShotEntity.LoadContent();
                     
-                    //TODO: Position des Zieles und des Gegners als Mittelpunkt für den Schuss
                     int offset = -1;
                     if(DestinationPosition.Y - StartPosition.Y > 0)
                         offset = 1;

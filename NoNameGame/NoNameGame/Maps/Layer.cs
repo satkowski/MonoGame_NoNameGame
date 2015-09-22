@@ -125,8 +125,8 @@ namespace NoNameGame.Maps
         {
             List<Rectangle> collidingRectangle = new List<Rectangle>();
             foreach (Tile tile in tileMap)
-                if (tile.CurrentDestinationRectangle.Intersects(entityRectangle))
-                    collidingRectangle.Add(tile.CurrentDestinationRectangle);
+                if (tile.CurrentRectangle.Intersects(entityRectangle))
+                    collidingRectangle.Add(tile.CurrentRectangle);
 
             return collidingRectangle;
         }

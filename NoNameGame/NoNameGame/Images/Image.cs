@@ -106,7 +106,7 @@ namespace NoNameGame.Images
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position + ScaledOrigin + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(Texture, position + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
 
         private void updateRectangles ()
@@ -115,7 +115,7 @@ namespace NoNameGame.Images
             ScaledOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
 
             PrevRectangle = CurrentRectangle;
-            CurrentRectangle = new Rectangle((int)(position.X), (int)(position.Y),
+            CurrentRectangle = new Rectangle((int)(position.X - ScaledOrigin.X), (int)(position.Y - ScaledOrigin.Y),
                                              (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
         }
 
