@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework;
 
 using NoNameGame.Managers;
-using System.Xml.Serialization;
+using NoNameGame.Extensions;
 
 namespace NoNameGame.Entities.Abilities
 {
@@ -61,9 +61,12 @@ namespace NoNameGame.Entities.Abilities
                     XmlManager<AutomatedEntity> entityLoader = new XmlManager<AutomatedEntity>();
                     AutomatedEntity newShotEntity = entityLoader.Load(ShotEntityPath);
                     newShotEntity.LoadContent();
-
-                    //TODO: Winkel Anpassen
+                    
                     //TODO: Position des Zieles und des Gegners als Mittelpunkt für den Schuss
+                    int offset = 1;
+                    if(DestinationPosition.Y - StartPosition.Y > 0)
+                        offset = -1;
+                    newShotEntity.Image.Rotation = offset * (float)Math.Asin(DestinationPosition.GetAngleValues(StartPosition).Value.X);
                     newShotEntity.Image.Position = StartPosition;
                     newShotEntity.MovingAbility.Start = StartPosition;
                     newShotEntity.MovingAbility.End = DestinationPosition;
