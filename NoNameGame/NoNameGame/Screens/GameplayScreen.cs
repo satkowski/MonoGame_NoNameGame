@@ -43,14 +43,18 @@ namespace NoNameGame.Screens
 
             XmlManager<AutomatedEntity> enemyLoader = new XmlManager<AutomatedEntity>();
             Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_001.xml"));
+            Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_003.xml"));
             foreach(AutomatedEntity enemy in Enemies)
             {
                 enemy.LoadContent();
                 if(enemy.Abilities.Contains("PlayerFollowingAbility"))
-                    Player.Image.OnPositionChange += delegate { enemy.PlayerFollowingAbility.PlayerPosition = Player.Image.Position; };
+                    Player.Image.OnPositionChange += delegate
+                    { enemy.PlayerFollowingAbility.PlayerPosition = Player.Image.Position; };
+                else if(enemy.Abilities.Contains("MovingAbility"))
+                    enemy.MovingAbility.Start = enemy.Image.Position;
             }
 
-            zoomingManager.LoadContent(ref Map, Player, Enemies[0]);
+            zoomingManager.LoadContent(ref Map, Player, Enemies[0], Enemies[1]);
 
 
             zoomingManager.Type = ZoomingManager.ZoomingType.OneTime;

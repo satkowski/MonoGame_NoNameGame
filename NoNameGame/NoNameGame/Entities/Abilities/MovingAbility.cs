@@ -16,6 +16,8 @@ namespace NoNameGame.Entities.Abilities
             Circle
         }
 
+        Vector2 offset;
+
         public MovingType Type;
         public Vector2 Start;
         public Vector2 End;
@@ -24,6 +26,7 @@ namespace NoNameGame.Entities.Abilities
 
         public MovingAbility()
         {
+            offset = Vector2.Zero;
             Type = MovingType.OneWay;
             Start = Vector2.Zero;
             End = Vector2.Zero;
@@ -49,10 +52,39 @@ namespace NoNameGame.Entities.Abilities
                 {
                     if(Start != End)
                     {
-                        Vector2? offset = Start.GetAngleValues(End);
-                        if(offset.HasValue)
-                            entity.MoveVelocity += offset.Value * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        //TODO: Schauen, ob das Ziel erreicht wurde
+                        if(offset == Vector2.Zero)
+                            offset = End.GetAngleValues(Start).Value;
+
+                        Vector2 moveVelocity = offset * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        bool finished = false;
+
+                        if(offset.X < 0 && entity.Image.Position.X + moveVelocity.X < End.X
+                           || offset.Y < 0 && entity.Image.Position.Y + moveVelocity.Y < End.Y)
+                        {
+                            moveVelocity = entity.Image.Position - End;
+                            finished = true;
+                        }
+                        else if(offset.X > 0 && entity.Image.Position.X + moveVelocity.X > End.X
+                                || offset.Y > 0 && entity.Image.Position.Y + moveVelocity.Y > End.Y)
+                        {
+                            moveVelocity = End - entity.Image.Position;
+                            finished = true;
+                        }
+                        else
+                            entity.MoveVelocity = moveVelocity;
+
+                        if(finished)
+                        {
+                            if(Type == MovingType.OneWay)
+                                IsActive = false;
+                            else if(Type == MovingType.TwoWay)
+                            {
+                                offset = Vector2.Zero;
+                                Vector2 tempStart = Start;
+                                Start = End;
+                                End = tempStart;
+                            }
+                        }
                     }
                 }
                 else if(Type == MovingType.Circle)

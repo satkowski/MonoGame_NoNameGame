@@ -107,6 +107,9 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="Load\Entities\Enemies\Enemy_003.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Load\Entities\Enemies\Enemy_002.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

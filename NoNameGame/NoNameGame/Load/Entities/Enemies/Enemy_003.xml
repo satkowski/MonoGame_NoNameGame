@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomatedEntity>
+  <MoveSpeed>180</MoveSpeed>
+  <ImageEffect>SpriteEffect-Always</ImageEffect>
+  <ImageEffect>RotationEffect</ImageEffect>
+
+  <Ability>MovingAbility</Ability>
+
+  <MovingAbility>
+    <Type>TwoWay</Type>
+    <End>
+      <X>375</X>
+      <Y>375</Y>
+    </End>
+  </MovingAbility>
+  
+  <Image>
+    <Path>Entities/Enemies/Enemy_001</Path>
+    <Scale>0.6</Scale>
+    <Position>
+      <X>675</X>
+      <Y>675</Y>
+    </Position>
+
+    <SpriteEffectAlways>
+      <CicleDirection>Left</CicleDirection>
+      <SpriteType>Always</SpriteType>
+      <Offset>1</Offset>
+      <SheetSize>
+        <X>8</X>
+        <Y>1</Y>
+      </SheetSize>
+      <ChangeSpeed>180</ChangeSpeed>
+    </SpriteEffectAlways>
+
+    <RotationEffect>
+      <Direction>Counterclockwise</Direction>
+      <RotationPerMillisecond>0.06</RotationPerMillisecond>
+    </RotationEffect>
+  </Image>
+</AutomatedEntity>
