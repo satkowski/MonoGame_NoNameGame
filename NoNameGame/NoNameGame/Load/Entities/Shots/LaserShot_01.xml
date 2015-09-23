@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<AutomatedEntity>
+<Entity>
+  <Type>Shot</Type>
   <MoveSpeed>180</MoveSpeed>
   <ImageEffect>SpriteEffect-Always</ImageEffect>
   <ImageEffect>RotationEffect</ImageEffect>
@@ -26,4 +27,4 @@
       <ChangeSpeed>180</ChangeSpeed>
     </SpriteEffectAlways>
   </Image>
-</AutomatedEntity>
+</Entity>

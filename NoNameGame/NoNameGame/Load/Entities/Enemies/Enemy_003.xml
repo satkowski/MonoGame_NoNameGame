@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<AutomatedEntity>
+<Entity>
+  <Type>Enemy</Type>
   <MoveSpeed>180</MoveSpeed>
   <ImageEffect>SpriteEffect-Always</ImageEffect>
   <ImageEffect>RotationEffect</ImageEffect>
@@ -39,4 +40,4 @@
       <RotationPerMillisecond>0.06</RotationPerMillisecond>
     </RotationEffect>
   </Image>
-</AutomatedEntity>
+</Entity>

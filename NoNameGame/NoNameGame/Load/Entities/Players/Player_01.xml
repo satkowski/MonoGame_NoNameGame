@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<UserControlledEntity>
+<Entity>
+  <Type>Player</Type>
   <MoveSpeed>220</MoveSpeed>
   <ImageEffect>SpriteEffect-Always</ImageEffect>
   <ImageEffect>RotationEffect</ImageEffect>
+  <Ability>UserControlledAbility</Ability>
   
   <Image>
     <Path>Entities/Players/Player_01</Path>
@@ -28,4 +30,4 @@
       <RotationPerMillisecond>0.08</RotationPerMillisecond>
     </RotationEffect>
   </Image>
-</UserControlledEntity>
+</Entity>

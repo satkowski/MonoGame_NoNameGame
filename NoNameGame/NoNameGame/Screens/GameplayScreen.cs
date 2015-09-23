@@ -19,17 +19,17 @@ namespace NoNameGame.Screens
         List<Entity> entitiesToRemove;
 
         public Map Map;
-        public UserControlledEntity Player;
-        public List<AutomatedEntity> Enemies;
-        public List<AutomatedEntity> Shots;
+        public Entity Player;
+        public List<Entity> Enemies;
+        public List<Entity> Shots;
 
         public GameplayScreen ()
         {
             zoomingManager = new ZoomingManager();
             Map = new Maps.Map();
-            Player = new UserControlledEntity();
-            Enemies = new List<AutomatedEntity>();
-            Shots = new List<AutomatedEntity>();
+            Player = new Entity();
+            Enemies = new List<Entity>();
+            Shots = new List<Entity>();
             entitiesToRemove = new List<Entity>();
         }
 
@@ -41,17 +41,17 @@ namespace NoNameGame.Screens
             Map = mapLoader.Load("Load/Maps/Map_005.xml");
             Map.LoadContent();
 
-            XmlManager<UserControlledEntity> playerLoader = new XmlManager<UserControlledEntity>();
+            XmlManager<Entity> playerLoader = new XmlManager<Entity>();
             Player = playerLoader.Load("Load/Entities/Players/Player_01.xml");
-            Player.LoadContent();
+            Player.LoadContent(Entity.EntityType.Player);
 
-            XmlManager<AutomatedEntity> enemyLoader = new XmlManager<AutomatedEntity>();
+            XmlManager<Entity> enemyLoader = new XmlManager<Entity>();
             Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_001.xml"));
             Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_002.xml"));
             Enemies.Add(enemyLoader.Load("Load/Entities/Enemies/Enemy_003.xml"));
-            foreach(AutomatedEntity enemy in Enemies)
+            foreach(Entity enemy in Enemies)
             {
-                enemy.LoadContent();
+                enemy.LoadContent(Entity.EntityType.Enemy);
                 if(enemy.Abilities.Contains("PlayerFollowingAbility"))
                     Player.Image.OnPositionChange += delegate
                     { enemy.PlayerFollowingAbility.PlayerPosition = Player.Image.Position; };
@@ -79,10 +79,11 @@ namespace NoNameGame.Screens
 
         private void ShootingAbility_OnNewShotEntityCreated(object sender, System.EventArgs e)
         {
-            ((AutomatedEntity)sender).MovingAbility.OnEndingReached += delegate
-            { entitiesToRemove.Add((Entity)sender); };
-            Shots.Add((AutomatedEntity)sender);
-            zoomingManager.AddEntity((Entity)sender);
+            Entity entity = (Entity)sender;
+            (entity).MovingAbility.OnEndingReached += delegate
+            { entitiesToRemove.Add(entity); };
+            Shots.Add(entity);
+            zoomingManager.AddEntity(entity);
         }
 
         public override void UnloadContent ()
@@ -107,14 +108,14 @@ namespace NoNameGame.Screens
             zoomingManager.Update(gameTime);
 
             Player.Update(gameTime, Map);
-            foreach(AutomatedEntity enemy in Enemies)
+            foreach(Entity enemy in Enemies)
                 enemy.Update(gameTime, Map);
-            foreach(AutomatedEntity shot in Shots)
+            foreach(Entity shot in Shots)
                 shot.Update(gameTime, Map);
             foreach(Entity entity in entitiesToRemove)
             {
-                Enemies.Remove((AutomatedEntity)entity);
-                Shots.Remove((AutomatedEntity)entity);
+                Enemies.Remove(entity);
+                Shots.Remove(entity);
                 zoomingManager.RemoveEntity(entity);
             }
             entitiesToRemove.Clear();
@@ -124,9 +125,9 @@ namespace NoNameGame.Screens
 
             Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position - Player.Image.ScaledOrigin;
             Player.Image.Offset = offset.RoundDownToIntVector2();
-            foreach(AutomatedEntity enemy in Enemies)
+            foreach(Entity enemy in Enemies)
                 enemy.Image.Offset = Player.Image.Offset;
-            foreach(AutomatedEntity shot in Shots)
+            foreach(Entity shot in Shots)
                 shot.Image.Offset = Player.Image.Offset;
             foreach(Layer layer in Map.Layers)
                 layer.TileSheet.Offset = Player.Image.Offset;
@@ -164,9 +165,9 @@ namespace NoNameGame.Screens
         {
             Map.Draw(spriteBatch);
             Player.Draw(spriteBatch);
-            foreach(AutomatedEntity enemy in Enemies)
+            foreach(Entity enemy in Enemies)
                 enemy.Draw(spriteBatch);
-            foreach(AutomatedEntity shot in Shots)
+            foreach(Entity shot in Shots)
                 shot.Draw(spriteBatch);
         }
     }

@@ -13,7 +13,7 @@ namespace NoNameGame.Entities.Abilities
 
         }
 
-        public override void LoadContent(ref AutomatedEntity entity)
+        public override void LoadContent(ref Entity entity)
         {
             base.LoadContent(ref entity);
         }

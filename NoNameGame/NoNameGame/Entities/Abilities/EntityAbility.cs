@@ -13,7 +13,7 @@ namespace NoNameGame.Entities.Abilities
             IsActive = false;
         }
 
-        public virtual void LoadContent(ref AutomatedEntity entity)
+        public virtual void LoadContent(ref Entity entity)
         {
             this.entity = entity;
         }

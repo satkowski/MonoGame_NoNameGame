@@ -37,7 +37,7 @@ namespace NoNameGame.Entities.Abilities
             ShootingInterval = 0;
         }
 
-        public override void LoadContent(ref AutomatedEntity entity)
+        public override void LoadContent(ref Entity entity)
         {
             base.LoadContent(ref entity);
         }
@@ -58,9 +58,9 @@ namespace NoNameGame.Entities.Abilities
                 {
                     elapsedTime = 0;
                     
-                    XmlManager<AutomatedEntity> entityLoader = new XmlManager<AutomatedEntity>();
-                    AutomatedEntity newShotEntity = entityLoader.Load(ShotEntityPath);
-                    newShotEntity.LoadContent();
+                    XmlManager<Entity> entityLoader = new XmlManager<Entity>();
+                    Entity newShotEntity = entityLoader.Load(ShotEntityPath);
+                    newShotEntity.LoadContent(Entity.EntityType.Shot);
                     
                     int offset = -1;
                     if(DestinationPosition.Y - StartPosition.Y > 0)
