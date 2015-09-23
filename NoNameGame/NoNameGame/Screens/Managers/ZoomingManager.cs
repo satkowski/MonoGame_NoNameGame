@@ -7,7 +7,7 @@ using NoNameGame.Entities;
 
 namespace NoNameGame.Screens.Managers
 {
-    public class ZoomingManager
+    public class ZoomingManager : GameplayScreenManager
     {
         public enum ZoomingType
         {
@@ -21,9 +21,7 @@ namespace NoNameGame.Screens.Managers
             In = 1,
             Out = -1
         }
-
-        Map map;
-        List<Entity> entities;
+        
         float currentZoom;
 
         public bool IsActive;
@@ -36,7 +34,6 @@ namespace NoNameGame.Screens.Managers
         public ZoomingManager()
         {
             IsActive = false;
-            entities = new List<Entity>();
             currentZoom = 0.0f;
             MinZoom = 0.0f;
             MaxZoom = 0.0f;
@@ -46,29 +43,17 @@ namespace NoNameGame.Screens.Managers
             Direction = ZoomingDirection.In;
         }
 
-        public void LoadContent(ref Map map, params Entity[] entities)
+        public override void LoadContent(ref Map map, params Entity[] entities)
         {
-            this.map = map;
-            this.entities.AddRange(entities);
+            base.LoadContent(ref map, entities);
         }
 
-        public void AddEntity(Entity entity)
+        public override void UnloadContent()
         {
-            entities.Add(entity);
-            //TODO: Zooming auf die neue Entity anwenden
+            base.UnloadContent();
         }
 
-        public void RemoveEntity(Entity entity)
-        {
-            entities.Remove(entity);
-            //TODO: Zooming vom entfernten Entity herunternehmen
-        }
-
-        public void UnloadContent()
-        {
-        }
-
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if(IsActive && Type != ZoomingType.None)
             {
@@ -98,6 +83,19 @@ namespace NoNameGame.Screens.Managers
                 if(Type == ZoomingType.OneTime)
                     IsActive = false;
             }
+            base.Update(gameTime);
+        }
+
+        public override void AddEntity(Entity entity)
+        {
+            //TODO: Zooming auf die neue Entity anwenden
+            base.AddEntity(entity);
+        }
+
+        public override void RemoveEntity(Entity entity)
+        {
+            //TODO: Zooming vom entfernten Entity herunternehmen
+            base.RemoveEntity(entity);
         }
     }
 }

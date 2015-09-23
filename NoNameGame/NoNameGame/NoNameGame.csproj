@@ -89,6 +89,8 @@
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />
+    <Compile Include="Screens\Managers\CollisionManager.cs" />
+    <Compile Include="Screens\Managers\GameplayScreenManager.cs" />
     <Compile Include="Screens\Managers\ZoomingManager.cs" />
     <Compile Include="Maps\Layer.cs" />
     <Compile Include="Maps\Map.cs" />

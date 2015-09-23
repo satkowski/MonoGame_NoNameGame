@@ -16,6 +16,7 @@ namespace NoNameGame.Screens
     public class GameplayScreen : Screen
     {
         ZoomingManager zoomingManager;
+        CollisionManager collisionManager;
         List<Entity> entitiesToRemove;
 
         public Map Map;
@@ -26,6 +27,7 @@ namespace NoNameGame.Screens
         public GameplayScreen ()
         {
             zoomingManager = new ZoomingManager();
+            collisionManager = new CollisionManager();
             Map = new Maps.Map();
             Player = new Entity();
             Enemies = new List<Entity>();
@@ -69,12 +71,11 @@ namespace NoNameGame.Screens
             }
 
             zoomingManager.LoadContent(ref Map, Player, Enemies[0], Enemies[1], Enemies[2]);
-
-
             zoomingManager.Type = ZoomingManager.ZoomingType.OneTime;
             zoomingManager.MaxZoom = 3.0f;
             zoomingManager.MinZoom = -0.85f;
             zoomingManager.ZoomingFactor = 0.001f;
+            collisionManager.LoadContent(ref Map, Player, Enemies[0], Enemies[1], Enemies[2]);
         }
 
         private void ShootingAbility_OnNewShotEntityCreated(object sender, System.EventArgs e)
@@ -84,6 +85,7 @@ namespace NoNameGame.Screens
             { entitiesToRemove.Add(entity); };
             Shots.Add(entity);
             zoomingManager.AddEntity(entity);
+            collisionManager.AddEntity(entity);
         }
 
         public override void UnloadContent ()
@@ -91,6 +93,7 @@ namespace NoNameGame.Screens
             Map.UnloadContent();
             Player.UnloadContent();
             zoomingManager.UnloadContent();
+            collisionManager.UnloadContent();
         }
 
         public override void Update (GameTime gameTime)
@@ -117,9 +120,11 @@ namespace NoNameGame.Screens
                 Enemies.Remove(entity);
                 Shots.Remove(entity);
                 zoomingManager.RemoveEntity(entity);
+                collisionManager.RemoveEntity(entity);
             }
             entitiesToRemove.Clear();
 
+            collisionManager.Update(gameTime);
 
             Map.Update(gameTime);
 
