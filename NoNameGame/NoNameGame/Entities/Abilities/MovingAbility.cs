@@ -12,22 +12,33 @@ namespace NoNameGame.Entities.Abilities
         public enum MovingType
         {
             OneWay,
-            TwoWay,
             Circle
+        }
+
+        public enum EndingType
+        {
+            Standing,
+            Repeating,
+            DisappearingWithAnimation,
+            DisappearingWithoutAnimation
         }
 
         Vector2 offset;
 
-        public MovingType Type;
+        public MovingType Moving;
+        public EndingType Ending;
         public Vector2 Start;
         public Vector2 End;
         public Vector2 Center;
         public Vector2 Radius;
 
+        public event EventHandler OnEndingReached;
+
         public MovingAbility()
         {
             offset = Vector2.Zero;
-            Type = MovingType.OneWay;
+            Moving = MovingType.OneWay;
+            Ending = EndingType.Standing;
             Start = Vector2.Zero;
             End = Vector2.Zero;
             Center = Vector2.Zero;
@@ -48,7 +59,7 @@ namespace NoNameGame.Entities.Abilities
         {
             if(IsActive)
             {
-                if(Type == MovingType.OneWay || Type == MovingType.TwoWay)
+                if(Moving == MovingType.OneWay)
                 {
                     if(Start != End)
                     {
@@ -82,18 +93,29 @@ namespace NoNameGame.Entities.Abilities
                         if(finishedX && finishedY)
                         {
                             offset = Vector2.Zero;
-                            if(Type == MovingType.OneWay)
-                                IsActive = false;
-                            else if(Type == MovingType.TwoWay)
+                            if(Ending == EndingType.Repeating)
                             {
                                 Vector2 tempStart = Start;
                                 Start = End;
                                 End = tempStart;
                             }
+                            else if(Ending == EndingType.DisappearingWithAnimation)
+                            {
+                                //TODO: Implementieren
+                            }
+                            else if(Ending == EndingType.DisappearingWithoutAnimation)
+                            {
+                                IsActive = false;
+                                entity.UnloadContent();
+                                if(OnEndingReached != null)
+                                    OnEndingReached(entity, null);
+                            }
+                            else
+                                IsActive = false;
                         }
                     }
                 }
-                else if(Type == MovingType.Circle)
+                else if(Moving == MovingType.Circle)
                 {
                     if(Radius != Vector2.Zero)
                     {

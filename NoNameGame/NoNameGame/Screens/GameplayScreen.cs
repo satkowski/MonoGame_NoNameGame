@@ -16,6 +16,7 @@ namespace NoNameGame.Screens
     public class GameplayScreen : Screen
     {
         ZoomingManager zoomingManager;
+        List<Entity> entitiesToRemove;
 
         public Map Map;
         public UserControlledEntity Player;
@@ -29,6 +30,7 @@ namespace NoNameGame.Screens
             Player = new UserControlledEntity();
             Enemies = new List<AutomatedEntity>();
             Shots = new List<AutomatedEntity>();
+            entitiesToRemove = new List<Entity>();
         }
 
         public override void LoadContent ()
@@ -77,6 +79,8 @@ namespace NoNameGame.Screens
 
         private void ShootingAbility_OnNewShotEntityCreated(object sender, System.EventArgs e)
         {
+            ((AutomatedEntity)sender).MovingAbility.OnEndingReached += delegate
+            { entitiesToRemove.Add((Entity)sender); };
             Shots.Add((AutomatedEntity)sender);
             zoomingManager.AddEntity((Entity)sender);
         }
@@ -107,6 +111,14 @@ namespace NoNameGame.Screens
                 enemy.Update(gameTime, Map);
             foreach(AutomatedEntity shot in Shots)
                 shot.Update(gameTime, Map);
+            foreach(Entity entity in entitiesToRemove)
+            {
+                Enemies.Remove((AutomatedEntity)entity);
+                Shots.Remove((AutomatedEntity)entity);
+                zoomingManager.RemoveEntity(entity);
+            }
+            entitiesToRemove.Clear();
+
 
             Map.Update(gameTime);
 

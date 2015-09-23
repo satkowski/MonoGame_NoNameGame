@@ -58,7 +58,7 @@ namespace NoNameGame.Screens.Managers
             //TODO: Zooming auf die neue Entity anwenden
         }
 
-        public void DeleteEntity(Entity entity)
+        public void RemoveEntity(Entity entity)
         {
             entities.Remove(entity);
             //TODO: Zooming vom entfernten Entity herunternehmen

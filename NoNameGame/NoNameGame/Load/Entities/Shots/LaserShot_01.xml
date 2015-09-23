@@ -7,7 +7,8 @@
   <Ability>MovingAbility</Ability>
 
   <MovingAbility>
-    <Type>OneWay</Type>
+    <Moving>OneWay</Moving>
+    <Ending>DisappearingWithoutAnimation</Ending>
   </MovingAbility>
   
   <Image>
