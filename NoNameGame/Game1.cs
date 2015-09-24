@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+ï»¿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,16 +7,16 @@ using NoNameGame.Managers;
 namespace NoNameGame
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         public static bool ExitGame;
 
-        public Game1 ()
+        public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -30,9 +30,9 @@ namespace NoNameGame
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize ()
+        protected override void Initialize()
         {
-            // Setzen der bevorzugten Buffergröße
+            // Setzen der bevorzugten BuffergrÃ¶ÃŸe
             graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.Dimensions.X;
             graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.Dimensions.Y;
             graphics.ApplyChanges();
@@ -44,7 +44,7 @@ namespace NoNameGame
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent ()
+        protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -56,9 +56,9 @@ namespace NoNameGame
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
+        /// game-specific content.
         /// </summary>
-        protected override void UnloadContent ()
+        protected override void UnloadContent()
         {
             ScreenManager.Instance.UnloadContent();
         }
@@ -68,10 +68,10 @@ namespace NoNameGame
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update (GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || ExitGame)
+            if(GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || ExitGame)
                 this.Exit();
 
             ScreenManager.Instance.Update(gameTime);
@@ -84,9 +84,9 @@ namespace NoNameGame
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw (GameTime gameTime)
+        protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkGreen);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
             ScreenManager.Instance.Draw(spriteBatch);
