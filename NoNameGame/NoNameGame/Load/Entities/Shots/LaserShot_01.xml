@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <Type>Shot</Type>
-  <MoveSpeed>180</MoveSpeed>
+  <MoveSpeed>235</MoveSpeed>
   <ImageEffect>SpriteEffect-Always</ImageEffect>
   <ImageEffect>RotationEffect</ImageEffect>
 

@@ -30,14 +30,14 @@ namespace NoNameGame.Screens.Managers
         {
             foreach(Entity entity in entities)
             {
-                collisionHandling(entity);
+                collisionWithMap(entity);
                 entity.Image.Position += entity.CollisionMovement;
             }
 
             base.Update(gameTime);
         }
 
-        private void collisionHandling(Entity entity)
+        private void collisionWithMap(Entity entity)
         {
             entity.CollisionMovement = Vector2.Zero;
             if(entity.MoveVelocity != Vector2.Zero)

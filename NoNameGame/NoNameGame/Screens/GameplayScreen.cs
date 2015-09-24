@@ -128,7 +128,7 @@ namespace NoNameGame.Screens
 
             Map.Update(gameTime);
 
-            Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position - Player.Image.ScaledOrigin;
+            Vector2 offset = ScreenManager.Instance.Dimensions / 2 - Player.Image.Position;
             Player.Image.Offset = offset.RoundDownToIntVector2();
             foreach(Entity enemy in Enemies)
                 enemy.Image.Offset = Player.Image.Offset;

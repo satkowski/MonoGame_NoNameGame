@@ -10,7 +10,7 @@
   <ShootingAbility>
     <Type>AgainstPlayer</Type>
     <ShotEntityPath>Load/Entities/Shots/LaserShot_01.xml</ShotEntityPath>
-    <ShootingInterval>1000</ShootingInterval>
+    <ShootingInterval>500</ShootingInterval>
   </ShootingAbility>
   
   <Image>
