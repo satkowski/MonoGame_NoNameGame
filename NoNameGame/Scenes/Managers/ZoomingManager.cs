@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.Managers;
+using Microsoft.Xna.Framework.Input;
 
-using Microsoft.Xna.Framework;
-
-using NoNameGame.Maps;
-using NoNameGame.Entities;
-
-namespace NoNameGame.Screens.Managers
+namespace NoNameGame.Scenes.Managers
 {
-    public class ZoomingManager : GameplayScreenManager
+    public class ZoomingManager : SceneManager
     {
         public enum ZoomingType
         {
@@ -43,9 +40,9 @@ namespace NoNameGame.Screens.Managers
             Direction = ZoomingDirection.In;
         }
 
-        public override void LoadContent(ref Map map, params Entity[] entities)
+        public override void LoadContent(ref Scene scene)
         {
-            base.LoadContent(ref map, entities);
+            base.LoadContent(ref scene);
         }
 
         public override void UnloadContent()
@@ -55,6 +52,17 @@ namespace NoNameGame.Screens.Managers
 
         public override void Update(GameTime gameTime)
         {
+            if(InputManager.Instance.KeyDown(Keys.OemPlus))
+            {
+                Direction = ZoomingDirection.In;
+                IsActive = true;
+            }
+            else if(InputManager.Instance.KeyDown(Keys.OemMinus))
+            {
+                Direction = ZoomingDirection.Out;
+                IsActive = true;
+            }
+
             if(IsActive && Type != ZoomingType.None)
             {
                 float oldZoom = currentZoom;
@@ -71,31 +79,19 @@ namespace NoNameGame.Screens.Managers
                     IsActive = false;
                 }
 
-                for(int c = 0; c < map.Layers.Count; c++)
-                    map.Layers[c].Scale *= (1 + currentZoom) / (1 + oldZoom);
-                for(int c = 0; c < entities.Count; c++)
+                for(int c = 0; c < scene.Map.Layers.Count; c++)
+                    scene.Map.Layers[c].Scale *= (1 + currentZoom) / (1 + oldZoom);
+                for(int c = 0; c < scene.Entities.Count; c++)
                 {
-                    entities[c].Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
-                    entities[c].Image.Position *= (1 + currentZoom) / (1 + oldZoom);
-                    entities[c].MoveSpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
+                    scene.Entities[c].Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
+                    scene.Entities[c].Image.Position *= (1 + currentZoom) / (1 + oldZoom);
+                    scene.Entities[c].MoveSpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
                 }
 
                 if(Type == ZoomingType.OneTime)
                     IsActive = false;
             }
             base.Update(gameTime);
-        }
-
-        public override void AddEntity(Entity entity)
-        {
-            //TODO: Zooming auf die neue Entity anwenden
-            base.AddEntity(entity);
-        }
-
-        public override void RemoveEntity(Entity entity)
-        {
-            //TODO: Zooming vom entfernten Entity herunternehmen
-            base.RemoveEntity(entity);
         }
     }
 }

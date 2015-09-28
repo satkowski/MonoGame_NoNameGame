@@ -4,21 +4,20 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using NoNameGame.Entities;
-using NoNameGame.Maps;
 using NoNameGame.Extensions;
 
-namespace NoNameGame.Screens.Managers
+namespace NoNameGame.Scenes.Managers
 {
-    public class CollisionManager : GameplayScreenManager
+    class CollisionManager : SceneManager
     {
         public CollisionManager()
         {
 
         }
 
-        public override void LoadContent(ref Map map, params Entity[] entities)
+        public override void LoadContent(ref Scene scene)
         {
-            base.LoadContent(ref map, entities);
+            base.LoadContent(ref scene);
         }
 
         public override void UnloadContent()
@@ -28,7 +27,7 @@ namespace NoNameGame.Screens.Managers
 
         public override void Update(GameTime gameTime)
         {
-            foreach(Entity entity in entities)
+            foreach(Entity entity in scene.Entities)
             {
                 collisionWithMap(entity);
                 entity.Image.Position += entity.CollisionMovement;
@@ -42,7 +41,7 @@ namespace NoNameGame.Screens.Managers
             entity.CollisionMovement = Vector2.Zero;
             if(entity.MoveVelocity != Vector2.Zero)
             {
-                List<Rectangle> collidingRectangles = map.GetCollidingTileRectangles(entity.Image.CurrentRectangle, entity.CollisionLevel);
+                List<Rectangle> collidingRectangles = scene.Map.GetCollidingTileRectangles(entity.Image.CurrentRectangle, entity.CollisionLevel);
 
                 if(collidingRectangles.Count != 0)
                 {
@@ -103,16 +102,6 @@ namespace NoNameGame.Screens.Managers
             }
 
             return collisionHandlingDirection;
-        }
-
-        public override void AddEntity(Entity entity)
-        {
-            base.AddEntity(entity);
-        }
-
-        public override void RemoveEntity(Entity entity)
-        {
-            base.RemoveEntity(entity);
         }
     }
 }

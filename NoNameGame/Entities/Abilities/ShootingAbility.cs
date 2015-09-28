@@ -60,7 +60,7 @@ namespace NoNameGame.Entities.Abilities
                     
                     XmlManager<Entity> entityLoader = new XmlManager<Entity>();
                     Entity newShotEntity = entityLoader.Load(ShotEntityPath);
-                    newShotEntity.LoadContent(Entity.EntityType.Shot);
+                    newShotEntity.LoadContent();
                     
                     int offset = -1;
                     if(DestinationPosition.Y - StartPosition.Y > 0)

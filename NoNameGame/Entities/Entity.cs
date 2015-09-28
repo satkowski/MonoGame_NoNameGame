@@ -54,9 +54,8 @@ namespace NoNameGame.Entities
             Abilities = new List<string>();
         }
 
-        public virtual void LoadContent (EntityType type)
+        public virtual void LoadContent ()
         {
-            Type = type;
             Image.Effects = ImageEffects;
             Image.LoadContent();
 
@@ -110,7 +109,7 @@ namespace NoNameGame.Entities
             Image.UnloadContent();
         }
 
-        public virtual void Update (GameTime gameTime, Map map)
+        public virtual void Update (GameTime gameTime)
         {
             MoveVelocity = Vector2.Zero;
 

@@ -63,10 +63,12 @@
     <Compile Include="Maps\TileMapString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenes\Managers\CameraManager.cs" />
+    <Compile Include="Scenes\Managers\CollisionManager.cs" />
+    <Compile Include="Scenes\Managers\SceneManager.cs" />
+    <Compile Include="Scenes\Managers\ZoomingManager.cs" />
+    <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
-    <Compile Include="Screens\Managers\CollisionManager.cs" />
-    <Compile Include="Screens\Managers\GameplayScreenManager.cs" />
-    <Compile Include="Screens\Managers\ZoomingManager.cs" />
     <Compile Include="Screens\Screen.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +79,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Load\Scenes\Scene_001.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Entities\Enemies\Enemy_001.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
