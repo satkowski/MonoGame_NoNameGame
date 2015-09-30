@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Images;
-using NoNameGame.Maps;
-using NoNameGame.Extensions;
 using NoNameGame.Entities.Abilities;
+using NoNameGame.Components;
+using NoNameGame.Components.Shapes;
 
 namespace NoNameGame.Entities
 {
@@ -24,17 +24,11 @@ namespace NoNameGame.Entities
 
         Dictionary<string, EntityAbility> abilitiesList;
 
-        public EntityType Type;
         public Image Image;
-        [XmlIgnore]
-        public Vector2 MoveVelocity;
-        [XmlIgnore]
-        public float MoveSpeedFactor;
-        public float MoveSpeed;
-        public Vector2 CollisionMovement;
-        public int CollisionLevel;
-        [XmlElement("ImageEffect")]
-        public List<string> ImageEffects;
+        public Body Body;
+        public Shape Shape;
+        public EntityType Type;
+
         [XmlElement("Ability")]
         public List<string> Abilities;
         public PlayerFollowingAbility PlayerFollowingAbility;
@@ -42,22 +36,17 @@ namespace NoNameGame.Entities
         public ShootingAbility ShootingAbility;
         public UserControlledAbility UserControlledAbility;
 
-        public Entity ()
+        public Entity()
         {
             Type = EntityType.Enemy;
-            MoveVelocity = Vector2.Zero;
-            MoveSpeedFactor = 1.0f;
-            CollisionMovement = Vector2.Zero;
-            CollisionLevel = 0;
-            ImageEffects = new List<string>();
             abilitiesList = new Dictionary<string, EntityAbility>();
             Abilities = new List<string>();
         }
-
-        public virtual void LoadContent ()
+        public void LoadContent()
         {
-            Image.Effects = ImageEffects;
-            Image.LoadContent();
+            Image.LoadContent(Body);
+            Body.LoadContent();
+            //Shape.LoadContent();
 
             setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
             setAbility<MovingAbility>(ref MovingAbility);
@@ -103,27 +92,26 @@ namespace NoNameGame.Entities
                 abilitiesList[abilityName].UnloadContent();
             }
         }
-
-        public virtual void UnloadContent ()
+        public virtual void UnloadContent()
         {
             Image.UnloadContent();
         }
 
-        public virtual void Update (GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
-            MoveVelocity = Vector2.Zero;
+            Body.Velocity = Vector2.Zero;
 
             foreach(var ability in abilitiesList)
                 ability.Value.Update(gameTime);
 
-            Image.Position += MoveVelocity * MoveSpeedFactor;
+            Body.Position += Body.Velocity * Body.SpeedFactor;
 
             Image.Update(gameTime);
         }
 
-        public virtual void Draw (SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Image.Draw(spriteBatch);
+            Image.Draw(spriteBatch, Body.Position);
         }
     }
 }

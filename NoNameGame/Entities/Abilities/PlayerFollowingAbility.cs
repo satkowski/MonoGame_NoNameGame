@@ -27,9 +27,9 @@ namespace NoNameGame.Entities.Abilities
         {
             if(IsActive && PlayerPosition != null)
             {
-                Vector2? offset = PlayerPosition.GetAngleValues(entity.Image.Position);
+                Vector2? offset = PlayerPosition.GetAngleValues(entity.Body.Position);
                 if(offset.HasValue)
-                    entity.MoveVelocity += offset.Value * entity.MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    entity.Body.Velocity += offset.Value * entity.Body.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             base.Update(gameTime);

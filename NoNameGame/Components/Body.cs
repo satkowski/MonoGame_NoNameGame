@@ -1,20 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
-using NoNameGame.Components.Shapes;
+using System;
 
 namespace NoNameGame.Components
 {
     public class Body
     {
-        public Vector2 Position;
+        Vector2 position;
+
         public Vector2 Velocity;
-        public Shape Shape;
-        public ShapeType ShapeType;
+        public float Speed;
+        public float SpeedFactor;
+        public Vector2 Position
+        {
+            get { return position; }
+            set
+            {
+                position = value;
+                //updateRectangles();
+                if(OnPositionChange != null)
+                    OnPositionChange(position, null);
+            }
+        }
+        public int CollisionLevel;
+
+        public event EventHandler OnPositionChange;
 
         public Body()
         {
             Position = Vector2.Zero;
             Velocity = Vector2.Zero;
-            ShapeType = ShapeType.AABB;
+            Speed = 0.0f;
+            SpeedFactor = 1.0f;
+            CollisionLevel = 0;
         }
 
         public void LoadContent()

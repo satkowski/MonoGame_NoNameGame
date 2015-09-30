@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <Type>Enemy</Type>
-  <MoveSpeed>110</MoveSpeed>
-  <ImageEffect>SpriteEffect-Always</ImageEffect>
-  <ImageEffect>RotationEffect</ImageEffect>
-
+  
+  <Body>
+    <Position>
+      <X>300</X>
+      <Y>300</Y>
+    </Position>
+    <Speed>110</Speed>
+    <CollisionLevel>0</CollisionLevel>
+  </Body>
+  
   <Ability>PlayerFollowingAbility</Ability>
   
   <Image>
     <Path>Entities/Enemies/Enemy_001</Path>
     <Scale>0.6</Scale>
-    <Position>
-      <X>300</X>
-      <Y>300</Y>
-    </Position>
+    
+    <ImageEffect>SpriteEffect-Always</ImageEffect>
+    <ImageEffect>RotationEffect</ImageEffect>
 
     <SpriteEffectAlways>
       <CicleDirection>Left</CicleDirection>

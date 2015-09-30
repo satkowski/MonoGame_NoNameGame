@@ -65,7 +65,7 @@ namespace NoNameGame.Entities.Abilities
                         offset = 1;
                     newShotEntity.Image.Rotation = MathHelper.PiOver2 + offset * (float)Math.Acos(DestinationPosition.GetAngleValues(StartPosition).Value.X);
 
-                    newShotEntity.Image.Position = StartPosition;
+                    newShotEntity.Body.Position = StartPosition;
                     newShotEntity.MovingAbility.Start = StartPosition;
                     newShotEntity.MovingAbility.End = DestinationPosition;
                     newShotEntity.MovingAbility.IsActive = true;
