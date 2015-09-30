@@ -36,24 +36,29 @@ namespace NoNameGame.Components.Shapes
             size = new Vector2(width, height);
         }
 
-        public bool Intersect(AABBShape shape)
+        public override bool Intersect<S>(S shape)
         {
-            if(shape.Left > Left && shape.Left < Right)
-                return true;
-            if(shape.Right < Right && shape.Right > Left)
-                return true;
-            if(shape.Top > Top && shape.Top < Bottom)
-                return true;
-            if(shape.Bottom < Bottom && shape.Bottom > Top)
-                return true;
-            if(Left > shape.Left && Left < shape.Right)
-                return true;
-            if(Right < shape.Right && Right > shape.Left)
-                return true;
-            if(Top > shape.Top && Top < shape.Bottom)
-                return true;
-            if(Bottom < shape.Bottom && Bottom > shape.Top)
-                return true;
+            if(shape.GetType().Equals(typeof(AABBShape)))
+            {
+                AABBShape aabb = (shape as AABBShape);
+                if(aabb.Left > Left && aabb.Left < Right)
+                    return true;
+                if(aabb.Right < Right && aabb.Right > Left)
+                    return true;
+                if(aabb.Top > Top && aabb.Top < Bottom)
+                    return true;
+                if(aabb.Bottom < Bottom && aabb.Bottom > Top)
+                    return true;
+                if(Left > aabb.Left && Left < aabb.Right)
+                    return true;
+                if(Right < aabb.Right && Right > aabb.Left)
+                    return true;
+                if(Top > aabb.Top && Top < aabb.Bottom)
+                    return true;
+                if(Bottom < aabb.Bottom && Bottom > aabb.Top)
+                    return true;
+            }
+            //TODO: Implementiere andere
             return false;
         }
     }
