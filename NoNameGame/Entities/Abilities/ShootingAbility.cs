@@ -14,8 +14,6 @@ namespace NoNameGame.Entities.Abilities
             AgainstPlayer,
             OneDirection,
         }
-
-        //TODO: Wenn Ziel erreicht ist soll diese Entität verschwinden
         
         int elapsedTime;
 

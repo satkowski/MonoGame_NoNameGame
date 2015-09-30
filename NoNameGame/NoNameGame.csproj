@@ -38,6 +38,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\Body.cs" />
+    <Compile Include="Components\Shapes\AABBShape.cs" />
+    <Compile Include="Components\Shapes\OBBShape.cs" />
+    <Compile Include="Components\Shapes\Shape.cs" />
+    <Compile Include="Components\Shapes\ShapeType.cs" />
     <Compile Include="Entities\Abilities\EntityAbility.cs" />
     <Compile Include="Entities\Abilities\MovingAbility.cs" />
     <Compile Include="Entities\Abilities\PlayerFollowingAbility.cs" />
