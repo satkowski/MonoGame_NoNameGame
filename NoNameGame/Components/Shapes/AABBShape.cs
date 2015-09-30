@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Xml.Serialization;
 
 namespace NoNameGame.Components.Shapes
 {
+    [XmlRoot(ElementName = "ShapeData", Namespace = "NoNameGame.Components.Shapes")]
     public class AABBShape : Shape
     {
         private Vector2 size;
@@ -30,11 +28,11 @@ namespace NoNameGame.Components.Shapes
         public float Bottom
         { get { return Location.Y + size.Y; } }
 
-        public AABBShape(float x, float y, float width, float height)
-        {
-            Location = new Vector2(x, y);
-            size = new Vector2(width, height);
-        }
+        //public override void LoadContent(float x, float y, float width, float height)
+        //{
+        //    Location = new Vector2(x, y);
+        //    size = new Vector2(width, height);
+        //}
 
         public override bool Intersect<S>(S shape)
         {

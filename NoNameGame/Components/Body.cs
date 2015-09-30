@@ -16,7 +16,6 @@ namespace NoNameGame.Components
             set
             {
                 position = value;
-                //updateRectangles();
                 if(OnPositionChange != null)
                     OnPositionChange(position, null);
             }

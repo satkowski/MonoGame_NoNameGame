@@ -17,8 +17,8 @@
     <Path>Entities/Enemies/Enemy_001</Path>
     <Scale>0.6</Scale>
     
-    <ImageEffect>SpriteEffect-Always</ImageEffect>
-    <ImageEffect>RotationEffect</ImageEffect>
+    <Effect>SpriteEffect-Always</Effect>
+    <Effect>RotationEffect</Effect>
 
     <SpriteEffectAlways>
       <CicleDirection>Left</CicleDirection>
