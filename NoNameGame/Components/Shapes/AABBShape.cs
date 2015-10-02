@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Xml.Serialization;
+using System;
 
 namespace NoNameGame.Components.Shapes
 {
     [XmlInclude(typeof(AABBShape))]
+    [XmlInclude(typeof(OBBShape))]
     public class AABBShape : Shape
-    {
+    {        
         public Vector2 Size;
         public Vector2 Center
         { get { return Size / 2; } }
@@ -18,10 +20,17 @@ namespace NoNameGame.Components.Shapes
         public float Bottom
         { get { return body.Position.Y + Center.Y; } }
 
-        public void LoadContent(Body body, float width, float height)
+        public void LoadContent(Body body, float width, float height, float scale)
         {
             Size = new Vector2(width, height);
+            this.scale = scale;
             base.LoadContent(body);
+        }
+
+        protected override void OnScaleChange(float newScale)
+        {
+            Size /= Scale;
+            Size *= newScale;
         }
 
         public override bool Intersect<S>(S shape)
