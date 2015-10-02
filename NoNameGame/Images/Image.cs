@@ -22,6 +22,7 @@ namespace NoNameGame.Images
         [XmlIgnore]
         public Texture2D Texture;
         public string Path;
+
         public float Scale;
         public float Rotation;
         public float Alpha;

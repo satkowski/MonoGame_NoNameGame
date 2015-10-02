@@ -42,6 +42,7 @@ namespace NoNameGame.Entities
             abilitiesList = new Dictionary<string, EntityAbility>();
             Abilities = new List<string>();
         }
+
         public void LoadContent()
         {
             Image.LoadContent(Body);

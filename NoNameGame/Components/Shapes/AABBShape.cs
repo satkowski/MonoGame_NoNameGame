@@ -3,36 +3,26 @@ using System.Xml.Serialization;
 
 namespace NoNameGame.Components.Shapes
 {
-    [XmlRoot(ElementName = "ShapeData", Namespace = "NoNameGame.Components.Shapes")]
+    [XmlInclude(typeof(AABBShape))]
     public class AABBShape : Shape
     {
-        private Vector2 size;
-
-        public Vector2 Location;
-        public float Width
-        { get { return size.X; } }
-        public float Height
-        { get { return size.Y; } }
-        public float X
-        { get { return Location.X; } }
-        public float Y
-        { get { return Location.Y; } }
+        public Vector2 Size;
         public Vector2 Center
-        { get { return size / 2; } }
+        { get { return Size / 2; } }
         public float Left
-        { get { return Location.X; } }
+        { get { return body.Position.X - Center.X; } }
         public float Top
-        { get { return Location.Y; } }
+        { get { return body.Position.Y - Center.Y; } }
         public float Right
-        { get { return Location.X + size.X; } }
+        { get { return body.Position.X + Center.X; } }
         public float Bottom
-        { get { return Location.Y + size.Y; } }
+        { get { return body.Position.Y + Center.Y; } }
 
-        //public override void LoadContent(float x, float y, float width, float height)
-        //{
-        //    Location = new Vector2(x, y);
-        //    size = new Vector2(width, height);
-        //}
+        public void LoadContent(Body body, float width, float height)
+        {
+            Size = new Vector2(width, height);
+            base.LoadContent(body);
+        }
 
         public override bool Intersect<S>(S shape)
         {
