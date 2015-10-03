@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Images;
 using NoNameGame.Extensions;
+using NoNameGame.Components.Shapes;
 
 namespace NoNameGame.Maps
 {
     public class Layer
     {
         float scale;
-        List<Tile> tileMap;
 
         public TileSheet TileSheet;
         public Vector2 Offset;
@@ -31,6 +31,9 @@ namespace NoNameGame.Maps
         }
         public Vector2 TileDimensions;
         public TileMapString TileMapString;
+        [XmlIgnore]
+        public List<Tile> TileMap
+        { private set; get; }
         [XmlIgnore]
         public Vector2 TileOrigin
         { private set; get; }
@@ -49,7 +52,7 @@ namespace NoNameGame.Maps
             Offset = Vector2.Zero;
             Scale = 1.0f;
             TileMapString = new TileMapString();
-            tileMap = new List<Tile>();
+            TileMap = new List<Tile>();
             TileDimensions = Vector2.Zero;
             CollisionLevel = -1;
             Size = Vector2.Zero;
@@ -94,14 +97,14 @@ namespace NoNameGame.Maps
                                 rotation = 0.0f;
 
                             newTile.LoadContent(this, new Vector2(valueX, valueY), position, rotation);
-                            tileMap.Add(newTile);
+                            TileMap.Add(newTile);
                         }
                     }
                 }
                 maxX = maxX < position.X ? (int)position.X : maxX;
                 position.X = -1;
             }
-            Size = new Vector2(maxX, tileMap.Count) * TileDimensions;
+            Size = new Vector2(maxX, TileMap.Count) * TileDimensions;
         }
 
         public void UnloadContent ()
@@ -111,24 +114,14 @@ namespace NoNameGame.Maps
 
         public void Update (GameTime gameTime, Vector2 mapPosition)
         {
-            foreach (Tile tile in tileMap)
+            foreach (Tile tile in TileMap)
                 tile.Update(gameTime);
         }
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            foreach(Tile tile in tileMap)
+            foreach(Tile tile in TileMap)
                 TileSheet.Draw(spriteBatch, TileOrigin, TileScaledOrigin, Scale, tile);
-        }
-
-        public List<Rectangle> GetCollidingTileRectangles (Rectangle entityRectangle)
-        {
-            List<Rectangle> collidingRectangle = new List<Rectangle>();
-            foreach (Tile tile in tileMap)
-                if (tile.CurrentRectangle.Intersects(entityRectangle))
-                    collidingRectangle.Add(tile.CurrentRectangle);
-
-            return collidingRectangle;
         }
     }
 }

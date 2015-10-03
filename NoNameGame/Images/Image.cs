@@ -29,8 +29,6 @@ namespace NoNameGame.Images
         public Color Color;
         public Vector2 Offset;
         public Rectangle SourceRectangle;
-        public Rectangle CurrentRectangle;
-        public Rectangle PrevRectangle;
         [XmlIgnore]
         public Vector2 ScaledOrigin { private set; get; }
                 
@@ -48,8 +46,6 @@ namespace NoNameGame.Images
             Rotation = 0.0f;
             Path = String.Empty;
             SourceRectangle = Rectangle.Empty;
-            PrevRectangle = Rectangle.Empty;
-            CurrentRectangle = Rectangle.Empty;
             Color = Color.White;
             origin = Vector2.Zero;
             ScaledOrigin = Vector2.Zero;
@@ -97,10 +93,6 @@ namespace NoNameGame.Images
 
             origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
             ScaledOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
-
-            PrevRectangle = CurrentRectangle;
-            CurrentRectangle = new Rectangle((int)(position.X - ScaledOrigin.X), (int)(position.Y - ScaledOrigin.Y),
-                                             (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
         }
 
         void setEffect<T>(ref T effect, string effectName = "")

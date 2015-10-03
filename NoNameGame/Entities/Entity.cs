@@ -39,15 +39,16 @@ namespace NoNameGame.Entities
         public Entity()
         {
             Type = EntityType.Enemy;
+            Shape = new AABBShape();
             abilitiesList = new Dictionary<string, EntityAbility>();
             Abilities = new List<string>();
         }
 
         public void LoadContent()
         {
-            Image.LoadContent(Body);
             Body.LoadContent();
-            //Shape.LoadContent();
+            Image.LoadContent(Body);
+            Shape.LoadContent(Body);
 
             setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
             setAbility<MovingAbility>(ref MovingAbility);

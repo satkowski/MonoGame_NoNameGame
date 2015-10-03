@@ -1,8 +1,7 @@
-﻿using System.Xml.Serialization;
-
-using Microsoft.Xna.Framework;
-
+﻿using Microsoft.Xna.Framework;
+using NoNameGame.Components.Shapes;
 using NoNameGame.Extensions;
+using System;
 
 namespace NoNameGame.Maps
 {
@@ -22,15 +21,16 @@ namespace NoNameGame.Maps
         public TileRotation Rotation;
         public Vector2 Position;
         public Rectangle TileSheetRectangle;
-        [XmlIgnore]
-        public Rectangle CurrentRectangle { private set; get; }
+        public AABBShape Shape;
+
+        public event EventHandler OnPositionChange;
 
         public Tile ()
         {
             Rotation = TileRotation.None;
             Position = Vector2.Zero;
             TileSheetRectangle = Rectangle.Empty;
-            CurrentRectangle = Rectangle.Empty;
+            Shape = new AABBShape();
         }
 
         public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation) 
@@ -43,8 +43,7 @@ namespace NoNameGame.Maps
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
 
-            CurrentRectangle = new Rectangle((int)(Position.X - layer.TileScaledOrigin.X), (int)(Position.Y - layer.TileScaledOrigin.X),
-                                             (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
+            Shape.LoadContent(this, layer.TileDimensions.X, layer.TileDimensions.Y, layer.Scale);
         }
 
         public void Update (GameTime gameTime)
@@ -55,8 +54,6 @@ namespace NoNameGame.Maps
         private void updateRectangle(object sender, System.EventArgs e)
         {
             Position =  mapTilePosition * (Vector2)sender;
-            CurrentRectangle = new Rectangle((int)(Position.X - layer.TileScaledOrigin.X), (int)(Position.Y - layer.TileScaledOrigin.X),
-                                             (int)(TileSheetRectangle.Width * layer.Scale), (int)(TileSheetRectangle.Height * layer.Scale));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace NoNameGame.Managers
     {
         private static ScreenManager instance;
         Screen currentScreen;
-        Screen nextScreen;
+        //Screen nextScreen;
 
         public GraphicsDevice GraphicsDevice;
         public SpriteBatch SpriteBatch;

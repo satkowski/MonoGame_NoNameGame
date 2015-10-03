@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using NoNameGame.Entities;
 using NoNameGame.Extensions;
+using NoNameGame.Components.Shapes;
+using NoNameGame.Maps;
 
 namespace NoNameGame.Scenes.Managers
 {
@@ -37,47 +39,62 @@ namespace NoNameGame.Scenes.Managers
 
         private void collisionWithMap(Entity entity)
         {
-            if(entity.Body.Velocity != Vector2.Zero)
+            Vector2 collisionMovement = Vector2.Zero;
+            List<Shape> collidingShapes = getCollidingTileShapes(entity.Shape, entity.Body.CollisionLevel);
+
+            if(collidingShapes.Count != 0)
             {
-                Vector2 collisionMovement = Vector2.Zero;
-                List<Rectangle> collidingRectangles = scene.Map.GetCollidingTileRectangles(entity.Image.CurrentRectangle, entity.Body.CollisionLevel);
-
-                if(collidingRectangles.Count != 0)
+                foreach(Shape collisionShape in collidingShapes)
                 {
-                    foreach(Rectangle collisionRectangle in collidingRectangles)
-                    {
-                        Vector2 collisionSolving = collisionRectangle.GetIntersectionDepth(entity.Image.CurrentRectangle) * getCollisionSide(entity, collisionRectangle);
+                    Vector2 collisionSolving = collisionShape.GetIntersectionDepth(entity.Shape) * getCollisionSide(entity, collisionShape);
 
-                        if(entity.Body.Velocity.X < 0)
-                            collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
-                        else if(entity.Body.Velocity.X > 0)
-                            collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionSolving.X);
-                        if(entity.Body.Velocity.Y < 0)
-                            collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionSolving.Y);
-                        else if(entity.Body.Velocity.Y > 0)
-                            collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionSolving.Y);
-                    }
+                    if(entity.Body.Velocity.X < 0)
+                        collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
+                    else if(entity.Body.Velocity.X > 0)
+                        collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionSolving.X);
+                    if(entity.Body.Velocity.Y < 0)
+                        collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionSolving.Y);
+                    else if(entity.Body.Velocity.Y > 0)
+                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionSolving.Y);
                 }
-                entity.Body.Position += collisionMovement;
             }
+            entity.Body.Position += collisionMovement;
         }
 
-        private Vector2 getCollisionSide(Entity entity, Rectangle entityRectangle)
+        private List<Shape> getCollidingTileShapes(Shape entityShape, int entityLevel)
+        {
+            List<Shape> collidingShape = new List<Shape>();
+            dynamic shape = Convert.ChangeType(entityShape, entityShape.Type.GetTypeType());
+
+            foreach(Layer layer in scene.Map.Layers)
+            {
+                if(layer.CollisionLevel != entityLevel)
+                    continue;
+                foreach(Tile tile in layer.TileMap)
+                    if(tile.Shape.Intersects(shape))
+                        collidingShape.Add(tile.Shape);
+            }
+            return collidingShape;
+        }
+
+        private Vector2 getCollisionSide(Entity entity, Shape entityShapeB)
         {
             Vector2 collisionHandlingDirection = Vector2.Zero;
+            dynamic shapeA = Convert.ChangeType(entity.Shape, entity.Shape.Type.GetTypeType());
+            dynamic shapeB = Convert.ChangeType(entityShapeB, entityShapeB.Type.GetTypeType());
 
             if(entity.Body.Velocity.X < 0 &&
-                entity.Image.CurrentRectangle.Left < entityRectangle.Right && entity.Image.CurrentRectangle.Left > entityRectangle.Left)
+                shapeA.Left < shapeB.Right && shapeA.Left > shapeB.Left)
                 collisionHandlingDirection.X = 1;
             else if(entity.Body.Velocity.X > 0 &&
-                    entity.Image.CurrentRectangle.Right > entityRectangle.Left && entity.Image.CurrentRectangle.Right < entityRectangle.Right)
+                    shapeA.Right > shapeB.Left && shapeA.Right < shapeB.Right)
                 collisionHandlingDirection.X = -1;
 
             if(entity.Body.Velocity.Y < 0 &&
-                    entity.Image.CurrentRectangle.Top < entityRectangle.Bottom && entity.Image.CurrentRectangle.Top > entityRectangle.Top)
+                    shapeA.Top < shapeB.Bottom && shapeA.Top > shapeB.Top)
                 collisionHandlingDirection.Y = 1;
             else if(entity.Body.Velocity.Y > 0 &&
-                    entity.Image.CurrentRectangle.Bottom > entityRectangle.Top && entity.Image.CurrentRectangle.Bottom < entityRectangle.Bottom)
+                    shapeA.Bottom > shapeB.Top && shapeA.Bottom < shapeB.Bottom)
                 collisionHandlingDirection.Y = -1;
 
             if(collisionHandlingDirection.X != 0 && collisionHandlingDirection.Y != 0)
@@ -86,14 +103,14 @@ namespace NoNameGame.Scenes.Managers
                 float horizontalDiff = 0;
 
                 if(collisionHandlingDirection.X < 0)
-                    horizontalDiff = entity.Image.CurrentRectangle.Right - entityRectangle.Left;
+                    horizontalDiff = shapeA.Right - shapeB.Left;
                 else if(collisionHandlingDirection.X > 0)
-                    horizontalDiff = entityRectangle.Right - entity.Image.CurrentRectangle.Left;
+                    horizontalDiff = shapeB.Right - shapeA.Left;
 
                 if(collisionHandlingDirection.Y < 0)
-                    verticalDiff = entity.Image.CurrentRectangle.Bottom - entityRectangle.Top;
+                    verticalDiff = shapeA.Bottom - shapeB.Top;
                 else if(collisionHandlingDirection.Y > 0)
-                    verticalDiff = entityRectangle.Bottom - entity.Image.CurrentRectangle.Top;
+                    verticalDiff = shapeB.Bottom - shapeA.Top;
 
                 if(verticalDiff <= horizontalDiff)
                     collisionHandlingDirection.X = 0;
