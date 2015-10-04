@@ -47,7 +47,7 @@ namespace NoNameGame.Scenes.Managers
                 foreach(Shape collisionShape in collidingShapes)
                 {
                     Vector2 collisionSolving = collisionShape.GetIntersectionDepth(entity.Shape);
-                    collisionSolving *= getCollisionSide(entity, collisionSolving);
+                    collisionSolving *= getCollisionSide(entity.Body.Velocity, collisionSolving);
 
                     if(entity.Body.Velocity.X < 0)
                         collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
@@ -77,18 +77,18 @@ namespace NoNameGame.Scenes.Managers
             return collidingShape;
         }
 
-        private Vector2 getCollisionSide(Entity entity, Vector2 penetration)
+        private Vector2 getCollisionSide(Vector2 velocity, Vector2 penetration)
         {
             Vector2 collisionHandlingDirection = Vector2.Zero;
 
-            if(entity.Body.Velocity.X < 0 && penetration.X != 0)
+            if(velocity.X < 0 && penetration.X != 0)
                 collisionHandlingDirection.X = 1;
-            else if(entity.Body.Velocity.X > 0 && penetration.X != 0)
+            else if(velocity.X > 0 && penetration.X != 0)
                 collisionHandlingDirection.X = -1;
 
-            if(entity.Body.Velocity.Y < 0 && penetration.Y != 0)
+            if(velocity.Y < 0 && penetration.Y != 0)
                 collisionHandlingDirection.Y = 1;
-            else if(entity.Body.Velocity.Y > 0 && penetration.Y != 0)
+            else if(velocity.Y > 0 && penetration.Y != 0)
                 collisionHandlingDirection.Y = -1;
 
             if(collisionHandlingDirection.X != 0 && collisionHandlingDirection.Y != 0)

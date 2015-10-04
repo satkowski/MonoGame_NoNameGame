@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Components\Body.cs" />
     <Compile Include="Components\Shapes\AABBShape.cs" />
+    <Compile Include="Components\Shapes\CircleShape.cs" />
     <Compile Include="Components\Shapes\OBBShape.cs" />
     <Compile Include="Components\Shapes\Shape.cs" />
     <Compile Include="Components\Shapes\ShapeType.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Extensions\RectangleExtension.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Helpers\Collision.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
     <Compile Include="Images\Effects\SpriteEffect.cs" />
