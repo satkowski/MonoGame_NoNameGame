@@ -46,8 +46,7 @@ namespace NoNameGame.Scenes.Managers
             {
                 foreach(Shape collisionShape in collidingShapes)
                 {
-                    Vector2 collisionSolving = collisionShape.GetIntersectionDepth(entity.Shape);
-                    collisionSolving *= getCollisionSide(entity.Body.Velocity, collisionSolving);
+                    Vector2 collisionSolving = collisionShape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
 
                     if(entity.Body.Velocity.X < 0)
                         collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);

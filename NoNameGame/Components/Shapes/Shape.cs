@@ -12,6 +12,8 @@ namespace NoNameGame.Components.Shapes
         protected Vector2 position;
         protected float scale;
 
+        public Vector2 Position
+        { get { return position; } }
         public float Scale
         {
             get { return scale; }
@@ -49,12 +51,12 @@ namespace NoNameGame.Components.Shapes
             return ShapeCollisionManager.Intersects(thisDerived, shapeDerived);
         }
 
-        public Vector2 GetIntersectionDepth(Shape shape)
+        public Vector2 GetCollisionSolvingVector(Shape shape, Vector2 velocity)
         {
             dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
             dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
 
-            return ShapeCollisionManager.GetIntersectionDepths(thisDerived, shapeDerived);
+            return ShapeCollisionManager.GetCollisionSolvingVector(thisDerived, shapeDerived, velocity);
         }
 
         protected abstract void OnScaleChange(float newScale);

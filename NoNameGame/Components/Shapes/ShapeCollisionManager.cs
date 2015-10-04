@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using NoNameGame.Components.Shapes;
 using System;
 
 namespace NoNameGame.Components.Shapes
@@ -39,46 +38,50 @@ namespace NoNameGame.Components.Shapes
             return false;
         }
 
-        public static Vector2 GetIntersectionDepths(AABBShape aabbShapeA, AABBShape aabbShapeB)
+        public static Vector2 GetCollisionSolvingVector(AABBShape aabbShapeA, AABBShape aabbShapeB, Vector2 velocity)
         {
-            Vector2 centerA = new Vector2(aabbShapeA.Left + aabbShapeA.Center.X, aabbShapeA.Top + aabbShapeA.Center.Y);
-            Vector2 centerB = new Vector2(aabbShapeB.Left + aabbShapeB.Center.X, aabbShapeB.Top + aabbShapeB.Center.Y);
+            Vector2 distanceVector = new Vector2(Math.Abs(aabbShapeA.Position.X - aabbShapeB.Position.X), 
+                                                 Math.Abs(aabbShapeA.Position.Y - aabbShapeB.Position.Y));
+            Vector2 minDistanceVector = aabbShapeA.Center + aabbShapeB.Center;
 
-            Vector2 distance = new Vector2(Math.Abs(centerA.X - centerB.X), Math.Abs(centerA.Y - centerB.Y));
-            Vector2 minDistance = aabbShapeA.Center + aabbShapeB.Center;
+            Vector2 penetration = Vector2.Zero;
+            if(distanceVector.X < minDistanceVector.X)
+                penetration.X = minDistanceVector.X - distanceVector.X;
+            if(distanceVector.Y < minDistanceVector.Y)
+                penetration.Y = minDistanceVector.Y - distanceVector.Y;
 
-            Vector2 depth = Vector2.Zero;
-            if(distance.X < minDistance.X)
-                depth.X = minDistance.X - distance.X;
-            if(distance.Y < minDistance.Y)
-                depth.Y = minDistance.Y - distance.Y;
-
-            return depth;
-        }
-
-        public Vector2 GetNormalVector_AABB(Vector2 velocity, Vector2 penetration)
-        {
-            Vector2 normaleVector = Vector2.Zero;
-
-            if(velocity.X < 0 && penetration.X != 0)
-                normaleVector.X = 1;
-            else if(velocity.X > 0 && penetration.X != 0)
-                normaleVector.X = -1;
-
-            if(velocity.Y < 0 && penetration.Y != 0)
-                normaleVector.Y = 1;
-            else if(velocity.Y > 0 && penetration.Y != 0)
-                normaleVector.Y = -1;
-
-            if(normaleVector.X != 0 && normaleVector.Y != 0)
+            if(penetration.Y <= penetration.X)
             {
-                if(penetration.Y <= penetration.X)
-                    normaleVector.X = 0;
-                else
-                    normaleVector.Y = 0;
+                if(velocity.Y < 0 && penetration.Y != 0)
+                    return new Vector2(0, 1) * penetration;
+                else if(velocity.Y > 0 && penetration.Y != 0)
+                    return new Vector2(0, -1) * penetration;
+            }
+            else
+            {
+                if(velocity.X < 0 && penetration.X != 0)
+                    return new Vector2(1, 0) * penetration;
+                else if(velocity.X > 0 && penetration.X != 0)
+                    return new Vector2(-1, 0) * penetration;
             }
 
-            return normaleVector;
+            return Vector2.Zero;
+        }
+
+        public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB, Vector2 velocity)
+        {
+            Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;
+            float minDistance = circleShapeA.Radius + circleShapeB.Radius;
+
+            if(distanceVector.LengthSquared() <= minDistance * minDistance)
+            {
+                float distance = distanceVector.Length();
+                if(distance != 0)
+                    return (distanceVector / distance) * (minDistance - distance);
+                else
+                    return new Vector2(1, 0) * circleShapeA.Radius;
+            }
+            return Vector2.Zero;
         }
     }
 }
