@@ -64,14 +64,13 @@ namespace NoNameGame.Scenes.Managers
         private List<Shape> getCollidingTileShapes(Shape entityShape, int entityLevel)
         {
             List<Shape> collidingShape = new List<Shape>();
-            dynamic shape = Convert.ChangeType(entityShape, entityShape.Type.GetTypeType());
 
             foreach(Layer layer in scene.Map.Layers)
             {
                 if(layer.CollisionLevel != entityLevel)
                     continue;
                 foreach(Tile tile in layer.TileMap)
-                    if(tile.Shape.Intersects(shape))
+                    if(tile.Shape.Intersects(entityShape))
                         collidingShape.Add(tile.Shape);
             }
             return collidingShape;

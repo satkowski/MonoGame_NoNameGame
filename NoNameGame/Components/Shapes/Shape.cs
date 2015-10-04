@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NoNameGame.Managers;
 using NoNameGame.Maps;
 using System;
 using System.Xml.Serialization;
@@ -41,10 +42,22 @@ namespace NoNameGame.Components.Shapes
             position = tile.Position;
         }
 
+        public bool Intersects(Shape shape)
+        {
+            dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
+            dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
+            
+            return CollisionResolvingManager.Intersects(thisDerived, shapeDerived);
+        }
+
+        public Vector2 GetIntersectionDepth(Shape shape)
+        {
+            dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
+            dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
+
+            return CollisionResolvingManager.GetIntersectionDepths(thisDerived, shapeDerived);
+        }
+
         protected abstract void OnScaleChange(float newScale);
-
-        public abstract bool Intersects(Shape shape);
-
-        public abstract Vector2 GetIntersectionDepth(Shape shape);
     }
 }
