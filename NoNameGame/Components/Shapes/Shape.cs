@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using NoNameGame.Managers;
 using NoNameGame.Maps;
 using System;
 using System.Xml.Serialization;
@@ -47,7 +46,7 @@ namespace NoNameGame.Components.Shapes
             dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
             dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
             
-            return CollisionResolvingManager.Intersects(thisDerived, shapeDerived);
+            return ShapeCollisionManager.Intersects(thisDerived, shapeDerived);
         }
 
         public Vector2 GetIntersectionDepth(Shape shape)
@@ -55,7 +54,7 @@ namespace NoNameGame.Components.Shapes
             dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
             dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
 
-            return CollisionResolvingManager.GetIntersectionDepths(thisDerived, shapeDerived);
+            return ShapeCollisionManager.GetIntersectionDepths(thisDerived, shapeDerived);
         }
 
         protected abstract void OnScaleChange(float newScale);

@@ -57,7 +57,7 @@
     <Compile Include="Images\Effects\SpriteEffect.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TileSheet.cs" />
-    <Compile Include="Managers\CollisionResolvingManager.cs" />
+    <Compile Include="Components\Shapes\ShapeCollisionManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />

@@ -46,7 +46,8 @@ namespace NoNameGame.Scenes.Managers
             {
                 foreach(Shape collisionShape in collidingShapes)
                 {
-                    Vector2 collisionSolving = collisionShape.GetIntersectionDepth(entity.Shape) * getCollisionSide(entity, collisionShape);
+                    Vector2 collisionSolving = collisionShape.GetIntersectionDepth(entity.Shape);
+                    collisionSolving *= getCollisionSide(entity, collisionSolving);
 
                     if(entity.Body.Velocity.X < 0)
                         collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
@@ -76,42 +77,23 @@ namespace NoNameGame.Scenes.Managers
             return collidingShape;
         }
 
-        private Vector2 getCollisionSide(Entity entity, Shape entityShapeB)
+        private Vector2 getCollisionSide(Entity entity, Vector2 penetration)
         {
             Vector2 collisionHandlingDirection = Vector2.Zero;
-            dynamic shapeA = Convert.ChangeType(entity.Shape, entity.Shape.Type.GetTypeType());
-            dynamic shapeB = Convert.ChangeType(entityShapeB, entityShapeB.Type.GetTypeType());
 
-            if(entity.Body.Velocity.X < 0 &&
-                shapeA.Left < shapeB.Right && shapeA.Left > shapeB.Left)
+            if(entity.Body.Velocity.X < 0 && penetration.X != 0)
                 collisionHandlingDirection.X = 1;
-            else if(entity.Body.Velocity.X > 0 &&
-                    shapeA.Right > shapeB.Left && shapeA.Right < shapeB.Right)
+            else if(entity.Body.Velocity.X > 0 && penetration.X != 0)
                 collisionHandlingDirection.X = -1;
 
-            if(entity.Body.Velocity.Y < 0 &&
-                    shapeA.Top < shapeB.Bottom && shapeA.Top > shapeB.Top)
+            if(entity.Body.Velocity.Y < 0 && penetration.Y != 0)
                 collisionHandlingDirection.Y = 1;
-            else if(entity.Body.Velocity.Y > 0 &&
-                    shapeA.Bottom > shapeB.Top && shapeA.Bottom < shapeB.Bottom)
+            else if(entity.Body.Velocity.Y > 0 && penetration.Y != 0)
                 collisionHandlingDirection.Y = -1;
 
             if(collisionHandlingDirection.X != 0 && collisionHandlingDirection.Y != 0)
             {
-                float verticalDiff = 0;
-                float horizontalDiff = 0;
-
-                if(collisionHandlingDirection.X < 0)
-                    horizontalDiff = shapeA.Right - shapeB.Left;
-                else if(collisionHandlingDirection.X > 0)
-                    horizontalDiff = shapeB.Right - shapeA.Left;
-
-                if(collisionHandlingDirection.Y < 0)
-                    verticalDiff = shapeA.Bottom - shapeB.Top;
-                else if(collisionHandlingDirection.Y > 0)
-                    verticalDiff = shapeB.Bottom - shapeA.Top;
-
-                if(verticalDiff <= horizontalDiff)
+                if(penetration.Y <= penetration.X)
                     collisionHandlingDirection.X = 0;
                 else
                     collisionHandlingDirection.Y = 0;
