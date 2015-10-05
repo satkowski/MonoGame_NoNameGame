@@ -68,6 +68,49 @@ namespace NoNameGame.Components.Shapes
             return Vector2.Zero;
         }
 
+        public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, CircleShape circleShape, Vector2 velocity)
+        {
+            Vector2 distanceVector = circleShape.Position - aabbShape.Position;
+            Vector2 closestPoint = distanceVector;
+            closestPoint.X = MathHelper.Clamp(closestPoint.X, -aabbShape.Center.X, aabbShape.Center.X);
+            closestPoint.Y = MathHelper.Clamp(closestPoint.Y, -aabbShape.Center.Y, aabbShape.Center.Y);
+
+            bool inside = false;
+            if(distanceVector == closestPoint)
+            {
+                inside = true;
+
+                if(Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
+                {
+                    if(closestPoint.X > 0)
+                        closestPoint.X = aabbShape.Center.X;
+                    else
+                        closestPoint.X = -aabbShape.Center.X;
+                }
+                else
+                {
+                    if(closestPoint.Y > 0)
+                        closestPoint.Y = aabbShape.Center.Y;
+                    else
+                        closestPoint.Y = -aabbShape.Center.Y;
+                }
+
+                Vector2 normaleVector = distanceVector - closestPoint;
+                float distance = distanceVector.LengthSquared();
+                float radius = circleShape.Radius;
+
+                if(distance <= radius * radius || inside)
+                {
+                    distance = (float)Math.Sqrt(distance);
+                    if(inside)
+                        return -normaleVector * (radius - distance);
+                    else
+                        return normaleVector * (radius - distance);
+                }
+            }
+            return Vector2.Zero;
+        }
+
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB, Vector2 velocity)
         {
             Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;

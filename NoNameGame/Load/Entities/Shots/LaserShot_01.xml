@@ -18,8 +18,8 @@
     <Path>Entities/Shots/LaserShot_01</Path>
     <Scale>0.5</Scale>
     
-    <ImageEffect>SpriteEffect-Always</ImageEffect>
-    <ImageEffect>RotationEffect</ImageEffect>
+    <Effect>SpriteEffect-Always</Effect>
+    <Effect>RotationEffect</Effect>
 
     <SpriteEffectAlways>
       <CicleDirection>Left</CicleDirection>
