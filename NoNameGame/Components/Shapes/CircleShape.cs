@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Maps;
+using System.Xml.Serialization;
 
 namespace NoNameGame.Components.Shapes
 {
+    [XmlInclude(typeof(CircleShape))]
     public class CircleShape : Shape
     {
         public Vector2 Center

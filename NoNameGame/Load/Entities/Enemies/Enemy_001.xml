@@ -10,6 +10,10 @@
     <Speed>110</Speed>
     <CollisionLevel>0</CollisionLevel>
   </Body>
+
+  <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CircleShape">
+    <Radius>46</Radius>
+  </Shape>
   
   <Ability>PlayerFollowingAbility</Ability>
   

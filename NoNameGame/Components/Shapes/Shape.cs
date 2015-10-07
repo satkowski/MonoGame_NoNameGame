@@ -7,6 +7,7 @@ namespace NoNameGame.Components.Shapes
 {
     [XmlInclude(typeof(AABBShape))]
     [XmlInclude(typeof(OBBShape))]
+    [XmlInclude(typeof(CircleShape))]
     public abstract class Shape
     {
         protected Vector2 position;
@@ -34,6 +35,7 @@ namespace NoNameGame.Components.Shapes
         {
             body.OnPositionChange += delegate
             { position = body.Position; };
+            Type = ShapeTypeExtension.GetShapeType(this);
         }
 
         public virtual void LoadContent(Tile tile)
@@ -41,13 +43,14 @@ namespace NoNameGame.Components.Shapes
             tile.OnPositionChange += delegate
             { position = tile.Position; };
             position = tile.Position;
+            Type = ShapeTypeExtension.GetShapeType(this);
         }
-
+        
         public bool Intersects(Shape shape)
         {
             dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
             dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
-            
+           
             return ShapeCollisionManager.Intersects(thisDerived, shapeDerived);
         }
 

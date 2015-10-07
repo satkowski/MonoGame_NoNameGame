@@ -27,6 +27,48 @@ namespace NoNameGame.Components.Shapes
             return intersectX && intersectY;
         }
 
+        public static bool Intersects(AABBShape aabbShape, CircleShape circleShape)
+        {
+            Vector2 distanceVector = circleShape.Position - aabbShape.Position;
+            Vector2 closestPoint = distanceVector;
+            closestPoint.X = MathHelper.Clamp(closestPoint.X, -aabbShape.Center.X, aabbShape.Center.X);
+            closestPoint.Y = MathHelper.Clamp(closestPoint.Y, -aabbShape.Center.Y, aabbShape.Center.Y);
+
+            bool inside = false;
+            if(distanceVector == closestPoint)
+            {
+                inside = true;
+
+                if(Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
+                {
+                    if(closestPoint.X > 0)
+                        closestPoint.X = aabbShape.Center.X;
+                    else
+                        closestPoint.X = -aabbShape.Center.X;
+                }
+                else
+                {
+                    if(closestPoint.Y > 0)
+                        closestPoint.Y = aabbShape.Center.Y;
+                    else
+                        closestPoint.Y = -aabbShape.Center.Y;
+                }
+            }
+
+            Vector2 normaleVector = distanceVector - closestPoint;
+            float distance = distanceVector.LengthSquared();
+            float radius = circleShape.Radius;
+
+            if(distance <= radius * radius || inside)
+                return true;
+            return false;
+        }
+
+        public static bool Intersects(CircleShape circleShape, AABBShape aabbShape)
+        {
+            return Intersects(aabbShape, circleShape);
+        }
+
         public static bool Intersects(CircleShape circleShapeA, CircleShape circleShapeB)
         {
             Vector2 distanceVector = circleShapeB.Center - circleShapeA.Center;
@@ -37,6 +79,7 @@ namespace NoNameGame.Components.Shapes
                 return true;
             return false;
         }
+
 
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShapeA, AABBShape aabbShapeB, Vector2 velocity)
         {
@@ -94,21 +137,27 @@ namespace NoNameGame.Components.Shapes
                     else
                         closestPoint.Y = -aabbShape.Center.Y;
                 }
-
-                Vector2 normaleVector = distanceVector - closestPoint;
-                float distance = distanceVector.LengthSquared();
-                float radius = circleShape.Radius;
-
-                if(distance <= radius * radius || inside)
-                {
-                    distance = (float)Math.Sqrt(distance);
-                    if(inside)
-                        return -normaleVector * (radius - distance);
-                    else
-                        return normaleVector * (radius - distance);
-                }
             }
+
+            Vector2 normaleVector = distanceVector - closestPoint;
+            float distance = distanceVector.LengthSquared();
+            float radius = circleShape.Radius;
+
+            if(distance <= radius * radius || inside)
+            {
+                distance = (float)Math.Sqrt(distance);
+                if(inside)
+                    return -normaleVector * (radius - distance);
+                else
+                    return normaleVector * (radius - distance);
+            }
+
             return Vector2.Zero;
+        }
+
+        public static Vector2 GetCollisionSolvingVector(CircleShape circelShape, AABBShape aabbShape, Vector2 velocity)
+        {
+            return GetCollisionSolvingVector(aabbShape, circelShape, velocity);
         }
 
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB, Vector2 velocity)
