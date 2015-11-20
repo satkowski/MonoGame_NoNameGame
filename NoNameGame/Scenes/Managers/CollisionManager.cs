@@ -29,12 +29,51 @@ namespace NoNameGame.Scenes.Managers
 
         public override void Update(GameTime gameTime)
         {
+            int counter = 0;
             foreach(Entity entity in scene.Entities)
             {
+                collisionWithEntities(entity, counter++);
                 collisionWithMap(entity);
             }
 
             base.Update(gameTime);
+        }
+
+        private void collisionWithEntities(Entity entity, int counter)
+        {
+            Vector2 collisionMovement = Vector2.Zero;
+            List<Shape> collidingShapes = new List<Shape>();
+
+            for(int c = counter; c < scene.Entities.Count; c++)
+                if(c != counter &&
+                   scene.Entities[c].Shape.Intersects(entity.Shape))
+                    collidingShapes.Add(scene.Entities[c].Shape);
+
+            if(collidingShapes.Count != 0)
+            {
+                bool firstCollision = true;
+                foreach(Shape collisionShape in collidingShapes)
+                {
+                    Vector2 collisionSolving = collisionShape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+
+                    if(firstCollision)
+                    {
+                        collisionMovement = collisionSolving;
+                        firstCollision = false;
+                        continue;
+                    }
+
+                    if(entity.Body.Velocity.X < 0)
+                        collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
+                    else if(entity.Body.Velocity.X > 0)
+                        collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionSolving.X);
+                    if(entity.Body.Velocity.Y < 0)
+                        collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionSolving.Y);
+                    else if(entity.Body.Velocity.Y > 0)
+                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionSolving.Y);
+                }
+            }
+            entity.Body.Position -= collisionMovement;
         }
 
         private void collisionWithMap(Entity entity)
@@ -44,9 +83,17 @@ namespace NoNameGame.Scenes.Managers
 
             if(collidingShapes.Count != 0)
             {
+                bool firstCollision = true;
                 foreach(Shape collisionShape in collidingShapes)
                 {
                     Vector2 collisionSolving = collisionShape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+
+                    if(firstCollision)
+                    {
+                        collisionMovement = collisionSolving;
+                        firstCollision = false;
+                        continue;
+                    }
 
                     if(entity.Body.Velocity.X < 0)
                         collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
@@ -75,7 +122,7 @@ namespace NoNameGame.Scenes.Managers
             }
             return collidingShape;
         }
-
+        
         private Vector2 getCollisionSide(Vector2 velocity, Vector2 penetration)
         {
             Vector2 collisionHandlingDirection = Vector2.Zero;

@@ -15,7 +15,7 @@
     <Radius>46</Radius>
   </Shape>
 
-  <Ability>ShootingAbility</Ability>
+  <!--<Ability>ShootingAbility</Ability>-->
 
   <ShootingAbility>
     <Type>AgainstPlayer</Type>

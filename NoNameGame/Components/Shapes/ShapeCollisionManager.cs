@@ -56,12 +56,12 @@ namespace NoNameGame.Components.Shapes
             }
 
             Vector2 normaleVector = distanceVector - closestPoint;
-            float distance = distanceVector.LengthSquared();
+            float distance = normaleVector.LengthSquared();
             float radius = circleShape.Radius;
 
-            if(distance <= radius * radius || inside)
-                return true;
-            return false;
+            if(distance > radius * radius && !inside)
+                return false;
+            return true;
         }
 
         public static bool Intersects(CircleShape circleShape, AABBShape aabbShape)
@@ -140,12 +140,13 @@ namespace NoNameGame.Components.Shapes
             }
 
             Vector2 normaleVector = distanceVector - closestPoint;
-            float distance = distanceVector.LengthSquared();
+            float distance = normaleVector.LengthSquared();
             float radius = circleShape.Radius;
 
             if(distance <= radius * radius || inside)
             {
                 distance = (float)Math.Sqrt(distance);
+                normaleVector.Normalize();
                 if(inside)
                     return -normaleVector * (radius - distance);
                 else
