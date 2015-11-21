@@ -27,6 +27,22 @@ namespace NoNameGame.Components.Shapes
             return intersectX && intersectY;
         }
 
+        public static bool Intersects(CircleShape circleShapeA, CircleShape circleShapeB)
+        {
+            Vector2 distanceVector = circleShapeB.Center - circleShapeA.Center;
+            float radius = circleShapeA.Radius + circleShapeB.Radius;
+            radius *= radius;
+
+            if(distanceVector.LengthSquared() <= radius)
+                return true;
+            return false;
+        }
+
+        public static bool Intersects(OBBShape obbShapeA, OBBShape obbShapeB)
+        {
+            return false;
+        }
+
         public static bool Intersects(AABBShape aabbShape, CircleShape circleShape)
         {
             Vector2 distanceVector = circleShape.Position - aabbShape.Position;
@@ -64,20 +80,29 @@ namespace NoNameGame.Components.Shapes
             return true;
         }
 
+        public static bool Intersects(OBBShape obbShape, AABBShape aabbShape)
+        {
+            return false;
+        }
+
+        public static bool Intersects(OBBShape obbShape, CircleShape circleShape)
+        {
+            return false;
+        }
+
         public static bool Intersects(CircleShape circleShape, AABBShape aabbShape)
         {
             return Intersects(aabbShape, circleShape);
         }
 
-        public static bool Intersects(CircleShape circleShapeA, CircleShape circleShapeB)
+        public static bool Intersects(AABBShape aabbShape, OBBShape obbShape)
         {
-            Vector2 distanceVector = circleShapeB.Center - circleShapeA.Center;
-            float radius = circleShapeA.Radius + circleShapeB.Radius;
-            radius *= radius;
+            return Intersects(obbShape, aabbShape);
+        }
 
-            if(distanceVector.LengthSquared() <= radius)
-                return true;
-            return false;
+        public static bool Intersects(CircleShape circleShape, OBBShape obbShape)
+        {
+            return Intersects(obbShape, circleShape);
         }
 
 
@@ -109,6 +134,27 @@ namespace NoNameGame.Components.Shapes
             }
 
             return Vector2.Zero;
+        }
+
+        public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB, Vector2 velocity)
+        {
+            Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;
+            float minDistance = circleShapeA.Radius + circleShapeB.Radius;
+
+            if(distanceVector.LengthSquared() <= minDistance * minDistance)
+            {
+                float distance = distanceVector.Length();
+                if(distance != 0)
+                    return (distanceVector / distance) * (minDistance - distance);
+                else
+                    return new Vector2(1, 0) * circleShapeA.Radius;
+            }
+            return Vector2.Zero;
+        }
+
+        public static Vector2 GetCollisionSolvingVector(OBBShape obbShapeA, OBBShape obbShapeB, Vector2 velocity)
+        {
+            return new Vector2();
         }
 
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, CircleShape circleShape, Vector2 velocity)
@@ -156,25 +202,30 @@ namespace NoNameGame.Components.Shapes
             return Vector2.Zero;
         }
 
+        public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, AABBShape aabbShape, Vector2 velocity)
+        {
+            return new Vector2();
+        }
+
+        public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, CircleShape circleShape, Vector2 velocity)
+        {
+            return new Vector2();
+        }
+
+        public static Vector2 GetCollisionSolvingVector(CircleShape circleShape, OBBShape obbShape, Vector2 velocity)
+        {
+            return GetCollisionSolvingVector(obbShape, circleShape, velocity);
+        }
+
+        public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, OBBShape obbShape, Vector2 velocity)
+        {
+            return GetCollisionSolvingVector(obbShape, aabbShape, velocity);
+        }
+
         public static Vector2 GetCollisionSolvingVector(CircleShape circelShape, AABBShape aabbShape, Vector2 velocity)
         {
             return GetCollisionSolvingVector(aabbShape, circelShape, velocity);
         }
 
-        public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB, Vector2 velocity)
-        {
-            Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;
-            float minDistance = circleShapeA.Radius + circleShapeB.Radius;
-
-            if(distanceVector.LengthSquared() <= minDistance * minDistance)
-            {
-                float distance = distanceVector.Length();
-                if(distance != 0)
-                    return (distanceVector / distance) * (minDistance - distance);
-                else
-                    return new Vector2(1, 0) * circleShapeA.Radius;
-            }
-            return Vector2.Zero;
-        }
     }
 }
