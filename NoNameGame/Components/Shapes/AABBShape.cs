@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using System;
 using NoNameGame.Maps;
 using NoNameGame.Managers;
+using System.Collections.Generic;
 
 namespace NoNameGame.Components.Shapes
 {
@@ -21,6 +22,18 @@ namespace NoNameGame.Components.Shapes
         { get { return position.X + Center.X; } }
         public float Bottom
         { get { return position.Y + Center.Y; } }
+        public override List<Vector2> Vertices
+        {   get
+            {
+                List<Vector2> newVertices = new List<Vector2>();
+                newVertices.Add(Center + new Vector2(Left, Top));
+                newVertices.Add(Center + new Vector2(Right, Top));
+                newVertices.Add(Center + new Vector2(Right, Bottom));
+                newVertices.Add(Center + new Vector2(Left, Bottom));
+
+                return newVertices;
+            }
+        }
 
         public AABBShape()
         {

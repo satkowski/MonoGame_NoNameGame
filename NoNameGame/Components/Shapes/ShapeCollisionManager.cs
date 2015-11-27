@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using NoNameGame.Extensions;
+using NoNameGame.Helpers;
 
 namespace NoNameGame.Components.Shapes
 {
@@ -106,8 +107,30 @@ namespace NoNameGame.Components.Shapes
 
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, OBBShape obbShape, Vector2 velocity)
         {
-            //TODO
-            return Vector2.Zero;
+            // Hier wird SAT genutzt
+
+            // Standardachsen für das AABB
+            List<Vector2> aabbAxis = new List<Vector2>();
+            aabbAxis.Add(new Vector2(0, 1));
+            aabbAxis.Add(new Vector2(1, 0));
+            // Achsen für das OBB
+            List<Vector2> obbAxis = new List<Vector2>();
+            obbAxis.Add(obbShape.Top);
+            obbAxis[0].Normalize();
+            obbAxis.Add(obbShape.Right);
+            obbAxis[1].Normalize();
+
+            Tuple<Vector2, float> aabbAxisOverlap = calculateOverlapAxis(aabbAxis, aabbShape.Vertices, obbShape.Vertices);
+            if(aabbAxisOverlap.Item1 == Vector2.Zero)
+                return Vector2.Zero;
+            Tuple<Vector2, float> obbAxisOverlap = calculateOverlapAxis(obbAxis, aabbShape.Vertices, obbShape.Vertices);
+            if(obbAxisOverlap.Item1 == Vector2.Zero)
+                return Vector2.Zero;
+
+            if(aabbAxisOverlap.Item2 < obbAxisOverlap.Item2)
+                return aabbAxisOverlap.Item1 * aabbAxisOverlap.Item2;
+            else
+                return obbAxisOverlap.Item1 * obbAxisOverlap.Item2;
         }
 
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, CircleShape circleShape, Vector2 velocity)
@@ -129,6 +152,44 @@ namespace NoNameGame.Components.Shapes
         public static Vector2 GetCollisionSolvingVector(CircleShape circelShape, AABBShape aabbShape, Vector2 velocity)
         {
             return GetCollisionSolvingVector(aabbShape, circelShape, velocity);
+        }
+
+
+        private static Projection calculateProjectionOnAxis(Vector2 axis, List<Vector2> vertices)
+        {
+            float min = float.MaxValue;
+            float max = float.MinValue;
+            foreach(Vector2 vertex in vertices)
+            {
+                float projection = Vector2.Dot(axis, vertex);
+                if(projection < min)
+                    min = projection;
+                else if(projection > max)
+                    max = projection;
+            }
+            return new Projection(min, max);
+        }
+
+        private static Tuple<Vector2, float> calculateOverlapAxis(List<Vector2> axisList, List<Vector2> VerticesA, List<Vector2> VerticesB)
+        {
+            float overlap = float.MaxValue;
+            Vector2 smallestAxis = Vector2.Zero;
+            foreach(Vector2 axis in axisList)
+            {
+                Projection aabbProjection = calculateProjectionOnAxis(axis, VerticesA);
+                Projection obbProjection = calculateProjectionOnAxis(axis, VerticesB);
+
+                // Testen ob die beiden Projektionen sich überlappen
+                if(!Projection.Overlap(aabbProjection, obbProjection))
+                    return new Tuple<Vector2, float>(Vector2.Zero, 0f);
+                float newOverlap = Projection.GetOverlap(aabbProjection, obbProjection);
+                if(newOverlap < overlap)
+                {
+                    overlap = newOverlap;
+                    smallestAxis = axis;
+                }
+            }
+            return new Tuple<Vector2, float>(smallestAxis, overlap);
         }
     }
 }

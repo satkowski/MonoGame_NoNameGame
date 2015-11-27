@@ -54,6 +54,7 @@
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Helpers\Collision.cs" />
+    <Compile Include="Helpers\Projection.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
     <Compile Include="Images\Effects\SpriteEffect.cs" />

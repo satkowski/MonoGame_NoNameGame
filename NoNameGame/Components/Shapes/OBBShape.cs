@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Maps;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace NoNameGame.Components.Shapes
@@ -30,6 +31,19 @@ namespace NoNameGame.Components.Shapes
         { get { return Vector2.Transform(new Vector2(base.Right, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
         public new Vector2 Bottom
         { get { return Vector2.Transform(new Vector2(0, base.Bottom), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        public override List<Vector2> Vertices
+        {
+            get
+            {
+                List<Vector2> newVertices = new List<Vector2>();
+                newVertices.Add(Center + Left + Top);
+                newVertices.Add(Center + Right + Top);
+                newVertices.Add(Center + Right + Bottom);
+                newVertices.Add(Center + Left + Bottom);
+
+                return newVertices;
+            }
+        }
 
         public OBBShape()
         {

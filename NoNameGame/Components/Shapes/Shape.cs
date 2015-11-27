@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Maps;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace NoNameGame.Components.Shapes
@@ -25,6 +26,10 @@ namespace NoNameGame.Components.Shapes
             }
         }
         public ShapeType Type;
+        public abstract List<Vector2> Vertices
+        {
+            get;
+        }
 
         public Shape()
         {
