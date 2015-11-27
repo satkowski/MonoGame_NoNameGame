@@ -40,7 +40,7 @@ namespace NoNameGame.Components.Shapes
             this.scale = scale;
             base.LoadContent(tile);
         }
-
+        
         protected override void OnScaleChange(float newScale)
         {
             Size /= Scale;

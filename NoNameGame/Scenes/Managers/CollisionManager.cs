@@ -43,35 +43,31 @@ namespace NoNameGame.Scenes.Managers
         {
             Vector2 collisionMovement = Vector2.Zero;
             List<Shape> collidingShapes = new List<Shape>();
-
+            
+            bool firstCollision = true;
             for(int c = counter; c < scene.Entities.Count; c++)
-                if(c != counter &&
-                   scene.Entities[c].Shape.Intersects(entity.Shape))
-                    collidingShapes.Add(scene.Entities[c].Shape);
-
-            if(collidingShapes.Count != 0)
             {
-                bool firstCollision = true;
-                foreach(Shape collisionShape in collidingShapes)
+                if(c == counter)
+                    continue;
+                Vector2 collisionResolving = scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+                if(collisionResolving == Vector2.Zero)
+                    continue;
+
+                if(firstCollision)
                 {
-                    Vector2 collisionSolving = collisionShape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
-
-                    if(firstCollision)
-                    {
-                        collisionMovement = collisionSolving;
-                        firstCollision = false;
-                        continue;
-                    }
-
-                    if(entity.Body.Velocity.X < 0)
-                        collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
-                    else if(entity.Body.Velocity.X > 0)
-                        collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionSolving.X);
-                    if(entity.Body.Velocity.Y < 0)
-                        collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionSolving.Y);
-                    else if(entity.Body.Velocity.Y > 0)
-                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionSolving.Y);
+                    collisionMovement = collisionResolving;
+                    firstCollision = false;
+                    continue;
                 }
+
+                if(entity.Body.Velocity.X < 0)
+                    collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionResolving.X);
+                else if(entity.Body.Velocity.X > 0)
+                    collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionResolving.X);
+                if(entity.Body.Velocity.Y < 0)
+                    collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionResolving.Y);
+                else if(entity.Body.Velocity.Y > 0)
+                    collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionResolving.Y);
             }
             entity.Body.Position -= collisionMovement;
         }
@@ -79,73 +75,37 @@ namespace NoNameGame.Scenes.Managers
         private void collisionWithMap(Entity entity)
         {
             Vector2 collisionMovement = Vector2.Zero;
-            List<Shape> collidingShapes = getCollidingTileShapes(entity.Shape, entity.Body.CollisionLevel);
 
-            if(collidingShapes.Count != 0)
+            foreach(Layer layer in scene.Map.Layers)
             {
+                if(layer.CollisionLevel != entity.Body.CollisionLevel)
+                    continue;
+
                 bool firstCollision = true;
-                foreach(Shape collisionShape in collidingShapes)
+                foreach(Tile tile in layer.TileMap)
                 {
-                    Vector2 collisionSolving = collisionShape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+                    Vector2 collisionResolving = tile.Shape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+                    if(collisionResolving == Vector2.Zero)
+                        continue;
 
                     if(firstCollision)
                     {
-                        collisionMovement = collisionSolving;
+                        collisionMovement = collisionResolving;
                         firstCollision = false;
                         continue;
                     }
 
                     if(entity.Body.Velocity.X < 0)
-                        collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionSolving.X);
+                        collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionResolving.X);
                     else if(entity.Body.Velocity.X > 0)
-                        collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionSolving.X);
+                        collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionResolving.X);
                     if(entity.Body.Velocity.Y < 0)
-                        collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionSolving.Y);
+                        collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionResolving.Y);
                     else if(entity.Body.Velocity.Y > 0)
-                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionSolving.Y);
+                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionResolving.Y);
                 }
             }
             entity.Body.Position += collisionMovement;
-        }
-
-        private List<Shape> getCollidingTileShapes(Shape entityShape, int entityLevel)
-        {
-            List<Shape> collidingShape = new List<Shape>();
-
-            foreach(Layer layer in scene.Map.Layers)
-            {
-                if(layer.CollisionLevel != entityLevel)
-                    continue;
-                foreach(Tile tile in layer.TileMap)
-                    if(tile.Shape.Intersects(entityShape))
-                        collidingShape.Add(tile.Shape);
-            }
-            return collidingShape;
-        }
-        
-        private Vector2 getCollisionSide(Vector2 velocity, Vector2 penetration)
-        {
-            Vector2 collisionHandlingDirection = Vector2.Zero;
-
-            if(velocity.X < 0 && penetration.X != 0)
-                collisionHandlingDirection.X = 1;
-            else if(velocity.X > 0 && penetration.X != 0)
-                collisionHandlingDirection.X = -1;
-
-            if(velocity.Y < 0 && penetration.Y != 0)
-                collisionHandlingDirection.Y = 1;
-            else if(velocity.Y > 0 && penetration.Y != 0)
-                collisionHandlingDirection.Y = -1;
-
-            if(collisionHandlingDirection.X != 0 && collisionHandlingDirection.Y != 0)
-            {
-                if(penetration.Y <= penetration.X)
-                    collisionHandlingDirection.X = 0;
-                else
-                    collisionHandlingDirection.Y = 0;
-            }
-
-            return collisionHandlingDirection;
         }
     }
 }

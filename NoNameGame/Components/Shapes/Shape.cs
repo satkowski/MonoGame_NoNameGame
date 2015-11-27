@@ -45,14 +45,6 @@ namespace NoNameGame.Components.Shapes
             position = tile.Position;
             Type = ShapeTypeExtension.GetShapeType(this);
         }
-        
-        public bool Intersects(Shape shape)
-        {
-            dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
-            dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
-           
-            return ShapeCollisionManager.Intersects(thisDerived, shapeDerived);
-        }
 
         public Vector2 GetCollisionSolvingVector(Shape shape, Vector2 velocity)
         {
