@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Managers;
 using NoNameGame.Images.Effects;
+using NoNameGame.Components;
 
 namespace NoNameGame.Images
 {
@@ -16,40 +17,23 @@ namespace NoNameGame.Images
     {
         Vector2 origin;
         ContentManager content;
-        Vector2 position;
         Dictionary<string, ImageEffect> effectList;
 
         [XmlIgnore]
         public Texture2D Texture;
         public string Path;
+
         public float Scale;
         public float Rotation;
         public float Alpha;
         public Color Color;
-        public Vector2 Position
-        {
-            get { return position; }
-            set
-            {
-                position = value;
-                updateRectangles();
-                if(OnPositionChange != null)
-                    OnPositionChange(position, null);
-            }
-        }
         public Vector2 Offset;
         public Rectangle SourceRectangle;
-        public Rectangle CurrentRectangle;
-        public Rectangle PrevRectangle;
-        public int MergeOffset;
         [XmlIgnore]
         public Vector2 ScaledOrigin { private set; get; }
-
-        public event EventHandler OnPositionChange;
-        
+                
         [XmlElement("Effect")]
         public List<String> Effects;
-        public ScalingEffect ScalingEffect;
         public RotationEffect RotationEffect;
         public SpriteEffect SpriteEffectMoving;
         public SpriteEffect SpriteEffectStanding;
@@ -57,15 +41,11 @@ namespace NoNameGame.Images
 
         public Image ()
         {
-            Position = Vector2.Zero;
             Scale = 1.0f;
             Alpha = 1.0f;
             Rotation = 0.0f;
             Path = String.Empty;
             SourceRectangle = Rectangle.Empty;
-            PrevRectangle = Rectangle.Empty;
-            CurrentRectangle = Rectangle.Empty;
-            MergeOffset = 0;
             Color = Color.White;
             origin = Vector2.Zero;
             ScaledOrigin = Vector2.Zero;
@@ -74,15 +54,15 @@ namespace NoNameGame.Images
             Effects = new List<string>();
         }
 
-        public void LoadContent ()
+        public void LoadContent (Body body)
         {
             content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
+            body.OnPositionChange += updateRectangles;
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);
 
             // Setzen der Effekte
-            setEffect<ScalingEffect>(ref ScalingEffect);
             setEffect<RotationEffect>(ref RotationEffect);
             setEffect<SpriteEffect>(ref SpriteEffectMoving, "Moving");
             setEffect<SpriteEffect>(ref SpriteEffectStanding, "Standing");
@@ -100,23 +80,19 @@ namespace NoNameGame.Images
         {
             foreach(var effect in effectList)
                 effect.Value.Update(gameTime);
-
-            updateRectangles();
         }
 
-        public void Draw (SpriteBatch spriteBatch)
+        public void Draw (SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
 
-        private void updateRectangles ()
+        private void updateRectangles (object sender, EventArgs e)
         {
+            Vector2 position = (Vector2)sender;
+
             origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
             ScaledOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
-
-            PrevRectangle = CurrentRectangle;
-            CurrentRectangle = new Rectangle((int)(position.X - ScaledOrigin.X), (int)(position.Y - ScaledOrigin.Y),
-                                             (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
         }
 
         void setEffect<T>(ref T effect, string effectName = "")

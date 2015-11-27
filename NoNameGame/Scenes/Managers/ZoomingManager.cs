@@ -84,8 +84,8 @@ namespace NoNameGame.Scenes.Managers
                 for(int c = 0; c < scene.Entities.Count; c++)
                 {
                     scene.Entities[c].Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
-                    scene.Entities[c].Image.Position *= (1 + currentZoom) / (1 + oldZoom);
-                    scene.Entities[c].MoveSpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
+                    scene.Entities[c].Body.Position *= (1 + currentZoom) / (1 + oldZoom);
+                    scene.Entities[c].Body.SpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
                 }
 
                 if(Type == ZoomingType.OneTime)

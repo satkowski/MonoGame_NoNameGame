@@ -20,7 +20,7 @@ namespace NoNameGame.Scenes.Managers
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 offset = (ScreenManager.Instance.Dimensions / 2 - scene.Players[0].Image.Position).RoundDownToIntVector2();
+            Vector2 offset = (ScreenManager.Instance.Dimensions / 2 - scene.Players[0].Body.Position).RoundDownToIntVector2();
             foreach(Entity entity in scene.Entities)
                 entity.Image.Offset = offset;
             foreach(Layer layer in scene.Map.Layers)

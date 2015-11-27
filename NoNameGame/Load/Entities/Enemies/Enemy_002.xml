@@ -1,11 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <Type>Enemy</Type>
-  <MoveSpeed>110</MoveSpeed>
-  <ImageEffect>SpriteEffect-Always</ImageEffect>
-  <ImageEffect>RotationEffect</ImageEffect>
+  
+  <Body>
+    <Position>
+      <X>600</X>
+      <Y>300</Y>
+    </Position>
+    <Speed>110</Speed>
+    <CollisionLevel>0</CollisionLevel>
+  </Body>
 
-  <Ability>ShootingAbility</Ability>
+  <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CircleShape">
+    <Radius>46</Radius>
+  </Shape>
+
+  <!--<Ability>ShootingAbility</Ability>-->
 
   <ShootingAbility>
     <Type>AgainstPlayer</Type>
@@ -16,10 +26,9 @@
   <Image>
     <Path>Entities/Enemies/Enemy_001</Path>
     <Scale>0.6</Scale>
-    <Position>
-      <X>600</X>
-      <Y>300</Y>
-    </Position>
+    
+    <Effect>SpriteEffect-Always</Effect>
+    <Effect>RotationEffect</Effect>
 
     <SpriteEffectAlways>
       <CicleDirection>Left</CicleDirection>

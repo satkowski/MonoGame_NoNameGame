@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <Type>Shot</Type>
-  <MoveSpeed>235</MoveSpeed>
-  <ImageEffect>SpriteEffect-Always</ImageEffect>
-  <ImageEffect>RotationEffect</ImageEffect>
-
+  
+  <Body>
+    <Speed>235</Speed>
+    <CollisionLevel>0</CollisionLevel>
+  </Body>
+  
   <Ability>MovingAbility</Ability>
 
   <MovingAbility>
@@ -15,6 +17,9 @@
   <Image>
     <Path>Entities/Shots/LaserShot_01</Path>
     <Scale>0.5</Scale>
+    
+    <Effect>SpriteEffect-Always</Effect>
+    <Effect>RotationEffect</Effect>
 
     <SpriteEffectAlways>
       <CicleDirection>Left</CicleDirection>

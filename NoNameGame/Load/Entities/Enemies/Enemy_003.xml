@@ -1,10 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <Type>Enemy</Type>
-  <MoveSpeed>180</MoveSpeed>
-  <ImageEffect>SpriteEffect-Always</ImageEffect>
-  <ImageEffect>RotationEffect</ImageEffect>
+  
+  <Body>
+    <Position>
+      <X>675</X>
+      <Y>675</Y>
+    </Position>
+    <Speed>180</Speed>
+    <CollisionLevel>0</CollisionLevel>
+  </Body>
 
+  <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CircleShape">
+    <Radius>46</Radius>
+  </Shape>
+  
   <Ability>MovingAbility</Ability>
 
   <MovingAbility>
@@ -19,10 +29,8 @@
   <Image>
     <Path>Entities/Enemies/Enemy_001</Path>
     <Scale>0.6</Scale>
-    <Position>
-      <X>675</X>
-      <Y>675</Y>
-    </Position>
+    <Effect>SpriteEffect-Always</Effect>
+    <Effect>RotationEffect</Effect>
 
     <SpriteEffectAlways>
       <CicleDirection>Left</CicleDirection>

@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using NoNameGame.Entities;
 using NoNameGame.Extensions;
+using NoNameGame.Components.Shapes;
+using NoNameGame.Maps;
 
 namespace NoNameGame.Scenes.Managers
 {
@@ -27,81 +29,99 @@ namespace NoNameGame.Scenes.Managers
 
         public override void Update(GameTime gameTime)
         {
+            int counter = 0;
             foreach(Entity entity in scene.Entities)
             {
+                collisionWithEntities(entity, counter);
                 collisionWithMap(entity);
-                entity.Image.Position += entity.CollisionMovement;
+                counter++;
             }
 
             base.Update(gameTime);
         }
 
-        private void collisionWithMap(Entity entity)
+        private void collisionWithEntities(Entity entity, int counter)
         {
-            entity.CollisionMovement = Vector2.Zero;
-            if(entity.MoveVelocity != Vector2.Zero)
+            Vector2 collisionMovement = Vector2.Zero;
+            
+            bool firstCollision = true;
+            for(int c = 0; c < scene.Entities.Count; c++)
             {
-                List<Rectangle> collidingRectangles = scene.Map.GetCollidingTileRectangles(entity.Image.CurrentRectangle, entity.CollisionLevel);
+                if(c == counter)
+                    continue;
+                Vector2 collisionResolving = scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape);
+                if(collisionResolving == Vector2.Zero)
+                    continue;
 
-                if(collidingRectangles.Count != 0)
+                if(firstCollision)
                 {
-                    foreach(Rectangle collisionRectangle in collidingRectangles)
-                    {
-                        Vector2 collisionSolving = collisionRectangle.GetIntersectionDepth(entity.Image.CurrentRectangle) * getCollisionSide(entity, collisionRectangle);
+                    if(entity.Body.Velocity.X < 0)
+                        collisionMovement.X = collisionResolving.X;
+                    else if(entity.Body.Velocity.X > 0)
+                        collisionMovement.X = -collisionResolving.X;
+                    if(entity.Body.Velocity.Y < 0)
+                        collisionMovement.Y = collisionResolving.Y;
+                    else if(entity.Body.Velocity.Y > 0)
+                        collisionMovement.Y -= collisionResolving.Y;
 
-                        if(entity.MoveVelocity.X < 0)
-                            entity.CollisionMovement.X = MathHelper.Max(entity.CollisionMovement.X, collisionSolving.X);
-                        else if(entity.MoveVelocity.X > 0)
-                            entity.CollisionMovement.X = MathHelper.Min(entity.CollisionMovement.X, collisionSolving.X);
-                        if(entity.MoveVelocity.Y < 0)
-                            entity.CollisionMovement.Y = MathHelper.Max(entity.CollisionMovement.Y, collisionSolving.Y);
-                        else if(entity.MoveVelocity.Y > 0)
-                            entity.CollisionMovement.Y = MathHelper.Min(entity.CollisionMovement.Y, collisionSolving.Y);
-                    }
+                    firstCollision = false;
+                    continue;
                 }
+
+                if(entity.Body.Velocity.X < 0)
+                    collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionResolving.X);
+                else if(entity.Body.Velocity.X > 0)
+                    collisionMovement.X = MathHelper.Min(collisionMovement.X, -collisionResolving.X);
+                if(entity.Body.Velocity.Y < 0)
+                    collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionResolving.Y);
+                else if(entity.Body.Velocity.Y > 0)
+                    collisionMovement.Y = MathHelper.Min(collisionMovement.Y, -collisionResolving.Y);
             }
+            entity.Body.Position += collisionMovement;
         }
 
-        private Vector2 getCollisionSide(Entity entity, Rectangle entityRectangle)
+        private void collisionWithMap(Entity entity)
         {
-            Vector2 collisionHandlingDirection = Vector2.Zero;
+            Vector2 collisionMovement = Vector2.Zero;
 
-            if(entity.MoveVelocity.X < 0 &&
-                entity.Image.CurrentRectangle.Left < entityRectangle.Right && entity.Image.CurrentRectangle.Left > entityRectangle.Left)
-                collisionHandlingDirection.X = 1;
-            else if(entity.MoveVelocity.X > 0 &&
-                    entity.Image.CurrentRectangle.Right > entityRectangle.Left && entity.Image.CurrentRectangle.Right < entityRectangle.Right)
-                collisionHandlingDirection.X = -1;
-
-            if(entity.MoveVelocity.Y < 0 &&
-                    entity.Image.CurrentRectangle.Top < entityRectangle.Bottom && entity.Image.CurrentRectangle.Top > entityRectangle.Top)
-                collisionHandlingDirection.Y = 1;
-            else if(entity.MoveVelocity.Y > 0 &&
-                    entity.Image.CurrentRectangle.Bottom > entityRectangle.Top && entity.Image.CurrentRectangle.Bottom < entityRectangle.Bottom)
-                collisionHandlingDirection.Y = -1;
-
-            if(collisionHandlingDirection.X != 0 && collisionHandlingDirection.Y != 0)
+            foreach(Layer layer in scene.Map.Layers)
             {
-                float verticalDiff = 0;
-                float horizontalDiff = 0;
+                if(layer.CollisionLevel != entity.Body.CollisionLevel)
+                    continue;
 
-                if(collisionHandlingDirection.X < 0)
-                    horizontalDiff = entity.Image.CurrentRectangle.Right - entityRectangle.Left;
-                else if(collisionHandlingDirection.X > 0)
-                    horizontalDiff = entityRectangle.Right - entity.Image.CurrentRectangle.Left;
+                bool firstCollision = true;
+                foreach(Tile tile in layer.TileMap)
+                {
+                    Vector2 collisionResolving = tile.Shape.GetCollisionSolvingVector(entity.Shape);
+                    if(collisionResolving == Vector2.Zero)
+                        continue;
 
-                if(collisionHandlingDirection.Y < 0)
-                    verticalDiff = entity.Image.CurrentRectangle.Bottom - entityRectangle.Top;
-                else if(collisionHandlingDirection.Y > 0)
-                    verticalDiff = entityRectangle.Bottom - entity.Image.CurrentRectangle.Top;
+                    if(firstCollision)
+                    {
+                        if(entity.Body.Velocity.X < 0)
+                            collisionMovement.X = collisionResolving.X;
+                        else if(entity.Body.Velocity.X > 0)
+                            collisionMovement.X = -collisionResolving.X;
+                        if(entity.Body.Velocity.Y < 0)
+                            collisionMovement.Y = collisionResolving.Y;
+                        else if(entity.Body.Velocity.Y > 0)
+                            collisionMovement.Y -= collisionResolving.Y;
 
-                if(verticalDiff <= horizontalDiff)
-                    collisionHandlingDirection.X = 0;
-                else
-                    collisionHandlingDirection.Y = 0;
+                        firstCollision = false;
+                        continue;
+                    }
+
+                    if(entity.Body.Velocity.X < 0)
+                        collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionResolving.X);
+                    else if(entity.Body.Velocity.X > 0)
+                        collisionMovement.X = MathHelper.Min(collisionMovement.X, -collisionResolving.X);
+                    if(entity.Body.Velocity.Y < 0)
+                        collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionResolving.Y);
+                    else if(entity.Body.Velocity.Y > 0)
+                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, -collisionResolving.Y);
+                }
             }
-
-            return collisionHandlingDirection;
+            entity.Body.Position += collisionMovement;
         }
     }
 }

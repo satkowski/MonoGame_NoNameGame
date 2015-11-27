@@ -69,20 +69,20 @@ namespace NoNameGame.Scenes
                 newEntity.LoadContent();
 
                 if(newEntity.Abilities.Contains("PlayerFollowingAbility"))
-                    players[0].Image.OnPositionChange += delegate
-                    { newEntity.PlayerFollowingAbility.PlayerPosition = players[0].Image.Position; };
+                    players[0].Body.OnPositionChange += delegate
+                    { newEntity.PlayerFollowingAbility.PlayerPosition = players[0].Body.Position; };
 
                 if(newEntity.Abilities.Contains("MovingAbility"))
-                    newEntity.MovingAbility.Start = newEntity.Image.Position;
+                    newEntity.MovingAbility.Start = newEntity.Body.Position;
                 else if(newEntity.Abilities.Contains("ShootingAbility"))
                 {
                     newEntity.ShootingAbility.OnNewShotEntityCreated += ShootingAbility_OnNewShotEntityCreated;
-                    newEntity.Image.OnPositionChange += delegate
-                    { newEntity.ShootingAbility.StartPosition = newEntity.Image.Position; };
+                    newEntity.Body.OnPositionChange += delegate
+                    { newEntity.ShootingAbility.StartPosition = newEntity.Body.Position; };
 
                     if(newEntity.ShootingAbility.Type == NoNameGame.Entities.Abilities.ShootingAbility.ShootingType.AgainstPlayer)
-                        players[0].Image.OnPositionChange += delegate
-                        { newEntity.ShootingAbility.DestinationPosition = players[0].Image.Position; };
+                        players[0].Body.OnPositionChange += delegate
+                        { newEntity.ShootingAbility.DestinationPosition = players[0].Body.Position; };
                 }
                 entities.Add(newEntity);
             }

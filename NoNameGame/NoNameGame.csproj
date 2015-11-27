@@ -38,6 +38,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\Body.cs" />
+    <Compile Include="Components\Shapes\AABBShape.cs" />
+    <Compile Include="Components\Shapes\CircleShape.cs" />
+    <Compile Include="Components\Shapes\OBBShape.cs" />
+    <Compile Include="Components\Shapes\Shape.cs" />
+    <Compile Include="Components\Shapes\ShapeType.cs" />
     <Compile Include="Entities\Abilities\EntityAbility.cs" />
     <Compile Include="Entities\Abilities\MovingAbility.cs" />
     <Compile Include="Entities\Abilities\PlayerFollowingAbility.cs" />
@@ -47,12 +53,14 @@
     <Compile Include="Extensions\RectangleExtension.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Helpers\Collision.cs" />
+    <Compile Include="Helpers\Projection.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
-    <Compile Include="Images\Effects\ScalingEffect.cs" />
     <Compile Include="Images\Effects\SpriteEffect.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TileSheet.cs" />
+    <Compile Include="Components\Shapes\ShapeCollisionManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />
@@ -72,6 +80,7 @@
     <Compile Include="Screens\Screen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>

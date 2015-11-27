@@ -25,14 +25,14 @@ namespace NoNameGame.Entities.Abilities
                 offset = 0.707106781f;
 
             if(InputManager.Instance.KeyDown(Keys.D, Keys.Right))
-                entity.MoveVelocity.X = entity.MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                entity.Body.Velocity.X = entity.Body.Speed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if(InputManager.Instance.KeyDown(Keys.A, Keys.Left))
-                entity.MoveVelocity.X = -entity.MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                entity.Body.Velocity.X = -entity.Body.Speed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if(InputManager.Instance.KeyDown(Keys.W, Keys.Up))
-                entity.MoveVelocity.Y = -entity.MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                entity.Body.Velocity.Y = -entity.Body.Speed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if(InputManager.Instance.KeyDown(Keys.S, Keys.Down))
-                entity.MoveVelocity.Y = entity.MoveSpeed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                entity.Body.Velocity.Y = entity.Body.Speed * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             base.Update(gameTime);
         }
