@@ -21,9 +21,11 @@ namespace NoNameGame.Components.Shapes
                 penetration.Y = minDistanceVector.Y - distanceVector.Y;
 
             if(penetration.Y <= penetration.X)
-                return new Vector2(0, 1) * penetration;
+                if(penetration.Y != 0)
+                    return new Vector2(0, 1) * penetration;
             else
-                return new Vector2(1, 0) * penetration;
+                if(penetration.X != 0)
+                    return new Vector2(1, 0) * penetration;
 
             return Vector2.Zero;
         }
