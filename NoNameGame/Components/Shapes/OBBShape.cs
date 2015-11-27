@@ -17,7 +17,7 @@ namespace NoNameGame.Components.Shapes
             {
                 rotation = value;
                 rotationX = new Vector2((float)Math.Cos(rotation), -(float)Math.Sin(rotation));
-                rotationX = new Vector2((float)Math.Sin(rotation), (float)Math.Cos(rotation));
+                rotationY = new Vector2((float)Math.Sin(rotation), (float)Math.Cos(rotation));
             }
         }
 

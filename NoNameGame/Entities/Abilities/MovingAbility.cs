@@ -71,9 +71,9 @@ namespace NoNameGame.Entities.Abilities
                         bool finishedY = true;
 
                         if(offset.X < 0 && entity.Body.Position.X + moveVelocity.X <= End.X)
-                            moveVelocity.X = entity.Body.Position.X - End.X;
+                            entity.Body.Velocity.X = entity.Body.Position.X - End.X;
                         else if(offset.X > 0 && entity.Body.Position.X + moveVelocity.X >= End.X)
-                            moveVelocity.X = End.X - entity.Body.Position.X;
+                            entity.Body.Velocity.X = End.X - entity.Body.Position.X;
                         else
                         {
                             entity.Body.Velocity.X = moveVelocity.X;
@@ -81,9 +81,9 @@ namespace NoNameGame.Entities.Abilities
                         }
 
                         if(offset.Y < 0 && entity.Body.Position.Y + moveVelocity.Y <= End.Y)
-                            moveVelocity.Y = entity.Body.Position.Y - End.Y;
+                            entity.Body.Velocity.Y = entity.Body.Position.Y - End.Y;
                         else if(offset.Y > 0 && entity.Body.Position.Y + moveVelocity.Y >= End.Y)
-                            moveVelocity.Y = End.Y - entity.Body.Position.Y;
+                            entity.Body.Velocity.Y = End.Y - entity.Body.Position.Y;
                         else
                         {
                             entity.Body.Velocity.Y = moveVelocity.Y;

@@ -57,12 +57,12 @@ namespace NoNameGame.Components.Shapes
             Type = ShapeTypeExtension.GetShapeType(this);
         }
 
-        public Vector2 GetCollisionSolvingVector(Shape shape, Vector2 velocity)
+        public Vector2 GetCollisionSolvingVector(Shape shape)
         {
             dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
             dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
 
-            return ShapeCollisionManager.GetCollisionSolvingVector(thisDerived, shapeDerived, velocity);
+            return ShapeCollisionManager.GetCollisionSolvingVector(thisDerived, shapeDerived);
         }
 
         protected abstract void OnScaleChange(float newScale);

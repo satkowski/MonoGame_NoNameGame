@@ -32,8 +32,9 @@ namespace NoNameGame.Scenes.Managers
             int counter = 0;
             foreach(Entity entity in scene.Entities)
             {
-                collisionWithEntities(entity, counter++);
+                collisionWithEntities(entity, counter);
                 collisionWithMap(entity);
+                counter++;
             }
 
             base.Update(gameTime);
@@ -42,20 +43,27 @@ namespace NoNameGame.Scenes.Managers
         private void collisionWithEntities(Entity entity, int counter)
         {
             Vector2 collisionMovement = Vector2.Zero;
-            List<Shape> collidingShapes = new List<Shape>();
             
             bool firstCollision = true;
-            for(int c = counter; c < scene.Entities.Count; c++)
+            for(int c = 0; c < scene.Entities.Count; c++)
             {
                 if(c == counter)
                     continue;
-                Vector2 collisionResolving = scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+                Vector2 collisionResolving = scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape);
                 if(collisionResolving == Vector2.Zero)
                     continue;
 
                 if(firstCollision)
                 {
-                    collisionMovement = collisionResolving;
+                    if(entity.Body.Velocity.X < 0)
+                        collisionMovement.X = collisionResolving.X;
+                    else if(entity.Body.Velocity.X > 0)
+                        collisionMovement.X = -collisionResolving.X;
+                    if(entity.Body.Velocity.Y < 0)
+                        collisionMovement.Y = collisionResolving.Y;
+                    else if(entity.Body.Velocity.Y > 0)
+                        collisionMovement.Y -= collisionResolving.Y;
+
                     firstCollision = false;
                     continue;
                 }
@@ -63,13 +71,13 @@ namespace NoNameGame.Scenes.Managers
                 if(entity.Body.Velocity.X < 0)
                     collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionResolving.X);
                 else if(entity.Body.Velocity.X > 0)
-                    collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionResolving.X);
+                    collisionMovement.X = MathHelper.Min(collisionMovement.X, -collisionResolving.X);
                 if(entity.Body.Velocity.Y < 0)
                     collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionResolving.Y);
                 else if(entity.Body.Velocity.Y > 0)
-                    collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionResolving.Y);
+                    collisionMovement.Y = MathHelper.Min(collisionMovement.Y, -collisionResolving.Y);
             }
-            entity.Body.Position -= collisionMovement;
+            entity.Body.Position += collisionMovement;
         }
 
         private void collisionWithMap(Entity entity)
@@ -84,13 +92,21 @@ namespace NoNameGame.Scenes.Managers
                 bool firstCollision = true;
                 foreach(Tile tile in layer.TileMap)
                 {
-                    Vector2 collisionResolving = tile.Shape.GetCollisionSolvingVector(entity.Shape, entity.Body.Velocity);
+                    Vector2 collisionResolving = tile.Shape.GetCollisionSolvingVector(entity.Shape);
                     if(collisionResolving == Vector2.Zero)
                         continue;
 
                     if(firstCollision)
                     {
-                        collisionMovement = collisionResolving;
+                        if(entity.Body.Velocity.X < 0)
+                            collisionMovement.X = collisionResolving.X;
+                        else if(entity.Body.Velocity.X > 0)
+                            collisionMovement.X = -collisionResolving.X;
+                        if(entity.Body.Velocity.Y < 0)
+                            collisionMovement.Y = collisionResolving.Y;
+                        else if(entity.Body.Velocity.Y > 0)
+                            collisionMovement.Y -= collisionResolving.Y;
+
                         firstCollision = false;
                         continue;
                     }
@@ -98,11 +114,11 @@ namespace NoNameGame.Scenes.Managers
                     if(entity.Body.Velocity.X < 0)
                         collisionMovement.X = MathHelper.Max(collisionMovement.X, collisionResolving.X);
                     else if(entity.Body.Velocity.X > 0)
-                        collisionMovement.X = MathHelper.Min(collisionMovement.X, collisionResolving.X);
+                        collisionMovement.X = MathHelper.Min(collisionMovement.X, -collisionResolving.X);
                     if(entity.Body.Velocity.Y < 0)
                         collisionMovement.Y = MathHelper.Max(collisionMovement.Y, collisionResolving.Y);
                     else if(entity.Body.Velocity.Y > 0)
-                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, collisionResolving.Y);
+                        collisionMovement.Y = MathHelper.Min(collisionMovement.Y, -collisionResolving.Y);
                 }
             }
             entity.Body.Position += collisionMovement;
