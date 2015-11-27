@@ -47,7 +47,15 @@ namespace NoNameGame.Components.Shapes
 
         public OBBShape()
         {
+            Type = ShapeType.OBB;
             Rotation = 0.0f;
+        }
+
+        protected OBBShape(Vector2 position, Vector2 size, float rotation = 0.0f, float scale = 1.0f)
+            : base(position, size, scale)
+        {
+            Type = ShapeType.OBB;
+            Rotation = rotation;
         }
         
         public void LoadContent(Body body, float width, float height, float scale, float rotation)
@@ -60,6 +68,11 @@ namespace NoNameGame.Components.Shapes
         {
             Rotation = rotation;
             base.LoadContent(tile, width, height, scale);
+        }
+
+        public OBBShape Clone()
+        {
+            return new OBBShape(Position, Size, Rotation, Scale);
         }
     }
 }

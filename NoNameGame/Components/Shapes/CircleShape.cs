@@ -20,6 +20,19 @@ namespace NoNameGame.Components.Shapes
             }
         }
 
+        public CircleShape()
+        {
+            Type = ShapeType.AABB;
+        }
+
+        protected CircleShape(Vector2 position, float radius, float scale = 1.0f)
+            : base(position, scale)
+        {
+            Type = ShapeType.AABB;
+            Radius = radius;
+            this.scale = scale;
+        }
+
 
         public void LoadContent(Body body, float radius, float scale)
         {
@@ -39,6 +52,11 @@ namespace NoNameGame.Components.Shapes
         {
             Radius /= Scale;
             Radius *= newScale;
+        }
+
+        public CircleShape Clone()
+        {
+            return new CircleShape(Position, Radius, Scale);
         }
     }
 }

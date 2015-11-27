@@ -35,6 +35,12 @@ namespace NoNameGame.Components.Shapes
         {
             scale = 1.0f;
         }
+
+        protected Shape(Vector2 position, float scale = 1.0f)
+        {
+            this.position = position;
+            this.scale = scale;
+        }
         
         public virtual void LoadContent(Body body)
         {

@@ -40,6 +40,13 @@ namespace NoNameGame.Components.Shapes
             Type = ShapeType.AABB;
         }
 
+        protected AABBShape(Vector2 position, Vector2 size, float scale = 1.0f)
+            : base(position, scale)
+        {
+            Type = ShapeType.AABB;
+            Size = size;
+        }
+
         public void LoadContent(Body body, float width, float height, float scale)
         {
             Size = new Vector2(width, height);
@@ -58,6 +65,11 @@ namespace NoNameGame.Components.Shapes
         {
             Size /= Scale;
             Size *= newScale;
+        }
+
+        public AABBShape Clone()
+        {
+            return new AABBShape(Position, Size, Scale);
         }
     }
 }
