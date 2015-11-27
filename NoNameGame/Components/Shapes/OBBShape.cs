@@ -70,7 +70,7 @@ namespace NoNameGame.Components.Shapes
             base.LoadContent(tile, width, height, scale);
         }
 
-        public OBBShape Clone()
+        public new OBBShape Clone()
         {
             return new OBBShape(Position, Size, Rotation, Scale);
         }

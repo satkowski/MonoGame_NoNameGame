@@ -56,8 +56,20 @@ namespace NoNameGame.Components.Shapes
 
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShapeA, OBBShape obbShapeB, Vector2 velocity)
         {
-            // TODO
-            return Vector2.Zero;
+            // Standardachsen für das AABB
+            List<Vector2> obbAxisA = new List<Vector2>();
+            obbAxisA.Add(obbShapeA.Top);
+            obbAxisA[0].Normalize();
+            obbAxisA.Add(obbShapeA.Right);
+            obbAxisA[1].Normalize();
+            // Achsen für das OBB
+            List<Vector2> obbAxisB = new List<Vector2>();
+            obbAxisB.Add(obbShapeB.Top);
+            obbAxisB[0].Normalize();
+            obbAxisB.Add(obbShapeB.Right);
+            obbAxisB[1].Normalize();
+
+            return calculateSAT(obbAxisA, obbAxisB, obbShapeA.Vertices, obbShapeB.Vertices);
         }
 
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, CircleShape circleShape, Vector2 velocity)
@@ -107,8 +119,6 @@ namespace NoNameGame.Components.Shapes
 
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, OBBShape obbShape, Vector2 velocity)
         {
-            // Hier wird SAT genutzt
-
             // Standardachsen für das AABB
             List<Vector2> aabbAxis = new List<Vector2>();
             aabbAxis.Add(new Vector2(0, 1));
@@ -120,17 +130,7 @@ namespace NoNameGame.Components.Shapes
             obbAxis.Add(obbShape.Right);
             obbAxis[1].Normalize();
 
-            Tuple<Vector2, float> aabbAxisOverlap = calculateOverlapAxis(aabbAxis, aabbShape.Vertices, obbShape.Vertices);
-            if(aabbAxisOverlap.Item1 == Vector2.Zero)
-                return Vector2.Zero;
-            Tuple<Vector2, float> obbAxisOverlap = calculateOverlapAxis(obbAxis, aabbShape.Vertices, obbShape.Vertices);
-            if(obbAxisOverlap.Item1 == Vector2.Zero)
-                return Vector2.Zero;
-
-            if(aabbAxisOverlap.Item2 < obbAxisOverlap.Item2)
-                return aabbAxisOverlap.Item1 * aabbAxisOverlap.Item2;
-            else
-                return obbAxisOverlap.Item1 * obbAxisOverlap.Item2;
+            return calculateSAT(aabbAxis, obbAxis, aabbShape.Vertices, obbShape.Vertices);
         }
 
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, CircleShape circleShape, Vector2 velocity)
@@ -154,6 +154,21 @@ namespace NoNameGame.Components.Shapes
             return GetCollisionSolvingVector(aabbShape, circelShape, velocity);
         }
 
+
+        private static Vector2 calculateSAT(List<Vector2> axisListA, List<Vector2> axisListB, List<Vector2> verticesA, List<Vector2> verticesB)
+        {
+            Tuple<Vector2, float> aabbAxisOverlap = calculateOverlapAxis(axisListA, verticesA, verticesB);
+            if(aabbAxisOverlap.Item1 == Vector2.Zero)
+                return Vector2.Zero;
+            Tuple<Vector2, float> obbAxisOverlap = calculateOverlapAxis(axisListB, verticesA, verticesB);
+            if(obbAxisOverlap.Item1 == Vector2.Zero)
+                return Vector2.Zero;
+
+            if(aabbAxisOverlap.Item2 < obbAxisOverlap.Item2)
+                return aabbAxisOverlap.Item1 * aabbAxisOverlap.Item2;
+            else
+                return obbAxisOverlap.Item1 * obbAxisOverlap.Item2;
+        }
 
         private static Projection calculateProjectionOnAxis(Vector2 axis, List<Vector2> vertices)
         {
