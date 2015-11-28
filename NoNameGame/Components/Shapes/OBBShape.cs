@@ -24,22 +24,22 @@ namespace NoNameGame.Components.Shapes
         protected Vector2 rotationX;
         protected Vector2 rotationY;
         public new Vector2 Left
-        { get { return Vector2.Transform(new Vector2(base.Left, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        { get { return Position + Vector2.Transform(new Vector2(-Center.X, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
         public new Vector2 Top
-        { get { return Vector2.Transform(new Vector2(0, base.Top), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        { get { return Position + Vector2.Transform(new Vector2(0, -Center.Y), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
         public new Vector2 Right
-        { get { return Vector2.Transform(new Vector2(base.Right, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        { get { return Position + Vector2.Transform(new Vector2(Center.X, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
         public new Vector2 Bottom
-        { get { return Vector2.Transform(new Vector2(0, base.Bottom), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        { get { return Position + Vector2.Transform(new Vector2(0, Center.Y), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
         public override List<Vector2> Vertices
         {
             get
             {
                 List<Vector2> newVertices = new List<Vector2>();
-                newVertices.Add(Center + Left + Top);
-                newVertices.Add(Center + Right + Top);
-                newVertices.Add(Center + Right + Bottom);
-                newVertices.Add(Center + Left + Bottom);
+                newVertices.Add(Position + (Left - Position) + (Top - Position));
+                newVertices.Add(Position + (Right - Position) + (Top - Position));
+                newVertices.Add(Position + (Right - Position) + (Bottom - Position));
+                newVertices.Add(Position + (Left - Position) + (Bottom - Position));
 
                 return newVertices;
             }
@@ -73,6 +73,11 @@ namespace NoNameGame.Components.Shapes
         public new OBBShape Clone()
         {
             return new OBBShape(Position, Size, Rotation, Scale);
+        }
+
+        public AABBShape CloneToAABBShape()
+        {
+            return base.Clone();
         }
     }
 }

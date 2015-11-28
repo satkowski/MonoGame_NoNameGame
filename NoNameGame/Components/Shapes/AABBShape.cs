@@ -26,10 +26,10 @@ namespace NoNameGame.Components.Shapes
         {   get
             {
                 List<Vector2> newVertices = new List<Vector2>();
-                newVertices.Add(Center + new Vector2(Left, Top));
-                newVertices.Add(Center + new Vector2(Right, Top));
-                newVertices.Add(Center + new Vector2(Right, Bottom));
-                newVertices.Add(Center + new Vector2(Left, Bottom));
+                newVertices.Add(new Vector2(Left, position.Y - Center.Y));
+                newVertices.Add(new Vector2(Right, position.Y - Center.Y));
+                newVertices.Add(new Vector2(Left, position.Y + Center.Y));
+                newVertices.Add(new Vector2(Right, position.Y + Center.Y));
 
                 return newVertices;
             }
