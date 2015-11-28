@@ -12,6 +12,9 @@ namespace NoNameGame.Entities.Abilities
     /// </summary>
     public class ShootingAbility : EntityAbility
     {
+        /// <summary>
+        /// Ein Enum, welches die Art, wie geschossen werden soll, angiebt.
+        /// </summary>
         public enum ShootingType
         {
             AgainstPlayer,
@@ -20,14 +23,35 @@ namespace NoNameGame.Entities.Abilities
         
         int elapsedTime;
 
+        /// <summary>
+        /// Der Schusstyp.
+        /// </summary>
         public ShootingType Type;
+        /// <summary>
+        /// Der Pfad zum Bild des Schusses.
+        /// </summary>
         public string ShotEntityPath;
+        /// <summary>
+        /// Die Startposition, in dem der Schuss erscheinen soll.
+        /// </summary>
         public Vector2 StartPosition;
+        /// <summary>
+        /// Der Zielpunkt des Schusses.
+        /// </summary>
         public Vector2 DestinationPosition;
+        /// <summary>
+        /// Der Intervall, in dem Schüsse gefeuert werden sollen.
+        /// </summary>
         public int ShootingInterval;
 
+        /// <summary>
+        /// Wird gefeuert, wenn ein neues Schussobjekt erstellt wurde.
+        /// </summary>
         public event EventHandler OnNewShotEntityCreated;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public ShootingAbility()
         {
             Type = ShootingType.OneDirection;

@@ -10,6 +10,9 @@ namespace NoNameGame.Maps
     /// </summary>
     public class Tile
     {
+        /// <summary>
+        /// Enum, welches die Rotation eines Tiles angiebt.
+        /// </summary>
         public enum TileRotation 
         {
             None = 0,
@@ -21,13 +24,31 @@ namespace NoNameGame.Maps
         Layer layer;
         Vector2 mapTilePosition;
 
+        /// <summary>
+        /// Die Tilerotation.
+        /// </summary>
         public TileRotation Rotation;
+        /// <summary>
+        /// Die Position des Tiles.
+        /// </summary>
         public Vector2 Position;
+        /// <summary>
+        /// Das Rechteck, mit welchem von einem TileSheet heraus, dieses Tile gemalt wird.
+        /// </summary>
         public Rectangle TileSheetRectangle;
+        /// <summary>
+        /// Das Shape des Tiles.
+        /// </summary>
         public AABBShape Shape;
 
+        /// <summary>
+        /// Wird gefeuert, wenn sich die Position des Tiles ändert.
+        /// </summary>
         public event EventHandler OnPositionChange;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Tile ()
         {
             Rotation = TileRotation.None;
@@ -54,6 +75,11 @@ namespace NoNameGame.Maps
             updateRectangle((layer.TileDimensions * layer.Scale), null);
         }
 
+        /// <summary>
+        /// Aktualisiert die Position anhand einer neuen Skalierung.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void updateRectangle(object sender, System.EventArgs e)
         {
             Position =  mapTilePosition * (Vector2)sender;

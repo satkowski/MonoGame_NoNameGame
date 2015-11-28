@@ -9,18 +9,33 @@ namespace NoNameGame.Images.Effects
     /// </summary>
     public class RotationEffect : ImageEffect
     {
+        /// <summary>
+        /// Enum, welches angiebt, in welche Richtung sich gedreht werden soll.
+        /// </summary>
         public enum RotationDirection
         {
             Counterclockwise = -1,
             Clockwise = 1
         }
 
+        /// <summary>
+        /// Die Rotationsrichtung.
+        /// </summary>
         public RotationDirection Direction;
+        /// <summary>
+        /// Die Rotation pro Millisekunde.
+        /// </summary>
         public float RotationPerMillisecond;
+        /// <summary>
+        /// Der Startrotationswert.
+        /// </summary>
         [XmlIgnore]
         public float StartImageRotation
         { private set; get; }
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public RotationEffect()
         {
             Direction = RotationDirection.Clockwise;

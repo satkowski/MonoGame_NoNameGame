@@ -13,6 +13,9 @@ namespace NoNameGame.Components.Shapes
     public class OBBShape : AABBShape
     {
         private float rotation;
+        /// <summary>
+        /// Die Roation des OBB.
+        /// </summary>
         public float Rotation
         {
             get { return rotation; }
@@ -26,14 +29,29 @@ namespace NoNameGame.Components.Shapes
 
         protected Vector2 rotationX;
         protected Vector2 rotationY;
+        /// <summary>
+        /// Die linke Seite des OBB.
+        /// </summary>
         public new Vector2 Left
         { get { return Position + Vector2.Transform(new Vector2(-Center.X, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        /// <summary>
+        /// Die obere Seite des OBB.
+        /// </summary>
         public new Vector2 Top
         { get { return Position + Vector2.Transform(new Vector2(0, -Center.Y), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        /// <summary>
+        /// Die rechte Seite des OBB.
+        /// </summary>
         public new Vector2 Right
         { get { return Position + Vector2.Transform(new Vector2(Center.X, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        /// <summary>
+        /// Die untere Seite des OBB.
+        /// </summary>
         public new Vector2 Bottom
         { get { return Position + Vector2.Transform(new Vector2(0, Center.Y), Matrix.CreateRotationZ(MathHelper.ToRadians(rotation))); } }
+        /// <summary>
+        /// Die Liste aller Eckpunkte einer Shape.
+        /// </summary>
         public override List<Vector2> Vertices
         {
             get
@@ -48,6 +66,9 @@ namespace NoNameGame.Components.Shapes
             }
         }
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public OBBShape()
         {
             Type = ShapeType.OBB;

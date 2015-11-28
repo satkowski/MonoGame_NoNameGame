@@ -19,8 +19,17 @@ namespace NoNameGame.Maps
     {
         float scale;
 
+        /// <summary>
+        /// Das TileSheet der aktuellen Ebene.
+        /// </summary>
         public TileSheet TileSheet;
+        /// <summary>
+        /// Der Offset der Ebene.
+        /// </summary>
         public Vector2 Offset;
+        /// <summary>
+        /// Die Skalierung der Ebene.
+        /// </summary>
         public float Scale
         {
             get { return scale; }
@@ -32,24 +41,51 @@ namespace NoNameGame.Maps
                     OnScaleChange((TileDimensions * Scale), null);
             }
         }
+        /// <summary>
+        /// Die Größe einzelner Tiles.
+        /// </summary>
         public Vector2 TileDimensions;
+        /// <summary>
+        /// Stellt die aktuelle Ebene als Strings dar.
+        /// </summary>
         public TileMapString TileMapString;
+        /// <summary>
+        /// Eine Liste aller Tiles dieser Ebene.
+        /// </summary>
         [XmlIgnore]
         public List<Tile> TileMap
         { private set; get; }
+        /// <summary>
+        /// Der Ursprung der Tiles.
+        /// </summary>
         [XmlIgnore]
         public Vector2 TileOrigin
         { private set; get; }
+        /// <summary>
+        /// Der Skalierte Ursprung der Tiles.
+        /// </summary>
         [XmlIgnore]
         public Vector2 TileScaledOrigin
         { private set; get; }
+        /// <summary>
+        /// Die Größe der Tiles.
+        /// </summary>
         [XmlIgnore]
         public Vector2 Size
         { private set; get; }
+        /// <summary>
+        /// Das Level, in dem mit der Ebene interagiert wird.
+        /// </summary>
         public int CollisionLevel;
 
+        /// <summary>
+        /// Wird gefeuert, wenn sich die Skalierung ändert.
+        /// </summary>
         public event EventHandler OnScaleChange;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Layer ()
         {
             Offset = Vector2.Zero;
@@ -120,7 +156,7 @@ namespace NoNameGame.Maps
             TileSheet.UnloadContent();
         }
 
-        public void Update (GameTime gameTime, Vector2 mapPosition)
+        public void Update (GameTime gameTime)
         {
             foreach (Tile tile in TileMap)
                 tile.Update(gameTime);

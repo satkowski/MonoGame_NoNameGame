@@ -10,12 +10,22 @@ namespace NoNameGame.Components
     {
         Vector2 position;
 
+        /// <summary>
+        /// Die Beschleunigung des Lörpers.
+        /// </summary>
         public Vector2 Velocity;
+        /// <summary>
+        /// Die Geschwindigkeit des Körpers.
+        /// </summary>
         public float Speed;
         /// <summary>
         /// Der Geschwindigkeitsfaktor, welcher mit der Geschwindigkeit multipliziert werden kann.
         /// </summary>
         public float SpeedFactor;
+
+        /// <summary>
+        /// die absolute Position auf der Ebene
+        /// </summary>
         public Vector2 Position
         {
             get { return position; }
@@ -26,6 +36,9 @@ namespace NoNameGame.Components
                     OnPositionChange(position, null);
             }
         }
+        /// <summary>
+        /// Das Level/Layer auf dem sich der Körper befindet.
+        /// </summary>
         public int CollisionLevel;
 
         /// <summary>
@@ -33,6 +46,9 @@ namespace NoNameGame.Components
         /// </summary>
         public event EventHandler OnPositionChange;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Body()
         {
             Position = Vector2.Zero;

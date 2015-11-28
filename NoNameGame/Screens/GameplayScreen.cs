@@ -17,6 +17,9 @@ namespace NoNameGame.Screens
 
         Scene Scene;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public GameplayScreen ()
         {
             zoomingManager = new ZoomingManager();

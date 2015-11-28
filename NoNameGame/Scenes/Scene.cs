@@ -20,26 +20,47 @@ namespace NoNameGame.Scenes
         private List<Entity> entitiesToRemove;
         private List<Entity> newEntities;
 
+        /// <summary>
+        /// Der Pfad der Karte dieser Sezene.
+        /// </summary>
         public string MapPath;
+        /// <summary>
+        /// Eine Liste an Pfaden, aller Spieler dieser Szene.
+        /// </summary>
         [XmlElement("PlayerPath")]
         public List<string> PlayerPaths;
+        /// <summary>
+        /// Eine Liste an Pfaden, für andere Objekte dieser Szene.
+        /// </summary>
         [XmlElement("EntityPath")]
         public List<string> EntityPaths;        
 
+        /// <summary>
+        /// Die Karte dieser Szene.
+        /// </summary>
         [XmlIgnore]
         public Map Map
         { private set; get; }
+        /// <summary>
+        /// Liste der Spieler dieser Szene.
+        /// </summary>
         [XmlIgnore]
         public List<Entity> Players
         {
             get { return players; }
         }
+        /// <summary>
+        /// Liste an anderen Objekten dieser Szene.
+        /// </summary>
         [XmlIgnore]
         public List<Entity> Entities
         {
             get { return players.Concat(entities).ToList(); }
         }
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Scene()
         {
             MapPath = String.Empty;

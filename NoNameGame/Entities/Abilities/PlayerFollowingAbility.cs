@@ -9,8 +9,14 @@ namespace NoNameGame.Entities.Abilities
     /// </summary>
     public class PlayerFollowingAbility : EntityAbility
     {
+        /// <summary>
+        /// Die Position des Spielers.
+        /// </summary>
         public Vector2 PlayerPosition;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public PlayerFollowingAbility()
         {
 

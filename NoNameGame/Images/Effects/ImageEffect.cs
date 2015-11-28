@@ -9,8 +9,14 @@ namespace NoNameGame.Images.Effects
     {
         protected Image image;
 
+        /// <summary>
+        /// Ist der Effekt aktiv.
+        /// </summary>
         public bool IsActive;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public ImageEffect()
         {
             IsActive = false;

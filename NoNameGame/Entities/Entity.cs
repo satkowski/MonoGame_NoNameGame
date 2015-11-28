@@ -30,18 +30,48 @@ namespace NoNameGame.Entities
 
         Dictionary<string, EntityAbility> abilitiesList;
 
+        /// <summary>
+        /// Das Bild der Entity.
+        /// </summary>
         public Image Image;
+        /// <summary>
+        /// DerKörper der Entity.
+        /// </summary>
         public Body Body;
+        /// <summary>
+        /// Die Shape der Entity.
+        /// </summary>
         public Shape Shape;
+        /// <summary>
+        /// Der ShapeType der Entity.
+        /// </summary>
         public EntityType Type;
 
+        /// <summary>
+        /// Eine Liste von Fähigkeiten, die die Entity besitzt.
+        /// </summary>
         [XmlElement("Ability")]
         public List<string> Abilities;
+        /// <summary>
+        /// Die Spieler-Verfolgungs-Fähigkeit des Entity.
+        /// </summary>
         public PlayerFollowingAbility PlayerFollowingAbility;
+        /// <summary>
+        /// Die Bewegungs-Fähigkeit des Entity.
+        /// </summary>
         public MovingAbility MovingAbility;
+        /// <summary>
+        /// Die Schieß-Fähigkeit des Entity.
+        /// </summary>
         public ShootingAbility ShootingAbility;
+        /// <summary>
+        /// Die Spieler-Kontrollierungs-Fähigkeit des Entity.
+        /// </summary>
         public UserControlledAbility UserControlledAbility;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Entity()
         {
             Type = EntityType.Enemy;

@@ -12,12 +12,18 @@ namespace NoNameGame.Entities.Abilities
     /// </summary>
     public class MovingAbility : EntityAbility
     {
+        /// <summary>
+        /// Ein Enum, welches angiebt, wie sich bewegt werden soll.
+        /// </summary>
         public enum MovingType
         {
             OneWay,
             Circle
         }
 
+        /// <summary>
+        /// Ein Enum, welches angiebt, wie es gehandhabt werden soll, wenn die Bewegung ihr Ende erreicht hat.
+        /// </summary>
         public enum EndingType
         {
             Standing,
@@ -28,15 +34,39 @@ namespace NoNameGame.Entities.Abilities
 
         Vector2 offset;
 
+        /// <summary>
+        /// Der Bewegungstyp.
+        /// </summary>
         public MovingType Moving;
+        /// <summary>
+        /// der Endtyp.
+        /// </summary>
         public EndingType Ending;
+        /// <summary>
+        /// Der Startpunkt.
+        /// </summary>
         public Vector2 Start;
+        /// <summary>
+        /// Der Endpunkt.
+        /// </summary>
         public Vector2 End;
+        /// <summary>
+        /// Der Mittelpnukt, der Kreisbewegung.
+        /// </summary>
         public Vector2 Center;
+        /// <summary>
+        /// Der Radius des Kreises.
+        /// </summary>
         public Vector2 Radius;
 
+        /// <summary>
+        /// Wird gefeuert, wenn das Objekt, das Ende seiner Bewegung erreicht hat.
+        /// </summary>
         public event EventHandler OnEndingReached;
 
+        /// <summary>
+        /// Baiskonstrukto,
+        /// </summary>
         public MovingAbility()
         {
             offset = Vector2.Zero;

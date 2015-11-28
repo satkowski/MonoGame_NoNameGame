@@ -11,8 +11,14 @@ namespace NoNameGame.Managers
     /// <typeparam name="T"></typeparam>
     public class XmlManager<T>
     {
+        /// <summary>
+        /// Der Typ des Objekts, welches geladen werden soll.
+        /// </summary>
         public Type Type;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public XmlManager ()
         {
             Type = typeof(T);

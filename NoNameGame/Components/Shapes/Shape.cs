@@ -17,8 +17,14 @@ namespace NoNameGame.Components.Shapes
         protected Vector2 position;
         protected float scale;
 
+        /// <summary>
+        /// die absolute Position auf der Ebene
+        /// </summary>
         public Vector2 Position
         { get { return position; } }
+        /// <summary>
+        /// die Skalierung des Shapes
+        /// </summary>
         public float Scale
         {
             get { return scale; }
@@ -33,13 +39,16 @@ namespace NoNameGame.Components.Shapes
         /// </summary>
         public ShapeType Type;
         /// <summary>
-        /// Alle Eckpunkte einer Shape.
+        /// Die Liste aller Eckpunkte einer Shape.
         /// </summary>
         public abstract List<Vector2> Vertices
         {
             get;
         }
 
+        /// <summary>
+        /// Basiskonstkruktor.
+        /// </summary>
         public Shape()
         {
             scale = 1.0f;
@@ -95,6 +104,10 @@ namespace NoNameGame.Components.Shapes
             return ShapeCollisionManager.GetCollisionSolvingVector(thisDerived, shapeDerived);
         }
 
+        /// <summary>
+        /// Abstrakte Methode, welche darauf reagiert, wenn sich die Skalierung verändert.
+        /// </summary>
+        /// <param name="newScale">die neue Skalierung</param>
         protected abstract void OnScaleChange(float newScale);
     }
 }

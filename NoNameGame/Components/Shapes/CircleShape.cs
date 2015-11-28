@@ -12,13 +12,20 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(CircleShape))]
     public class CircleShape : Shape
     {
-        public Vector2 Center
-        { get { return position; } }
+        /// <summary>
+        /// Der Radius des Kreises.
+        /// </summary>
         public float Radius;
+        /// <summary>
+        /// Der skalierte Radius.
+        /// </summary>
         public float RadiusScaled
         {
             get { return Radius * Scale; }
         }
+        /// <summary>
+        /// Die Liste aller Eckpunkte einer Shape.
+        /// </summary>
         public override List<Vector2> Vertices
         {
             get
@@ -27,6 +34,9 @@ namespace NoNameGame.Components.Shapes
             }
         }
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public CircleShape()
         {
             Type = ShapeType.AABB;
@@ -72,6 +82,10 @@ namespace NoNameGame.Components.Shapes
             base.LoadContent(tile);
         }
 
+        /// <summary>
+        /// Methode, welche darauf reagiert, wenn sich die Skalierung verändert.
+        /// </summary>
+        /// <param name="newScale">die neue Skalierung</param>
         protected override void OnScaleChange(float newScale)
         {
             Radius /= Scale;

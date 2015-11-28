@@ -11,6 +11,14 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     public class CameraManager : SceneManager
     {
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
+        public CameraManager()
+        {
+
+        }
+
         public override void LoadContent(ref Scene scene)
         {
             base.LoadContent(ref scene);

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 namespace NoNameGame.Managers
 {
     /// <summary>
-    /// Eine Klasse, welche alle Eingaben handhabt.
+    /// Eine Singleton-Klasse, welche alle Eingaben handhabt.
     /// </summary>
     public class InputManager
     {
@@ -14,6 +14,9 @@ namespace NoNameGame.Managers
         KeyboardState prevKeyboardState;
         KeyboardState currentKeyboardState;
 
+        /// <summary>
+        /// Die aktuelle Instanz des InputManagers.
+        /// </summary>
         public static InputManager Instance
         {
             get
@@ -24,6 +27,9 @@ namespace NoNameGame.Managers
             }
         }
 
+        /// <summary>
+        /// Konstruktor zur Erstellung einer Singletoninstanz.
+        /// </summary>
         private InputManager ()
         {
             prevKeyboardState = Keyboard.GetState();

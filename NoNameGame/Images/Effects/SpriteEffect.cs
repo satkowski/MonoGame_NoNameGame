@@ -9,6 +9,9 @@ namespace NoNameGame.Images.Effects
     /// </summary>
     public class SpriteEffect : ImageEffect
     {
+        /// <summary>
+        /// Ein Enum, was angiebt, wann der Sprite-Effekt ausgeführt wird.
+        /// </summary>
         public enum EffectType
         {
             None,
@@ -17,6 +20,9 @@ namespace NoNameGame.Images.Effects
             Moving
         }
 
+        /// <summary>
+        /// Ein Enum, was angiebt, in welche Richtung das nächste Sprite liegt.
+        /// </summary>
         public enum SpriteCicleDirection
         {
             Left = -1,
@@ -25,16 +31,40 @@ namespace NoNameGame.Images.Effects
 
         protected int elapsedTime;
 
+        /// <summary>
+        /// Der aktuelle Sprite.
+        /// </summary>
         public Vector2 CurrentSprite;
+        /// <summary>
+        /// Die Größe eines einzelnen Sprites.
+        /// </summary>
         [XmlIgnore]
         public Vector2 Size
         { private set; get; }
+        /// <summary>
+        /// Die Größe des gesamten TileSheets.
+        /// </summary>
         public Vector2 SheetSize;
+        /// <summary>
+        /// Die Geschwindigkeit in welches sich Sprite verändern sollen.
+        /// </summary>
         public float ChangeSpeed;
+        /// <summary>
+        /// Der Offset auf dem TileSheet.
+        /// </summary>
         public int Offset;
+        /// <summary>
+        /// Der SpriteCicleDirection.
+        /// </summary>
         public SpriteCicleDirection CicleDirection;
+        /// <summary>
+        /// Der Spritetyp.
+        /// </summary>
         public EffectType SpriteType;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public SpriteEffect()
         {
             elapsedTime = 0;

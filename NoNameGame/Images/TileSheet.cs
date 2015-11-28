@@ -18,15 +18,36 @@ namespace NoNameGame.Images
     {
         ContentManager content;
 
+        /// <summary>
+        /// Die Textur des TileSheets.
+        /// </summary>
         [XmlIgnore]
         public Texture2D Texture;
+        /// <summary>
+        /// Der Pfad zum Bild des TileSheets.
+        /// </summary>
         public string Path;
+        /// <summary>
+        /// Der Alphawert des TileSheets.
+        /// </summary>
         public float Alpha;
+        /// <summary>
+        /// Die Skalierung des TileSheets.
+        /// </summary>
         public float Scale;
+        /// <summary>
+        /// Die Farbe der Transperenten Teile des TileSheets.
+        /// </summary>
         public Color Color;
 
+        /// <summary>
+        /// Die Verschiebung des TileSheets.
+        /// </summary>
         public Vector2 Offset;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public TileSheet ()
         {
             Alpha = 1.0f;

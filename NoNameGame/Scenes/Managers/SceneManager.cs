@@ -9,6 +9,9 @@ namespace NoNameGame.Scenes.Managers
     {
         protected Scene scene;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public SceneManager()
         {
         }

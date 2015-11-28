@@ -15,6 +15,9 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     class CollisionManager : SceneManager
     {
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public CollisionManager()
         {
 

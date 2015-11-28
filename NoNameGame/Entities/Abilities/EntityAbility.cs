@@ -9,8 +9,14 @@ namespace NoNameGame.Entities.Abilities
     {
         protected Entity entity;
 
+        /// <summary>
+        /// Ist dieser Effekt aktiv.
+        /// </summary>
         public bool IsActive;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public EntityAbility()
         {
             IsActive = false;

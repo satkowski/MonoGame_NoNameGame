@@ -10,11 +10,22 @@ namespace NoNameGame.Helpers
     /// </summary>
     public class Projection
     {
+        /// <summary>
+        /// Der minimal Wert der Projektionen.
+        /// </summary>
         public float Min
         { get; }
+        /// <summary>
+        /// Der maximal Wert der Projektionen.
+        /// </summary>
         public float Max
         { get; }
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
+        /// <param name="min">der minimal Wert</param>
+        /// <param name="max">der maximal Wert</param>
         public Projection(float min, float max)
         {
             this.Min = min;

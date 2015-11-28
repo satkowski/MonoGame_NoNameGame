@@ -13,18 +13,24 @@ namespace NoNameGame.Maps
     /// </summary>
     public class Map
     {
+        /// <summary>
+        /// Die Ebenen der Map.
+        /// </summary>
         [XmlElement("Layer")]
         public List<Layer> Layers;
-        [XmlIgnore]
-        public Vector2 Position;
 
+        /// <summary>
+        /// Das Rechteck, in welchem sich die Kamere bewegn darf.
+        /// </summary>
         [XmlIgnore]
         public Rectangle CamMovingRectangle { private set; get; }
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Map ()
         {
             Layers = new List<Layer>();
-            Position = Vector2.Zero;
 
             CamMovingRectangle = Rectangle.Empty;
         }
@@ -54,7 +60,7 @@ namespace NoNameGame.Maps
         public void Update (GameTime gameTime)
         {
             foreach (Layer layer in Layers)
-                layer.Update(gameTime, Position);
+                layer.Update(gameTime);
         }
 
         public void Draw (SpriteBatch spriteBatch)

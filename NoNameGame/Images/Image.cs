@@ -22,26 +22,71 @@ namespace NoNameGame.Images
         ContentManager content;
         Dictionary<string, ImageEffect> effectList;
 
+        /// <summary>
+        /// Die Textur des Bildes.
+        /// </summary>
         [XmlIgnore]
         public Texture2D Texture;
+        /// <summary>
+        /// Der Pfad zum Bild des Bildes.
+        /// </summary>
         public string Path;
 
+        /// <summary>
+        /// Die Skalierung des Bildes.
+        /// </summary>
         public float Scale;
+        /// <summary>
+        /// Die Rotation des Bildes.
+        /// </summary>
         public float Rotation;
+        /// <summary>
+        /// Der Alphawert des Bildes.
+        /// </summary>
         public float Alpha;
+        /// <summary>
+        /// Die Farbe der Transparententeile des Bildes.
+        /// </summary>
         public Color Color;
+        /// <summary>
+        /// Der Offset des Bildes.
+        /// </summary>
         public Vector2 Offset;
+        /// <summary>
+        /// Das Rechteck, welches angiebt, welcher Bereich des Bildes gemalt werden soll.
+        /// </summary>
         public Rectangle SourceRectangle;
+        /// <summary>
+        /// Der skalierte Ursprungspunkt.
+        /// </summary>
         [XmlIgnore]
         public Vector2 ScaledOrigin { private set; get; }
                 
+        /// <summary>
+        /// Die Liste der Effekte, die dieses Bild hat.
+        /// </summary>
         [XmlElement("Effect")]
         public List<String> Effects;
+        /// <summary>
+        /// Der Rotations-Effekt des Bildes.
+        /// </summary>
         public RotationEffect RotationEffect;
+        /// <summary>
+        /// Der Sprite-Animations-Effekt des Bildes, während die Entity sich bewegt.
+        /// </summary>
         public SpriteEffect SpriteEffectMoving;
+        /// <summary>
+        /// Der Sprite-Animations-Effekt des Bildes, während die Entity stehen bleibt.
+        /// </summary>
         public SpriteEffect SpriteEffectStanding;
+        /// <summary>
+        /// Der Sprite-Animations-Effekt des Bildes.
+        /// </summary>
         public SpriteEffect SpriteEffectAlways;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public Image ()
         {
             Scale = 1.0f;
@@ -94,6 +139,11 @@ namespace NoNameGame.Images
             spriteBatch.Draw(Texture, position + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
 
+        /// <summary>
+        /// Aktualisiert den Ursprung anhand der neuen Position und des Rechtecks.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void updateRectangles (object sender, EventArgs e)
         {
             Vector2 position = (Vector2)sender;

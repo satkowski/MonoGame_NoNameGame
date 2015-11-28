@@ -12,6 +12,9 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     public class ZoomingManager : SceneManager
     {
+        /// <summary>
+        /// Enum, welches angiebt, wie gezoomt werden soll.
+        /// </summary>
         public enum ZoomingType
         {
             None,
@@ -19,6 +22,9 @@ namespace NoNameGame.Scenes.Managers
             Allways
         }
 
+        /// <summary>
+        /// Enum, welches angiebt, in welche Richtung gezoomt werden soll.
+        /// </summary>
         public enum ZoomingDirection
         {
             In = 1,
@@ -27,13 +33,34 @@ namespace NoNameGame.Scenes.Managers
         
         float currentZoom;
 
+        /// <summary>
+        /// Ist dieser Manager aktiv.
+        /// </summary>
         public bool IsActive;
+        /// <summary>
+        /// Der Minimalezoom der Szene.
+        /// </summary>
         public float MinZoom;
+        /// <summary>
+        /// Der Maximalezoom der Szene.
+        /// </summary>
         public float MaxZoom;
+        /// <summary>
+        /// Wie stark soll gezoomt werden.
+        /// </summary>
         public float ZoomingFactor;
+        /// <summary>
+        /// Der Zoomtyp.
+        /// </summary>
         public ZoomingType Type;
+        /// <summary>
+        /// Die Zoomrichtung.
+        /// </summary>
         public ZoomingDirection Direction;
 
+        /// <summary>
+        /// Basiskonstruktor.
+        /// </summary>
         public ZoomingManager()
         {
             IsActive = false;
