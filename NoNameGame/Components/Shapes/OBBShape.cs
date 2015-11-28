@@ -33,22 +33,42 @@ namespace NoNameGame.Components.Shapes
         /// Die linke Seite des OBB.
         /// </summary>
         public new Vector2 Left
-        { get { return Position + Vector2.Transform(new Vector2(-Center.X, 0), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(-Center.X, 0), Matrix.CreateRotationZ(rotation)); } }
+        /// <summary>
+        /// Die linke Seite des OBB von der Position aus.
+        /// </summary>
+        public new Vector2 LeftFromPosition
+        { get { return Position + Left; } }
         /// <summary>
         /// Die obere Seite des OBB.
         /// </summary>
         public new Vector2 Top
-        { get { return Position + Vector2.Transform(new Vector2(0, -Center.Y), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(0, -Center.Y), Matrix.CreateRotationZ(rotation)); } }
+        /// <summary>
+        /// Die obere Seite des OBB von der Position aus.
+        /// </summary>
+        public new Vector2 TopFromPosition
+        { get { return Position + Top; } }
         /// <summary>
         /// Die rechte Seite des OBB.
         /// </summary>
         public new Vector2 Right
-        { get { return Position + Vector2.Transform(new Vector2(Center.X, 0), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(Center.X, 0), Matrix.CreateRotationZ(rotation)); } }
+        /// <summary>
+        /// Die rechte Seite des OBB von der Position aus.
+        /// </summary>
+        public new Vector2 RightFromPosition
+        { get { return Position + Right; } }
         /// <summary>
         /// Die untere Seite des OBB.
         /// </summary>
         public new Vector2 Bottom
-        { get { return Position + Vector2.Transform(new Vector2(0, Center.Y), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(0, Center.Y), Matrix.CreateRotationZ(rotation)); } }
+        /// <summary>
+        /// Die untere Seite des OBB von der Position aus.
+        /// </summary>
+        public new Vector2 BottomFromPosition
+        { get { return Position + Bottom; } }
         /// <summary>
         /// Die Liste aller Eckpunkte einer Shape.
         /// </summary>
@@ -57,10 +77,10 @@ namespace NoNameGame.Components.Shapes
             get
             {
                 List<Vector2> newVertices = new List<Vector2>();
-                newVertices.Add(Position + (Left - Position) + (Top - Position));
-                newVertices.Add(Position + (Right - Position) + (Top - Position));
-                newVertices.Add(Position + (Right - Position) + (Bottom - Position));
-                newVertices.Add(Position + (Left - Position) + (Bottom - Position));
+                newVertices.Add(Position + Left + Top);
+                newVertices.Add(Position + Right + Top);
+                newVertices.Add(Position + Right + Bottom);
+                newVertices.Add(Position + Left + Bottom);
 
                 return newVertices;
             }

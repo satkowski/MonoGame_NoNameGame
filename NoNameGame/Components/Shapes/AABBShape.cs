@@ -27,22 +27,42 @@ namespace NoNameGame.Components.Shapes
         /// Die linke Seite des AABB.
         /// </summary>
         public float Left
-        { get { return position.X - Center.X; } }
+        { get { return -Center.X; } }
+        /// <summary>
+        /// Die linke Seite des AABB von der Position aus.
+        /// </summary>
+        public float LeftFromPosition
+        { get { return position.X - Left; } }
         /// <summary>
         /// Die obere Seite des AABB.
         /// </summary>
         public float Top
-        { get { return position.Y - Center.Y; } }
+        { get { return -Center.Y; } }
+        /// <summary>
+        /// Die obere Seite des AABB von der Position aus.
+        /// </summary>
+        public float TopFromPosition
+        { get { return position.Y - Top; } }
         /// <summary>
         /// Die rechte Seite des AABB.
         /// </summary>
         public float Right
-        { get { return position.X + Center.X; } }
+        { get { return Center.X; } }
+        /// <summary>
+        /// Die rechte Seite des AABB von der Position aus.
+        /// </summary>
+        public float RightFromPosition
+        { get { return position.X + Right; } }
         /// <summary>
         /// Die untere Seite des AABB.
         /// </summary>
         public float Bottom
-        { get { return position.Y + Center.Y; } }
+        { get { return Center.Y; } }
+        /// <summary>
+        /// Die untere Seite des AABB von der Position aus.
+        /// </summary>
+        public float BottomFromPosition
+        { get { return position.Y + Bottom; } }
         /// <summary>
         /// Die Liste aller Eckpunkte einer Shape.
         /// </summary>
@@ -50,10 +70,10 @@ namespace NoNameGame.Components.Shapes
         {   get
             {
                 List<Vector2> newVertices = new List<Vector2>();
-                newVertices.Add(new Vector2(Left, position.Y - Center.Y));
-                newVertices.Add(new Vector2(Right, position.Y - Center.Y));
-                newVertices.Add(new Vector2(Left, position.Y + Center.Y));
-                newVertices.Add(new Vector2(Right, position.Y + Center.Y));
+                newVertices.Add(Position + new Vector2(Left, Top));
+                newVertices.Add(Position + new Vector2(Right, Top));
+                newVertices.Add(Position + new Vector2(Right, Bottom));
+                newVertices.Add(Position + new Vector2(Left, Bottom));
 
                 return newVertices;
             }
