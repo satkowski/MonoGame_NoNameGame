@@ -52,18 +52,18 @@ namespace NoNameGame.Components.Shapes
         {
             // Distanzberechnung der Circle
             Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;
-            float minDistance = circleShapeA.RadiusScaled + circleShapeB.RadiusScaled;
+            float minDistance = circleShapeA.Radius + circleShapeB.Radius;
 
             // Nur wenn die Distanz kleiner ist, wird eine Collisionhandling betrieben
             if(distanceVector.LengthSquared() <= minDistance * minDistance)
             {
                 float distance = distanceVector.Length();
                 distanceVector = new Vector2(Math.Abs(distanceVector.X), Math.Abs(distanceVector.Y));
-                // Wenn ein Kreis im anderen ist, wir dieser immer um den Radius nach rechts verschoben
+                // Wenn ein Kreis genau auf dem anderen ist, wird dieser immer um den Radius nach rechts verschoben
                 if(distance != 0)
                     return (distanceVector / distance) * (minDistance - distance);
                 else
-                    return new Vector2(1, 0) * circleShapeA.RadiusScaled;
+                    return new Vector2(1, 0) * circleShapeA.Radius;
             }
             return Vector2.Zero;
         }
@@ -132,7 +132,7 @@ namespace NoNameGame.Components.Shapes
             // Der Normalenvektor wird aus der Distanz und dem nächsten Punkte bestimmt
             Vector2 normaleVector = distanceVector - closestPoint;
             float distance = normaleVector.LengthSquared();
-            float radius = circleShape.RadiusScaled;
+            float radius = circleShape.Radius;
 
             // Nur wenn diese Distanz kleiner als der radius ist oder das Circle innerhalb liegt, wird Collisionhandling betrieben
             if(distance <= radius * radius || inside)
