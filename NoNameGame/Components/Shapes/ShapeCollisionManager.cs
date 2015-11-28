@@ -20,8 +20,8 @@ namespace NoNameGame.Components.Shapes
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShapeA, AABBShape aabbShapeB)
         {
             // Distanzberechnung der AABB
-            Vector2 distanceVector = new Vector2(Math.Abs(aabbShapeA.Position.X - aabbShapeB.Position.X), 
-                                                 Math.Abs(aabbShapeA.Position.Y - aabbShapeB.Position.Y));
+            Vector2 distanceVector = new Vector2(aabbShapeA.Position.X - aabbShapeB.Position.X, 
+                                                 aabbShapeA.Position.Y - aabbShapeB.Position.Y);
             Vector2 minDistanceVector = aabbShapeA.Center + aabbShapeB.Center;
 
             // Berechnen der Penetration der beiden AABB
@@ -58,7 +58,6 @@ namespace NoNameGame.Components.Shapes
             if(distanceVector.LengthSquared() <= minDistance * minDistance)
             {
                 float distance = distanceVector.Length();
-                distanceVector = new Vector2(Math.Abs(distanceVector.X), Math.Abs(distanceVector.Y));
                 // Wenn ein Kreis genau auf dem anderen ist, wird dieser immer um den Radius nach rechts verschoben
                 if(distance != 0)
                     return (distanceVector / distance) * (minDistance - distance);
@@ -89,7 +88,7 @@ namespace NoNameGame.Components.Shapes
             obbAxisB.Add(obbShapeB.Right);
             obbAxisB[1].Normalize();
 
-            return calculateSAT(obbAxisA, obbAxisB, obbShapeA.Vertices, obbShapeB.Vertices);
+            return calculateSAT(obbAxisA, obbAxisB, obbShapeA.Vertices, obbShapeB.Vertices, obbShapeA.Position, obbShapeB.Position);
         }
 
         /// <summary>
@@ -139,9 +138,8 @@ namespace NoNameGame.Components.Shapes
             {
                 distance = (float)Math.Sqrt(distance);
                 normaleVector.Normalize();
-                normaleVector = new Vector2(Math.Abs(normaleVector.X), Math.Abs(normaleVector.Y));
 
-                return normaleVector * (radius - distance);
+                return -normaleVector * (radius - distance);
             }
 
             return Vector2.Zero;
@@ -166,7 +164,7 @@ namespace NoNameGame.Components.Shapes
             obbAxis.Add(obbShape.Right);
             obbAxis[1].Normalize();
 
-            return calculateSAT(aabbAxis, obbAxis, aabbShape.Vertices, obbShape.Vertices);
+            return calculateSAT(aabbAxis, obbAxis, aabbShape.Vertices, obbShape.Vertices, aabbShape.Position, obbShape.Position);
         }
 
         /// <summary>
@@ -233,8 +231,10 @@ namespace NoNameGame.Components.Shapes
         /// <param name="axisListB">Liste der Achsen der zweiten Shape</param>
         /// <param name="verticesA">Liste der Ecken der ersten Shape</param>
         /// <param name="verticesB">Liste der Ecken der zweiten Shape</param>
+        /// <param name="positionA">Position der ersten Form</param>
+        /// <param name="positionB">Position der zweiten Form</param>
         /// <returns></returns>
-        private static Vector2 calculateSAT(List<Vector2> axisListA, List<Vector2> axisListB, List<Vector2> verticesA, List<Vector2> verticesB)
+        private static Vector2 calculateSAT(List<Vector2> axisListA, List<Vector2> axisListB, List<Vector2> verticesA, List<Vector2> verticesB, Vector2 positionA, Vector2 positionB)
         {
             // Berechnung der kleinsten Überlappung für die Achsen der beiden Shapes
             Tuple<Vector2, float> firstAxisOverlap = calculateOverlapAxis(axisListA, verticesA, verticesB);
@@ -245,15 +245,22 @@ namespace NoNameGame.Components.Shapes
                 return Vector2.Zero;
 
             // Entscheidung welche Überlappung die kleinere war
-            // Zurückprojektion damit man eindeutige x und y Werte hat
+            Tuple<Vector2, float> finalAxisOverlap;
             if(firstAxisOverlap.Item2 < secondAxisOverlap.Item2)
-                return new Vector2(Vector2.Dot(firstAxisOverlap.Item1, new Vector2(1, 0)),
-                                   Vector2.Dot(firstAxisOverlap.Item1, new Vector2(0, 1))) 
-                       * firstAxisOverlap.Item2;
+                finalAxisOverlap = firstAxisOverlap;
             else
-                return new Vector2(Vector2.Dot(secondAxisOverlap.Item1, new Vector2(1, 0)),
-                                   Vector2.Dot(secondAxisOverlap.Item1, new Vector2(0, 1)))
-                       * secondAxisOverlap.Item2;
+                finalAxisOverlap = secondAxisOverlap;
+
+            int offset = 0;
+            // Entscheidung in welche Richtung die Verschiebung stattfinden soll
+            float firstPositionProjection = Vector2.Dot(finalAxisOverlap.Item1, positionA);
+            float secondPositionProjection = Vector2.Dot(finalAxisOverlap.Item1, positionB);
+            if(firstPositionProjection < secondPositionProjection)
+                offset = 1;
+            else
+                offset = -1;
+
+            return finalAxisOverlap.Item1 * finalAxisOverlap.Item2 * offset;
         }
 
         /// <summary>
@@ -269,13 +276,13 @@ namespace NoNameGame.Components.Shapes
             Vector2 smallestAxis = Vector2.Zero;
             foreach(Vector2 axis in axisList)
             {
-                Projection aabbProjection = calculateProjectionOnAxis(axis, VerticesA);
-                Projection obbProjection = calculateProjectionOnAxis(axis, VerticesB);
+                Projection firstProjection = calculateProjectionOnAxis(axis, VerticesA);
+                Projection secondProjection = calculateProjectionOnAxis(axis, VerticesB);
 
                 // Testen ob die beiden Projektionen sich überlappen
-                if(!Projection.Overlap(aabbProjection, obbProjection))
+                if(!Projection.Overlap(firstProjection, secondProjection))
                     return new Tuple<Vector2, float>(Vector2.Zero, 0f);
-                float newOverlap = Projection.GetOverlap(aabbProjection, obbProjection);
+                float newOverlap = Projection.GetOverlap(firstProjection, secondProjection);
                 if(newOverlap < overlap)
                 {
                     overlap = newOverlap;

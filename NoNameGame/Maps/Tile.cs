@@ -57,7 +57,7 @@ namespace NoNameGame.Maps
             Shape = new AABBShape();
         }
 
-        public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation) 
+        public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation)
         {
             this.layer = layer;
             layer.OnScaleChange += updateRectangle;
