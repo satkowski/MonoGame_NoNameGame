@@ -105,9 +105,11 @@ namespace NoNameGame.Images
                 var obj = this;
                 (effect as ImageEffect).LoadContent(ref obj);
             }
+            // Dem Abilitynamen wird noch ein "-" vorangestellt
             if(effectName != "")
                 effectName = effectName.Insert(0, "-");
 
+            // Nun wird der Klassennamen mit dem Abilitynmane verbunden, um dieses besser handhaben zu können
             string effectKeyName = effect.GetType().ToString().Replace("NoNameGame.Images.Effects.", "") + effectName;
             if(Effects.Contains(effectKeyName))
                 effectList.Add(effectKeyName, (effect as ImageEffect));
@@ -115,6 +117,7 @@ namespace NoNameGame.Images
 
         public void ActivateEffect(string effectName)
         {
+            // Es wird nur die Ability aktiviert, wenn diese auch in der Liste vorhanden ist
             if(effectList.ContainsKey(effectName))
             {
                 effectList[effectName].IsActive = true;
@@ -125,6 +128,7 @@ namespace NoNameGame.Images
 
         public void DeactivateEffect(string effectName)
         {
+            // Es wird nur die Ability deaktiviert, wenn diese auch in der Liste vorhanden ist
             if(effectList.ContainsKey(effectName))
             {
                 effectList[effectName].IsActive = false;

@@ -19,6 +19,8 @@ namespace NoNameGame.Entities.Abilities
 
         public override void Update(GameTime gameTime)
         {
+            // Wenn sich sowohl vertikal als auch horizontal bewegt wird, wird der offset angepasst.
+            // Dieser ist einfach nur der cos von 45 Grad
             float offset = 1.0f;
             if(InputManager.Instance.KeyDown(Keys.D, Keys.Right, Keys.A, Keys.Left)
                && InputManager.Instance.KeyDown(Keys.W, Keys.Up, Keys.S, Keys.Down))

@@ -40,6 +40,7 @@ namespace NoNameGame.Images.Effects
         {
             if(IsActive)
             {
+                // Einfache Rotation anhand der angegeben Rotation und der vergangenen Zeit
                 image.Rotation += (int)Direction * RotationPerMillisecond;
                 if(image.Rotation > MathHelper.TwoPi ||
                     image.Rotation < -MathHelper.TwoPi)

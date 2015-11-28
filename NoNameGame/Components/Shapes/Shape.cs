@@ -59,6 +59,9 @@ namespace NoNameGame.Components.Shapes
 
         public Vector2 GetCollisionSolvingVector(Shape shape)
         {
+            // Die Shapes werden dynamisch mit ihren jeweiligen Typ erzeugt.
+            // Das erspart einen, das jede abgeleitete Klasse zu jeder anderen Klasse eine extra Methode hat.
+            // Diese wurden dann in die "ShapeCollisionManager" Klasse ausgelagert.
             dynamic thisDerived = Convert.ChangeType(this, Type.GetTypeType());
             dynamic shapeDerived = Convert.ChangeType(shape, shape.Type.GetTypeType());
 

@@ -59,6 +59,7 @@ namespace NoNameGame.Entities.Abilities
         {
             if(IsActive)
             {
+                // Bewegung nur auf einer Linie
                 if(Moving == MovingType.OneWay)
                 {
                     if(Start != End)
@@ -70,6 +71,7 @@ namespace NoNameGame.Entities.Abilities
                         bool finishedX = true;
                         bool finishedY = true;
 
+                        // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
                         if(offset.X < 0 && entity.Body.Position.X + moveVelocity.X <= End.X)
                             entity.Body.Velocity.X = entity.Body.Position.X - End.X;
                         else if(offset.X > 0 && entity.Body.Position.X + moveVelocity.X >= End.X)
@@ -80,6 +82,7 @@ namespace NoNameGame.Entities.Abilities
                             finishedX = false;
                         }
 
+                        // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
                         if(offset.Y < 0 && entity.Body.Position.Y + moveVelocity.Y <= End.Y)
                             entity.Body.Velocity.Y = entity.Body.Position.Y - End.Y;
                         else if(offset.Y > 0 && entity.Body.Position.Y + moveVelocity.Y >= End.Y)
@@ -90,6 +93,7 @@ namespace NoNameGame.Entities.Abilities
                             finishedY = false;
                         }
 
+                        // Wenn die Endposition erreich wurde
                         if(finishedX && finishedY)
                         {
                             offset = Vector2.Zero;
@@ -115,6 +119,7 @@ namespace NoNameGame.Entities.Abilities
                         }
                     }
                 }
+                // Bewegung in einem Kreis
                 else if(Moving == MovingType.Circle)
                 {
                     if(Radius != Vector2.Zero)

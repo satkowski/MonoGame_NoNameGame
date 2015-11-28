@@ -68,9 +68,11 @@ namespace NoNameGame.Entities
                 var obj = this;
                 (ability as EntityAbility).LoadContent(ref obj);
             }
+            // Dem Abilitynamen wird noch ein "-" vorangestellt
             if(abilityName != "")
                 abilityName = abilityName.Insert(0, "-");
 
+            // Nun wird der Klassennamen mit dem Abilitynmane verbunden, um dieses besser handhaben zu können
             string abilityKeyName = ability.GetType().ToString().Replace("NoNameGame.Entities.Abilities.", "") + abilityName;
             if(Abilities.Contains(abilityKeyName))
                 abilitiesList.Add(abilityKeyName, (ability as EntityAbility));
@@ -78,6 +80,7 @@ namespace NoNameGame.Entities
 
         public void ActivateAbility(string abilityName)
         {
+            // Es wird nur die Ability aktiviert, wenn diese auch in der Liste vorhanden ist
             if(abilitiesList.ContainsKey(abilityName))
             {
                 abilitiesList[abilityName].IsActive = true;
@@ -88,6 +91,7 @@ namespace NoNameGame.Entities
 
         public void DeactivateAbility(string abilityName)
         {
+            // Es wird nur die Ability deaktiviert, wenn diese auch in der Liste vorhanden ist
             if(abilitiesList.ContainsKey(abilityName))
             {
                 abilitiesList[abilityName].IsActive = false;

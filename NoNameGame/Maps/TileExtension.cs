@@ -7,6 +7,7 @@ namespace NoNameGame.Maps
     {
         public static float GetRotationValue (this Tile.TileRotation rotation)
         {
+            // Berechnet mit welchen Wert sich rotiert werden soll
             switch (rotation)
             {            
                 case Tile.TileRotation.Clockwise90:

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Managers;
 using Microsoft.Xna.Framework.Input;
+using NoNameGame.Maps;
+using NoNameGame.Entities;
 
 namespace NoNameGame.Scenes.Managers
 {
@@ -79,13 +81,14 @@ namespace NoNameGame.Scenes.Managers
                     IsActive = false;
                 }
 
-                for(int c = 0; c < scene.Map.Layers.Count; c++)
-                    scene.Map.Layers[c].Scale *= (1 + currentZoom) / (1 + oldZoom);
-                for(int c = 0; c < scene.Entities.Count; c++)
+                // Anpassung aller Variablen, die durch den Zoom verändert werden
+                foreach(Layer layer in scene.Map.Layers)
+                    layer.Scale *= (1 + currentZoom) / (1 + oldZoom);
+                foreach(Entity entity in scene.Entities)
                 {
-                    scene.Entities[c].Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
-                    scene.Entities[c].Body.Position *= (1 + currentZoom) / (1 + oldZoom);
-                    scene.Entities[c].Body.SpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
+                    entity.Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
+                    entity.Body.Position *= (1 + currentZoom) / (1 + oldZoom);
+                    entity.Body.SpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
                 }
 
                 if(Type == ZoomingType.OneTime)

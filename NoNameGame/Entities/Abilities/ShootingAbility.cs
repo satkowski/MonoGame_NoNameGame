@@ -52,10 +52,12 @@ namespace NoNameGame.Entities.Abilities
             if(IsActive && ShootingInterval > 0)
             {
                 elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+                // Wenn die Zeit reif ist, wird ein neuer Schuss erstellt
                 if(elapsedTime >= ShootingInterval)
                 {
                     elapsedTime = 0;
                     
+                    // Ein neuer Schuss wird erstellt
                     XmlManager<Entity> entityLoader = new XmlManager<Entity>();
                     Entity newShotEntity = entityLoader.Load(ShotEntityPath);
                     newShotEntity.LoadContent();
@@ -63,6 +65,7 @@ namespace NoNameGame.Entities.Abilities
                     int offset = -1;
                     if(DestinationPosition.Y - StartPosition.Y > 0)
                         offset = 1;
+                    // Die Rotation, in der der neue Schuss abgefeuert werden soll, wird berechnet
                     newShotEntity.Image.Rotation = MathHelper.PiOver2 + offset * (float)Math.Acos(DestinationPosition.GetAngleValues(StartPosition).Value.X);
 
                     newShotEntity.Body.Position = StartPosition;
@@ -70,6 +73,7 @@ namespace NoNameGame.Entities.Abilities
                     newShotEntity.MovingAbility.End = DestinationPosition;
                     newShotEntity.MovingAbility.IsActive = true;
 
+                    // Der neue Schuss wird an den Eventhandler gegeben, damit dieser auch im Spiel beachtet wird
                     if(OnNewShotEntityCreated != null)
                         OnNewShotEntityCreated(newShotEntity, null);
                 }

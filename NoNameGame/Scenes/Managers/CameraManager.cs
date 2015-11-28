@@ -26,35 +26,6 @@ namespace NoNameGame.Scenes.Managers
             foreach(Layer layer in scene.Map.Layers)
                 layer.TileSheet.Offset = offset;
 
-
-            //Vector2 actualOffset = Player.Image.Offset;
-            //Vector2 offsetChange = Vector2.Zero;
-            //if (Player.Image.CurrentRectangle.InVerticalDirection(Map.CamMovingRectangle))
-            //    offsetChange.Y -= Player.MoveVelocity.Y + Player.CollisionMovement.Y;
-            //else
-            //{
-            //    if (Player.Image.CurrentRectangle.OverlapTop(Map.CamMovingRectangle))
-            //        offsetChange.Y = -actualOffset.Y;
-            //    else if (Player.Image.CurrentRectangle.OverlapBottom(Map.CamMovingRectangle))
-            //        offsetChange.Y = ScreenManager.Instance.Dimensions.Y / 2 + actualOffset.Y;
-            //}
-            //if (Player.Image.CurrentRectangle.InHorizontalDirection(Map.CamMovingRectangle))
-            //    offsetChange.X -= Player.MoveVelocity.X + Player.CollisionMovement.X;
-            //else
-            //{
-            //    if (Player.Image.CurrentRectangle.OverlapLeft(Map.CamMovingRectangle))
-            //        offsetChange.X = -actualOffset.X;
-            //    else if (Player.Image.CurrentRectangle.OverlapRight(Map.CamMovingRectangle))
-            //        offsetChange.X = ScreenManager.Instance.Dimensions.X / 2 + actualOffset.X;
-            //}
-
-            //if (offsetChange != Vector2.Zero)
-            //{
-            //    foreach (Layer layer in Map.Layers)
-            //        layer.TileSheet.Offset += offsetChange;
-            //    Player.Image.Offset += offsetChange;
-            //}
-
             base.Update(gameTime);
         }
     }

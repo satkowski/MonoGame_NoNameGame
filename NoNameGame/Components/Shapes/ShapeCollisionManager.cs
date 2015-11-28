@@ -10,16 +10,19 @@ namespace NoNameGame.Components.Shapes
     {
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShapeA, AABBShape aabbShapeB)
         {
+            // Distanzberechnung der AABB
             Vector2 distanceVector = new Vector2(Math.Abs(aabbShapeA.Position.X - aabbShapeB.Position.X), 
                                                  Math.Abs(aabbShapeA.Position.Y - aabbShapeB.Position.Y));
             Vector2 minDistanceVector = aabbShapeA.Center + aabbShapeB.Center;
 
+            // Berechnen der Penetration der beiden AABB
             Vector2 penetration = Vector2.Zero;
             if(distanceVector.X < minDistanceVector.X)
                 penetration.X = minDistanceVector.X - distanceVector.X;
             if(distanceVector.Y < minDistanceVector.Y)
                 penetration.Y = minDistanceVector.Y - distanceVector.Y;
 
+            // Nur wenn es eine Penetration gab, wird ein Collisionhandling betrieben
             if(penetration.Y <= penetration.X)
                 if(penetration.Y != 0)
                     return new Vector2(0, 1) * penetration;
@@ -32,13 +35,16 @@ namespace NoNameGame.Components.Shapes
 
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB)
         {
+            // Distanzberechnung der Circle
             Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;
             float minDistance = circleShapeA.RadiusScaled + circleShapeB.RadiusScaled;
 
+            // Nur wenn die Distanz kleiner ist, wird eine Collisionhandling betrieben
             if(distanceVector.LengthSquared() <= minDistance * minDistance)
             {
                 float distance = distanceVector.Length();
                 distanceVector = new Vector2(Math.Abs(distanceVector.X), Math.Abs(distanceVector.Y));
+                // Wenn ein Kreis im anderen ist, wir dieser immer um den Radius nach rechts verschoben
                 if(distance != 0)
                     return (distanceVector / distance) * (minDistance - distance);
                 else
@@ -67,16 +73,19 @@ namespace NoNameGame.Components.Shapes
 
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, CircleShape circleShape)
         {
+            // Berechnung der Distanz und des nächsten Punktes des AABB zum Circle
             Vector2 distanceVector = circleShape.Position - aabbShape.Position;
             Vector2 closestPoint = distanceVector;
             closestPoint.X = MathHelper.Clamp(closestPoint.X, -aabbShape.Center.X, aabbShape.Center.X);
             closestPoint.Y = MathHelper.Clamp(closestPoint.Y, -aabbShape.Center.Y, aabbShape.Center.Y);
 
+            // Wenn sich der Vektor nicht verändert hat, befindet sich der Kreismittelpunkt innerhalb des AABB
             bool inside = false;
             if(distanceVector == closestPoint)
             {
                 inside = true;
 
+                // Anpassung des nächsten Punktes an Hand der Entfernungen
                 if(Math.Abs(distanceVector.X) > Math.Abs(distanceVector.Y))
                 {
                     if(closestPoint.X > 0)
@@ -93,10 +102,12 @@ namespace NoNameGame.Components.Shapes
                 }
             }
 
+            // Der Normalenvektor wird aus der Distanz und dem nächsten Punkte bestimmt
             Vector2 normaleVector = distanceVector - closestPoint;
             float distance = normaleVector.LengthSquared();
             float radius = circleShape.RadiusScaled;
 
+            // Nur wenn diese Distanz kleiner als der radius ist oder das Circle innerhalb liegt, wird Collisionhandling betrieben
             if(distance <= radius * radius || inside)
             {
                 distance = (float)Math.Sqrt(distance);
@@ -160,6 +171,7 @@ namespace NoNameGame.Components.Shapes
 
         private static Vector2 calculateSAT(List<Vector2> axisListA, List<Vector2> axisListB, List<Vector2> verticesA, List<Vector2> verticesB)
         {
+            // Berechnung der kleinsten Überlappung für die Achsen der beiden Shapes
             Tuple<Vector2, float> firstAxisOverlap = calculateOverlapAxis(axisListA, verticesA, verticesB);
             if(firstAxisOverlap.Item1 == Vector2.Zero)
                 return Vector2.Zero;
@@ -167,6 +179,7 @@ namespace NoNameGame.Components.Shapes
             if(secondAxisOverlap.Item1 == Vector2.Zero)
                 return Vector2.Zero;
 
+            // Entscheidung welche Überlappung die kleinere war
             // Zurückprojektion damit man eindeutige x und y Werte hat
             if(firstAxisOverlap.Item2 < secondAxisOverlap.Item2)
                 return new Vector2(Vector2.Dot(firstAxisOverlap.Item1, new Vector2(1, 0)),
@@ -206,6 +219,7 @@ namespace NoNameGame.Components.Shapes
             float max = float.MinValue;
             foreach(Vector2 vertex in vertices)
             {
+                // Projektion der Vektoren auf die Achse
                 float projection = Vector2.Dot(axis, vertex);
                 if(projection < min)
                     min = projection;

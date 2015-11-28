@@ -56,6 +56,7 @@ namespace NoNameGame.Scenes
 
             XmlManager<Entity> entityLoader = new XmlManager<Entity>();
 
+            // Läd alle Spieler
             foreach(string playerPath in PlayerPaths)
             {
                 Entity newPlayer = entityLoader.Load(playerPath);
@@ -63,11 +64,13 @@ namespace NoNameGame.Scenes
                 players.Add(newPlayer);
             }
 
+            // Läd alle anderen Entities
             foreach(string entityPath in  EntityPaths)
             {
                 Entity newEntity = entityLoader.Load(entityPath);
                 newEntity.LoadContent();
 
+                // Kontrolliert ob Enities mit gewissen Abilities noch besondere Vorraussetzungen brauchen
                 if(newEntity.Abilities.Contains("PlayerFollowingAbility"))
                     players[0].Body.OnPositionChange += delegate
                     { newEntity.PlayerFollowingAbility.PlayerPosition = players[0].Body.Position; };

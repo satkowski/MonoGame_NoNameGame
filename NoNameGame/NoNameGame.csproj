@@ -50,10 +50,8 @@
     <Compile Include="Entities\Abilities\ShootingAbility.cs" />
     <Compile Include="Entities\Abilities\UserControlledAbility.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Extensions\RectangleExtension.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Helpers\Collision.cs" />
     <Compile Include="Helpers\Projection.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />

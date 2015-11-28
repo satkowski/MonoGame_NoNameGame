@@ -68,24 +68,29 @@ namespace NoNameGame.Maps
 
             Vector2 position = -Vector2.One;
             int maxX = 0;
+            // Gehe durch den gesamten String durch, welcher das Layer darstellt
             foreach (string row in TileMapString.Rows)
             {
                 position.Y++;
 
+                // Gehe durch die einzelne Zeile
                 string[] split = row.Split(']');
                 foreach (string s in split)
                 {
                     if (s != String.Empty)
                     {
                         position.X++;
+                        // Nur abarbeiten, wenn es kein leere Tile ist
                         if (!s.Contains("x"))
                         {
                             Tile newTile = new Tile();
 
+                            // Auslesen, welches Tile es aus dem Tilesheet ist
                             String str = s.Replace("[", "");
                             int valueX = int.Parse(str.Substring(0, str.IndexOf(':')));
                             int valueY = int.Parse(str.Substring(str.IndexOf(':') + 1));
 
+                            // Auslesen ob das Tile eine Rotation besitzt
                             Tile.TileRotation rotation;
                             if (TileMapString.Rotation90Tiles.Contains("[" + position.X.ToString() + ":" + position.Y.ToString() + "]"))
                                 rotation = Tile.TileRotation.Clockwise90;

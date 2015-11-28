@@ -37,7 +37,7 @@ namespace NoNameGame.Maps
         {
             this.layer = layer;
             layer.OnScaleChange += updateRectangle;
-            this.mapTilePosition = mapPosition;
+            mapTilePosition = mapPosition;
             Rotation = rotation;
             Position = mapPosition * layer.TileDimensions * layer.Scale;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
@@ -55,5 +55,6 @@ namespace NoNameGame.Maps
         {
             Position =  mapTilePosition * (Vector2)sender;
         }
+
     }
 }
