@@ -13,6 +13,7 @@
 
   <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CircleShape">
     <Radius>46</Radius>
+    <Scale>0.6</Scale>
   </Shape>
 
   <!--<Ability>ShootingAbility</Ability>-->

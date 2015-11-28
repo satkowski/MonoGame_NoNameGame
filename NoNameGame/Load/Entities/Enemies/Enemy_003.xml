@@ -13,6 +13,7 @@
 
   <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="CircleShape">
     <Radius>46</Radius>
+    <Scale>0.7</Scale>
   </Shape>
   
   <Ability>MovingAbility</Ability>
@@ -28,7 +29,7 @@
   
   <Image>
     <Path>Entities/Enemies/Enemy_001</Path>
-    <Scale>0.6</Scale>
+    <Scale>0.7</Scale>
     <Effect>SpriteEffect-Always</Effect>
     <Effect>RotationEffect</Effect>
 

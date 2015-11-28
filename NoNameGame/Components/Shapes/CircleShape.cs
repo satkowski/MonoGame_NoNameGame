@@ -12,6 +12,10 @@ namespace NoNameGame.Components.Shapes
         public Vector2 Center
         { get { return position; } }
         public float Radius;
+        public float RadiusScaled
+        {
+            get { return Radius * Scale; }
+        }
         public override List<Vector2> Vertices
         {
             get
@@ -57,6 +61,11 @@ namespace NoNameGame.Components.Shapes
         public CircleShape Clone()
         {
             return new CircleShape(Position, Radius, Scale);
+        }
+
+        public CircleShape Clone(Vector2 newPosition)
+        {
+            return new CircleShape(newPosition, Radius, Scale);
         }
     }
 }

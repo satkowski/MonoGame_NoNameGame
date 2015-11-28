@@ -33,15 +33,16 @@ namespace NoNameGame.Components.Shapes
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB)
         {
             Vector2 distanceVector = circleShapeB.Position - circleShapeA.Position;
-            float minDistance = circleShapeA.Radius + circleShapeB.Radius;
+            float minDistance = circleShapeA.RadiusScaled + circleShapeB.RadiusScaled;
 
             if(distanceVector.LengthSquared() <= minDistance * minDistance)
             {
                 float distance = distanceVector.Length();
+                distanceVector = new Vector2(Math.Abs(distanceVector.X), Math.Abs(distanceVector.Y));
                 if(distance != 0)
                     return (distanceVector / distance) * (minDistance - distance);
                 else
-                    return new Vector2(1, 0) * circleShapeA.Radius;
+                    return new Vector2(1, 0) * circleShapeA.RadiusScaled;
             }
             return Vector2.Zero;
         }
@@ -94,16 +95,15 @@ namespace NoNameGame.Components.Shapes
 
             Vector2 normaleVector = distanceVector - closestPoint;
             float distance = normaleVector.LengthSquared();
-            float radius = circleShape.Radius;
+            float radius = circleShape.RadiusScaled;
 
             if(distance <= radius * radius || inside)
             {
                 distance = (float)Math.Sqrt(distance);
                 normaleVector.Normalize();
-                if(inside)
-                    return normaleVector * (radius - distance);
-                else
-                    return -normaleVector * (radius - distance);
+                normaleVector = new Vector2(Math.Abs(normaleVector.X), Math.Abs(normaleVector.Y));
+
+                return normaleVector * (radius - distance);
             }
 
             return Vector2.Zero;
@@ -127,8 +127,19 @@ namespace NoNameGame.Components.Shapes
 
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, CircleShape circleShape)
         {
-            //TODO
-            return Vector2.Zero;
+            // Rotiere die Position des Kreises um das OBB und erschaffe damit ein AABB - Circle Problem
+            Vector2 distanceVector = circleShape.Position - obbShape.Position;
+            Vector2 newPosition = obbShape.Position + 
+                                  Vector2.Transform(distanceVector, Matrix.CreateRotationZ(MathHelper.ToRadians(-obbShape.Rotation)));
+            CircleShape newCircleShape = circleShape.Clone(newPosition);
+            AABBShape newAabbShape = obbShape.CloneToAABBShape();
+
+            Vector2 coliisionRescolving = GetCollisionSolvingVector(newAabbShape, newCircleShape);
+            if(coliisionRescolving == Vector2.Zero)
+                return Vector2.Zero;
+
+            // Rotiere den Vector zurück
+            return Vector2.Transform(coliisionRescolving, Matrix.CreateRotationZ(MathHelper.ToRadians(obbShape.Rotation)));
         }
 
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShape, OBBShape obbShape)
