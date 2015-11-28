@@ -89,6 +89,12 @@ namespace NoNameGame.Entities
             Image.LoadContent(Body);
             Shape.LoadContent(Body);
 
+            if(Shape.Type == ShapeType.OBB)
+                Image.OnRotationChange += delegate
+                { (Shape as OBBShape).Rotation = Image.Rotation; };
+            Image.OnScaleChange += delegate
+            { Shape.Scale = Image.Scale; };
+
             setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
             setAbility<MovingAbility>(ref MovingAbility);
             setAbility<ShootingAbility>(ref ShootingAbility);

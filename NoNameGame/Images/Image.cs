@@ -21,6 +21,8 @@ namespace NoNameGame.Images
         Vector2 origin;
         ContentManager content;
         Dictionary<string, ImageEffect> effectList;
+        float rotation;
+        float scale;
 
         /// <summary>
         /// Die Textur des Bildes.
@@ -35,11 +37,29 @@ namespace NoNameGame.Images
         /// <summary>
         /// Die Skalierung des Bildes.
         /// </summary>
-        public float Scale;
+        public float Scale
+        {
+            get { return scale; }
+            set
+            {
+                scale = value;
+                if(OnScaleChange != null)
+                    OnScaleChange(scale, null);
+            }
+        }
         /// <summary>
         /// Die Rotation des Bildes.
         /// </summary>
-        public float Rotation;
+        public float Rotation
+        {
+            get { return rotation; }
+            set
+            {
+                rotation = value;
+                if(OnRotationChange != null)
+                    OnRotationChange(rotation, null);
+            }
+        }
         /// <summary>
         /// Der Alphawert des Bildes.
         /// </summary>
@@ -61,6 +81,14 @@ namespace NoNameGame.Images
         /// </summary>
         [XmlIgnore]
         public Vector2 ScaledOrigin { private set; get; }
+        /// <summary>
+        /// Wird gefeuert, wenn sich die Rotation geändert hat.
+        /// </summary>
+        public event EventHandler OnRotationChange;
+        /// <summary>
+        /// Wird gefeuert, wenn sich die Skalierung geändert hat.
+        /// </summary>
+        public event EventHandler OnScaleChange;
                 
         /// <summary>
         /// Die Liste der Effekte, die dieses Bild hat.

@@ -180,7 +180,7 @@ namespace NoNameGame.Components.Shapes
             // Rotiere die Position des Kreises um das OBB und erschaffe damit ein AABB - Circle Problem
             Vector2 distanceVector = circleShape.Position - obbShape.Position;
             Vector2 newPosition = obbShape.Position + 
-                                  Vector2.Transform(distanceVector, Matrix.CreateRotationZ(MathHelper.ToRadians(-obbShape.Rotation)));
+                                  Vector2.Transform(distanceVector, Matrix.CreateRotationZ(-obbShape.Rotation));
             CircleShape newCircleShape = circleShape.Clone(newPosition);
             AABBShape newAabbShape = obbShape.CloneToAABBShape();
 
@@ -189,7 +189,7 @@ namespace NoNameGame.Components.Shapes
                 return Vector2.Zero;
 
             // Rotiere den Vector zurück
-            return Vector2.Transform(coliisionRescolving, Matrix.CreateRotationZ(MathHelper.ToRadians(obbShape.Rotation)));
+            return Vector2.Transform(coliisionRescolving, Matrix.CreateRotationZ(obbShape.Rotation));
         }
 
         /// <summary>
