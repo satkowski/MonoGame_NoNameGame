@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace NoNameGame.Managers
 {
+    /// <summary>
+    /// Eine Klasse, welche alle Eingaben handhabt.
+    /// </summary>
     public class InputManager
     {
         private static InputManager instance;
@@ -26,6 +29,11 @@ namespace NoNameGame.Managers
             prevKeyboardState = Keyboard.GetState();
         }
 
+        /// <summary>
+        /// Gibt an, ob verschiedene Taste gedrückt wurded sind.
+        /// </summary>
+        /// <param name="keys">die Tasten</param>
+        /// <returns>wurde eine der Tasten gedrückt</returns>
         public bool KeyDown (params Keys[] keys)
         {
             foreach (Keys key in keys)
@@ -35,6 +43,11 @@ namespace NoNameGame.Managers
             return false;
         }
 
+        /// <summary>
+        /// Gibt an, ob verschiedene Tasten gerade erst gedrückt wurden sind.
+        /// </summary>
+        /// <param name="keys">die Tasten</param>
+        /// <returns>wurde eine Taste gerade gedrückt</returns>
         public bool KeyPressed (params Keys[] keys)
         {
             foreach (Keys key in keys)
@@ -43,6 +56,11 @@ namespace NoNameGame.Managers
             return false;
         }
 
+        /// <summary>
+        /// Gibt an, ob verschiedene Tasten gerade losgelassen wurden sind.
+        /// </summary>
+        /// <param name="keys">die Tasten</param>
+        /// <returns>wurde eine Taste gerade losgelassen</returns>
         public bool KeyReleased (params Keys[] keys)
         {
             foreach (Keys key in keys)

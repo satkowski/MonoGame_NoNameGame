@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NoNameGame.Helpers
 {
+    /// <summary>
+    /// Stellt eine Projektion mehrerer Punkte auf einen Vektor dar.
+    /// </summary>
     public class Projection
     {
         public float Min
@@ -18,6 +21,12 @@ namespace NoNameGame.Helpers
             this.Max = max;
         }
 
+        /// <summary>
+        /// Gibt an, ob sich 2 Projektionen überlagern.
+        /// </summary>
+        /// <param name="first">erste Projektion</param>
+        /// <param name="second">zweite Projetion</param>
+        /// <returns>überlagern die Projektionen sich</returns>
         public static bool Overlap(Projection first, Projection second)
         {
             if(first.Min < second.Min && second.Min < first.Max ||
@@ -29,6 +38,12 @@ namespace NoNameGame.Helpers
             return false;
         }
 
+        /// <summary>
+        /// Gibt den Wert an, mit dem sich 2 Projektionen überlagern.
+        /// </summary>
+        /// <param name="first">erste Projektion</param>
+        /// <param name="second">zweite Projetion</param>
+        /// <returns>Wert der Überlagerung</returns>
         public static float GetOverlap(Projection first, Projection second)
         {
             float firstOverlap = first.Max - second.Min;

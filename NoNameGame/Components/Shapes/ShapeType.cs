@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NoNameGame.Components.Shapes
 {
+    /// <summary>
+    /// Stellt alle abgeleiteten Klasse der Shape dar.
+    /// </summary>
     public enum ShapeType
     {
         AABB,
@@ -13,6 +16,9 @@ namespace NoNameGame.Components.Shapes
         Polygon
     }
 
+    /// <summary>
+    /// Konvertiert den aktuellen ShapeType in den dazugehörigen Type.
+    /// </summary>
     public static class ShapeTypeExtension
     {
         public static Type GetTypeType(this ShapeType shape)
@@ -26,6 +32,11 @@ namespace NoNameGame.Components.Shapes
             //TODO: Anderen implementieren            
         }
 
+        /// <summary>
+        /// Konvertiert den aktuellen Type in den dazugehörigen ShapeType.
+        /// </summary>
+        /// <param name="shape">ein Shape, dessen Type genommen werden soll</param>
+        /// <returns></returns>
         public static ShapeType GetShapeType(Shape shape)
         {
             if(shape.GetType().Equals(typeof(AABBShape)))

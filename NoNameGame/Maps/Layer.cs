@@ -12,6 +12,9 @@ using NoNameGame.Components.Shapes;
 
 namespace NoNameGame.Maps
 {
+    /// <summary>
+    /// Stellt eine Ebene dar.
+    /// </summary>
     public class Layer
     {
         float scale;

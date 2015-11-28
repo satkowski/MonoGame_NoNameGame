@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace NoNameGame.Components.Shapes
 {
+    /// <summary>
+    /// Stellt ein AABB (Axis Alignment Bounding Box) dar.
+    /// </summary>
     [XmlInclude(typeof(AABBShape))]
     [XmlInclude(typeof(OBBShape))]
     public class AABBShape : Shape
@@ -40,6 +43,12 @@ namespace NoNameGame.Components.Shapes
             Type = ShapeType.AABB;
         }
 
+        /// <summary>
+        /// Speziellerer Konstruktor. Wird genutzt zum klonen.
+        /// </summary>
+        /// <param name="position">die Position</param>
+        /// <param name="size">die Größe</param>
+        /// <param name="scale">die Skalierung</param>
         protected AABBShape(Vector2 position, Vector2 size, float scale = 1.0f)
             : base(position, scale)
         {
@@ -47,13 +56,26 @@ namespace NoNameGame.Components.Shapes
             Size = size;
         }
 
+        /// <summary>
+        /// Lädt die Standarddaten in das Shape. Mit Body als Grundlage.
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="width">die Breite</param>
+        /// <param name="height">die Höhe</param>
+        /// <param name="scale">die Skalierung</param>
         public void LoadContent(Body body, float width, float height, float scale)
         {
             Size = new Vector2(width, height);
             this.scale = scale;
             base.LoadContent(body);
         }
-
+        /// <summary>
+        /// Lädt die Standarddaten in das Shape. Mit Tile als Grundlage.
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="width">die Breite</param>
+        /// <param name="height">die Höhe</param>
+        /// <param name="scale">die Skalierung</param>
         public void LoadContent(Tile tile, float width, float height, float scale)
         {
             Size = new Vector2(width, height);
@@ -67,6 +89,10 @@ namespace NoNameGame.Components.Shapes
             Size *= newScale;
         }
 
+        /// <summary>
+        /// Klont das AABB auf dem es aufgerufen wird.
+        /// </summary>
+        /// <returns>die Kopie dieses AABB</returns>
         public AABBShape Clone()
         {
             return new AABBShape(Position, Size, Scale);

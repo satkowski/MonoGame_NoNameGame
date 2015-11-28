@@ -6,6 +6,9 @@ using NoNameGame.Maps;
 
 namespace NoNameGame.Scenes.Managers
 {
+    /// <summary>
+    /// Eine Klasse, welche die Kamerabewegung in der Szene handhabt.
+    /// </summary>
     public class CameraManager : SceneManager
     {
         public override void LoadContent(ref Scene scene)

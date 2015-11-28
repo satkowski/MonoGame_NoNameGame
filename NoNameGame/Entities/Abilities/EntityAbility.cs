@@ -2,7 +2,10 @@
 
 namespace NoNameGame.Entities.Abilities
 {
-    public class EntityAbility
+    /// <summary>
+    /// Abstrakte Grundklasse, von welcher alle anderen Ability erben.
+    /// </summary>
+    public abstract class EntityAbility
     {
         protected Entity entity;
 

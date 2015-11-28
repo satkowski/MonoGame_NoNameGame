@@ -6,6 +6,9 @@ using NoNameGame.Screens;
 
 namespace NoNameGame.Managers
 {
+    /// <summary>
+    /// Eine Klasse, welches alles handhabt, was mit den verschiedenen Bildschirmen zutun hat.
+    /// </summary>
     class ScreenManager
     {
         private static ScreenManager instance;

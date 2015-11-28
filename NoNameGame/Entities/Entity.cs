@@ -13,8 +13,14 @@ using NoNameGame.Components.Shapes;
 
 namespace NoNameGame.Entities
 {
+    /// <summary>
+    /// Stellt alle möglichen Entities des Spieles dar.
+    /// </summary>
     public class Entity
     {
+        /// <summary>
+        /// Gibt die Art der Entity an.
+        /// </summary>
         public enum EntityType
         {
             Player,
@@ -44,6 +50,9 @@ namespace NoNameGame.Entities
             Abilities = new List<string>();
         }
 
+        /// <summary>
+        /// Lädt alles und aktiviert die Abilities.
+        /// </summary>
         public void LoadContent()
         {
             Body.LoadContent();
@@ -58,6 +67,12 @@ namespace NoNameGame.Entities
                 ActivateAbility(abilitiesName);
         }
 
+        /// <summary>
+        /// Setzt alle möglichen Abilities.
+        /// </summary>
+        /// <typeparam name="T">die Art der Ability</typeparam>
+        /// <param name="ability">die Ability</param>
+        /// <param name="abilityName">der Name der Ability</param>
         void setAbility<T>(ref T ability, string abilityName = "")
         {
             if(ability == null)
@@ -78,6 +93,10 @@ namespace NoNameGame.Entities
                 abilitiesList.Add(abilityKeyName, (ability as EntityAbility));
         }
 
+        /// <summary>
+        /// Aktiviert eine Ability
+        /// </summary>
+        /// <param name="abilityName">der Name der Ability</param>
         public void ActivateAbility(string abilityName)
         {
             // Es wird nur die Ability aktiviert, wenn diese auch in der Liste vorhanden ist
@@ -89,6 +108,10 @@ namespace NoNameGame.Entities
             }
         }
 
+        /// <summary>
+        /// Deaktiviert eine Ability
+        /// </summary>
+        /// <param name="abilityName">der Name der Ability</param>
         public void DeactivateAbility(string abilityName)
         {
             // Es wird nur die Ability deaktiviert, wenn diese auch in der Liste vorhanden ist

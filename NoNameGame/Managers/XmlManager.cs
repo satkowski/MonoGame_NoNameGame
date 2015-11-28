@@ -5,6 +5,10 @@ using System.Xml.Serialization;
 
 namespace NoNameGame.Managers
 {
+    /// <summary>
+    /// Eine Klasse, welche das Auslesen und Schreiben einer XML-Datei handhanbt.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class XmlManager<T>
     {
         public Type Type;
@@ -30,6 +34,11 @@ namespace NoNameGame.Managers
             return instance;
         }
 
+        /// <summary>
+        /// Speichert ein Objekt.
+        /// </summary>
+        /// <param name="path">Pfad in welchen geschrieben werden soll</param>
+        /// <param name="obj">das Objekt, was gespeichert werden soll</param>
         public void Save (string path, object obj)
         {
             using (TextWriter writer = new StreamWriter(path))

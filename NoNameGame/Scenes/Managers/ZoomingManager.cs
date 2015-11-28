@@ -6,6 +6,10 @@ using NoNameGame.Entities;
 
 namespace NoNameGame.Scenes.Managers
 {
+
+    /// <summary>
+    /// Eine Klasse, welche das Zoomen in eine Szene handhabt.
+    /// </summary>
     public class ZoomingManager : SceneManager
     {
         public enum ZoomingType

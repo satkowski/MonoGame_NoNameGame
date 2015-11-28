@@ -6,6 +6,9 @@ using NoNameGame.Scenes;
 
 namespace NoNameGame.Screens
 {
+    /// <summary>
+    /// Stellt einen Spielbildschirm (in dem das Spiel stattfindet) dar.
+    /// </summary>
     public class GameplayScreen : Screen
     {
         ZoomingManager zoomingManager;

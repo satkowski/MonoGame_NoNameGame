@@ -2,7 +2,10 @@
 
 namespace NoNameGame.Scenes.Managers
 {
-    public class SceneManager
+    /// <summary>
+    /// Die abstrakte Grundklasse, welche alle Screne Ereignisse managt.
+    /// </summary>
+    public abstract class SceneManager
     {
         protected Scene scene;
 

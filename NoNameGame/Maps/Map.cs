@@ -8,6 +8,9 @@ using NoNameGame.Managers;
 
 namespace NoNameGame.Maps
 {
+    /// <summary>
+    /// Stellt eine ganze Map dar.
+    /// </summary>
     public class Map
     {
         [XmlElement("Layer")]

@@ -7,6 +7,9 @@ using NoNameGame.Extensions;
 
 namespace NoNameGame.Entities.Abilities
 {
+    /// <summary>
+    /// Stellt die Fähigkeit dar, dass eine Enity andere Entities schießen kann.
+    /// </summary>
     public class ShootingAbility : EntityAbility
     {
         public enum ShootingType

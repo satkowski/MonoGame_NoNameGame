@@ -3,8 +3,16 @@ using Microsoft.Xna.Framework;
 
 namespace NoNameGame.Maps
 {
+    /// <summary>
+    /// Diese Klasse erweitert das Enum TileRotation in Tile.
+    /// </summary>
     public static class TileExtension
     {
+        /// <summary>
+        /// Gibt den Rotationswert des jeweilgen Enumwertes zurück.
+        /// </summary>
+        /// <param name="rotation"></param>
+        /// <returns>die Rotation</returns>
         public static float GetRotationValue (this Tile.TileRotation rotation)
         {
             // Berechnet mit welchen Wert sich rotiert werden soll

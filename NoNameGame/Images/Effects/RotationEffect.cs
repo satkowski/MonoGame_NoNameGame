@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace NoNameGame.Images.Effects
 {
+    /// <summary>
+    /// Stellt eine Rotation eines Bildes dar.
+    /// </summary>
     public class RotationEffect : ImageEffect
     {
         public enum RotationDirection

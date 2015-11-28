@@ -2,7 +2,10 @@
 
 namespace NoNameGame.Images.Effects
 {
-    public class ImageEffect
+    /// <summary>
+    /// Die abstrakte Grundklasse aller Effekte.
+    /// </summary>
+    public abstract class ImageEffect
     {
         protected Image image;
 

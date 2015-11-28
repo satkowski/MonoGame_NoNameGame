@@ -5,6 +5,9 @@ using NoNameGame.Managers;
 
 namespace NoNameGame.Entities.Abilities
 {
+    /// <summary>
+    /// Stellt die Fähigkeit dar, dass eine Enity von einem Spieler kontrolliert werden kann.
+    /// </summary>
     public class UserControlledAbility : EntityAbility
     {
         public override void LoadContent(ref Entity entity)

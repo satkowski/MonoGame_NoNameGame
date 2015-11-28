@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace NoNameGame.Components.Shapes
 {
+    /// <summary>
+    /// Stellt ein Kreis Shape dar.
+    /// </summary>
     [XmlInclude(typeof(CircleShape))]
     public class CircleShape : Shape
     {
@@ -29,6 +32,12 @@ namespace NoNameGame.Components.Shapes
             Type = ShapeType.AABB;
         }
 
+        /// <summary>
+        /// Speziellerer Konstruktor. Wird genutzt zum klonen.
+        /// </summary>
+        /// <param name="position">die Position</param>
+        /// <param name="radius">der Radius</param>
+        /// <param name="scale">die Skalierung</param>
         protected CircleShape(Vector2 position, float radius, float scale = 1.0f)
             : base(position, scale)
         {
@@ -37,7 +46,12 @@ namespace NoNameGame.Components.Shapes
             this.scale = scale;
         }
 
-
+        /// <summary>
+        /// Lädt die Standarddaten in das Shape. Mit Body als Grundlage.
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="radius">der Radius</param>
+        /// <param name="scale">die Skalierung</param>
         public void LoadContent(Body body, float radius, float scale)
         {
             Radius = radius;
@@ -45,6 +59,12 @@ namespace NoNameGame.Components.Shapes
             base.LoadContent(body);
         }
 
+        /// <summary>
+        /// Lädt die Standarddaten in das Shape. Mit Tile als Grundlage.
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="radius">der Radius</param>
+        /// <param name="scale">die Skalierung</param>
         public void LoadContent(Tile tile, float radius, float scale)
         {
             Radius = radius;
@@ -58,11 +78,20 @@ namespace NoNameGame.Components.Shapes
             Radius *= newScale;
         }
 
+        /// <summary>
+        /// Klont den Kreis auf dem es aufgerufen wird.
+        /// </summary>
+        /// <returns>die Kope dieses Kreises</returns>
         public CircleShape Clone()
         {
             return new CircleShape(Position, Radius, Scale);
         }
 
+        /// <summary>
+        /// Klont den Kreis auf dem es aufgerufen wird mit einer neuen Position.
+        /// </summary>
+        /// <param name="newPosition">neue Position</param>
+        /// <returns>die Kopie des Kreises mit neuer Position</returns>
         public CircleShape Clone(Vector2 newPosition)
         {
             return new CircleShape(newPosition, Radius, Scale);

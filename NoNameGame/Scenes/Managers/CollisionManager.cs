@@ -10,6 +10,9 @@ using NoNameGame.Maps;
 
 namespace NoNameGame.Scenes.Managers
 {
+    /// <summary>
+    /// Eine Klasse, welche die Kollisionen in einer Szene handhabt.
+    /// </summary>
     class CollisionManager : SceneManager
     {
         public CollisionManager()
@@ -41,6 +44,11 @@ namespace NoNameGame.Scenes.Managers
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Führt die Kollisionsbehebung zwischen Entities aus.
+        /// </summary>
+        /// <param name="entity">eine Entity</param>
+        /// <param name="counter">des Objekts, aktuelle Stelle in der Liste</param>
         private void collisionWithEntities(Entity entity, int counter)
         {
             Vector2 collisionMovement = Vector2.Zero;
@@ -56,6 +64,10 @@ namespace NoNameGame.Scenes.Managers
             entity.Body.Position += collisionMovement;
         }
 
+        /// <summary>
+        /// Führt die Kollisionsbehebung zwischen einer Entity und der Map aus.
+        /// </summary>
+        /// <param name="entity">eine Entity</param>
         private void collisionWithMap(Entity entity)
         {
             Vector2 collisionMovement = Vector2.Zero;
@@ -72,6 +84,13 @@ namespace NoNameGame.Scenes.Managers
             entity.Body.Position += collisionMovement;
         }
 
+        /// <summary>
+        /// Führt die Kollisionsbehebung zwischen einer Enity und einer Shape aus.
+        /// </summary>
+        /// <param name="entity">eine Entity</param>
+        /// <param name="shape">die Shape</param>
+        /// <param name="firstCollision">ist das die erste Kollision der Entity</param>
+        /// <param name="collisionMovement">der Kollisionsbehebungsvektor</param>
         private void collisionWithSomething(Entity entity, Shape shape, ref bool firstCollision, ref Vector2 collisionMovement)
         {
             // Wenn die Collision gleich 0 ist, braucht man nichts mehr machen

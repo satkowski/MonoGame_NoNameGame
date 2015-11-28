@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace NoNameGame.Components.Shapes
 {
+    /// <summary>
+    /// Eine abstrakte Klasse, welche die Basis für alle Formen darstellt, die in diesem Spiel vorkommen.
+    /// </summary>
     [XmlInclude(typeof(AABBShape))]
     [XmlInclude(typeof(OBBShape))]
     [XmlInclude(typeof(CircleShape))]
@@ -25,7 +28,13 @@ namespace NoNameGame.Components.Shapes
                 scale = value;
             }
         }
+        /// <summary>
+        /// Gibt an was für ein Typ diese Shape ist. Sollte von jeder abgeleiteten Klasse selbst gesetzt werden.
+        /// </summary>
         public ShapeType Type;
+        /// <summary>
+        /// Alle Eckpunkte einer Shape.
+        /// </summary>
         public abstract List<Vector2> Vertices
         {
             get;
@@ -36,12 +45,21 @@ namespace NoNameGame.Components.Shapes
             scale = 1.0f;
         }
 
+        /// <summary>
+        /// Speziellerer Konstruktor. Wird genutzt zum klonen.
+        /// </summary>
+        /// <param name="position">die Position</param>
+        /// <param name="scale">die Skalierung</param>
         protected Shape(Vector2 position, float scale = 1.0f)
         {
             this.position = position;
             this.scale = scale;
         }
         
+        /// <summary>
+        /// Lädt die Standarddaten in das Shape. Mit Body als Grundlage.
+        /// </summary>
+        /// <param name="body"></param>
         public virtual void LoadContent(Body body)
         {
             body.OnPositionChange += delegate
@@ -49,6 +67,10 @@ namespace NoNameGame.Components.Shapes
             Type = ShapeTypeExtension.GetShapeType(this);
         }
 
+        /// <summary>
+        /// Lädt die Standarddaten in das Shape. Mit Tile als Grundlage.
+        /// </summary>
+        /// <param name="tile"></param>
         public virtual void LoadContent(Tile tile)
         {
             tile.OnPositionChange += delegate
@@ -57,6 +79,11 @@ namespace NoNameGame.Components.Shapes
             Type = ShapeTypeExtension.GetShapeType(this);
         }
 
+        /// <summary>
+        /// Berechnet einen Vektor um eine Kollision zwischen diesen und einer anderen Shape aufzulösen.
+        /// </summary>
+        /// <param name="shape">eine andere Shape</param>
+        /// <returns></returns>
         public Vector2 GetCollisionSolvingVector(Shape shape)
         {
             // Die Shapes werden dynamisch mit ihren jeweiligen Typ erzeugt.

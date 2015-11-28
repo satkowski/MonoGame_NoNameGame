@@ -13,6 +13,9 @@ using NoNameGame.Components;
 
 namespace NoNameGame.Images
 {
+    /// <summary>
+    /// Stellt ein Bild dar.
+    /// </summary>
     public class Image
     {
         Vector2 origin;
@@ -54,6 +57,10 @@ namespace NoNameGame.Images
             Effects = new List<string>();
         }
 
+        /// <summary>
+        /// Lädt alle notwendigen Daten und aktiviert die Effekte.
+        /// </summary>
+        /// <param name="body"></param>
         public void LoadContent (Body body)
         {
             content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
@@ -95,6 +102,12 @@ namespace NoNameGame.Images
             ScaledOrigin = new Vector2((SourceRectangle.Width * Scale) / 2, (SourceRectangle.Height * Scale) / 2);
         }
 
+        /// <summary>
+        /// Setzt alle möglichen Effekte.
+        /// </summary>
+        /// <typeparam name="T">die Art des Effekts</typeparam>
+        /// <param name="effect">der Effekt</param>
+        /// <param name="effectName">der Effektname</param>
         void setEffect<T>(ref T effect, string effectName = "")
         {
             if(effect == null)
@@ -115,6 +128,10 @@ namespace NoNameGame.Images
                 effectList.Add(effectKeyName, (effect as ImageEffect));
         }
 
+        /// <summary>
+        /// Aktiviert einen Effekt
+        /// </summary>
+        /// <param name="effectName">der Effektname</param>
         public void ActivateEffect(string effectName)
         {
             // Es wird nur die Ability aktiviert, wenn diese auch in der Liste vorhanden ist
@@ -126,6 +143,10 @@ namespace NoNameGame.Images
             }
         }
 
+        /// <summary>
+        /// Deaktiviert einen Effekt
+        /// </summary>
+        /// <param name="effectName">der Effektname</param>
         public void DeactivateEffect(string effectName)
         {
             // Es wird nur die Ability deaktiviert, wenn diese auch in der Liste vorhanden ist

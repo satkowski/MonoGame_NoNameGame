@@ -11,6 +11,9 @@ using NoNameGame.Managers;
 
 namespace NoNameGame.Images
 {
+    /// <summary>
+    /// Stellt ein TileSheet dar.
+    /// </summary>
     public class TileSheet
     {
         ContentManager content;

@@ -4,6 +4,9 @@ using System;
 
 namespace NoNameGame.Entities.Abilities
 {
+    /// <summary>
+    /// Stellt die Fähigkeit dar, dass eine Enity einen Spieler verfolgen kann.
+    /// </summary>
     public class PlayerFollowingAbility : EntityAbility
     {
         public Vector2 PlayerPosition;

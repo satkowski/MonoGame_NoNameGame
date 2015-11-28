@@ -7,7 +7,10 @@ using NoNameGame.Managers;
 
 namespace NoNameGame.Screens
 {
-    public class Screen
+    /// <summary>
+    /// Die abstrakte Grundklasse aller Bildschirme des Spiels.
+    /// </summary>
+    public abstract class Screen
     {
         protected ContentManager content;
 

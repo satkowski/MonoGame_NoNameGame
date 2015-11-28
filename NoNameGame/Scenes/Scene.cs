@@ -10,6 +10,9 @@ using NoNameGame.Managers;
 
 namespace NoNameGame.Scenes
 {
+    /// <summary>
+    /// Stellt eine Szene des Spieles dar.
+    /// </summary>
     public class Scene
     {
         private List<Entity> players;
@@ -131,6 +134,11 @@ namespace NoNameGame.Scenes
                 entity.Draw(spriteBatch);
         }
 
+        /// <summary>
+        /// Reagiert, wenn ein neues Schussobjekt erstellt wurde.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShootingAbility_OnNewShotEntityCreated(object sender, System.EventArgs e)
         {
             Entity entity = (Entity)sender;

@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace NoNameGame.Images.Effects
 {
+    /// <summary>
+    /// Stellt einen Spriteeffekt dar. Also, dass sich ein Bild über einen gewissen Zeitraum verändert.
+    /// </summary>
     public class SpriteEffect : ImageEffect
     {
         public enum EffectType

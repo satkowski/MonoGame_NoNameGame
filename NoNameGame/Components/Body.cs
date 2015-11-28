@@ -3,12 +3,18 @@ using System;
 
 namespace NoNameGame.Components
 {
+    /// <summary>
+    /// Stellt den Körper einer Entity dar. Verschiedene Inhalte werden gespeichert, wie z.B. Geschweindugkeit oder Position.
+    /// </summary>
     public class Body
     {
         Vector2 position;
 
         public Vector2 Velocity;
         public float Speed;
+        /// <summary>
+        /// Der Geschwindigkeitsfaktor, welcher mit der Geschwindigkeit multipliziert werden kann.
+        /// </summary>
         public float SpeedFactor;
         public Vector2 Position
         {
@@ -22,6 +28,9 @@ namespace NoNameGame.Components
         }
         public int CollisionLevel;
 
+        /// <summary>
+        /// Wenn die Position verändert wird, wird dieses Event aufgerufen.
+        /// </summary>
         public event EventHandler OnPositionChange;
 
         public Body()

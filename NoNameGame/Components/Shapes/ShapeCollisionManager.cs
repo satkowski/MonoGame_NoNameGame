@@ -6,8 +6,17 @@ using NoNameGame.Helpers;
 
 namespace NoNameGame.Components.Shapes
 {
+    /// <summary>
+    /// Eine statische Klasse, welche alle Berechnungen zu Kollisionauflösung der verschiedenen Shapes beinhaltet.
+    /// </summary>
     public class ShapeCollisionManager
     {
+        /// <summary>
+        /// Kollisionsauflösung zwischen AABB und ABBB
+        /// </summary>
+        /// <param name="aabbShapeA"></param>
+        /// <param name="aabbShapeB"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShapeA, AABBShape aabbShapeB)
         {
             // Distanzberechnung der AABB
@@ -33,6 +42,12 @@ namespace NoNameGame.Components.Shapes
             return Vector2.Zero;
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen Circle und Circle
+        /// </summary>
+        /// <param name="circleShapeA"></param>
+        /// <param name="circleShapeB"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShapeA, CircleShape circleShapeB)
         {
             // Distanzberechnung der Circle
@@ -53,6 +68,12 @@ namespace NoNameGame.Components.Shapes
             return Vector2.Zero;
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen OBB und OBB
+        /// </summary>
+        /// <param name="obbShapeA"></param>
+        /// <param name="obbShapeB"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShapeA, OBBShape obbShapeB)
         {
             // Achsen für das OBB B
@@ -71,6 +92,12 @@ namespace NoNameGame.Components.Shapes
             return calculateSAT(obbAxisA, obbAxisB, obbShapeA.Vertices, obbShapeB.Vertices);
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen AABB und Circle
+        /// </summary>
+        /// <param name="aabbShape"></param>
+        /// <param name="circleShape"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, CircleShape circleShape)
         {
             // Berechnung der Distanz und des nächsten Punktes des AABB zum Circle
@@ -120,6 +147,12 @@ namespace NoNameGame.Components.Shapes
             return Vector2.Zero;
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen AABB und OBB
+        /// </summary>
+        /// <param name="aabbShape"></param>
+        /// <param name="obbShape"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShape, OBBShape obbShape)
         {
             // Standardachsen für das AABB
@@ -136,6 +169,12 @@ namespace NoNameGame.Components.Shapes
             return calculateSAT(aabbAxis, obbAxis, aabbShape.Vertices, obbShape.Vertices);
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen OBB und Circle
+        /// </summary>
+        /// <param name="obbShape"></param>
+        /// <param name="circleShape"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, CircleShape circleShape)
         {
             // Rotiere die Position des Kreises um das OBB und erschaffe damit ein AABB - Circle Problem
@@ -153,22 +192,48 @@ namespace NoNameGame.Components.Shapes
             return Vector2.Transform(coliisionRescolving, Matrix.CreateRotationZ(MathHelper.ToRadians(obbShape.Rotation)));
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen Circle und OBB
+        /// </summary>
+        /// <param name="circleShape"></param>
+        /// <param name="obbShape"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(CircleShape circleShape, OBBShape obbShape)
         {
             return GetCollisionSolvingVector(obbShape, circleShape);
         }
-        
+
+        /// <summary>
+        /// Kollisionsauflösung zwischen OBB und AABB
+        /// </summary>
+        /// <param name="obbShape"></param>
+        /// <param name="aabbShape"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShape, AABBShape aabbShape)
         {
             return GetCollisionSolvingVector(aabbShape, obbShape);
         }
 
+        /// <summary>
+        /// Kollisionsauflösung zwischen Circle und ABBB
+        /// </summary>
+        /// <param name="circelShape"></param>
+        /// <param name="aabbShape"></param>
+        /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(CircleShape circelShape, AABBShape aabbShape)
         {
             return GetCollisionSolvingVector(aabbShape, circelShape);
         }
 
 
+        /// <summary>
+        /// Berechnet das SAT (Seperate Axis Theorem).
+        /// </summary>
+        /// <param name="axisListA">Liste der Achsen der ersten Shape</param>
+        /// <param name="axisListB">Liste der Achsen der zweiten Shape</param>
+        /// <param name="verticesA">Liste der Ecken der ersten Shape</param>
+        /// <param name="verticesB">Liste der Ecken der zweiten Shape</param>
+        /// <returns></returns>
         private static Vector2 calculateSAT(List<Vector2> axisListA, List<Vector2> axisListB, List<Vector2> verticesA, List<Vector2> verticesB)
         {
             // Berechnung der kleinsten Überlappung für die Achsen der beiden Shapes
@@ -191,6 +256,13 @@ namespace NoNameGame.Components.Shapes
                        * secondAxisOverlap.Item2;
         }
 
+        /// <summary>
+        /// Berechnet wieviel (der geringste Wert) und auf welcher Achse sich die die Punkte überschneiden.
+        /// </summary>
+        /// <param name="axisList">Liste der Achsen</param>
+        /// <param name="VerticesA">Liste der Ecken der ersten Shape</param>
+        /// <param name="VerticesB">Liste der Ecken der zweiten Shape</param>
+        /// <returns></returns>
         private static Tuple<Vector2, float> calculateOverlapAxis(List<Vector2> axisList, List<Vector2> VerticesA, List<Vector2> VerticesB)
         {
             float overlap = float.MaxValue;
@@ -213,6 +285,12 @@ namespace NoNameGame.Components.Shapes
             return new Tuple<Vector2, float>(smallestAxis, overlap);
         }
 
+        /// <summary>
+        /// Erstellt eine Projektion von Punkten auf eine Achse.
+        /// </summary>
+        /// <param name="axis">die Achse, auf welche projeziert werden soll</param>
+        /// <param name="vertices">Liste an Punkten</param>
+        /// <returns></returns>
         private static Projection calculateProjectionOnAxis(Vector2 axis, List<Vector2> vertices)
         {
             float min = float.MaxValue;

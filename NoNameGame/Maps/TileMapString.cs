@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 
 namespace NoNameGame.Maps
 {
+    /// <summary>
+    /// Stellt eine String-Kodierung der Tiles in einem Layer dar.
+    /// </summary>
     public class TileMapString
     {
         [XmlElement("Row")]

@@ -5,6 +5,9 @@ using System;
 
 namespace NoNameGame.Maps
 {
+    /// <summary>
+    /// Stellt ein einzelnes Tile dar.
+    /// </summary>
     public class Tile
     {
         public enum TileRotation 

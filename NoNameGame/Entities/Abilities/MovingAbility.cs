@@ -7,6 +7,9 @@ using NoNameGame.Extensions;
 
 namespace NoNameGame.Entities.Abilities
 {
+    /// <summary>
+    /// Stellt die Fähigkeit dar, das sich eine Enity bewegen kann.
+    /// </summary>
     public class MovingAbility : EntityAbility
     {
         public enum MovingType
