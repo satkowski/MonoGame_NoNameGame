@@ -98,104 +98,31 @@ namespace NoNameGame.Collision
             // Falls die Kollision mit einem Tile stattfindet, soll die Entity und nicht das Tile verschoben werden.
             if(SecondBody == null)
                 FirstBody.Position += Resolving;
-            else if(FirstBody.Velocity != Vector2.Zero || SecondBody.Velocity != Vector2.Zero)
-                movementCausedCollision();
-            else if(FirstBody.Rotated || SecondBody.Rotated)
-                rotationCausedCollision();
-        }
+            else if(FirstBody.Velocity != Vector2.Zero || SecondBody.Velocity != Vector2.Zero ||
+                    FirstBody.Rotated || SecondBody.Rotated)
+            {
+                float firstOffset = 0.0f;
+                float secondOffset = 0.0f;
 
-        /// <summary>
-        /// Löst die Kollision auf, welche durch Bewegung erzeugt wurde.
-        /// </summary>
-        private void movementCausedCollision()
-        {
-            // Hier wird entschieden wer sich bewegt hat und dementsprechen wird gehandelt.
-            if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity == Vector2.Zero)
-            {
-                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
-                if(FirstBody.Position == firstPosition)
-                    FirstBody.Position += Resolving;
-                else
+                if(FirstBody.Position != firstPosition)
                     changeThisCollision();
-            }
-            else if(FirstBody.Velocity == Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
-            {
-                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
-                if(SecondBody.Position == secondPosition)
-                    SecondBody.Position -= Resolving;
-                else
-                    changeThisCollision();
-            }
-            // TODO: Wenn sich beide bewegt haben -> möglicherweise verändern
-            else if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
-            {
-                double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
-
-                if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ < 0)
-                {
-                    if(FirstBody.MassRelativ >= 0 && SecondBody.MassRelativ < 0)
-                        FirstBody.Position += Resolving;
-                    else if(FirstBody.MassRelativ < 0 && SecondBody.MassRelativ >= 0)
-                        SecondBody.Position -= Resolving;
-                }
                 else
                 {
-                    FirstBody.Position += Resolving * (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
-                    SecondBody.Position -= Resolving * (float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Löst die Kollision auf, welche durch Rotation erzeugt wurde.
-        /// </summary>
-        private void rotationCausedCollision()
-        {
-            // Hier wird entschieden wer sich rotiert hat und dementsprechen wird gehandelt.
-            if(FirstBody.Rotated && !SecondBody.Rotated)
-            {
-                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
-                if(FirstBody.Position == firstPosition)
-                    FirstBody.Position += Resolving;
-                else
-                    changeThisCollision();
-            }
-            else if(!FirstBody.Rotated && SecondBody.Rotated)
-            {
-                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
-                if(SecondBody.Position == firstPosition)
-                    SecondBody.Position -= Resolving;
-                else
-                    changeThisCollision();
-            }
-            // TODO: Wenn sich beide rotiert sind -> möglicherweise verändern
-            else if(FirstBody.Rotated && SecondBody.Rotated)
-            {
-                // Falls einer der beiden ein Kreis ist, hat sich dieser durch die Rotation nicht verändert
-                if(FirstShape.Type == ShapeType.Circle || SecondShape.Type == ShapeType.Circle)
-                {
-                    if(FirstShape.Type == ShapeType.OBB)
-                        FirstBody.Position += Resolving;
-                    else if(SecondShape.Type == ShapeType.OBB)
-                        SecondBody.Position -= Resolving;
-                }
-                else
-                {
-                    double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
-
-                    if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ < 0)
-                    {
-                        if(FirstBody.MassRelativ >= 0 && SecondBody.MassRelativ < 0)
-                            FirstBody.Position += Resolving;
-                        else if(FirstBody.MassRelativ < 0 && SecondBody.MassRelativ >= 0)
-                            SecondBody.Position -= Resolving;
-                    }
+                    if(SecondBody.MassRelativ < 0 || FirstBody.MassRelativ == 0)
+                        firstOffset = 1.0f;
+                    else if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ == 0)
+                        secondOffset = -1.0f;
                     else
                     {
-                        FirstBody.Position += Resolving * (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
-                        SecondBody.Position -= Resolving * (float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
+                        double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
+
+                        firstOffset = (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
+                        secondOffset = -(float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
                     }
                 }
+
+                FirstBody.Position += Resolving * firstOffset;
+                SecondBody.Position += Resolving * secondOffset;
             }
         }
 
