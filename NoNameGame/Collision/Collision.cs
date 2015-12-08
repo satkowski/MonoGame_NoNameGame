@@ -129,8 +129,20 @@ namespace NoNameGame.Collision
             // TODO: Wenn sich beide bewegt haben -> möglicherweise verändern
             else if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
             {
-                FirstBody.Position += Resolving / 2;
-                SecondBody.Position -= Resolving / 2;
+                double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
+
+                if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ < 0)
+                {
+                    if(FirstBody.MassRelativ >= 0 && SecondBody.MassRelativ < 0)
+                        FirstBody.Position += Resolving;
+                    else if(FirstBody.MassRelativ < 0 && SecondBody.MassRelativ >= 0)
+                        SecondBody.Position -= Resolving;
+                }
+                else
+                {
+                    FirstBody.Position += Resolving * (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
+                    SecondBody.Position -= Resolving * (float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
+                }
             }
         }
 
@@ -169,8 +181,20 @@ namespace NoNameGame.Collision
                 }
                 else
                 {
-                    FirstBody.Position += Resolving / 2;
-                    SecondBody.Position -= Resolving / 2;
+                    double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
+
+                    if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ < 0)
+                    {
+                        if(FirstBody.MassRelativ >= 0 && SecondBody.MassRelativ < 0)
+                            FirstBody.Position += Resolving;
+                        else if(FirstBody.MassRelativ < 0 && SecondBody.MassRelativ >= 0)
+                            SecondBody.Position -= Resolving;
+                    }
+                    else
+                    {
+                        FirstBody.Position += Resolving * (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
+                        SecondBody.Position -= Resolving * (float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
+                    }
                 }
             }
         }

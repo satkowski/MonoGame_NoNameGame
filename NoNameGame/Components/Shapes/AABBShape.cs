@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 using NoNameGame.Maps;
 using System.Collections.Generic;
+using System;
 
 namespace NoNameGame.Components.Shapes
 {
@@ -11,11 +12,21 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(AABBShape))]
     [XmlInclude(typeof(OBBShape))]
     public class AABBShape : Shape
-    {        
+    {
+        private Vector2 size;
+
         /// <summary>
         /// Die Größe des AABB.
         /// </summary>
-        public Vector2 Size;
+        public Vector2 Size
+        {
+            get { return size; }
+            set
+            {
+                size = value;
+                onThingsForAreaChanged();
+            }
+        }
         /// <summary>
         /// Der Mittelpunkt des AABB vom Koordinatenursprung aus.
         /// </summary>
@@ -76,6 +87,11 @@ namespace NoNameGame.Components.Shapes
                 return newVertices;
             }
         }
+        /// <summary>
+        /// Gibt die Fläche der Form zurück.
+        /// </summary>
+        public override double Area
+        { get { return Size.X * Size.Y * Scale; } }
 
         /// <summary>
         /// Basiskonstruktor.
@@ -129,7 +145,7 @@ namespace NoNameGame.Components.Shapes
         ///  Methode, welche darauf reagiert, wenn sich die Skalierung verändert.
         /// </summary>
         /// <param name="newScale">die neue Skalierung</param>
-        protected override void OnScaleChange(float newScale)
+        protected override void onScaleChange(float newScale)
         {
             Size /= Scale;
             Size *= newScale;

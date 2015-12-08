@@ -149,6 +149,11 @@ namespace NoNameGame.Images
             setEffect<SpriteEffect>(ref SpriteEffectAlways, "Always");
             foreach(string effectName in Effects)
                 ActivateEffect(effectName);
+
+            if(OnRotationChange != null)
+                OnRotationChange(rotation, null);
+            if(OnScaleChange != null)
+                OnScaleChange(scale, null);
         }
 
         public void UnloadContent ()

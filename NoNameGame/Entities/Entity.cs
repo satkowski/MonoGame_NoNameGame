@@ -94,17 +94,23 @@ namespace NoNameGame.Entities
         /// </summary>
         public void LoadContent()
         {
+            // TODO: Mögliches verschieben
+            // Zuweisung aller Events.
+            if(Shape.Type == ShapeType.OBB)
+            {
+                Image.OnRotationChange += delegate
+                { (Shape as OBBShape).Rotation = Image.Rotation; };
+                Image.OnRotationChange += delegate
+                { Body.Rotated = true; };
+            }
+            Image.OnScaleChange += delegate
+            { Shape.Scale = Image.Scale; };
+            Shape.OnAreaChanged += delegate
+            { Body.Area = Shape.Area; };
+
             Body.LoadContent();
             Image.LoadContent(Body);
             Shape.LoadContent(Body);
-
-            if(Shape.Type == ShapeType.OBB)
-                Image.OnRotationChange += delegate
-                { (Shape as OBBShape).Rotation = Image.Rotation; };
-            Image.OnRotationChange += delegate
-            { Body.Rotated = true; };
-            Image.OnScaleChange += delegate
-            { Shape.Scale = Image.Scale; };
 
             setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
             setAbility<MovingAbility>(ref MovingAbility);

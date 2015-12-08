@@ -11,19 +11,29 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(CircleShape))]
     public class CircleShape : Shape
     {
+        private float radius;
+
         /// <summary>
         /// Der Radius des Kreises.
         /// </summary>
-        public float Radius;
+        public float Radius
+        {
+            get { return radius; }
+            set
+            {
+                radius = value;
+                onThingsForAreaChanged();
+            }
+        }
         /// Die Liste aller Eckpunkte einer Shape.
         /// </summary>
         public override List<Vector2> Vertices
-        {
-            get
-            {
-                return new List<Vector2>();
-            }
-        }
+        { get { return new List<Vector2>(); } }
+        /// <summary>
+        /// Gibt die Fläche der Form zurück.
+        /// </summary>
+        public override double Area
+        { get { return MathHelper.Pi * Radius * Radius * Scale; } }
 
         /// <summary>
         /// Basiskonstruktor.
@@ -77,7 +87,7 @@ namespace NoNameGame.Components.Shapes
         /// Methode, welche darauf reagiert, wenn sich die Skalierung verändert.
         /// </summary>
         /// <param name="newScale">die neue Skalierung</param>
-        protected override void OnScaleChange(float newScale)
+        protected override void onScaleChange(float newScale)
         {
             Radius /= Scale;
             Radius *= newScale;

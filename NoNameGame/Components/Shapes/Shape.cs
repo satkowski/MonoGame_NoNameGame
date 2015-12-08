@@ -31,8 +31,9 @@ namespace NoNameGame.Components.Shapes
             get { return scale; }
             set
             {
-                OnScaleChange(value);
+                onScaleChange(value);
                 scale = value;
+                onThingsForAreaChanged();
             }
         }
         /// <summary>
@@ -43,9 +44,14 @@ namespace NoNameGame.Components.Shapes
         /// Die Liste aller Eckpunkte einer Shape.
         /// </summary>
         public abstract List<Vector2> Vertices
-        {
-            get;
-        }
+        { get; }
+        /// <summary>
+        /// Gibt die Fläche der Form zurück.
+        /// </summary>
+        public abstract double Area
+        { get; }
+
+        public event EventHandler OnAreaChanged;
 
         /// <summary>
         /// Basiskonstkruktor.
@@ -75,6 +81,9 @@ namespace NoNameGame.Components.Shapes
             body.OnPositionChange += delegate
             { position = body.Position; };
             Type = ShapeTypeExtension.GetShapeType(this);
+
+            if(OnAreaChanged != null)
+                OnAreaChanged(Area, null);
         }
 
         /// <summary>
@@ -105,10 +114,16 @@ namespace NoNameGame.Components.Shapes
             return ShapeCollisionManager.GetCollisionSolvingVector(thisDerived, shapeDerived);
         }
 
+        protected void onThingsForAreaChanged()
+        {
+            if(OnAreaChanged != null)
+                OnAreaChanged(Area, null);
+        }
+
         /// <summary>
         /// Abstrakte Methode, welche darauf reagiert, wenn sich die Skalierung verändert.
         /// </summary>
         /// <param name="newScale">die neue Skalierung</param>
-        protected abstract void OnScaleChange(float newScale);
+        protected abstract void onScaleChange(float newScale);
     }
 }
