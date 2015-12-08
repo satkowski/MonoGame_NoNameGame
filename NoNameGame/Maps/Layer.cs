@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using NoNameGame.Images;
-using NoNameGame.Extensions;
-using NoNameGame.Components.Shapes;
 
 namespace NoNameGame.Maps
 {

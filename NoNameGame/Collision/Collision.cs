@@ -3,10 +3,6 @@ using NoNameGame.Components;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Entities;
 using NoNameGame.Maps;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NoNameGame.Collision
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NoNameGame.Managers
+﻿namespace NoNameGame.Managers
 {
     /// <summary>
     /// Handhabt alle IDs die im Laufe des Programmes erzeugt werden.

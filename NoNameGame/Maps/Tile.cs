@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Components.Shapes;
-using NoNameGame.Extensions;
 using NoNameGame.Managers;
 using System;
 

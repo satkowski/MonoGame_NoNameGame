@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Extensions;
-using System;
 
 namespace NoNameGame.Entities.Abilities
 {

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using NoNameGame.Entities;
-using NoNameGame.Extensions;
-using NoNameGame.Components.Shapes;
 using NoNameGame.Maps;
-using NoNameGame.Collision;
 
 namespace NoNameGame.Scenes.Managers
 {

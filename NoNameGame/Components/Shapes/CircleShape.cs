@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Maps;
 using System.Xml.Serialization;
-using System;
 using System.Collections.Generic;
 
 namespace NoNameGame.Components.Shapes
