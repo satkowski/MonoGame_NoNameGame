@@ -126,9 +126,12 @@ namespace NoNameGame.Collision
                 else
                     changeThisCollision();
             }
-            // TODO: Wenn sich beide bewegt haben 
+            // TODO: Wenn sich beide bewegt haben -> möglicherweise verändern
             else if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
-                return;
+            {
+                FirstBody.Position += Resolving / 2;
+                SecondBody.Position -= Resolving / 2;
+            }
         }
 
         /// <summary>
@@ -153,7 +156,7 @@ namespace NoNameGame.Collision
                 else
                     changeThisCollision();
             }
-            // TODO: Wenn sich beide rotiert sind
+            // TODO: Wenn sich beide rotiert sind -> möglicherweise verändern
             else if(FirstBody.Rotated && SecondBody.Rotated)
             {
                 // Falls einer der beiden ein Kreis ist, hat sich dieser durch die Rotation nicht verändert
@@ -164,8 +167,10 @@ namespace NoNameGame.Collision
                     else if(SecondShape.Type == ShapeType.OBB)
                         SecondBody.Position -= Resolving;
                 }
+                else
                 {
-
+                    FirstBody.Position += Resolving / 2;
+                    SecondBody.Position -= Resolving / 2;
                 }
             }
         }
