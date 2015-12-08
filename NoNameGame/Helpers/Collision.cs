@@ -10,22 +10,49 @@ using System.Text;
 
 namespace NoNameGame.Helpers
 {
+    /// <summary>
+    /// Eine Darstellung einer Kollision zwischen 2 Objekten.
+    /// </summary>
     public class Collision
     {
+        /// <summary>
+        /// ID der Kollision.
+        /// </summary>
         public string ID
         { get; private set; }
+        /// <summary>
+        /// Shape des ersten Objektes.
+        /// </summary>
         public Shape FirstShape
         { get; private set; }
+        /// <summary>
+        /// Shape des zweiten Objektes.
+        /// </summary>
         public Shape SecondShape
         { get; private set; }
+        /// <summary>
+        /// Body des ersten Objektes.
+        /// </summary>
         public Body FirstBody
         { get; private set; }
+        /// <summary>
+        /// Body des zweiten Objektes.
+        /// </summary>
         public Body SecondBody
         { get; private set; }
 
+        /// <summary>
+        /// Ein Vektor, welche die Kollision auflösen würde.
+        /// </summary>
         public Vector2 Resolving
         { get; private set; }
 
+        /// <summary>
+        /// Konstruktor für 2 Entities.
+        /// </summary>
+        /// <param name="firstEntity">die erste Entity</param>
+        /// <param name="secondEntity">die zweite Entity</param>
+        /// <param name="resolving">der Kollisionsausflösungsvektor</param>
         public Collision(Entity firstEntity, Entity secondEntity, Vector2 resolving)
         {
             FirstShape = firstEntity.Shape;
@@ -40,6 +67,12 @@ namespace NoNameGame.Helpers
                 ID = "E" + secondEntity.ID + "-" + "E" + firstEntity.ID;
         }
 
+        /// <summary>
+        /// Konstruktor für eine Entity und ein Tile.
+        /// </summary>
+        /// <param name="entity">eine Entity</param>
+        /// <param name="tile">ein Tile</param>
+        /// <param name="resolving">Kollisionsausflösungsvektor</param>
         public Collision(Entity entity, Tile tile, Vector2 resolving)
         {
             FirstShape = entity.Shape;
@@ -76,6 +109,11 @@ namespace NoNameGame.Helpers
             }
         }
 
+        /// <summary>
+        /// Vergleich der Gleichheit über die ID.
+        /// </summary>
+        /// <param name="obj">eine anderes Collision-Objekt</param>
+        /// <returns>sind die beiden Kollisionen gleich</returns>
         public override bool Equals(object obj)
         {
             try
@@ -91,6 +129,10 @@ namespace NoNameGame.Helpers
             }
         }
 
+        /// <summary>
+        /// HashCode der Kollision über die ID.
+        /// </summary>
+        /// <returns>der HashCode</returns>
         public override int GetHashCode()
         {
             return ID.GetHashCode();
