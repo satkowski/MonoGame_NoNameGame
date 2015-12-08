@@ -110,19 +110,27 @@ namespace NoNameGame.Collision
                     changeThisCollision();
                 else
                 {
-                    // Falls die Masse von mir unendlich ist (-1) oder 0 ist.
-                    if(SecondBody.MassRelativ < 0 || FirstBody.MassRelativ == 0)
+                    double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
+
+                    // Falls die Masse von einer Entity unendlich (-1) ist oder 0 ist
+                    // Oder die Masse des ersten Körpers kleiner ist als des zweiten und der erste sich bewegte
+                    if(SecondBody.MassRelativ < 0 || FirstBody.MassRelativ == 0 || 
+                       (FirstBody.MassRelativ <= SecondBody.MassRelativ && 
+                       (FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity == Vector2.Zero)))
                         firstOffset = 1.0f;
-                    else if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ == 0)
+                    // Falls die Masse von einer Entity unendlich (-1) ist oder 0 ist
+                    // Oder die Masse des zweiten Körpers kleiner ist als des ersten und der zweite sich bewegte
+                    else if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ == 0 ||
+                            (FirstBody.MassRelativ > SecondBody.MassRelativ && 
+                            (FirstBody.Velocity == Vector2.Zero && SecondBody.Velocity != Vector2.Zero)))
                         secondOffset = -1.0f;
                     else
                     {
-                        double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
-
                         firstOffset = (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
                         secondOffset = -(float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
                     }
                 }
+
                 FirstBody.Position += Resolving * firstOffset;
                 SecondBody.Position += Resolving * secondOffset;
             }
