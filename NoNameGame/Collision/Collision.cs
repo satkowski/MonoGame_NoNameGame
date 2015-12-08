@@ -116,18 +116,15 @@ namespace NoNameGame.Collision
                 if(FirstBody.Position == firstPosition)
                     FirstBody.Position += Resolving;
                 else
-                {
-                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
-                }
+                    changeThisCollision();
             }
             else if(FirstBody.Velocity == Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
             {
+                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
                 if(SecondBody.Position == secondPosition)
                     SecondBody.Position -= Resolving;
                 else
-                {
-                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
-                }
+                    changeThisCollision();
             }
             // TODO: Wenn sich beide bewegt haben 
             else if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
@@ -146,9 +143,7 @@ namespace NoNameGame.Collision
                 if(FirstBody.Position == firstPosition)
                     FirstBody.Position += Resolving;
                 else
-                {
-                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
-                }
+                    changeThisCollision();
             }
             else if(!FirstBody.Rotated && SecondBody.Rotated)
             {
@@ -156,9 +151,7 @@ namespace NoNameGame.Collision
                 if(SecondBody.Position == firstPosition)
                     SecondBody.Position -= Resolving;
                 else
-                {
-                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
-                }
+                    changeThisCollision();
             }
             // TODO: Wenn sich beide rotiert sind
             else if(FirstBody.Rotated && SecondBody.Rotated)
@@ -175,6 +168,19 @@ namespace NoNameGame.Collision
 
                 }
             }
+        }
+
+        /// <summary>
+        /// Berechnet die Kollision neu und verändert demenstprechend die Parameter. Ruft erneut CollisionResolving auf.
+        /// </summary>
+        private void changeThisCollision()
+        {
+            // Es wird nun erneut die Kollision zwischen den beiden Objektfromen berechnet.
+            Resolving = FirstShape.GetCollisionSolvingVector(SecondShape);
+            firstPosition = FirstBody.Position;
+            secondPosition = SecondBody.Position;
+
+            ResolveCollision();
         }
 
         /// <summary>
