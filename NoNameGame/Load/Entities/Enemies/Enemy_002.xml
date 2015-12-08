@@ -16,7 +16,7 @@
     <Scale>0.6</Scale>
   </Shape>
 
-  <!--<Ability>ShootingAbility</Ability>-->
+  <Ability>ShootingAbility</Ability>
 
   <ShootingAbility>
     <Type>AgainstPlayer</Type>

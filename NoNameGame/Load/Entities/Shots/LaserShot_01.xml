@@ -7,6 +7,14 @@
     <CollisionLevel>0</CollisionLevel>
   </Body>
   
+  <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="OBBShape">
+    <Size>
+      <X>25</X>
+      <Y>92</Y>
+    </Size>
+    <Scale>0.5</Scale>
+  </Shape>
+  
   <Ability>MovingAbility</Ability>
 
   <MovingAbility>

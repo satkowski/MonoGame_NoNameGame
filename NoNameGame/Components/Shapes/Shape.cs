@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NoNameGame.Collision;
 using NoNameGame.Maps;
 using System;
 using System.Collections.Generic;

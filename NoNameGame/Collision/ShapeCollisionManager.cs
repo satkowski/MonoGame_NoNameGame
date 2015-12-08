@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using NoNameGame.Extensions;
-using NoNameGame.Helpers;
+using NoNameGame.Components.Shapes;
 
-namespace NoNameGame.Components.Shapes
+namespace NoNameGame.Collision
 {
     /// <summary>
     /// Eine statische Klasse, welche alle Berechnungen zu Kollisionauflösung der verschiedenen Shapes beinhaltet.

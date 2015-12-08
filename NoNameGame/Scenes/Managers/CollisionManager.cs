@@ -7,7 +7,7 @@ using NoNameGame.Entities;
 using NoNameGame.Extensions;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Maps;
-using NoNameGame.Helpers;
+using NoNameGame.Collision;
 
 namespace NoNameGame.Scenes.Managers
 {
@@ -16,7 +16,7 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     class CollisionManager : SceneManager
     {
-        private Dictionary<string, Collision> collisions;
+        private Dictionary<string, Collision.Collision> collisions;
 
         /// <summary>
         /// Basiskonstruktor.
@@ -39,7 +39,7 @@ namespace NoNameGame.Scenes.Managers
         public override void Update(GameTime gameTime)
         {
             int counter = 0;
-            collisions = new Dictionary<string, Collision>();
+            collisions = new Dictionary<string, Collision.Collision>();
             // Geht durch alle Entities und prüft für jedes die Collision
             foreach(Entity entity in scene.Entities)
             {
@@ -47,7 +47,7 @@ namespace NoNameGame.Scenes.Managers
                 collisionWithMap(entity);
                 counter++;
             }
-            foreach(KeyValuePair<string, Collision> collision in collisions)
+            foreach(KeyValuePair<string, Collision.Collision> collision in collisions)
                 collision.Value.ResolveCollision();
 
             base.Update(gameTime);
@@ -69,7 +69,7 @@ namespace NoNameGame.Scenes.Managers
                 Vector2 collisionResolving = scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape);
                 if(collisionResolving != Vector2.Zero)
                 {
-                    Collision collision = new Collision(entity, scene.Entities[c], collisionResolving);
+                    Collision.Collision collision = new Collision.Collision(entity, scene.Entities[c], collisionResolving);
                         if(!collisions.ContainsKey(collision.ID))
                             collisions.Add(collision.ID, collision);
                 }
@@ -92,7 +92,7 @@ namespace NoNameGame.Scenes.Managers
                     Vector2 collisionResolving = tile.Shape.GetCollisionSolvingVector(entity.Shape);
                     if(collisionResolving != Vector2.Zero)
                     {
-                        Collision collision = new Collision(entity, tile, collisionResolving);
+                        Collision.Collision collision = new Collision.Collision(entity, tile, collisionResolving);
                         if(!collisions.ContainsKey(collision.ID))
                             collisions.Add(collision.ID, collision);
                     }

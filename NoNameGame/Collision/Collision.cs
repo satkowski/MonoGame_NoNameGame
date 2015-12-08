@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NoNameGame.Helpers
+namespace NoNameGame.Collision
 {
     /// <summary>
     /// Eine Darstellung einer Kollision zwischen 2 Objekten.
