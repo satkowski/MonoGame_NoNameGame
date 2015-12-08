@@ -16,14 +16,14 @@
       <X>92</X>
       <Y>92</Y>
     </Size>
-    <Scale>2</Scale>
+    <Scale>0.45</Scale>
   </Shape>
   
   <Ability>UserControlledAbility</Ability>
   
   <Image>
     <Path>Entities/Players/Player_01</Path>
-    <Scale>2</Scale>
+    <Scale>0.45</Scale>
     
     <Effect>SpriteEffect-Always</Effect>
     <Effect>RotationEffect</Effect>

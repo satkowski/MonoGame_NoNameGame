@@ -2,7 +2,7 @@
 <Scene>
   <MapPath>Load/Maps/Map_005.xml</MapPath>
   <PlayerPath>Load/Entities/Players/Player_01.xml</PlayerPath>
-  <!--<EntityPath>Load/Entities/Enemies/Enemy_001.xml</EntityPath>-->
+  <EntityPath>Load/Entities/Enemies/Enemy_001.xml</EntityPath>
   <EntityPath>Load/Entities/Enemies/Enemy_002.xml</EntityPath>
-  <!--<EntityPath>Load/Entities/Enemies/Enemy_003.xml</EntityPath>-->
+  <EntityPath>Load/Entities/Enemies/Enemy_003.xml</EntityPath>
 </Scene>

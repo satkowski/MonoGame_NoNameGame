@@ -19,27 +19,12 @@ namespace NoNameGame.Components.Shapes
         /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(AABBShape aabbShapeA, AABBShape aabbShapeB)
         {
-            // Distanzberechnung der AABB
-            Vector2 distanceVector = new Vector2(aabbShapeA.Position.X - aabbShapeB.Position.X, 
-                                                 aabbShapeA.Position.Y - aabbShapeB.Position.Y);
-            Vector2 minDistanceVector = aabbShapeA.Center + aabbShapeB.Center;
+            // Achsen für die AABB
+            List<Vector2> aabbAxis = new List<Vector2>();
+            aabbAxis.Add(new Vector2(0, 1));
+            aabbAxis.Add(new Vector2(1, 0));
 
-            // Berechnen der Penetration der beiden AABB
-            Vector2 penetration = Vector2.Zero;
-            if(distanceVector.X < minDistanceVector.X)
-                penetration.X = minDistanceVector.X - distanceVector.X;
-            if(distanceVector.Y < minDistanceVector.Y)
-                penetration.Y = minDistanceVector.Y - distanceVector.Y;
-
-            // Nur wenn es eine Penetration gab, wird ein Collisionhandling betrieben
-            if(penetration.Y <= penetration.X)
-                if(penetration.Y != 0)
-                    return new Vector2(0, 1) * penetration;
-            else
-                if(penetration.X != 0)
-                    return new Vector2(1, 0) * penetration;
-
-            return Vector2.Zero;
+            return calculateSAT(aabbAxis, aabbAxis, aabbShapeA.Vertices, aabbShapeB.Vertices, aabbShapeA.Position, aabbShapeB.Position);
         }
 
         /// <summary>
@@ -75,13 +60,13 @@ namespace NoNameGame.Components.Shapes
         /// <returns></returns>
         public static Vector2 GetCollisionSolvingVector(OBBShape obbShapeA, OBBShape obbShapeB)
         {
-            // Achsen für das OBB B
+            // Achsen für das OBB A
             List<Vector2> obbAxisA = new List<Vector2>();
             obbAxisA.Add(obbShapeA.Top);
             obbAxisA[0] /= obbAxisA[0].Length();
             obbAxisA.Add(obbShapeA.Right);
             obbAxisA[1] /= obbAxisA[1].Length();
-            // Achsen für das OBB A
+            // Achsen für das OBB B
             List<Vector2> obbAxisB = new List<Vector2>();
             obbAxisB.Add(obbShapeB.Top);
             obbAxisB[0] /= obbAxisB[0].Length();
