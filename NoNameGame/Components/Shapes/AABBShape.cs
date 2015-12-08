@@ -91,7 +91,15 @@ namespace NoNameGame.Components.Shapes
         /// Gibt die Fläche der Form zurück.
         /// </summary>
         public override double Area
-        { get { return Size.X * Size.Y * Scale; } }
+        {
+            get
+            {
+                double area = Size.X * Size.Y * Scale;
+                if(area == 0)
+                    area = 0.000000000000000000000001;
+                return area;
+            }
+        }
 
         /// <summary>
         /// Basiskonstruktor.

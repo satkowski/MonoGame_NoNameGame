@@ -98,16 +98,19 @@ namespace NoNameGame.Collision
             // Falls die Kollision mit einem Tile stattfindet, soll die Entity und nicht das Tile verschoben werden.
             if(SecondBody == null)
                 FirstBody.Position += Resolving;
+            // Falls sich einer der beiden Körper bewegt oder rotiertz hat.
             else if(FirstBody.Velocity != Vector2.Zero || SecondBody.Velocity != Vector2.Zero ||
                     FirstBody.Rotated || SecondBody.Rotated)
             {
                 float firstOffset = 0.0f;
                 float secondOffset = 0.0f;
 
-                if(FirstBody.Position != firstPosition)
+                // Falls es vorher schonmal eine Kollisionsauflösung an einem der beiden Objekten gab.
+                if(FirstBody.Position != firstPosition || SecondBody.Position != secondPosition)
                     changeThisCollision();
                 else
                 {
+                    // Falls die Masse von mir unendlich ist (-1) oder 0 ist.
                     if(SecondBody.MassRelativ < 0 || FirstBody.MassRelativ == 0)
                         firstOffset = 1.0f;
                     else if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ == 0)
@@ -120,7 +123,6 @@ namespace NoNameGame.Collision
                         secondOffset = -(float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
                     }
                 }
-
                 FirstBody.Position += Resolving * firstOffset;
                 SecondBody.Position += Resolving * secondOffset;
             }
