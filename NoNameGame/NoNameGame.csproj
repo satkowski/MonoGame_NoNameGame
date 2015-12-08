@@ -52,6 +52,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Helpers\Collision.cs" />
     <Compile Include="Helpers\Projection.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TileSheet.cs" />
     <Compile Include="Components\Shapes\ShapeCollisionManager.cs" />
+    <Compile Include="Managers\IDManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />

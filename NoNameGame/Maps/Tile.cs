@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Extensions;
+using NoNameGame.Managers;
 using System;
 
 namespace NoNameGame.Maps
@@ -23,6 +24,13 @@ namespace NoNameGame.Maps
 
         Layer layer;
         Vector2 mapTilePosition;
+
+        /// <summary>
+        /// ID des Objektes.
+        /// </summary>
+        public ulong ID
+        { get; private set; }
+        
 
         /// <summary>
         /// Die Tilerotation.
@@ -55,6 +63,7 @@ namespace NoNameGame.Maps
             Position = Vector2.Zero;
             TileSheetRectangle = Rectangle.Empty;
             Shape = new AABBShape();
+            ID = IDManager.Instance.TileID;
         }
 
         public void LoadContent(Layer layer, Vector2 tileSheetPosition, Vector2 mapPosition, TileRotation rotation)

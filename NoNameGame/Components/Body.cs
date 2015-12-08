@@ -22,6 +22,10 @@ namespace NoNameGame.Components
         /// Der Geschwindigkeitsfaktor, welcher mit der Geschwindigkeit multipliziert werden kann.
         /// </summary>
         public float SpeedFactor;
+        /// <summary>
+        /// Gibt an, ob sich der Körper in der vorigen Berechnung rotiert hat.
+        /// </summary>
+        public bool Rotation;
 
         /// <summary>
         /// die absolute Position auf der Ebene

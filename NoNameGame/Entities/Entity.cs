@@ -10,6 +10,7 @@ using NoNameGame.Images;
 using NoNameGame.Entities.Abilities;
 using NoNameGame.Components;
 using NoNameGame.Components.Shapes;
+using NoNameGame.Managers;
 
 namespace NoNameGame.Entities
 {
@@ -29,6 +30,13 @@ namespace NoNameGame.Entities
         }
 
         Dictionary<string, EntityAbility> abilitiesList;
+
+        /// <summary>
+        /// ID des Objektes.
+        /// </summary>
+        [XmlIgnore]
+        public ulong ID
+        { get; private set; }
 
         /// <summary>
         /// Das Bild der Entity.
@@ -78,6 +86,7 @@ namespace NoNameGame.Entities
             Shape = new AABBShape();
             abilitiesList = new Dictionary<string, EntityAbility>();
             Abilities = new List<string>();
+            ID = IDManager.Instance.EntityID;
         }
 
         /// <summary>

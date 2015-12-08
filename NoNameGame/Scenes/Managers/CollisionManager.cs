@@ -7,6 +7,7 @@ using NoNameGame.Entities;
 using NoNameGame.Extensions;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Maps;
+using NoNameGame.Helpers;
 
 namespace NoNameGame.Scenes.Managers
 {
@@ -15,6 +16,8 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     class CollisionManager : SceneManager
     {
+        private Dictionary<string, Collision> collisions;
+
         /// <summary>
         /// Basiskonstruktor.
         /// </summary>
@@ -36,6 +39,7 @@ namespace NoNameGame.Scenes.Managers
         public override void Update(GameTime gameTime)
         {
             int counter = 0;
+            collisions = new Dictionary<string, Collision>();
             // Geht durch alle Entities und prüft für jedes die Collision
             foreach(Entity entity in scene.Entities)
             {
@@ -43,6 +47,8 @@ namespace NoNameGame.Scenes.Managers
                 collisionWithMap(entity);
                 counter++;
             }
+            foreach(KeyValuePair<string, Collision> collision in collisions)
+                collision.Value.ResolveCollision();
 
             base.Update(gameTime);
         }
@@ -60,7 +66,13 @@ namespace NoNameGame.Scenes.Managers
                 if(c == counter)
                     continue;
 
-                entity.Body.Position += scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape);
+                Vector2 collisionResolving = scene.Entities[c].Shape.GetCollisionSolvingVector(entity.Shape);
+                if(collisionResolving != Vector2.Zero)
+                {
+                    Collision collision = new Collision(entity, scene.Entities[c], collisionResolving);
+                        if(!collisions.ContainsKey(collision.ID))
+                            collisions.Add(collision.ID, collision);
+                }
             }
         }
 
@@ -76,7 +88,15 @@ namespace NoNameGame.Scenes.Managers
                     continue;
 
                 foreach(Tile tile in layer.TileMap)
-                    entity.Body.Position += tile.Shape.GetCollisionSolvingVector(entity.Shape);
+                {
+                    Vector2 collisionResolving = tile.Shape.GetCollisionSolvingVector(entity.Shape);
+                    if(collisionResolving != Vector2.Zero)
+                    {
+                        Collision collision = new Collision(entity, tile, collisionResolving);
+                        if(!collisions.ContainsKey(collision.ID))
+                            collisions.Add(collision.ID, collision);
+                    }
+                }
             }
         }
     }
