@@ -12,17 +12,21 @@ namespace NoNameGame.Components
         Vector2 position;
 
         /// <summary>
-        /// Die Beschleunigung des Lörpers.
+        /// Die aktuelle Beschleunigung des Körpers.
         /// </summary>
-        public Vector2 Velocity;
+        public Vector2 VelocityCurrent;
         /// <summary>
-        /// Die Geschwindigkeit des Körpers.
+        /// Die maximale Beschleunigung des Körpers.
         /// </summary>
-        public float Speed;
+        public Vector2 VelocityMax;
         /// <summary>
-        /// Der Geschwindigkeitsfaktor, welcher mit der Geschwindigkeit multipliziert werden kann.
+        /// Die Beschleunigung des Körpers.
         /// </summary>
-        public float SpeedFactor;
+        public float Acceleration;
+        /// <summary>
+        /// Der Beschleunigungsfaktor, welcher mit der Beschleunigung multipliziert werden kann.
+        /// </summary>
+        public float AccelerationFactor;
         /// <summary>
         /// Gibt an, ob sich der Körper in der vorigen Berechnung rotiert hat.
         /// </summary>
@@ -74,9 +78,10 @@ namespace NoNameGame.Components
         public Body()
         {
             Position = Vector2.Zero;
-            Velocity = Vector2.Zero;
-            Speed = 0.0f;
-            SpeedFactor = 1.0f;
+            VelocityCurrent = Vector2.Zero;
+            VelocityMax = Vector2.Zero;
+            Acceleration = 0.0f;
+            AccelerationFactor = 1.0f;
             CollisionLevel = 0;
             Rotated = false;
             Area = 1;

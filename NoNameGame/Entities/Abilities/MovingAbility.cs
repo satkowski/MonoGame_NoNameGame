@@ -97,29 +97,29 @@ namespace NoNameGame.Entities.Abilities
                         if(offset == Vector2.Zero)
                             offset = End.GetAngleValues(Start).Value;
 
-                        Vector2 moveVelocity = offset * entity.Body.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        Vector2 moveVelocity = offset * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
                         bool finishedX = true;
                         bool finishedY = true;
 
                         // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
                         if(offset.X < 0 && entity.Body.Position.X + moveVelocity.X <= End.X)
-                            entity.Body.Velocity.X = entity.Body.Position.X - End.X;
+                            entity.Body.VelocityCurrent.X = entity.Body.Position.X - End.X;
                         else if(offset.X > 0 && entity.Body.Position.X + moveVelocity.X >= End.X)
-                            entity.Body.Velocity.X = End.X - entity.Body.Position.X;
+                            entity.Body.VelocityCurrent.X = End.X - entity.Body.Position.X;
                         else
                         {
-                            entity.Body.Velocity.X = moveVelocity.X;
+                            entity.Body.VelocityCurrent.X = moveVelocity.X;
                             finishedX = false;
                         }
 
                         // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
                         if(offset.Y < 0 && entity.Body.Position.Y + moveVelocity.Y <= End.Y)
-                            entity.Body.Velocity.Y = entity.Body.Position.Y - End.Y;
+                            entity.Body.VelocityCurrent.Y = entity.Body.Position.Y - End.Y;
                         else if(offset.Y > 0 && entity.Body.Position.Y + moveVelocity.Y >= End.Y)
-                            entity.Body.Velocity.Y = End.Y - entity.Body.Position.Y;
+                            entity.Body.VelocityCurrent.Y = End.Y - entity.Body.Position.Y;
                         else
                         {
-                            entity.Body.Velocity.Y = moveVelocity.Y;
+                            entity.Body.VelocityCurrent.Y = moveVelocity.Y;
                             finishedY = false;
                         }
 

@@ -37,7 +37,7 @@ namespace NoNameGame.Entities.Abilities
             {
                 Vector2? offset = PlayerPosition.GetAngleValues(entity.Body.Position);
                 if(offset.HasValue)
-                    entity.Body.Velocity += offset.Value * entity.Body.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    entity.Body.VelocityCurrent += offset.Value * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             base.Update(gameTime);

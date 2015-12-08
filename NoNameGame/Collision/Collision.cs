@@ -100,10 +100,10 @@ namespace NoNameGame.Collision
             if(SecondBody == null)
                 FirstBody.Position += Resolving;
             // Falls sich einer der beiden Körper bewegt oder rotiertz hat.
-            else if(FirstBody.Velocity != Vector2.Zero || SecondBody.Velocity != Vector2.Zero ||
+            else if(FirstBody.VelocityCurrent != Vector2.Zero || SecondBody.VelocityCurrent != Vector2.Zero ||
                     FirstBody.Rotated || SecondBody.Rotated)
             {
-                float firstOffset = 0.0f;
+                float firstOffset = 0.0f;                   
                 float secondOffset = 0.0f;
 
                 // Falls es vorher schonmal eine Kollisionsauflösung an einem der beiden Objekten gab.
@@ -117,13 +117,13 @@ namespace NoNameGame.Collision
                     // Oder die Masse des ersten Körpers kleiner ist als des zweiten und der erste sich bewegte
                     if(SecondBody.MassRelativ < 0 || FirstBody.MassRelativ == 0 || 
                        (FirstBody.MassRelativ <= SecondBody.MassRelativ && 
-                       (FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity == Vector2.Zero)))
+                       (FirstBody.VelocityCurrent != Vector2.Zero && SecondBody.VelocityCurrent == Vector2.Zero)))
                         firstOffset = 1.0f;
                     // Falls die Masse von einer Entity unendlich (-1) ist oder 0 ist
                     // Oder die Masse des zweiten Körpers kleiner ist als des ersten und der zweite sich bewegte
                     else if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ == 0 ||
                             (FirstBody.MassRelativ > SecondBody.MassRelativ && 
-                            (FirstBody.Velocity == Vector2.Zero && SecondBody.Velocity != Vector2.Zero)))
+                            (FirstBody.VelocityCurrent == Vector2.Zero && SecondBody.VelocityCurrent != Vector2.Zero)))
                         secondOffset = -1.0f;
                     else
                     {

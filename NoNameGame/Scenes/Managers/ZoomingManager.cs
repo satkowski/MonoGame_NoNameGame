@@ -119,7 +119,7 @@ namespace NoNameGame.Scenes.Managers
                 {
                     entity.Image.Scale *= (1 + currentZoom) / (1 + oldZoom);
                     entity.Body.Position *= (1 + currentZoom) / (1 + oldZoom);
-                    entity.Body.SpeedFactor *= (1 + currentZoom) / (1 + oldZoom);
+                    entity.Body.AccelerationFactor *= (1 + currentZoom) / (1 + oldZoom);
                 }
 
                 if(Type == ZoomingType.OneTime)
