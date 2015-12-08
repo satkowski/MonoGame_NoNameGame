@@ -48,7 +48,7 @@ namespace NoNameGame.Components.Shapes
         /// <summary>
         /// Gibt die Fläche der Form zurück.
         /// </summary>
-        public abstract double Area
+        public abstract float Area
         { get; }
 
         public event EventHandler OnAreaChanged;

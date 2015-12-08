@@ -14,7 +14,7 @@ namespace NoNameGame.Components.Shapes
     }
 
     /// <summary>
-    /// Stellt alle abgeleiteten Klasse der Shape dar.
+    /// Eine Erweiterung für das Enum ShapeType.
     /// </summary>
     public static class ShapeTypeExtension
     {

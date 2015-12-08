@@ -90,13 +90,13 @@ namespace NoNameGame.Components.Shapes
         /// <summary>
         /// Gibt die Fläche der Form zurück.
         /// </summary>
-        public override double Area
+        public override float Area
         {
             get
             {
-                double area = Size.X * Size.Y * Scale;
+                float area = Size.X * Size.Y * Scale;
                 if(area == 0)
-                    area = 0.000000000000000000000001;
+                    area = 0.000000000001f;
                 return area;
             }
         }

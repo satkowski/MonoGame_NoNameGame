@@ -5,7 +5,7 @@
   <Body>
     <Speed>235</Speed>
     <CollisionLevel>0</CollisionLevel>
-    <Density>-1</Density>
+    <Material>None</Material>
   </Body>
   
   <Shape xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="OBBShape">

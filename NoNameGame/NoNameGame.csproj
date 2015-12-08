@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Body.cs" />
+    <Compile Include="Components\Material.cs" />
     <Compile Include="Components\Shapes\AABBShape.cs" />
     <Compile Include="Components\Shapes\CircleShape.cs" />
     <Compile Include="Components\Shapes\OBBShape.cs" />

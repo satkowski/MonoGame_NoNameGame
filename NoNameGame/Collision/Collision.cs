@@ -3,6 +3,7 @@ using NoNameGame.Components;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Entities;
 using NoNameGame.Maps;
+using System;
 
 namespace NoNameGame.Collision
 {
@@ -110,7 +111,7 @@ namespace NoNameGame.Collision
                     changeThisCollision();
                 else
                 {
-                    double massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
+                    float massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
 
                     // Falls die Masse von einer Entity unendlich (-1) ist oder 0 ist
                     // Oder die Masse des ersten Körpers kleiner ist als des zweiten und der erste sich bewegte
@@ -126,8 +127,8 @@ namespace NoNameGame.Collision
                         secondOffset = -1.0f;
                     else
                     {
-                        firstOffset = (float)(1 - (1 / (massSum / FirstBody.MassRelativ)));
-                        secondOffset = -(float)(1 - (1 / (massSum / SecondBody.MassRelativ)));
+                        firstOffset = (1 - (1 / (massSum / FirstBody.MassRelativ)));
+                        secondOffset = -(1 - (1 / (massSum / SecondBody.MassRelativ)));
                     }
                 }
 

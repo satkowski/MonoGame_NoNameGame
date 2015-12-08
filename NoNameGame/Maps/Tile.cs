@@ -28,8 +28,7 @@ namespace NoNameGame.Maps
         /// ID des Objektes.
         /// </summary>
         public ulong ID
-        { get; private set; }
-        
+        { get; private set; }        
 
         /// <summary>
         /// Die Tilerotation.

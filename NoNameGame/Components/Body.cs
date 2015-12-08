@@ -32,17 +32,18 @@ namespace NoNameGame.Components
         /// Die Fläche, die diese Objekt einnimmt.
         /// </summary>
         [XmlIgnore]
-        public double Area;
+        public float Area;
         /// <summary>
-        /// Gibt die Dichte dieses Körpers in m/A. m in g und A in Pixel^2.
+        /// Das Material, welches das Objekt hat.
         /// </summary>
-        public double Density;
+        public Material Material;
+        /// <summary>
         /// <summary>
         /// Gibt die relative Masse (im Bezug auf die Fläche, die es braucht) an.
         /// </summary>
         [XmlIgnore]
-        public double MassRelativ
-        { get { return Density * Area; } }
+        public float MassRelativ
+        { get { return Material.GetDensity() * Area; } }
 
         /// <summary>
         /// die absolute Position auf der Ebene
@@ -79,7 +80,7 @@ namespace NoNameGame.Components
             CollisionLevel = 0;
             Rotated = false;
             Area = 1;
-            Density = -1;
+            Material = Material.None;
         }
 
         public void LoadContent()
