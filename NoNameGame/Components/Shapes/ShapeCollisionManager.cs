@@ -78,15 +78,15 @@ namespace NoNameGame.Components.Shapes
             // Achsen für das OBB B
             List<Vector2> obbAxisA = new List<Vector2>();
             obbAxisA.Add(obbShapeA.Top);
-            obbAxisA[0].Normalize();
+            obbAxisA[0] /= obbAxisA[0].Length();
             obbAxisA.Add(obbShapeA.Right);
-            obbAxisA[1].Normalize();
+            obbAxisA[1] /= obbAxisA[1].Length();
             // Achsen für das OBB A
             List<Vector2> obbAxisB = new List<Vector2>();
             obbAxisB.Add(obbShapeB.Top);
-            obbAxisB[0].Normalize();
+            obbAxisB[0] /= obbAxisB[0].Length();
             obbAxisB.Add(obbShapeB.Right);
-            obbAxisB[1].Normalize();
+            obbAxisB[1] /= obbAxisB[1].Length();
 
             return calculateSAT(obbAxisA, obbAxisB, obbShapeA.Vertices, obbShapeB.Vertices, obbShapeA.Position, obbShapeB.Position);
         }
@@ -160,9 +160,9 @@ namespace NoNameGame.Components.Shapes
             // Achsen für das OBB
             List<Vector2> obbAxis = new List<Vector2>();
             obbAxis.Add(obbShape.Top);
-            obbAxis[0].Normalize();
+            obbAxis[0] /= obbAxis[0].Length();
             obbAxis.Add(obbShape.Right);
-            obbAxis[1].Normalize();
+            obbAxis[1] /= obbAxis[1].Length();
 
             return calculateSAT(aabbAxis, obbAxis, aabbShape.Vertices, obbShape.Vertices, aabbShape.Position, obbShape.Position);
         }
@@ -308,7 +308,7 @@ namespace NoNameGame.Components.Shapes
                 float projection = Vector2.Dot(axis, vertex);
                 if(projection < min)
                     min = projection;
-                else if(projection > max)
+                if(projection > max)
                     max = projection;
             }
             return new Projection(min, max);
