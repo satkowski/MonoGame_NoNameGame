@@ -101,6 +101,8 @@ namespace NoNameGame.Entities
             if(Shape.Type == ShapeType.OBB)
                 Image.OnRotationChange += delegate
                 { (Shape as OBBShape).Rotation = Image.Rotation; };
+            Image.OnRotationChange += delegate
+            { Body.Rotated = true; };
             Image.OnScaleChange += delegate
             { Shape.Scale = Image.Scale; };
 
@@ -173,6 +175,7 @@ namespace NoNameGame.Entities
 
         public virtual void Update(GameTime gameTime)
         {
+            Body.Rotated = false;
             Body.Velocity = Vector2.Zero;
 
             foreach(var ability in abilitiesList)

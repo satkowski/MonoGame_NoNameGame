@@ -25,7 +25,7 @@ namespace NoNameGame.Components
         /// <summary>
         /// Gibt an, ob sich der Körper in der vorigen Berechnung rotiert hat.
         /// </summary>
-        public bool Rotation;
+        public bool Rotated;
 
         /// <summary>
         /// die absolute Position auf der Ebene
@@ -60,6 +60,7 @@ namespace NoNameGame.Components
             Speed = 0.0f;
             SpeedFactor = 1.0f;
             CollisionLevel = 0;
+            Rotated = false;
         }
 
         public void LoadContent()

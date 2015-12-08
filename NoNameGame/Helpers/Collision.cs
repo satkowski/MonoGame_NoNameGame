@@ -15,6 +15,9 @@ namespace NoNameGame.Helpers
     /// </summary>
     public class Collision
     {
+        private Vector2 firstPosition;
+        private Vector2 secondPosition;
+
         /// <summary>
         /// ID der Kollision.
         /// </summary>
@@ -57,8 +60,10 @@ namespace NoNameGame.Helpers
         {
             FirstShape = firstEntity.Shape;
             FirstBody = firstEntity.Body;
+            firstPosition = firstEntity.Body.Position;
             SecondShape = secondEntity.Shape;
             SecondBody = secondEntity.Body;
+            secondPosition = secondEntity.Body.Position;
             Resolving = resolving;
 
             if(firstEntity.ID < secondEntity.ID)
@@ -77,8 +82,10 @@ namespace NoNameGame.Helpers
         {
             FirstShape = entity.Shape;
             FirstBody = entity.Body;
+            firstPosition = entity.Body.Position;
             SecondShape = entity.Shape;
             SecondBody = null;
+            secondPosition = tile.Position;
             Resolving = resolving;
 
             ID = "E" + entity.ID + "-" + "T" + tile.ID;
@@ -92,17 +99,82 @@ namespace NoNameGame.Helpers
             if(Resolving == Vector2.Zero)
                 return;
 
+            // Falls die Kollision mit einem Tile stattfindet, soll die Entity und nicht das Tile verschoben werden.
             if(SecondBody == null)
                 FirstBody.Position += Resolving;
-            else
+            else if(FirstBody.Velocity != Vector2.Zero || SecondBody.Velocity != Vector2.Zero)
+                movementCausedCollision();
+            else if(FirstBody.Rotated || SecondBody.Rotated)
+                rotationCausedCollision();
+        }
+
+        /// <summary>
+        /// Löst die Kollision auf, welche durch Bewegung erzeugt wurde.
+        /// </summary>
+        private void movementCausedCollision()
+        {
+            // Hier wird entschieden wer sich bewegt hat und dementsprechen wird gehandelt.
+            if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity == Vector2.Zero)
             {
-                if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity == Vector2.Zero)
+                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
+                if(FirstBody.Position == firstPosition)
                     FirstBody.Position += Resolving;
-                else if(FirstBody.Velocity == Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
-                    SecondBody.Position -= Resolving;
-                else if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
-                    return;
                 else
+                {
+                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
+                }
+            }
+            else if(FirstBody.Velocity == Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
+            {
+                if(SecondBody.Position == secondPosition)
+                    SecondBody.Position -= Resolving;
+                else
+                {
+                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
+                }
+            }
+            // TODO: Wenn sich beide bewegt haben 
+            else if(FirstBody.Velocity != Vector2.Zero && SecondBody.Velocity != Vector2.Zero)
+                return;
+        }
+
+        /// <summary>
+        /// Löst die Kollision auf, welche durch Rotation erzeugt wurde.
+        /// </summary>
+        private void rotationCausedCollision()
+        {
+            // Hier wird entschieden wer sich rotiert hat und dementsprechen wird gehandelt.
+            if(FirstBody.Rotated && !SecondBody.Rotated)
+            {
+                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
+                if(FirstBody.Position == firstPosition)
+                    FirstBody.Position += Resolving;
+                else
+                {
+                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
+                }
+            }
+            else if(!FirstBody.Rotated && SecondBody.Rotated)
+            {
+                // Falls es schon ein Kollisionhandling mit dem Objekt gab, muss damit anders umgegangen werden.
+                if(SecondBody.Position == firstPosition)
+                    SecondBody.Position -= Resolving;
+                else
+                {
+                    // TODO: Es gab schon ein Kollisionhandling. Was nun?!
+                }
+            }
+            // TODO: Wenn sich beide rotiert sind
+            else if(FirstBody.Rotated && SecondBody.Rotated)
+            {
+                // Falls einer der beiden ein Kreis ist, hat sich dieser durch die Rotation nicht verändert
+                if(FirstShape.Type == ShapeType.Circle || SecondShape.Type == ShapeType.Circle)
+                {
+                    if(FirstShape.Type == ShapeType.OBB)
+                        FirstBody.Position += Resolving;
+                    else if(SecondShape.Type == ShapeType.OBB)
+                        SecondBody.Position -= Resolving;
+                }
                 {
 
                 }
