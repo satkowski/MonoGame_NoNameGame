@@ -3,7 +3,7 @@
   <Type>Shot</Type>
   
   <Body>
-    <Speed>235</Speed>
+    <Acceleration>235</Acceleration>
     <CollisionLevel>0</CollisionLevel>
     <Material>None</Material>
   </Body>
