@@ -7,7 +7,8 @@
       <X>675</X>
       <Y>675</Y>
     </Position>
-    <Acceleration>180</Acceleration>
+    <VelocityMax>7</VelocityMax>
+    <AccelerationValue>45</AccelerationValue>
     <CollisionLevel>0</CollisionLevel>
     <Material>Wood</Material>
   </Body>

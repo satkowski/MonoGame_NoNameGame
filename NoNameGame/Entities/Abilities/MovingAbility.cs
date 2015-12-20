@@ -97,31 +97,33 @@ namespace NoNameGame.Entities.Abilities
                         if(offset == Vector2.Zero)
                             offset = End.GetAngleValues(Start).Value;
 
-                        Vector2 moveVelocity = offset * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        Vector2 moveVelocity = offset * entity.Body.AccelerationValue * (float)gameTime.ElapsedGameTime.TotalSeconds;
                         bool finishedX = true;
                         bool finishedY = true;
 
+                        Vector2 newMovingVector = Vector2.Zero;
                         // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
                         if(offset.X < 0 && entity.Body.Position.X + moveVelocity.X <= End.X)
-                            entity.Body.VelocityCurrent.X = entity.Body.Position.X - End.X;
+                            newMovingVector.X = entity.Body.Position.X - End.X;
                         else if(offset.X > 0 && entity.Body.Position.X + moveVelocity.X >= End.X)
-                            entity.Body.VelocityCurrent.X = End.X - entity.Body.Position.X;
+                            newMovingVector.X = End.X - entity.Body.Position.X;
                         else
                         {
-                            entity.Body.VelocityCurrent.X = moveVelocity.X;
+                            newMovingVector.X = moveVelocity.X;
                             finishedX = false;
                         }
 
                         // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
                         if(offset.Y < 0 && entity.Body.Position.Y + moveVelocity.Y <= End.Y)
-                            entity.Body.VelocityCurrent.Y = entity.Body.Position.Y - End.Y;
+                            newMovingVector.Y = entity.Body.Position.Y - End.Y;
                         else if(offset.Y > 0 && entity.Body.Position.Y + moveVelocity.Y >= End.Y)
-                            entity.Body.VelocityCurrent.Y = End.Y - entity.Body.Position.Y;
+                            newMovingVector.Y = End.Y - entity.Body.Position.Y;
                         else
                         {
-                            entity.Body.VelocityCurrent.Y = moveVelocity.Y;
+                            newMovingVector.Y = moveVelocity.Y;
                             finishedY = false;
                         }
+                        entity.Body.ChangeMovingVector = newMovingVector;
 
                         // Wenn die Endposition erreich wurde
                         if(finishedX && finishedY)

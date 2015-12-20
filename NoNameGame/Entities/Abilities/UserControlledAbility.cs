@@ -29,15 +29,17 @@ namespace NoNameGame.Entities.Abilities
                && InputManager.Instance.KeyDown(Keys.W, Keys.Up, Keys.S, Keys.Down))
                 offset = 0.707106781f;
 
+            Vector2 newMovingVector = Vector2.Zero;
             if(InputManager.Instance.KeyDown(Keys.D, Keys.Right))
-                entity.Body.VelocityCurrent.X = entity.Body.Acceleration * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                newMovingVector.X = entity.Body.AccelerationValue * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if(InputManager.Instance.KeyDown(Keys.A, Keys.Left))
-                entity.Body.VelocityCurrent.X = -entity.Body.Acceleration * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                newMovingVector.X = -entity.Body.AccelerationValue * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if(InputManager.Instance.KeyDown(Keys.W, Keys.Up))
-                entity.Body.VelocityCurrent.Y = -entity.Body.Acceleration * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                newMovingVector.Y = -entity.Body.AccelerationValue * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if(InputManager.Instance.KeyDown(Keys.S, Keys.Down))
-                entity.Body.VelocityCurrent.Y = entity.Body.Acceleration * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                newMovingVector.Y = entity.Body.AccelerationValue * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            entity.Body.ChangeMovingVector = newMovingVector;
 
             base.Update(gameTime);
         }

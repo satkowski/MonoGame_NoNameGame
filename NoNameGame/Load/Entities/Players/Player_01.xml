@@ -7,7 +7,8 @@
       <X>500</X>
       <Y>500</Y>
     </Position>
-    <Acceleration>220</Acceleration>
+    <VelocityMax>10</VelocityMax>
+    <AccelerationValue>55</AccelerationValue>
     <CollisionLevel>0</CollisionLevel>
     <Material>BouncyBall</Material>
   </Body>

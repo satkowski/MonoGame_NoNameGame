@@ -182,12 +182,11 @@ namespace NoNameGame.Entities
         public virtual void Update(GameTime gameTime)
         {
             Body.Rotated = false;
-            Body.VelocityCurrent = Vector2.Zero;
 
             foreach(var ability in abilitiesList)
                 ability.Value.Update(gameTime);
 
-            Body.Position += Body.VelocityCurrent * Body.AccelerationFactor;
+            Body.Position += Body.MovingVector;
 
             Image.Update(gameTime);
         }

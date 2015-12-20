@@ -3,7 +3,8 @@
   <Type>Shot</Type>
   
   <Body>
-    <Acceleration>235</Acceleration>
+    <VelocityMax>10</VelocityMax>
+    <AccelerationValue>235</AccelerationValue>
     <CollisionLevel>0</CollisionLevel>
     <Material>None</Material>
   </Body>

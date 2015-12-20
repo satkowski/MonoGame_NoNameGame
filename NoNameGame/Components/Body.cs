@@ -12,26 +12,75 @@ namespace NoNameGame.Components
         Vector2 position;
 
         /// <summary>
-        /// Die aktuelle Beschleunigung des Körpers.
+        /// Die Veränderung des aktuellen Bewegunsvektors.
+        /// Verbindet diesen Vektor mit dem MovingVector und berechnet damit einen neuen.
+        /// Weiterhin wird dadurch automatisch die Geschwindigkeit mit angepasst.
         /// </summary>
-        public Vector2 VelocityCurrent;
+        public Vector2 ChangeMovingVector
+        {
+            set
+            {
+                // Prüft ob es überhaupt eine Veränderung der Bewegung gab
+                if(value == Vector2.Zero)
+                {
+                    VelocityCurrent = 0.0f;
+                    MovingDirection = Vector2.Zero;
+                    Moved = false;
+                    return;
+                }
+                Vector2 newMovingVector = MovingVector + value;
+                float velocity = newMovingVector.Length();
+                // Setzen der neuen Geschwindigkeit.
+                if(velocity > VelocityMax)
+                    VelocityCurrent = VelocityMax;
+                else
+                    VelocityCurrent = velocity;
+                // Setzen der neuen Bewegungsrichtung.
+                newMovingVector.Normalize();
+                MovingDirection = newMovingVector;
+                Moved = true;
+            }
+        }
         /// <summary>
-        /// Die maximale Beschleunigung des Körpers.
+        /// Die Richtung in die sich der Körper bewegt. Seine Länge wird automatisch in die Geschwindigkeit umgewandelt
+        /// und danach normalisiert.
         /// </summary>
-        public Vector2 VelocityMax;
+        public Vector2 MovingDirection;
+        /// <summary>
+        /// Die aktuelle Geschwindigkeit des Körpers. Passt sich automatisch an die maximal mögliche Gescwindigkeit an.
+        /// </summary>
+        public float VelocityCurrent;
+        /// <summary>
+        /// Die maximale Geschwindigkeit des Körpers.
+        /// </summary>
+        public float VelocityMax;
+        /// <summary>
+        /// Gibt die aktuelle Bewegung wieder.
+        /// </summary>
+        public Vector2 MovingVector
+        { get { return MovingDirection * VelocityCurrent; } }
+
         /// <summary>
         /// Die Beschleunigung des Körpers.
         /// </summary>
-        public float Acceleration;
+        public float AccelerationValue;
         /// <summary>
-        /// Der Beschleunigungsfaktor, welcher mit der Beschleunigung multipliziert werden kann.
+        /// Der Beschleunigungsfaktor.
         /// </summary>
         public float AccelerationFactor;
+        public float Acceleration
+        { get { return AccelerationFactor * AccelerationValue; } }
         /// <summary>
         /// Gibt an, ob sich der Körper in der vorigen Berechnung rotiert hat.
         /// </summary>
         [XmlIgnore]
         public bool Rotated;
+        /// <summary>
+        /// Gibt an, ob sich der Körper in der vorherigen Berechnung bewegt hat.
+        /// </summary>
+        [XmlIgnore]
+        public bool Moved
+        { get; private set; }
         /// <summary>
         /// Die Fläche, die diese Objekt einnimmt.
         /// </summary>
@@ -78,9 +127,9 @@ namespace NoNameGame.Components
         public Body()
         {
             Position = Vector2.Zero;
-            VelocityCurrent = Vector2.Zero;
-            VelocityMax = Vector2.Zero;
-            Acceleration = 0.0f;
+            VelocityCurrent = 0.0f;
+            VelocityMax = 0.0f;
+            AccelerationValue = 0.0f;
             AccelerationFactor = 1.0f;
             CollisionLevel = 0;
             Rotated = false;
