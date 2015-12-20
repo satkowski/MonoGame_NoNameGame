@@ -35,9 +35,8 @@ namespace NoNameGame.Entities.Abilities
         {
             if(IsActive && PlayerPosition != null)
             {
-                Vector2? offset = PlayerPosition.GetAngleValues(entity.Body.Position);
-                if(offset.HasValue)
-                    entity.Body.ChangeMovingVector = offset.Value * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Vector2 offset = PlayerPosition.GetNormalVectorToVector(entity.Body.Position);
+                entity.Body.ChangeMovingVector = offset * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             base.Update(gameTime);

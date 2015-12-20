@@ -93,7 +93,7 @@ namespace NoNameGame.Entities.Abilities
                     if(DestinationPosition.Y - StartPosition.Y > 0)
                         offset = 1;
                     // Die Rotation, in der der neue Schuss abgefeuert werden soll, wird berechnet
-                    newShotEntity.Image.Rotation = MathHelper.PiOver2 + offset * (float)Math.Acos(DestinationPosition.GetAngleValues(StartPosition).Value.X);
+                    newShotEntity.Image.Rotation = MathHelper.PiOver2 + offset * (float)Math.Acos(DestinationPosition.GetNormalVectorToVector(StartPosition).X);
 
                     newShotEntity.Body.Position = StartPosition;
                     newShotEntity.MovingAbility.Start = StartPosition;

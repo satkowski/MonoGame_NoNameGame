@@ -29,8 +29,6 @@ namespace NoNameGame.Entities.Abilities
             DisappearingWithoutAnimation
         }
 
-        Vector2 offset;
-
         /// <summary>
         /// Der Bewegungstyp.
         /// </summary>
@@ -66,7 +64,6 @@ namespace NoNameGame.Entities.Abilities
         /// </summary>
         public MovingAbility()
         {
-            offset = Vector2.Zero;
             Moving = MovingType.OneWay;
             Ending = EndingType.Standing;
             Start = Vector2.Zero;
@@ -94,36 +91,36 @@ namespace NoNameGame.Entities.Abilities
                 {
                     if(Start != End)
                     {
-                        if(offset == Vector2.Zero)
-                            offset = End.GetAngleValues(Start).Value;
+                        // TODO: Überarbeiten
+                        Vector2 offset = End.GetNormalVectorToVector(Start);
 
-                        Vector2 moveVelocity = offset * entity.Body.AccelerationValue * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        Vector2 newMovingVector = offset * entity.Body.AccelerationValue * (float)gameTime.ElapsedGameTime.TotalSeconds;
                         bool finishedX = true;
                         bool finishedY = true;
 
-                        Vector2 newMovingVector = Vector2.Zero;
+                        Vector2 changeMovingVector = Vector2.Zero;
                         // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
-                        if(offset.X < 0 && entity.Body.Position.X + moveVelocity.X <= End.X)
-                            newMovingVector.X = entity.Body.Position.X - End.X;
-                        else if(offset.X > 0 && entity.Body.Position.X + moveVelocity.X >= End.X)
-                            newMovingVector.X = End.X - entity.Body.Position.X;
+                        if(offset.X < 0 && entity.Body.Position.X + newMovingVector.X <= End.X)
+                            changeMovingVector.X = entity.Body.Position.X - End.X;
+                        else if(offset.X > 0 && entity.Body.Position.X + newMovingVector.X >= End.X)
+                            changeMovingVector.X = End.X - entity.Body.Position.X;
                         else
                         {
-                            newMovingVector.X = moveVelocity.X;
+                            changeMovingVector.X = newMovingVector.X;
                             finishedX = false;
                         }
 
                         // Je nach dem, wo sich die Entity befindet, bewegt diese sich in eine andere Richtung
-                        if(offset.Y < 0 && entity.Body.Position.Y + moveVelocity.Y <= End.Y)
-                            newMovingVector.Y = entity.Body.Position.Y - End.Y;
-                        else if(offset.Y > 0 && entity.Body.Position.Y + moveVelocity.Y >= End.Y)
-                            newMovingVector.Y = End.Y - entity.Body.Position.Y;
+                        if(offset.Y < 0 && entity.Body.Position.Y + newMovingVector.Y <= End.Y)
+                            changeMovingVector.Y = entity.Body.Position.Y - End.Y;
+                        else if(offset.Y > 0 && entity.Body.Position.Y + newMovingVector.Y >= End.Y)
+                            changeMovingVector.Y = End.Y - entity.Body.Position.Y;
                         else
                         {
-                            newMovingVector.Y = moveVelocity.Y;
+                            changeMovingVector.Y = newMovingVector.Y;
                             finishedY = false;
                         }
-                        entity.Body.ChangeMovingVector = newMovingVector;
+                        entity.Body.ChangeMovingVector = changeMovingVector;
 
                         // Wenn die Endposition erreich wurde
                         if(finishedX && finishedY)
