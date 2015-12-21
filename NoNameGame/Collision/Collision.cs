@@ -132,8 +132,8 @@ namespace NoNameGame.Collision
                     }
                 }
 
-                FirstBody.ChangeMovingVector(Resolving * firstOffset);
-                SecondBody.ChangeMovingVector(Resolving * secondOffset);
+                FirstBody.ChangeMovingVector(Resolving * firstOffset, true);
+                SecondBody.ChangeMovingVector(Resolving * secondOffset, true);
             }
         }
 
