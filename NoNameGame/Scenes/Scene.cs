@@ -132,12 +132,14 @@ namespace NoNameGame.Scenes
                 player.Update(gameTime);
             foreach(Entity entity in entities)
                 entity.Update(gameTime);
-            foreach(Entity entity in newEntities)
+            // Füge neu erzeugte Entities hinzu
+            foreach(Entity newEntity in newEntities)
             {
-                entity.Update(gameTime);
-                entities.Add(entity);
+                newEntity.Update(gameTime);
+                entities.Add(newEntity);
             }
             newEntities.Clear();
+            // Entferne nicht mehr gebrauchte Entities
             foreach(Entity entity in entitiesToRemove)
             {
                 players.Remove(entity);

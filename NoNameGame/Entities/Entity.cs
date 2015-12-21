@@ -187,8 +187,7 @@ namespace NoNameGame.Entities
             foreach(var ability in abilitiesList)
                 ability.Value.Update(gameTime);
 
-            Body.Position += Body.MovingVector;
-
+            Body.Update(gameTime);
             Image.Update(gameTime);
         }
 

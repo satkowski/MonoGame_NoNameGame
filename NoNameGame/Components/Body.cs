@@ -117,6 +117,21 @@ namespace NoNameGame.Components
 
         }
 
+        public void Update(GameTime gameTime)
+        {
+            if(!Moved)
+            {
+                // Abbrembsen, falls sich nicht mehr aktiv bewegt wurde
+                VelocityCurrent *= 1 - 4 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(VelocityCurrent <= VelocityMax / 100)
+                {
+                    VelocityCurrent = 0.0f;
+                    MovingDirection = Vector2.Zero;
+                }
+            }
+            Position += MovingVector;
+        }
+
         /// <summary>
         /// Die Veränderung des aktuellen Bewegunsvektors.
         /// Verbindet diesen Vektor mit dem MovingVector und berechnet damit einen neuen.
@@ -124,34 +139,26 @@ namespace NoNameGame.Components
         /// </summary>
         /// <param name="changeMovingVector"></param>
         /// <param name="collision"></param>
-        public void ChangeMovingVector(Vector2 changeMovingVector, bool collision = false)
+        public void ChangeMovingVector(Vector2 changeMovingVector, bool collided = false)
         {
-            Moved = true;
             // Prüft ob es überhaupt eine Veränderung der Bewegung gab
-            if(changeMovingVector != Vector2.Zero)
-            {
-                Vector2 newMovingVector = MovingVector + changeMovingVector;
-                float velocity = newMovingVector.Length();
-                // Setzen der neuen Geschwindigkeit.
-                if(velocity > VelocityMax)
-                    VelocityCurrent = VelocityMax;
-                else
-                    VelocityCurrent = velocity;
-                // Setzen der neuen Bewegungsrichtung.
-                newMovingVector.Normalize();
-                MovingDirection = newMovingVector;
-            }
+            if(changeMovingVector == Vector2.Zero)
+                return;
+
+            Vector2 newMovingVector = MovingVector + changeMovingVector;
+            float velocity = newMovingVector.Length();
+            // Setzen der neuen Geschwindigkeit.
+            if(velocity > VelocityMax)
+                VelocityCurrent = VelocityMax;
             else
-            {
-                // Abbrembsen, falls sich nicht mehr aktiv bewegt wurde
-                VelocityCurrent *= 0.925f;
-                if(VelocityCurrent <= VelocityMax / 100)
-                {
-                    VelocityCurrent = 0.0f;
-                    MovingDirection = Vector2.Zero;
-                    Moved = false;
-                }
-            }
+                VelocityCurrent = velocity;
+            // Setzen der neuen Bewegungsrichtung.
+            newMovingVector.Normalize();
+            MovingDirection = newMovingVector;
+            if(collided)
+                Position += MovingVector;
+            // Nur wenn dies nicht durch eine Kollision ausgelöst wurde, wurde der Körper von selbst bewegt.
+            Moved = !collided;
         }
     }
 }
