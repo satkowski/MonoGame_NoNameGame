@@ -120,7 +120,7 @@ namespace NoNameGame.Entities.Abilities
                             changeMovingVector.Y = newMovingVector.Y;
                             finishedY = false;
                         }
-                        entity.Body.ChangeMovingVector = changeMovingVector;
+                        entity.Body.ChangeMovingVector(changeMovingVector);
 
                         // Wenn die Endposition erreich wurde
                         if(finishedX && finishedY)

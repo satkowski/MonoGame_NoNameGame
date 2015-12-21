@@ -182,6 +182,7 @@ namespace NoNameGame.Entities
         public virtual void Update(GameTime gameTime)
         {
             Body.Rotated = false;
+            Body.Moved = false;
 
             foreach(var ability in abilitiesList)
                 ability.Value.Update(gameTime);

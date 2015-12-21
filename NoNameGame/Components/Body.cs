@@ -12,36 +12,6 @@ namespace NoNameGame.Components
         Vector2 position;
 
         /// <summary>
-        /// Die Veränderung des aktuellen Bewegunsvektors.
-        /// Verbindet diesen Vektor mit dem MovingVector und berechnet damit einen neuen.
-        /// Weiterhin wird dadurch automatisch die Geschwindigkeit mit angepasst.
-        /// </summary>
-        public Vector2 ChangeMovingVector
-        {
-            set
-            {
-                // Prüft ob es überhaupt eine Veränderung der Bewegung gab
-                if(value == Vector2.Zero)
-                {
-                    VelocityCurrent = 0.0f;
-                    MovingDirection = Vector2.Zero;
-                    Moved = false;
-                    return;
-                }
-                Vector2 newMovingVector = MovingVector + value;
-                float velocity = newMovingVector.Length();
-                // Setzen der neuen Geschwindigkeit.
-                if(velocity > VelocityMax)
-                    VelocityCurrent = VelocityMax;
-                else
-                    VelocityCurrent = velocity;
-                // Setzen der neuen Bewegungsrichtung.
-                newMovingVector.Normalize();
-                MovingDirection = newMovingVector;
-                Moved = true;
-            }
-        }
-        /// <summary>
         /// Die Richtung in die sich der Körper bewegt. Seine Länge wird automatisch in die Geschwindigkeit umgewandelt
         /// und danach normalisiert.
         /// </summary>
@@ -79,8 +49,7 @@ namespace NoNameGame.Components
         /// Gibt an, ob sich der Körper in der vorherigen Berechnung bewegt hat.
         /// </summary>
         [XmlIgnore]
-        public bool Moved
-        { get; private set; }
+        public bool Moved;
         /// <summary>
         /// Die Fläche, die diese Objekt einnimmt.
         /// </summary>
@@ -146,6 +115,43 @@ namespace NoNameGame.Components
         public void UnloadContent()
         {
 
+        }
+
+        /// <summary>
+        /// Die Veränderung des aktuellen Bewegunsvektors.
+        /// Verbindet diesen Vektor mit dem MovingVector und berechnet damit einen neuen.
+        /// Weiterhin wird dadurch automatisch die Geschwindigkeit mit angepasst.
+        /// </summary>
+        /// <param name="changeMovingVector"></param>
+        /// <param name="collision"></param>
+        public void ChangeMovingVector(Vector2 changeMovingVector, bool collision = false)
+        {
+            Moved = true;
+            // Prüft ob es überhaupt eine Veränderung der Bewegung gab
+            if(changeMovingVector != Vector2.Zero)
+            {
+                Vector2 newMovingVector = MovingVector + changeMovingVector;
+                float velocity = newMovingVector.Length();
+                // Setzen der neuen Geschwindigkeit.
+                if(velocity > VelocityMax)
+                    VelocityCurrent = VelocityMax;
+                else
+                    VelocityCurrent = velocity;
+                // Setzen der neuen Bewegungsrichtung.
+                newMovingVector.Normalize();
+                MovingDirection = newMovingVector;
+            }
+            else
+            {
+                // Abbrembsen, falls sich nicht mehr aktiv bewegt wurde
+                VelocityCurrent *= 0.925f;
+                if(VelocityCurrent <= VelocityMax / 100)
+                {
+                    VelocityCurrent = 0.0f;
+                    MovingDirection = Vector2.Zero;
+                    Moved = false;
+                }
+            }
         }
     }
 }

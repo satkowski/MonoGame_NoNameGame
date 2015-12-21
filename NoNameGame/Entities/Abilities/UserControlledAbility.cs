@@ -39,7 +39,7 @@ namespace NoNameGame.Entities.Abilities
                 changeMovingVector.Y = -entity.Body.Acceleration * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
             else if(InputManager.Instance.KeyDown(Keys.S, Keys.Down))
                 changeMovingVector.Y = entity.Body.Acceleration * offset * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            entity.Body.ChangeMovingVector = changeMovingVector;
+            entity.Body.ChangeMovingVector(changeMovingVector);
 
             base.Update(gameTime);
         }

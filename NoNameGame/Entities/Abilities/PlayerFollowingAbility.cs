@@ -36,7 +36,7 @@ namespace NoNameGame.Entities.Abilities
             if(IsActive && PlayerPosition != null)
             {
                 Vector2 offset = PlayerPosition.GetNormalVectorToVector(entity.Body.Position);
-                entity.Body.ChangeMovingVector = offset * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                entity.Body.ChangeMovingVector(offset * entity.Body.Acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds);
             }
 
             base.Update(gameTime);
