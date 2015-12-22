@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NoNameGame.Images.Effects;
 using NoNameGame.Managers;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,10 @@ namespace NoNameGame.Menus
         /// Alle Tasten die im Menü vorwärtsgehen.
         /// </summary>
         Keys[] keysForwards;
+        /// <summary>
+        /// Der Name des Effektes der auf den Menü Items genutzt wird.
+        /// </summary>
+        string effektName;
 
         /// <summary>
         /// Liste aller Items, die dieses Menu beinhaltet.
@@ -72,6 +77,10 @@ namespace NoNameGame.Menus
         /// Das gerade ausgewählte Item.
         /// </summary>
         public int CurrentItem;
+        /// <summary>
+        /// Der ImageEffect der auf den Menü Items benutzt werden soll, wenn diese ausgwählt werden.
+        /// </summary>
+        public ImageEffect MenuItemImageEffect;
 
         /// <summary>
         /// Basiskonstruktor.
@@ -101,11 +110,16 @@ namespace NoNameGame.Menus
                 keysBackwards = new Keys[] { Keys.Up, Keys.W };
             }
 
+            effektName = MenuItemImageEffect.GetType().ToString().Replace("NoNameGame.Images.Effects.", "");
+            // Die einzelnen Menü Items laden.
             foreach(MenuItem menuItem in MenuItems)
             {
                 menuItem.LoadContent();
                 menuItem.Image.OnScaleChange += Image_OnScaleChange;
+                menuItem.Image.AddEffecte(MenuItemImageEffect.Copy());
             }
+            MenuItems[CurrentItem].Image.ActivateEffect(effektName);
+
             alignMenuItems();
         }
 
@@ -131,12 +145,12 @@ namespace NoNameGame.Menus
 
             if(lastItem != CurrentItem)
             {
-                //Skalierung
+                MenuItems[lastItem].Image.DeactivateEffect(effektName);
+                MenuItems[CurrentItem].Image.ActivateEffect(effektName);
             }
 
-            for(int c = 0; c < MenuItems.Count; c++)
-                if(lastItem == 0 || CurrentItem == 0)
-                    MenuItems[c].Update(gameTime);
+            foreach(MenuItem menuItem in MenuItems)
+                menuItem.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

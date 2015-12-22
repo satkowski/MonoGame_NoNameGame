@@ -110,5 +110,21 @@ namespace NoNameGame.Images.Effects
                 }
             }
         }
+
+        /// <summary>
+        /// Kopieren dieses Effekts.
+        /// </summary>
+        public override ImageEffect Copy()
+        {
+            SpriteEffect newEffect = new SpriteEffect();
+            newEffect.ChangeSpeed = this.ChangeSpeed;
+            newEffect.CicleDirection = this.CicleDirection;
+            newEffect.CurrentSprite = this.CurrentSprite;
+            newEffect.IsActive = this.IsActive;
+            newEffect.Offset = this.Offset;
+            newEffect.SheetSize = this.SheetSize;
+            newEffect.SpriteType = this.SpriteType;
+            return newEffect;
+        }
     }
 }

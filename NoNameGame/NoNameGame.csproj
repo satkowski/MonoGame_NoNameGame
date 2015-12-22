@@ -61,6 +61,7 @@
     <Compile Include="Collisions\Projection.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
+    <Compile Include="Images\Effects\ScalingEffect.cs" />
     <Compile Include="Images\Effects\SpriteEffect.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TextImage.cs" />

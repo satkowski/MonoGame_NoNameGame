@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 using Microsoft.Xna.Framework;
 
@@ -64,6 +65,19 @@ namespace NoNameGame.Images.Effects
                     image.Rotation < -MathHelper.TwoPi)
                     image.Rotation += -(int)Direction * MathHelper.TwoPi;
             }
+        }
+
+        /// <summary>
+        /// Kopieren dieses Effekts.
+        /// </summary>
+        public override ImageEffect Copy()
+        {
+            RotationEffect newEffect = new RotationEffect();
+            newEffect.Direction = this.Direction;
+            newEffect.IsActive = this.IsActive;
+            newEffect.RotationPerMillisecond = this.RotationPerMillisecond;
+            newEffect.StartImageRotation = this.StartImageRotation;
+            return newEffect;
         }
     }
 }

@@ -8,28 +8,24 @@
     <X>320</X>
     <Y>240</Y>
   </Position>
+  <MenuItemImageEffect xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="ScalingEffect">
+    <IsActive>false</IsActive>
+    <Direction>Up</Direction>
+    <TotalScalingChange>0.7</TotalScalingChange>
+    <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+  </MenuItemImageEffect>
 
   <MenuItem>
     <LinkType>Screen</LinkType>
     <LinkSource>Load/Screens/MainGameScreen.xml</LinkSource>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Neues Spiel</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Spiel laden</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
@@ -38,22 +34,12 @@
     <LinkSource>Load/Menus/OptionMenu.xml</LinkSource>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Opionen</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Credits</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
@@ -61,11 +47,6 @@
     <LinkType>Quit</LinkType>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Beenden</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 </Menu>

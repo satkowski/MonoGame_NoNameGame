@@ -110,6 +110,10 @@ namespace NoNameGame.Images
         /// </summary>
         public RotationEffect RotationEffect;
         /// <summary>
+        /// Der Skalierungs-Effekt des Bildes.
+        /// </summary>
+        public ScalingEffect ScalingEffect;
+        /// <summary>
         /// Der Sprite-Animations-Effekt des Bildes, während die Entity sich bewegt.
         /// </summary>
         public SpriteEffect SpriteEffectMoving;
@@ -155,6 +159,7 @@ namespace NoNameGame.Images
 
             // Setzen der Effekte
             setEffect(ref RotationEffect);
+            setEffect(ref ScalingEffect);
             setEffect(ref SpriteEffectMoving, "Moving");
             setEffect(ref SpriteEffectStanding, "Standing");
             setEffect(ref SpriteEffectAlways, "Always");
@@ -205,13 +210,13 @@ namespace NoNameGame.Images
         /// <typeparam name="T">die Art des Effekts</typeparam>
         /// <param name="effect">der Effekt</param>
         /// <param name="effectName">der Effektname</param>
-        protected void setEffect<T>(ref T effect, string effectName = "")
+        protected void setEffect<T>(ref T effect, string effectName = "", bool active = true)
         {
             if(effect == null)
                 effect = (T)Activator.CreateInstance(typeof(T));
             else
             {
-                (effect as ImageEffect).IsActive = true;
+                (effect as ImageEffect).IsActive = active;
                 var obj = this;
                 (effect as ImageEffect).LoadContent(ref obj);
             }
@@ -251,6 +256,31 @@ namespace NoNameGame.Images
             {
                 effectList[effectName].IsActive = false;
                 effectList[effectName].UnloadContent();
+            }
+        }
+
+        /// <summary>
+        /// Fügt dem Bild einen neuen Effekt hinzu und entfernt den alten, falls es schon einen gab.
+        /// </summary>
+        /// <param name="imageEffect">der neue Effekt</param>
+        /// <param name="effectName">der Effektname</param>
+        public void AddEffecte(ImageEffect imageEffect, string effectName = "")
+        {
+            string effectKeyName = imageEffect.GetType().ToString().Replace("NoNameGame.Images.Effects.", "") + effectName;
+
+            // TODO: Andere Effekte implementieren
+            if(imageEffect.GetType().Equals(RotationEffect.GetType()))
+            {
+            }
+            else if(imageEffect.GetType().Equals(ScalingEffect.GetType()))
+            {
+                ScalingEffect = (ScalingEffect)imageEffect;
+                if(!Effects.Contains(effectKeyName))
+                    Effects.Add(effectKeyName);
+                setEffect(ref ScalingEffect, "", false);
+            }
+            else if(imageEffect.GetType().Equals(SpriteEffectAlways.GetType()))
+            {
             }
         }
     }

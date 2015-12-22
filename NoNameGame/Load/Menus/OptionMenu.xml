@@ -8,37 +8,28 @@
     <X>320</X>
     <Y>240</Y>
   </Position>
+  <MenuItemImageEffect xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="ScalingEffect">
+    <IsActive>false</IsActive>
+    <Direction>Up</Direction>
+    <TotalScalingChange>0.7</TotalScalingChange>
+    <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+  </MenuItemImageEffect>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Bla</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>BlaBla</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>BlaBlaBla</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 
@@ -46,11 +37,6 @@
     <LinkType>Menu</LinkType>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Zurueck</Text>
-      <ScalingEffect>
-        <ScalingDirection>Up</ScalingDirection>
-        <TotalScalingChange>0.7</TotalScalingChange>
-        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
-      </ScalingEffect>
     </Image>
   </MenuItem>
 </Menu>

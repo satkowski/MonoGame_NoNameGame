@@ -37,5 +37,10 @@ namespace NoNameGame.Images.Effects
         public virtual void Update(GameTime gameTime)
         {
         }
+
+        /// <summary>
+        /// Kopieren dieses Effekts.
+        /// </summary>
+        public abstract ImageEffect Copy();
     }
 }
