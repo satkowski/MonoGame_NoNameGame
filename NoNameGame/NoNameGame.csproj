@@ -37,6 +37,10 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Body.cs" />
     <Compile Include="Components\Material.cs" />
@@ -53,14 +57,14 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Extensions\Vector2Extension.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Collision\Collision.cs" />
-    <Compile Include="Collision\Projection.cs" />
+    <Compile Include="Collisions\Collision.cs" />
+    <Compile Include="Collisions\Projection.cs" />
     <Compile Include="Images\Effects\ImageEffect.cs" />
     <Compile Include="Images\Effects\RotationEffect.cs" />
     <Compile Include="Images\Effects\SpriteEffect.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\TileSheet.cs" />
-    <Compile Include="Collision\ShapeCollisionManager.cs" />
+    <Compile Include="Collisions\ShapeCollisionManager.cs" />
     <Compile Include="Managers\IDManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\ScreenManager.cs" />

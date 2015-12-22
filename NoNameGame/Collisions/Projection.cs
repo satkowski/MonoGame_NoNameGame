@@ -1,4 +1,4 @@
-﻿namespace NoNameGame.Collision
+﻿namespace NoNameGame.Collisions
 {
     /// <summary>
     /// Stellt eine Projektion mehrerer Punkte auf einen Vektor dar.

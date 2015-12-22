@@ -10,12 +10,21 @@ namespace NoNameGame.Components
     public class Body
     {
         Vector2 position;
+        Vector2 movingDirection;
 
         /// <summary>
-        /// Die Richtung in die sich der Körper bewegt. Seine Länge wird automatisch in die Geschwindigkeit umgewandelt
-        /// und danach normalisiert.
+        /// Die Richtung in die sich der Körper bewegt. Ist immer normalisiert.
         /// </summary>
-        public Vector2 MovingDirection;
+        public Vector2 MovingDirection
+        {
+            get { return movingDirection; }
+            set
+            {
+                if(value != Vector2.Zero)
+                    value.Normalize();
+                movingDirection = value;
+            }
+        }
         /// <summary>
         /// Die aktuelle Geschwindigkeit des Körpers. Passt sich automatisch an die maximal mögliche Gescwindigkeit an.
         /// </summary>
@@ -145,7 +154,7 @@ namespace NoNameGame.Components
         /// Verbindet diesen Vektor mit dem MovingVector und berechnet damit einen neuen.
         /// Weiterhin wird dadurch automatisch die Geschwindigkeit mit angepasst.
         /// </summary>
-        /// <param name="changeMovingVector"></param>
+        /// <param name="changeMovingVector">die Veränderung des Bewegungsvektors</param>
         /// <param name="collision"></param>
         public void ChangeMovingVector(Vector2 changeMovingVector, bool collided = false)
         {
@@ -153,7 +162,13 @@ namespace NoNameGame.Components
             if(changeMovingVector == Vector2.Zero)
                 return;
 
-            Vector2 newMovingVector = MovingVector + changeMovingVector;
+            Vector2 newMovingVector;
+            // Entscheiden welcher der neue Bewegungsvektor ist
+            if(collided)
+                newMovingVector = changeMovingVector;
+            else
+               newMovingVector = MovingVector + changeMovingVector;
+
             float velocity = newMovingVector.Length();
             // Setzen der neuen Geschwindigkeit.
             if(velocity > VelocityMax)
@@ -161,7 +176,6 @@ namespace NoNameGame.Components
             else
                 VelocityCurrent = velocity;
             // Setzen der neuen Bewegungsrichtung.
-            newMovingVector.Normalize();
             MovingDirection = newMovingVector;
             if(collided)
                 Position += MovingVector;
