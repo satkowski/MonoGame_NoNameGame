@@ -93,8 +93,8 @@ namespace NoNameGame.Components.Shapes
         public virtual void LoadContent(Tile tile)
         {
             tile.OnPositionChange += delegate
-            { position = tile.Position; };
-            position = tile.Position;
+            { position = tile.Body.Position; };
+            position = tile.Body.Position;
             Type = ShapeTypeExtension.GetShapeType(this);
         }
 

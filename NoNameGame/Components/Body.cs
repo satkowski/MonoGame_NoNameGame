@@ -64,7 +64,7 @@ namespace NoNameGame.Components
         /// Gibt die relative Masse (im Bezug auf die Fläche, die es braucht) an.
         /// </summary>
         [XmlIgnore]
-        public float MassRelativ
+        public float Mass
         { get { return Material.GetDensity() * Area; } }
 
         /// <summary>
@@ -102,6 +102,7 @@ namespace NoNameGame.Components
             AccelerationFactor = 1.0f;
             CollisionLevel = 0;
             Rotated = false;
+            Moved = false;
             Area = 1;
             Material = Material.None;
         }
@@ -110,7 +111,14 @@ namespace NoNameGame.Components
         {
             if(OnPositionChange != null)
                 OnPositionChange(position, null);
-        } 
+        }
+
+        public void LoadContent(Material material)
+        {
+            Material = material;
+            if(OnPositionChange != null)
+                OnPositionChange(position, null);
+        }
 
         public void UnloadContent()
         {

@@ -77,7 +77,7 @@ namespace NoNameGame.Images
 
         public void Draw (SpriteBatch spriteBatch, Vector2 origin, Vector2 scaledOrigin, float scale, Tile tile)
         {
-            spriteBatch.Draw(Texture, tile.Position + Offset, tile.TileSheetRectangle, Color * Alpha, 
+            spriteBatch.Draw(Texture, tile.Body.Position + Offset, tile.TileSheetRectangle, Color * Alpha, 
                              tile.Rotation.GetRotationValue(), origin, scale, SpriteEffects.None, 0.0f);
         }
     }

@@ -46,6 +46,18 @@ namespace NoNameGame.Collision
         /// </summary>
         public Vector2 Resolving
         { get; private set; }
+        /// <summary>
+        /// Der Normaliserte Vektor der Kollisionsauflösung.
+        /// </summary>
+        public Vector2 ResolvingNormal
+        {
+            get
+            {
+                Vector2 resolvingNormale = Resolving;
+                resolvingNormale.Normalize();
+                return resolvingNormale;
+            }
+        }
 
         /// <summary>
         /// Konstruktor für 2 Entities.
@@ -82,7 +94,7 @@ namespace NoNameGame.Collision
             firstPosition = entity.Body.Position;
             SecondShape = entity.Shape;
             SecondBody = null;
-            secondPosition = tile.Position;
+            secondPosition = tile.Body.Position;
             Resolving = resolving;
 
             ID = "E" + entity.ID + "-" + "T" + tile.ID;
@@ -96,14 +108,14 @@ namespace NoNameGame.Collision
             if(Resolving == Vector2.Zero)
                 return;
 
-            // Falls die Kollision mit einem Tile stattfindet, soll die Entity und nicht das Tile verschoben werden.
+            //Falls die Kollision mit einem Tile stattfindet, soll die Entity und nicht das Tile verschoben werden.
             if(SecondBody == null)
                 FirstBody.Position += Resolving;
             // Falls sich einer der beiden Körper sich bewegt oder rotiertz hat.
             else if(FirstBody.Moved || SecondBody.Moved ||
                     FirstBody.Rotated || SecondBody.Rotated)
             {
-                float firstOffset = 0.0f;                   
+                float firstOffset = 0.0f;
                 float secondOffset = 0.0f;
 
                 // Falls es vorher schonmal eine Kollisionsauflösung an einem der beiden Objekten gab.
@@ -111,24 +123,24 @@ namespace NoNameGame.Collision
                     changeThisCollision();
                 else
                 {
-                    float massSum = FirstBody.MassRelativ + SecondBody.MassRelativ;
+                    float massSum = FirstBody.Mass + SecondBody.Mass;
 
                     // Falls die Masse von einer Entity unendlich (-1) ist oder 0 ist
                     // Oder die Masse des ersten Körpers kleiner ist als des zweiten und der erste sich bewegte
-                    if(SecondBody.MassRelativ < 0 || FirstBody.MassRelativ == 0 || 
-                       (FirstBody.MassRelativ <= SecondBody.MassRelativ && 
+                    if(SecondBody.Mass < 0 || FirstBody.Mass == 0 ||
+                       (FirstBody.Mass <= SecondBody.Mass &&
                        (FirstBody.Moved && SecondBody.Moved)))
                         firstOffset = 1.0f;
                     // Falls die Masse von einer Entity unendlich (-1) ist oder 0 ist
                     // Oder die Masse des zweiten Körpers kleiner ist als des ersten und der zweite sich bewegte
-                    else if(FirstBody.MassRelativ < 0 || SecondBody.MassRelativ == 0 ||
-                            (FirstBody.MassRelativ > SecondBody.MassRelativ && 
+                    else if(FirstBody.Mass < 0 || SecondBody.Mass == 0 ||
+                            (FirstBody.Mass > SecondBody.Mass &&
                             (!FirstBody.Moved && !SecondBody.Moved)))
                         secondOffset = -1.0f;
                     else
                     {
-                        firstOffset = (1 - (1 / (massSum / FirstBody.MassRelativ)));
-                        secondOffset = -(1 - (1 / (massSum / SecondBody.MassRelativ)));
+                        firstOffset = (1 - (1 / (massSum / FirstBody.Mass)));
+                        secondOffset = -(1 - (1 / (massSum / SecondBody.Mass)));
                     }
                 }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using NoNameGame.Components;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Managers;
 using System;
@@ -35,10 +36,6 @@ namespace NoNameGame.Maps
         /// </summary>
         public TileRotation Rotation;
         /// <summary>
-        /// Die Position des Tiles.
-        /// </summary>
-        public Vector2 Position;
-        /// <summary>
         /// Das Rechteck, mit welchem von einem TileSheet heraus, dieses Tile gemalt wird.
         /// </summary>
         public Rectangle TileSheetRectangle;
@@ -46,6 +43,10 @@ namespace NoNameGame.Maps
         /// Das Shape des Tiles.
         /// </summary>
         public AABBShape Shape;
+        /// <summary>
+        /// Der Körper des Tiles.
+        /// </summary>
+        public Body Body;
 
         /// <summary>
         /// Wird gefeuert, wenn sich die Position des Tiles ändert.
@@ -58,9 +59,9 @@ namespace NoNameGame.Maps
         public Tile ()
         {
             Rotation = TileRotation.None;
-            Position = Vector2.Zero;
             TileSheetRectangle = Rectangle.Empty;
             Shape = new AABBShape();
+            Body = new Body();
             ID = IDManager.Instance.TileID;
         }
 
@@ -70,10 +71,14 @@ namespace NoNameGame.Maps
             layer.OnScaleChange += updateRectangle;
             mapTilePosition = mapPosition;
             Rotation = rotation;
-            Position = mapPosition * layer.TileDimensions * layer.Scale;
             TileSheetRectangle = new Rectangle((int)(tileSheetPosition.X * layer.TileDimensions.X), (int)(tileSheetPosition.Y * layer.TileDimensions.Y), 
                                                (int)layer.TileDimensions.X, (int)layer.TileDimensions.Y);
+            Body.Position = mapPosition * layer.TileDimensions * layer.Scale;
 
+            Shape.OnAreaChanged += delegate
+            { Body.Area = Shape.Area; };
+
+            Body.LoadContent(Material.Static);
             Shape.LoadContent(this, layer.TileDimensions.X, layer.TileDimensions.Y, layer.Scale);
         }
 
@@ -89,7 +94,7 @@ namespace NoNameGame.Maps
         /// <param name="e"></param>
         private void updateRectangle(object sender, System.EventArgs e)
         {
-            Position =  mapTilePosition * (Vector2)sender;
+            Body.Position =  mapTilePosition * (Vector2)sender;
         }
 
     }
