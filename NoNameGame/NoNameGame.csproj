@@ -63,6 +63,7 @@
     <Compile Include="Images\Effects\RotationEffect.cs" />
     <Compile Include="Images\Effects\SpriteEffect.cs" />
     <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\TextImage.cs" />
     <Compile Include="Images\TileSheet.cs" />
     <Compile Include="Collisions\ShapeCollisionManager.cs" />
     <Compile Include="Managers\IDManager.cs" />

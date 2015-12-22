@@ -16,6 +16,7 @@ namespace NoNameGame.Images
     /// <summary>
     /// Stellt ein Bild dar.
     /// </summary>
+    [XmlInclude(typeof(TextImage))]
     public class Image
     {
         /// <summary>
@@ -143,7 +144,7 @@ namespace NoNameGame.Images
         /// Lädt alle notwendigen Daten und aktiviert die Effekte.
         /// </summary>
         /// <param name="body"></param>
-        public void LoadContent (Body body)
+        public virtual void LoadContent (Body body)
         {
             content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
             body.OnPositionChange += updateRectangles;
@@ -159,24 +160,27 @@ namespace NoNameGame.Images
             foreach(string effectName in Effects)
                 ActivateEffect(effectName);
 
+            // Ausführen der Events, damit die damit verknüpften Objekte die Werte bekommen.
             if(OnRotationChange != null)
                 OnRotationChange(rotation, null);
             if(OnScaleChange != null)
                 OnScaleChange(scale, null);
         }
 
-        public void UnloadContent ()
+        public virtual void UnloadContent ()
         {
             content.Unload();
+            foreach(string effectName in Effects)
+                DeactivateEffect(effectName);
         }
 
-        public void Update (GameTime gameTime)
+        public virtual void Update (GameTime gameTime)
         {
             foreach(var effect in effectList)
                 effect.Value.Update(gameTime);
         }
 
-        public void Draw (SpriteBatch spriteBatch, Vector2 position)
+        public virtual void Draw (SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position + Offset, SourceRectangle, Color.White, Rotation, origin, Scale, SpriteEffects.None, 0.0f);
         }
@@ -186,7 +190,7 @@ namespace NoNameGame.Images
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void updateRectangles (object sender, EventArgs e)
+        protected void updateRectangles (object sender, EventArgs e)
         {
             Vector2 position = (Vector2)sender;
 
@@ -200,7 +204,7 @@ namespace NoNameGame.Images
         /// <typeparam name="T">die Art des Effekts</typeparam>
         /// <param name="effect">der Effekt</param>
         /// <param name="effectName">der Effektname</param>
-        void setEffect<T>(ref T effect, string effectName = "")
+        protected void setEffect<T>(ref T effect, string effectName = "")
         {
             if(effect == null)
                 effect = (T)Activator.CreateInstance(typeof(T));
