@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Menu>
   <Axis>Y</Axis>
+  <Alignment>Left_Top</Alignment>
   <ItemOffset>15</ItemOffset>
   <Effect>ScalingEffect</Effect>
   <Position>

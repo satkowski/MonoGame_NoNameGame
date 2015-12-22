@@ -25,6 +25,16 @@ namespace NoNameGame.Menus
         }
 
         /// <summary>
+        /// Gibt die Ausrichtung der Menü Items wieder.
+        /// </summary>
+        public enum MenuAlignment
+        {
+            Left_Top,
+            Right_Bottom,
+            Center
+        }
+
+        /// <summary>
         /// Die Positionen aller Items.
         /// </summary>
         List<Vector2> menuItemPositions;
@@ -47,6 +57,10 @@ namespace NoNameGame.Menus
         /// </summary>
         public MenuAxis Axis;
         /// <summary>
+        /// Gib die Ausrichtung der Items an.
+        /// </summary>
+        public MenuAlignment Alignment;
+        /// <summary>
         /// Der Abstand zwischen 2 Items in diesem Menü.
         /// </summary>
         public int ItemOffset;
@@ -68,6 +82,7 @@ namespace NoNameGame.Menus
             CurrentItem = 0;
             MenuItems = new List<MenuItem>();
             Axis = MenuAxis.Y;
+            Alignment = MenuAlignment.Center;
             ItemOffset = 0;
             Position = Vector2.Zero;
         }
@@ -87,8 +102,11 @@ namespace NoNameGame.Menus
             }
 
             foreach(MenuItem menuItem in MenuItems)
+            {
                 menuItem.LoadContent();
-            allignMenuItems();
+                menuItem.Image.OnScaleChange += Image_OnScaleChange;
+            }
+            alignMenuItems();
         }
 
         public void UnloadContent()
@@ -130,33 +148,60 @@ namespace NoNameGame.Menus
         /// <summary>
         /// Ordnet alle Menü Items anhand der Position des Menüs, dem Offset und der Achsenrichtung an.
         /// </summary>
-        void allignMenuItems()
+        void alignMenuItems()
         {
             // Berechne die Größe des Menüs in Richtung der Mneübewegung.
-            int size = -ItemOffset;
+            Vector2 size = new Vector2(-ItemOffset);
             foreach(MenuItem menuItem in MenuItems)
             {
                 if(Axis == MenuAxis.X)
-                    size += menuItem.Image.SourceRectangle.Width + ItemOffset;
+                {
+                    size.X += menuItem.Image.SourceRectangle.Width + ItemOffset;
+                    size.Y = Math.Max(size.Y, menuItem.Image.SourceRectangle.Height);
+                }
                 else if(Axis == MenuAxis.Y)
-                    size += menuItem.Image.SourceRectangle.Height + ItemOffset;
+                {
+                    size.X = Math.Max(size.X, menuItem.Image.SourceRectangle.Width);
+                    size.Y += menuItem.Image.SourceRectangle.Height + ItemOffset;
+                }
             }
             // Berechnung der Position des ersten Items.
             Vector2 position = Position;
             if(Axis == MenuAxis.X)
-                position.X -= size / 2;
+                position.X -= size.X / 2;
             else if(Axis == MenuAxis.Y)
-                position.Y -= size / 2;
+                position.Y -= size.Y / 2;
 
             // Anordnung der Items anhand der ausgerechneten Dimension.
             foreach(MenuItem menuItem in MenuItems)
             {
-                menuItem.Position = position;
+                Vector2 newPosition = position;
+                // Die Richtung in dem ein Bild veschoben muss um richtig Ausgerichtet zu sein.
+                float offset = 0;
+                if(Alignment == MenuAlignment.Left_Top)
+                    offset = -0.5f;
+                else if(Alignment == MenuAlignment.Right_Bottom)
+                    offset = 0.5f;
+
+                if(offset != 0)
+                {
+                    if(Axis == MenuAxis.X)
+                        newPosition.Y += offset * (size.Y - menuItem.Image.SourceRectangle.Height);
+                    else if(Axis == MenuAxis.Y)
+                        newPosition.X += offset * (size.X - menuItem.Image.SourceRectangle.Width);
+                }
+                menuItem.Position = newPosition;
+                // Verschieben der Position.
                 if(Axis == MenuAxis.X)
                     position.X += menuItem.Image.SourceRectangle.Width + ItemOffset;
                 else if(Axis == MenuAxis.Y)
                     position.Y += menuItem.Image.SourceRectangle.Height + ItemOffset;
             }
+        }
+        
+        private void Image_OnScaleChange(object sender, EventArgs e)
+        {
+
         }
     }
 }

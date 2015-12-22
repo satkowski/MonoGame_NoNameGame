@@ -119,6 +119,7 @@ namespace NoNameGame.Images
                     dimension = new Vector2(font.MeasureString(Text).X, font.MeasureString(Text).Y);
 
                 SourceRectangle = new Rectangle(0, 0, (int)dimension.X, (int)dimension.Y);
+                origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
 
                 RenderTarget2D renderTarget = new RenderTarget2D(ScreenManager.Instance.GraphicsDevice, (int)dimension.X, (int)dimension.Y);
                 // Einsetzen des neuen RenderTargets, damit wird den Text und das Bild verknüpfen können.
