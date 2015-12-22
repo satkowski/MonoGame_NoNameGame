@@ -112,10 +112,10 @@ namespace NoNameGame.Entities
             Image.LoadContent(Body);
             Shape.LoadContent(Body);
 
-            setAbility<PlayerFollowingAbility>(ref PlayerFollowingAbility);
-            setAbility<MovingAbility>(ref MovingAbility);
-            setAbility<ShootingAbility>(ref ShootingAbility);
-            setAbility<UserControlledAbility>(ref UserControlledAbility);
+            setAbility(ref PlayerFollowingAbility);
+            setAbility(ref MovingAbility);
+            setAbility(ref ShootingAbility);
+            setAbility(ref UserControlledAbility);
             foreach(string abilitiesName in Abilities)
                 ActivateAbility(abilitiesName);
         }

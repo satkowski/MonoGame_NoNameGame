@@ -143,10 +143,10 @@ namespace NoNameGame.Images
                 Texture = content.Load<Texture2D>(Path);
 
             // Setzen der Effekte
-            setEffect<RotationEffect>(ref RotationEffect);
-            setEffect<SpriteEffect>(ref SpriteEffectMoving, "Moving");
-            setEffect<SpriteEffect>(ref SpriteEffectStanding, "Standing");
-            setEffect<SpriteEffect>(ref SpriteEffectAlways, "Always");
+            setEffect(ref RotationEffect);
+            setEffect(ref SpriteEffectMoving, "Moving");
+            setEffect(ref SpriteEffectStanding, "Standing");
+            setEffect(ref SpriteEffectAlways, "Always");
             foreach(string effectName in Effects)
                 ActivateEffect(effectName);
 
