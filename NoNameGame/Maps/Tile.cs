@@ -78,7 +78,7 @@ namespace NoNameGame.Maps
             Shape.OnAreaChanged += delegate
             { Body.Area = Shape.Area; };
 
-            Body.LoadContent(Material.Static);
+            Body.LoadContent(Material.Tile);
             Shape.LoadContent(this, layer.TileDimensions.X, layer.TileDimensions.Y, layer.Scale);
         }
 

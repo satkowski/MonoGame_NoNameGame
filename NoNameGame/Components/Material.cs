@@ -17,6 +17,7 @@ namespace NoNameGame.Components
         SuperBall,
         Pillow,
         Static,
+        Tile,
         None
     }
 
@@ -39,6 +40,7 @@ namespace NoNameGame.Components
                 case Material.SuperBall:    return 0.3f;
                 case Material.Pillow:       return 0.1f;
                 case Material.Static:       return 0.0f;
+                case Material.Tile:         return 0.5f;
                 default: /*None*/           return 0.0f;
             }
         }
@@ -57,6 +59,7 @@ namespace NoNameGame.Components
                 case Material.SuperBall:    return 0.95f;
                 case Material.Pillow:       return 0.2f;
                 case Material.Static:       return 0.4f;
+                case Material.Tile:         return float.PositiveInfinity;
                 default: /*None*/           return -1.0f;
             }
         }

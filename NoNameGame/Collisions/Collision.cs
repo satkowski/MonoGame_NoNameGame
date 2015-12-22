@@ -134,17 +134,15 @@ namespace NoNameGame.Collisions
             {
                 Vector2 relativVelocity = SecondBody.MovingVector - FirstBody.MovingVector;
                 float velocityAlongCollisionNormal = Vector2.Dot(relativVelocity, ResolvingNormal);
-                if(velocityAlongCollisionNormal > 0)
-                {
-                    float restitution = Math.Min(FirstBody.Material.GetRestitution(), SecondBody.Material.GetRestitution());
-                    float impulseValue = -(1 + restitution) * velocityAlongCollisionNormal;
-                    impulseValue /= 1 / FirstBody.Mass + 1 / SecondBody.Mass;
 
-                    Vector2 impulse = impulseValue * ResolvingNormal;
+                float restitution = Math.Min(FirstBody.Material.GetRestitution(), SecondBody.Material.GetRestitution());
+                float impulseValue = -(1 + restitution) * velocityAlongCollisionNormal;
+                impulseValue /= 1 / FirstBody.Mass + 1 / SecondBody.Mass;
 
-                    FirstBody.ChangeMovingVector((-1 / FirstBody.Mass) * impulse, true);
-                    SecondBody.ChangeMovingVector((1 / SecondBody.Mass) * impulse, true);
-                }
+                Vector2 impulse = impulseValue * ResolvingNormal;
+
+                FirstBody.ChangeMovingVector((-1 / FirstBody.Mass) * impulse, true);
+                SecondBody.ChangeMovingVector((1 / SecondBody.Mass) * impulse, true);
             }
             else
             {
