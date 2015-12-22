@@ -11,6 +11,9 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     class CollisionManager : SceneManager
     {
+        /// <summary>
+        /// Die Aufzählung aller Kollisionen, die in einem Zyklus aufgetaucht sind.
+        /// </summary>
         private Dictionary<string, Collision> collisions;
 
         /// <summary>

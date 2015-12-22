@@ -13,8 +13,6 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(OBBShape))]
     public class AABBShape : Shape
     {
-        private Vector2 size;
-
         /// <summary>
         /// Die Größe des AABB.
         /// </summary>
@@ -27,6 +25,7 @@ namespace NoNameGame.Components.Shapes
                 onThingsForAreaChanged();
             }
         }
+        private Vector2 size;
         /// <summary>
         /// Der Mittelpunkt des AABB vom Koordinatenursprung aus.
         /// </summary>

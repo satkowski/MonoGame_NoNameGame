@@ -12,6 +12,9 @@ namespace NoNameGame.Screens
     /// </summary>
     public abstract class Screen
     {
+        /// <summary>
+        /// Der ContentManager des Spieles.
+        /// </summary>
         protected ContentManager content;
 
         public virtual void LoadContent ()

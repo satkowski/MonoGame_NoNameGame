@@ -10,8 +10,13 @@ namespace NoNameGame.Managers
     /// </summary>
     public class InputManager
     {
-        private static InputManager instance;
+        /// <summary>
+        /// Der vorrangegangene Tastaturstatus.
+        /// </summary>
         KeyboardState prevKeyboardState;
+        /// <summary>
+        /// Der aktuelle Tastaturstatus.
+        /// </summary>
         KeyboardState currentKeyboardState;
 
         /// <summary>
@@ -26,6 +31,7 @@ namespace NoNameGame.Managers
                 return instance;
             }
         }
+        private static InputManager instance;
 
         /// <summary>
         /// Konstruktor zur Erstellung einer Singletoninstanz.

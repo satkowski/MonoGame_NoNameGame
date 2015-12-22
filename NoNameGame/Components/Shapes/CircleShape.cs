@@ -11,8 +11,6 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(CircleShape))]
     public class CircleShape : Shape
     {
-        private float radius;
-
         /// <summary>
         /// Der Radius des Kreises.
         /// </summary>
@@ -25,6 +23,7 @@ namespace NoNameGame.Components.Shapes
                 onThingsForAreaChanged();
             }
         }
+        private float radius;
         /// Die Liste aller Eckpunkte einer Shape.
         /// </summary>
         public override List<Vector2> Vertices

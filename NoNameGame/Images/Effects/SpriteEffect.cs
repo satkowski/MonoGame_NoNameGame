@@ -29,6 +29,9 @@ namespace NoNameGame.Images.Effects
             Right = 1
         }
 
+        /// <summary>
+        /// Gibt an, wieviel Zeit schon vergangen ist.
+        /// </summary>
         protected int elapsedTime;
 
         /// <summary>

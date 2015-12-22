@@ -31,6 +31,9 @@ namespace NoNameGame.Scenes.Managers
             Out = -1
         }
         
+        /// <summary>
+        /// Der aktuelle Zoom.
+        /// </summary>
         float currentZoom;
 
         /// <summary>

@@ -11,10 +11,22 @@ namespace NoNameGame.Screens
     /// </summary>
     public class GameplayScreen : Screen
     {
+        /// <summary>
+        /// Der Zoomingmanager der aktuelle Spielbildschirms.
+        /// </summary>
         ZoomingManager zoomingManager;
+        /// <summary>
+        /// Der CameraManager der aktuelle Spielbildschirms.
+        /// </summary>
         CameraManager cameraManager;
+        /// <summary>
+        /// Der CollisionManager der aktuelle Spielbildschirms.
+        /// </summary>
         CollisionManager collisionManager;
 
+        /// <summary>
+        /// Die Szene, die gerade gespielt wird.
+        /// </summary>
         Scene Scene;
 
         /// <summary>

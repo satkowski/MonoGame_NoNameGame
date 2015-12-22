@@ -21,6 +21,9 @@ namespace NoNameGame.Entities.Abilities
             OneDirection,
         }
         
+        /// <summary>
+        /// Die Zeit, welche schon vergangen ist.
+        /// </summary>
         int elapsedTime;
 
         /// <summary>

@@ -7,6 +7,9 @@ namespace NoNameGame.Scenes.Managers
     /// </summary>
     public abstract class SceneManager
     {
+        /// <summary>
+        /// Die Szene, auf welcher dieser Manager arbeiten soll.
+        /// </summary>
         protected Scene scene;
 
         /// <summary>

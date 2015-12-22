@@ -7,6 +7,9 @@ namespace NoNameGame.Entities.Abilities
     /// </summary>
     public abstract class EntityAbility
     {
+        /// <summary>
+        /// Das Objekt auf welches die Fähigkeit wirken soll.
+        /// </summary>
         protected Entity entity;
 
         /// <summary>

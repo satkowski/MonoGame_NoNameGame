@@ -11,14 +11,33 @@ namespace NoNameGame.Managers
     /// </summary>
     class ScreenManager
     {
-        private static ScreenManager instance;
+        /// <summary>
+        /// Gibt den aktuell angezeigten Bildschirm an.
+        /// </summary>
         Screen currentScreen;
-        //Screen nextScreen;
 
+        /// <summary>
+        /// Das GraphicDevice des Spieles.
+        /// </summary>
         public GraphicsDevice GraphicsDevice;
+        /// <summary>
+        /// Der SpriteBatch des Spieles, auf welchem gemalt wird.
+        /// </summary>
         public SpriteBatch SpriteBatch;
-        public ContentManager Content { private set; get; }
-        public Vector2 Dimensions { private set; get; }
+        /// <summary>
+        /// Der ContentManager des Spieles.
+        /// </summary>
+        public ContentManager Content
+        { get; private set; }
+
+        /// <summary>
+        /// Die Dimension, welche der Bildschirm gerade hat.
+        /// </summary>
+        public Vector2 Dimensions
+        { get; private set; }
+        /// <summary>
+        /// Die aktuelle Instanz des ScreenManagers.
+        /// </summary>
         public static ScreenManager Instance
         {
             get
@@ -28,7 +47,11 @@ namespace NoNameGame.Managers
                 return instance;
             }
         }
+        private static ScreenManager instance;
 
+        /// <summary>
+        /// Konstruktor zur Erstellung einer Singletoninstanz.
+        /// </summary>
         private ScreenManager ()
         {
             Dimensions = new Vector2(640, 480);

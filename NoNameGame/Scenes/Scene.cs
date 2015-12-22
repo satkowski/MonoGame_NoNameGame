@@ -15,9 +15,21 @@ namespace NoNameGame.Scenes
     /// </summary>
     public class Scene
     {
+        /// <summary>
+        /// Die Liste aller Spieler.
+        /// </summary>
         private List<Entity> players;
+        /// <summary>
+        /// Die Liste aller Objekte, welche nicht Spieler sind.
+        /// </summary>
         private List<Entity> entities;
+        /// <summary>
+        /// Liste aller Objekte, welche in einem Zyklus entfernt werden müssen.
+        /// </summary>
         private List<Entity> entitiesToRemove;
+        /// <summary>
+        /// Liste aller Objekte, welche in einem Zyklus neu erschienen sind.
+        /// </summary>
         private List<Entity> newEntities;
 
         /// <summary>

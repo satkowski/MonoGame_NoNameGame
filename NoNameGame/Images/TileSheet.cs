@@ -16,6 +16,9 @@ namespace NoNameGame.Images
     /// </summary>
     public class TileSheet
     {
+        /// <summary>
+        /// Der Contetnmanager des Spiels.
+        /// </summary>
         ContentManager content;
 
         /// <summary>

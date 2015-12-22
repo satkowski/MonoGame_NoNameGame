@@ -15,14 +15,12 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(CircleShape))]
     public abstract class Shape
     {
-        protected Vector2 position;
-        protected float scale;
-
         /// <summary>
         /// die absolute Position auf der Ebene
         /// </summary>
         public Vector2 Position
         { get { return position; } }
+        protected Vector2 position;
         /// <summary>
         /// die Skalierung des Shapes
         /// </summary>
@@ -36,6 +34,7 @@ namespace NoNameGame.Components.Shapes
                 onThingsForAreaChanged();
             }
         }
+        protected float scale;
         /// <summary>
         /// Gibt an was für ein Typ diese Shape ist. Sollte von jeder abgeleiteten Klasse selbst gesetzt werden.
         /// </summary>

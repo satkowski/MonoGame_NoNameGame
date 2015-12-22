@@ -15,8 +15,6 @@ namespace NoNameGame.Maps
     /// </summary>
     public class Layer
     {
-        float scale;
-
         /// <summary>
         /// Das TileSheet der aktuellen Ebene.
         /// </summary>
@@ -39,6 +37,7 @@ namespace NoNameGame.Maps
                     OnScaleChange((TileDimensions * Scale), null);
             }
         }
+        private float scale;
         /// <summary>
         /// Die Größe einzelner Tiles.
         /// </summary>

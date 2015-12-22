@@ -7,6 +7,9 @@ namespace NoNameGame.Images.Effects
     /// </summary>
     public abstract class ImageEffect
     {
+        /// <summary>
+        /// Das Bild auf dem dieser Effekt behandelt werden soll.
+        /// </summary>
         protected Image image;
 
         /// <summary>

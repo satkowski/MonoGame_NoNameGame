@@ -5,9 +5,6 @@
     /// </summary>
     public class IDManager
     {
-        private static IDManager instance;
-        private ulong entityID;
-        private ulong tileID;
 
         /// <summary>
         /// Die aktuelle Instanz des InputManagers.
@@ -21,17 +18,20 @@
                 return instance;
             }
         }
+        private static IDManager instance;
 
         /// <summary>
         /// Gibt eine ID für eine Entity zurück.
         /// </summary>
         public ulong EntityID
         { get { return entityID++; } }
+        private ulong entityID;
         /// <summary>
         /// Gibt eine ID für ein Tile zurück.
         /// </summary>
         public ulong TileID
         { get { return tileID++; } }
+        private ulong tileID;
 
         /// <summary>
         /// Konstruktor zur Erstellung einer Singletoninstanz.

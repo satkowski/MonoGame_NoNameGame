@@ -9,9 +9,6 @@ namespace NoNameGame.Components
     /// </summary>
     public class Body
     {
-        Vector2 position;
-        Vector2 movingDirection;
-
         /// <summary>
         /// Die Richtung in die sich der Körper bewegt. Ist immer normalisiert.
         /// </summary>
@@ -25,6 +22,7 @@ namespace NoNameGame.Components
                 movingDirection = value;
             }
         }
+        private Vector2 movingDirection;
         /// <summary>
         /// Die aktuelle Geschwindigkeit des Körpers. Passt sich automatisch an die maximal mögliche Gescwindigkeit an.
         /// </summary>
@@ -89,6 +87,7 @@ namespace NoNameGame.Components
                     OnPositionChange(position, null);
             }
         }
+        private Vector2 position;
         /// <summary>
         /// Das Level/Layer auf dem sich der Körper befindet.
         /// </summary>

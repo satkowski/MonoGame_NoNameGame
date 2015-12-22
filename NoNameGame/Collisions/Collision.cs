@@ -12,8 +12,6 @@ namespace NoNameGame.Collisions
     /// </summary>
     class Collision
     {
-        Vector2 resolvingNormal;
-
         /// <summary>
         /// Die Position des ersten kollidierten Objektes.
         /// </summary>
@@ -72,6 +70,7 @@ namespace NoNameGame.Collisions
                 resolvingNormal = value;
             }
         }
+        private Vector2 resolvingNormal;
         /// <summary>
         /// Die Tiefe der Kollision.
         /// </summary>

@@ -22,7 +22,13 @@ namespace NoNameGame.Maps
             Clockwise270 = 3
         }
 
+        /// <summary>
+        /// Die Ebene auf dem sich dieses Tile befindet.
+        /// </summary>
         Layer layer;
+        /// <summary>
+        /// Die Position auf der aktuelle Karte.
+        /// </summary>
         Vector2 mapTilePosition;
 
         /// <summary>

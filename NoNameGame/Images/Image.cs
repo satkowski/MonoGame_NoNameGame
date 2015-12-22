@@ -18,11 +18,18 @@ namespace NoNameGame.Images
     /// </summary>
     public class Image
     {
-        Vector2 origin;
-        ContentManager content;
-        Dictionary<string, ImageEffect> effectList;
-        float rotation;
-        float scale;
+        /// <summary>
+        /// Der Contetnmanager des Spiels.
+        /// </summary>
+        protected ContentManager content;
+        /// <summary>
+        /// Der Ursprung/Mittelpunkt des Bildes.
+        /// </summary>
+        protected Vector2 origin;
+        /// <summary>
+        /// Eine Aufzählung aller Effekte die ein Bild haben kann.
+        /// </summary>
+        protected Dictionary<string, ImageEffect> effectList;
 
         /// <summary>
         /// Die Textur des Bildes.
@@ -47,6 +54,7 @@ namespace NoNameGame.Images
                     OnScaleChange(scale, null);
             }
         }
+        protected float scale;
         /// <summary>
         /// Die Rotation des Bildes.
         /// </summary>
@@ -60,6 +68,7 @@ namespace NoNameGame.Images
                     OnRotationChange(rotation, null);
             }
         }
+        protected float rotation;
         /// <summary>
         /// Der Alphawert des Bildes.
         /// </summary>

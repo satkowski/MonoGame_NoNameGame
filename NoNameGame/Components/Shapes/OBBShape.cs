@@ -12,28 +12,15 @@ namespace NoNameGame.Components.Shapes
     [XmlInclude(typeof(OBBShape))]
     public class OBBShape : AABBShape
     {
-        private float rotation;
         /// <summary>
         /// Die Roation des OBB.
         /// </summary>
-        public float Rotation
-        {
-            get { return rotation; }
-            set
-            {
-                rotation = value;
-                rotationX = new Vector2((float)Math.Cos(rotation), -(float)Math.Sin(rotation));
-                rotationY = new Vector2((float)Math.Sin(rotation), (float)Math.Cos(rotation));
-            }
-        }
-
-        protected Vector2 rotationX;
-        protected Vector2 rotationY;
+        public float Rotation;
         /// <summary>
         /// Die linke Seite des OBB.
         /// </summary>
         public new Vector2 Left
-        { get { return Vector2.Transform(new Vector2(-Center.X, 0), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(-Center.X, 0), Matrix.CreateRotationZ(Rotation)); } }
         /// <summary>
         /// Die linke Seite des OBB von der Position aus.
         /// </summary>
@@ -43,7 +30,7 @@ namespace NoNameGame.Components.Shapes
         /// Die obere Seite des OBB.
         /// </summary>
         public new Vector2 Top
-        { get { return Vector2.Transform(new Vector2(0, -Center.Y), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(0, -Center.Y), Matrix.CreateRotationZ(Rotation)); } }
         /// <summary>
         /// Die obere Seite des OBB von der Position aus.
         /// </summary>
@@ -53,7 +40,7 @@ namespace NoNameGame.Components.Shapes
         /// Die rechte Seite des OBB.
         /// </summary>
         public new Vector2 Right
-        { get { return Vector2.Transform(new Vector2(Center.X, 0), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(Center.X, 0), Matrix.CreateRotationZ(Rotation)); } }
         /// <summary>
         /// Die rechte Seite des OBB von der Position aus.
         /// </summary>
@@ -63,7 +50,7 @@ namespace NoNameGame.Components.Shapes
         /// Die untere Seite des OBB.
         /// </summary>
         public new Vector2 Bottom
-        { get { return Vector2.Transform(new Vector2(0, Center.Y), Matrix.CreateRotationZ(rotation)); } }
+        { get { return Vector2.Transform(new Vector2(0, Center.Y), Matrix.CreateRotationZ(Rotation)); } }
         /// <summary>
         /// Die untere Seite des OBB von der Position aus.
         /// </summary>
