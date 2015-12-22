@@ -3,12 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using NoNameGame.Managers;
 using NoNameGame.Scenes.Managers;
 using NoNameGame.Scenes;
+using System.Xml.Serialization;
+using Microsoft.Xna.Framework.Input;
 
 namespace NoNameGame.Screens
 {
     /// <summary>
     /// Stellt einen Spielbildschirm (in dem das Spiel stattfindet) dar.
     /// </summary>
+    [XmlInclude(typeof(GameplayScreen))]
     public class GameplayScreen : Screen
     {
         /// <summary>
@@ -44,7 +47,7 @@ namespace NoNameGame.Screens
             base.LoadContent();
 
             XmlManager<Scene> sceneLoader = new XmlManager<Scene>();
-            Scene = sceneLoader.Load("Load/Scenes/Scene_001.xml");
+            Scene = sceneLoader.Load(Path);
             Scene.LoadContent();
 
             zoomingManager.LoadContent(ref Scene);
@@ -70,6 +73,9 @@ namespace NoNameGame.Screens
             zoomingManager.Update(gameTime);
             collisionManager.Update(gameTime);
             cameraManager.Update(gameTime);
+
+            if(InputManager.Instance.KeyPressed(Keys.Escape))
+                ScreenManager.Instance.ChangeScreen("Load/Screens/GameMenuScreen.xml");
         }
 
         public override void Draw (SpriteBatch spriteBatch)

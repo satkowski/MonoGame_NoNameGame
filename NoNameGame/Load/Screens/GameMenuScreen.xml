@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="MenuScreen">
+  <Path>Load/Menus/GameMenu.xml</Path>
+  <ViewableInStack>false</ViewableInStack>
+</Screen>

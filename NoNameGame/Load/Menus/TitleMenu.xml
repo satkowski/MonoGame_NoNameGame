@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Menu>
+  <Axis>Y</Axis>
+  <ItemOffset>15</ItemOffset>
+  <Effect>ScalingEffect</Effect>
+  <Position>
+    <X>320</X>
+    <Y>240</Y>
+  </Position>
+
+  <MenuItem>
+    <LinkType>Screen</LinkType>
+    <LinkSource>Load/Screens/MainGameScreen.xml</LinkSource>
+    <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
+      <Text>Neues Spiel</Text>
+      <ScalingEffect>
+        <ScalingDirection>Up</ScalingDirection>
+        <TotalScalingChange>0.7</TotalScalingChange>
+        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+      </ScalingEffect>
+    </Image>
+  </MenuItem>
+
+  <MenuItem>
+    <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
+      <Text>Spiel laden</Text>
+      <ScalingEffect>
+        <ScalingDirection>Up</ScalingDirection>
+        <TotalScalingChange>0.7</TotalScalingChange>
+        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+      </ScalingEffect>
+    </Image>
+  </MenuItem>
+
+  <MenuItem>
+    <LinkType>Menu</LinkType>
+    <LinkSource>Load/Menus/OptionMenu.xml</LinkSource>
+    <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
+      <Text>Opionen</Text>
+      <ScalingEffect>
+        <ScalingDirection>Up</ScalingDirection>
+        <TotalScalingChange>0.7</TotalScalingChange>
+        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+      </ScalingEffect>
+    </Image>
+  </MenuItem>
+
+  <MenuItem>
+    <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
+      <Text>Credits</Text>
+      <ScalingEffect>
+        <ScalingDirection>Up</ScalingDirection>
+        <TotalScalingChange>0.7</TotalScalingChange>
+        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+      </ScalingEffect>
+    </Image>
+  </MenuItem>
+
+  <MenuItem>
+    <LinkType>Quit</LinkType>
+    <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
+      <Text>Beenden</Text>
+      <ScalingEffect>
+        <ScalingDirection>Up</ScalingDirection>
+        <TotalScalingChange>0.7</TotalScalingChange>
+        <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
+      </ScalingEffect>
+    </Image>
+  </MenuItem>
+</Menu>

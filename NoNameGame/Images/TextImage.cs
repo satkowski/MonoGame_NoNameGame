@@ -55,7 +55,7 @@ namespace NoNameGame.Images
         public TextImage()
         {
             Text = String.Empty;
-            FontName = String.Empty;
+            FontName = "Fonts/Exo Bold 14";
             MergeSide = TextMergeSide.None;
             MergeOffset = Vector2.Zero;
         }
@@ -69,7 +69,8 @@ namespace NoNameGame.Images
             {
                 content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
 
-                Texture = content.Load<Texture2D>(Path);
+                if(Path != String.Empty)
+                    Texture = content.Load<Texture2D>(Path);
                 font = content.Load<SpriteFont>(FontName);
 
                 Vector2 dimension = Vector2.Zero;
@@ -116,6 +117,8 @@ namespace NoNameGame.Images
                 }
                 else
                     dimension = new Vector2(font.MeasureString(Text).X, font.MeasureString(Text).Y);
+
+                SourceRectangle = new Rectangle(0, 0, (int)dimension.X, (int)dimension.Y);
 
                 RenderTarget2D renderTarget = new RenderTarget2D(ScreenManager.Instance.GraphicsDevice, (int)dimension.X, (int)dimension.Y);
                 // Einsetzen des neuen RenderTargets, damit wird den Text und das Bild verknüpfen können.

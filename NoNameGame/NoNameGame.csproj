@@ -68,6 +68,7 @@
     <Compile Include="Collisions\ShapeCollisionManager.cs" />
     <Compile Include="Managers\IDManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Managers\XmlManager.cs" />
     <Compile Include="Maps\Layer.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Maps\Tile.cs" />
     <Compile Include="Maps\TileExtension.cs" />
     <Compile Include="Maps\TileMapString.cs" />
+    <Compile Include="Menus\Menu.cs" />
+    <Compile Include="Menus\MenuItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Managers\CameraManager.cs" />
@@ -94,7 +97,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Load\Menus\GameMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Load\Menus\OptionMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Load\Menus\TitleMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Load\Scenes\Scene_001.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Load\Screens\MainGameScreen.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Load\Screens\GameMenuScreen.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Content\Entities\Enemies\Enemy_001.png">
@@ -142,7 +160,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Fonts\Exo.spritefont">
+    <None Include="Content\Fonts\Exo Bold 14.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

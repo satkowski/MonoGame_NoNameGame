@@ -144,10 +144,11 @@ namespace NoNameGame.Images
         /// Lädt alle notwendigen Daten und aktiviert die Effekte.
         /// </summary>
         /// <param name="body"></param>
-        public virtual void LoadContent (Body body)
+        public virtual void LoadContent (Body body = null)
         {
             content = new ContentManager(ScreenManager.Instance.Content.ServiceProvider, "Content");
-            body.OnPositionChange += updateRectangles;
+            if(body != null)
+                body.OnPositionChange += updateRectangles;
 
             if (Path != String.Empty)
                 Texture = content.Load<Texture2D>(Path);

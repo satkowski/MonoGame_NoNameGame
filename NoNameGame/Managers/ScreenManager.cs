@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using NoNameGame.Screens;
+using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System;
 
 namespace NoNameGame.Managers
 {
@@ -15,6 +18,7 @@ namespace NoNameGame.Managers
         /// Gibt den aktuell angezeigten Bildschirm an.
         /// </summary>
         Screen currentScreen;
+        Stack<Screen> lastScreens;
 
         /// <summary>
         /// Das GraphicDevice des Spieles.
@@ -56,11 +60,16 @@ namespace NoNameGame.Managers
         {
             Dimensions = new Vector2(640, 480);
             currentScreen = new GameplayScreen();
+            lastScreens = new Stack<Screen>();
         }
 
         public void LoadContent (ContentManager content)
         {
             this.Content = new ContentManager(content.ServiceProvider, "Content");
+
+
+            XmlManager<Screen> screenLoader = new XmlManager<Screen>();
+            currentScreen = screenLoader.Load("Load/Screens/MainGameScreen.xml");
             currentScreen.LoadContent();
         }
 
@@ -77,7 +86,33 @@ namespace NoNameGame.Managers
 
         public void Draw (SpriteBatch spriteBatch)
         {
+            foreach(Screen screen in lastScreens)
+                if(screen.ViewableInStack)
+                    screen.Draw(spriteBatch);
+
             currentScreen.Draw(spriteBatch);
+        }
+
+        /// <summary>
+        /// Ändert den aktuelle Screen zu einem anderen. Ist der Pfad leer wird der letzte Screen vor dem jetzigen genutzt.
+        /// </summary>
+        /// <param name="path">der Pfad zum neuen Screen</param>
+        public void ChangeScreen(string path = "")
+        {
+            // Wenn der Pfad leer ist, wird der letzte Screen genommen
+            if(path == String.Empty && lastScreens.Count != 0)
+            {
+                currentScreen.UnloadContent();
+                currentScreen = lastScreens.Pop();
+            }
+            else if(path != String.Empty)
+            {
+                lastScreens.Push(currentScreen);
+
+                XmlManager<Screen> screenLoader = new XmlManager<Screen>();
+                currentScreen = screenLoader.Load(path);
+                currentScreen.LoadContent();
+            }
         }
     }
 }
