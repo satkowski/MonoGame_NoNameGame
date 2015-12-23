@@ -58,7 +58,7 @@ namespace NoNameGame.Screens
 
             currentMenu.Update(gameTime);
 
-            if(InputManager.Instance.KeyPressed(Keys.Enter, Keys.Space))
+            if(InputManager.Instance.KeyPressed(Keys.Enter, Keys.Space) && !ScreenManager.Instance.ScreenChanged)
             {
                 // Entscheidung was bei einzelnen Link Typen passiert.
                 switch(currentMenu.MenuItems[currentMenu.CurrentItem].LinkType)
@@ -84,7 +84,7 @@ namespace NoNameGame.Screens
                         break;
                 }
             }
-            else if(InputManager.Instance.KeyPressed(Keys.Escape))
+            else if(InputManager.Instance.KeyPressed(Keys.Escape) && !ScreenManager.Instance.ScreenChanged)
                 returnToLast();
 
         }

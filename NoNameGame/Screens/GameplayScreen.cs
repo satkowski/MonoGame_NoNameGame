@@ -74,7 +74,7 @@ namespace NoNameGame.Screens
             collisionManager.Update(gameTime);
             cameraManager.Update(gameTime);
 
-            if(InputManager.Instance.KeyPressed(Keys.Escape))
+            if(InputManager.Instance.KeyPressed(Keys.Escape) && !ScreenManager.Instance.ScreenChanged)
                 ScreenManager.Instance.ChangeScreen("Load/Screens/GameMenuScreen.xml");
         }
 

@@ -18,6 +18,9 @@ namespace NoNameGame.Managers
         /// Gibt den aktuell angezeigten Bildschirm an.
         /// </summary>
         Screen currentScreen;
+        /// <summary>
+        /// Liste aller Bildschirm, die vor dem aktuellen aktiv waren.
+        /// </summary>
         Stack<Screen> lastScreens;
 
         /// <summary>
@@ -40,6 +43,12 @@ namespace NoNameGame.Managers
         public Vector2 Dimensions
         { get; private set; }
         /// <summary>
+        /// Ob der aktuelle Bildschirm geändert wurde.
+        /// </summary>
+        public bool ScreenChanged
+        { get; private set; }
+
+        /// <summary>
         /// Die aktuelle Instanz des ScreenManagers.
         /// </summary>
         public static ScreenManager Instance
@@ -61,6 +70,7 @@ namespace NoNameGame.Managers
             Dimensions = new Vector2(640, 480);
             currentScreen = new GameplayScreen();
             lastScreens = new Stack<Screen>();
+            ScreenChanged = false;
         }
 
         public void LoadContent (ContentManager content)
@@ -82,6 +92,12 @@ namespace NoNameGame.Managers
         public void Update (GameTime gameTime)
         {
             currentScreen.Update(gameTime);
+            // Wenn der aktuelle Bildschirm gerade verändert wurde, wird dieser noch einmal geupdaten.
+            if(ScreenChanged)
+            {
+                currentScreen.Update(gameTime);
+                ScreenChanged = false;
+            }
         }
 
         public void Draw (SpriteBatch spriteBatch)
@@ -116,6 +132,7 @@ namespace NoNameGame.Managers
                 XmlManager<Screen> screenLoader = new XmlManager<Screen>();
                 currentScreen = screenLoader.Load(path);
                 currentScreen.LoadContent();
+                ScreenChanged = true;
 
                 // Ob der Bildschirm nur alleine existieren kann.
                 if(currentScreen.SinglyScreen)
