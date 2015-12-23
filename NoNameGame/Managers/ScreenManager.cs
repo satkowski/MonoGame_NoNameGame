@@ -69,7 +69,7 @@ namespace NoNameGame.Managers
 
 
             XmlManager<Screen> screenLoader = new XmlManager<Screen>();
-            currentScreen = screenLoader.Load("Load/Screens/MainGameScreen.xml");
+            currentScreen = screenLoader.Load("Load/Screens/TitleMenuScreen.xml");
             currentScreen.LoadContent();
         }
 
@@ -107,11 +107,23 @@ namespace NoNameGame.Managers
             }
             else if(path != String.Empty)
             {
-                lastScreens.Push(currentScreen);
+                // Ob der Bildschirm in den Stack kann.
+                if(currentScreen.Stackable)
+                    lastScreens.Push(currentScreen);
+                else
+                    currentScreen.UnloadContent();
 
                 XmlManager<Screen> screenLoader = new XmlManager<Screen>();
                 currentScreen = screenLoader.Load(path);
                 currentScreen.LoadContent();
+
+                // Ob der Bildschirm nur alleine existieren kann.
+                if(currentScreen.SinglyScreen)
+                {
+                    foreach(Screen screen in lastScreens)
+                        screen.UnloadContent();
+                    lastScreens.Clear();
+                }                    
             }
         }
     }

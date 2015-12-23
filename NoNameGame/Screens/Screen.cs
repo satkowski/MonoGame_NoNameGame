@@ -27,6 +27,14 @@ namespace NoNameGame.Screens
         /// Ob dieser Screen, falls er im ScreenManager Stack steckt, noch sichtbar ist.
         /// </summary>
         public bool ViewableInStack;
+        /// <summary>
+        /// Ob alle anderen Screens, falls welche im Screenmanager stecken, deaktiviert werden.
+        /// </summary>
+        public bool SinglyScreen;
+        /// <summary>
+        /// Ob dieser Screen im Screnemanager in den Stack gespeichert werden kann.
+        /// </summary>
+        public bool Stackable;
 
         /// <summary>
         /// Basiskonstruktor.

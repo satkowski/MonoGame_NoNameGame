@@ -5,7 +5,7 @@
   <ItemOffset>15</ItemOffset>
   <Effect>ScalingEffect</Effect>
   <Position>
-    <X>320</X>
+    <X>100</X>
     <Y>240</Y>
   </Position>
   <MenuItemImageEffect xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="ScalingEffect">

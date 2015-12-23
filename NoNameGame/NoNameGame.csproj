@@ -110,6 +110,9 @@
     <Content Include="Load\Scenes\Scene_001.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Load\Screens\TitleMenuScreen.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Load\Screens\MainGameScreen.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

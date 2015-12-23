@@ -39,7 +39,7 @@
 
   <MenuItem>
     <LinkType>Screen</LinkType>
-    <LinkSource>Load/Screens/TitleMenu.xml</LinkSource>
+    <LinkSource>Load/Screens/TitleMenuScreen.xml</LinkSource>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Zum Hauptmenu</Text>
     </Image>
