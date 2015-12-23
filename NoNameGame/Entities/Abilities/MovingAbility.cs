@@ -160,5 +160,23 @@ namespace NoNameGame.Entities.Abilities
 
             base.Update(gameTime);
         }
+
+        /// <summary>
+        /// Kopieren dieser Fähigkeit.
+        /// </summary>
+        public override EntityAbility Copy()
+        {
+            MovingAbility newAbility = new MovingAbility();
+            newAbility.Center = this.Center;
+            newAbility.End = this.End;
+            newAbility.Ending = this.Ending;
+            newAbility.IsActive = this.IsActive;
+            newAbility.Moving = this.Moving;
+            newAbility.OnEndingReached += this.OnEndingReached;
+            newAbility.Radius = this.Radius;
+            newAbility.Start = this.Start;
+
+            return newAbility;
+        }
     }
 }

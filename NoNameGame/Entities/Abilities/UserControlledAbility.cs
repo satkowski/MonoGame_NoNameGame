@@ -43,5 +43,16 @@ namespace NoNameGame.Entities.Abilities
 
             base.Update(gameTime);
         }
+
+        /// <summary>
+        /// Kopieren dieser Fähigkeit.
+        /// </summary>
+        public override EntityAbility Copy()
+        {
+            UserControlledAbility newAbility = new UserControlledAbility();
+            newAbility.IsActive = this.IsActive;
+
+            return newAbility;
+        }
     }
 }

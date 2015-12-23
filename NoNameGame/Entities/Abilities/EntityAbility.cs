@@ -37,5 +37,10 @@ namespace NoNameGame.Entities.Abilities
         public virtual void Update(GameTime gameTime)
         {
         }
+
+        /// <summary>
+        /// Kopieren dieser Fähigkeit.
+        /// </summary>
+        public abstract EntityAbility Copy();
     }
 }

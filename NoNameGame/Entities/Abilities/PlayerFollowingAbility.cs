@@ -41,5 +41,16 @@ namespace NoNameGame.Entities.Abilities
 
             base.Update(gameTime);
         }
+
+        /// <summary>
+        /// Kopieren dieser Fähigkeit.
+        /// </summary>
+        public override EntityAbility Copy()
+        {
+            PlayerFollowingAbility newAbility = new PlayerFollowingAbility();
+            newAbility.IsActive = this.IsActive;
+
+            return newAbility;
+        }
     }
 }

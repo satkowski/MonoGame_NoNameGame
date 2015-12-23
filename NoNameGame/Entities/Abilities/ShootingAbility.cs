@@ -109,5 +109,22 @@ namespace NoNameGame.Entities.Abilities
                 }
             }
         }
+
+        /// <summary>
+        /// Kopieren dieser Fähigkeit.
+        /// </summary>
+        public override EntityAbility Copy()
+        {
+            ShootingAbility newAbility = new ShootingAbility();
+            newAbility.DestinationPosition = this.DestinationPosition;
+            newAbility.IsActive = this.IsActive;
+            newAbility.OnNewShotEntityCreated += this.OnNewShotEntityCreated;
+            newAbility.ShootingInterval = this.ShootingInterval;
+            newAbility.ShotEntityPath = this.ShotEntityPath;
+            newAbility.StartPosition = this.StartPosition;
+            newAbility.Type = this.Type;
+
+            return newAbility;
+        }
     }
 }
