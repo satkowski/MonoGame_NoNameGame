@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Xml.Serialization;
 
 namespace NoNameGame.Images.Effects
 {
@@ -7,15 +9,23 @@ namespace NoNameGame.Images.Effects
     /// </summary>
     public abstract class ImageEffect
     {
-        /// <summary>
-        /// Das Bild auf dem dieser Effekt behandelt werden soll.
-        /// </summary>
-        protected Image image;
 
         /// <summary>
         /// Ist der Effekt aktiv.
         /// </summary>
         public bool IsActive;
+
+        /// <summary>
+        /// Das Bild auf dem dieser Effekt behandelt werden soll.
+        /// </summary>
+        [XmlIgnore]
+        public Image Image
+        { get; private set; }
+
+        /// <summary>
+        /// Wird gefeuert, wenn dieser Effekt fertig ist.
+        /// </summary>
+        public event EventHandler OnEffectFinished;
 
         /// <summary>
         /// Basiskonstruktor.
@@ -27,7 +37,7 @@ namespace NoNameGame.Images.Effects
 
         public virtual void LoadContent(ref Image image)
         {
-            this.image = image;
+            this.Image = image;
         }
 
         public virtual void UnloadContent()
@@ -42,5 +52,26 @@ namespace NoNameGame.Images.Effects
         /// Kopieren dieses Effekts.
         /// </summary>
         public abstract ImageEffect Copy();
+
+        protected void CopyEvents(ImageEffect imageEffect)
+        {
+            imageEffect.OnEffectFinished += this.OnEffectFinished;
+        }
+
+        /// <summary>
+        /// Dreht den Effekt herum.
+        /// </summary>
+        /// <param name="active">ob der Effekt danach aktiviert werden soll</param>
+        public abstract void RevertEffect(bool active);
+
+        /// <summary>
+        /// Feuert das Event, wenn es aufgerufen wird.
+        /// </summary>
+        protected void onEffectFinished()
+        {
+            if(OnEffectFinished != null)
+                OnEffectFinished(this, null);
+        }
+        // TODO: Effekt Finished für die anderen Effekte auch implementieren
     }
 }

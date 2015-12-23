@@ -33,6 +33,14 @@ namespace NoNameGame.Images.Effects
         /// Die Endskalierung des Bildes.
         /// </summary>
         float endImageScale;
+        /// <summary>
+        /// Die Skalierung, die das Bild wirklich am Anfang hatte.
+        /// </summary>
+        float startImageScaleOrigin;
+        /// <summary>
+        /// Die Skalierung, die das Bild wirklich am Ende haben sollte.
+        /// </summary>
+        float endImageScaleOrigin;
 
         /// <summary>
         /// Gibt an in welche Richtung skaliert wird.
@@ -72,7 +80,9 @@ namespace NoNameGame.Images.Effects
             base.LoadContent(ref image);
 
             StartImageScale = image.Scale;
+            startImageScaleOrigin = StartImageScale;
             endImageScale = StartImageScale + (int)Direction * TotalScalingChange;
+            endImageScaleOrigin = endImageScale;
         }
 
         public override void UnloadContent()
@@ -88,26 +98,27 @@ namespace NoNameGame.Images.Effects
                 float newScale = (int)Direction * ScalingPerMillisecond * elapsedTime;
 
                 // Entscheide was passiert, wenn der Effekt fertig ist.
-                if((Direction == ScaleDirection.Up && image.Scale > endImageScale) ||
-                   (Direction == ScaleDirection.Down && image.Scale < endImageScale))
+                if((Direction == ScaleDirection.Up && Image.Scale + newScale > endImageScale) ||
+                   (Direction == ScaleDirection.Down && Image.Scale + newScale < endImageScale))
                 {
-                    newScale = endImageScale - image.Scale;
+                    newScale = endImageScale - Image.Scale;
+                    Image.Scale += newScale;
+
                     if(ActionType == ScaleActionType.OneWay)
-                        IsActive = false;
-                    else if(ActionType == ScaleActionType.Repeating)
                     {
-                        float endImageScaleTemp = endImageScale;
-                        endImageScale = StartImageScale;
-                        StartImageScale = endImageScaleTemp;
-                        Direction = (ScaleDirection)(-1 * (int)Direction);
+                        IsActive = false;
+                        onEffectFinished();
                     }
+                    else if(ActionType == ScaleActionType.Repeating)
+                        RevertEffect(true);
                 }
-                image.Scale += newScale;
+                else
+                    Image.Scale += newScale;
             }
         }
 
         /// <summary>
-        /// Kopieren diese übergebenen Effekts.
+        /// Kopieren dieses Effekts.
         /// </summary>
         public override ImageEffect Copy()
         {
@@ -118,7 +129,25 @@ namespace NoNameGame.Images.Effects
             newEffect.ScalingPerMillisecond = this.ScalingPerMillisecond;
             newEffect.StartImageScale = this.StartImageScale;
             newEffect.TotalScalingChange = this.TotalScalingChange;
+            base.CopyEvents(newEffect);
             return newEffect;
+        }
+
+        public override void RevertEffect(bool active)
+        {
+            if(Direction == ScaleDirection.Up)
+            {
+                Direction = ScaleDirection.Down;
+                StartImageScale = endImageScale;
+                endImageScale = startImageScaleOrigin;
+            }
+            else if(Direction == ScaleDirection.Down)
+            {
+                Direction = ScaleDirection.Up;
+                StartImageScale = endImageScale;
+                endImageScale = endImageScaleOrigin;
+            }
+            IsActive = active;
         }
     }
 }

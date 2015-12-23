@@ -60,10 +60,10 @@ namespace NoNameGame.Images.Effects
             if(IsActive)
             {
                 // Einfache Rotation anhand der angegeben Rotation und der vergangenen Zeit
-                image.Rotation += (int)Direction * RotationPerMillisecond;
-                if(image.Rotation > MathHelper.TwoPi ||
-                    image.Rotation < -MathHelper.TwoPi)
-                    image.Rotation += -(int)Direction * MathHelper.TwoPi;
+                Image.Rotation += (int)Direction * RotationPerMillisecond;
+                if(Image.Rotation > MathHelper.TwoPi ||
+                    Image.Rotation < -MathHelper.TwoPi)
+                    Image.Rotation += -(int)Direction * MathHelper.TwoPi;
             }
         }
 
@@ -77,7 +77,17 @@ namespace NoNameGame.Images.Effects
             newEffect.IsActive = this.IsActive;
             newEffect.RotationPerMillisecond = this.RotationPerMillisecond;
             newEffect.StartImageRotation = this.StartImageRotation;
+            base.CopyEvents(newEffect);
             return newEffect;
+        }
+
+        /// <summary>
+        /// Dreht den Effekt herum.
+        /// </summary>
+        /// <param name="active">ob der Effekt danach aktiviert werden soll</param>
+        public override void RevertEffect(bool active)
+        {
+            throw new NotImplementedException();
         }
     }
 }

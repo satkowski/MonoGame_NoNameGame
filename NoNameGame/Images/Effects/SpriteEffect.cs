@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using System.Xml.Serialization;
+using System;
 
 namespace NoNameGame.Images.Effects
 {
@@ -105,7 +106,7 @@ namespace NoNameGame.Images.Effects
                     if(CurrentSprite.X >= SheetSize.X || CurrentSprite.X < 0)
                         CurrentSprite.X = (CurrentSprite.X + SheetSize.X) % SheetSize.X;
                     // Anpassung des Rechtecks, damit beim nächsten mal auch das richtige Sprite gemalt wird
-                    image.SourceRectangle = new Rectangle((int)CurrentSprite.X * (int)Size.X + Offset, (int)CurrentSprite.Y * (int)Size.Y + Offset,
+                    Image.SourceRectangle = new Rectangle((int)CurrentSprite.X * (int)Size.X + Offset, (int)CurrentSprite.Y * (int)Size.Y + Offset,
                                                           (int)Size.X - 2 * Offset, (int)Size.Y - 2 * Offset);
                 }
             }
@@ -124,7 +125,17 @@ namespace NoNameGame.Images.Effects
             newEffect.Offset = this.Offset;
             newEffect.SheetSize = this.SheetSize;
             newEffect.SpriteType = this.SpriteType;
+            base.CopyEvents(newEffect);
             return newEffect;
+        }
+
+        /// <summary>
+        /// Dreht den Effekt herum.
+        /// </summary>
+        /// <param name="active">ob der Effekt danach aktiviert werden soll</param>
+        public override void RevertEffect(bool active)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,6 +11,7 @@
   <MenuItemImageEffect xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="ScalingEffect">
     <IsActive>false</IsActive>
     <Direction>Up</Direction>
+    <ActionType>OneWay</ActionType>
     <TotalScalingChange>0.7</TotalScalingChange>
     <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
   </MenuItemImageEffect>

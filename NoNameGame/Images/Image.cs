@@ -283,5 +283,22 @@ namespace NoNameGame.Images
             {
             }
         }
+
+        /// <summary>
+        /// Gibt einen ImageEffect anhand dessen Namen zurück.
+        /// </summary>
+        /// <param name="effectName">der Effektname</param>
+        /// <returns></returns>
+        public ImageEffect GetImageEffect(string effectName)
+        {
+            try
+            {
+                return effectList[effectName];
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

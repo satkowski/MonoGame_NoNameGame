@@ -113,6 +113,9 @@ namespace NoNameGame.Components.Shapes
             return ShapeCollisionManager.GetCollisionSolvingVector(thisDerived, shapeDerived);
         }
 
+        /// <summary>
+        /// Feuert das Event, wenn es aufgerufen wird.
+        /// </summary>
         protected void onThingsForAreaChanged()
         {
             if(OnAreaChanged != null)

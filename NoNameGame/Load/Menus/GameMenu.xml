@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Menu>
   <Axis>Y</Axis>
-  <Alignment>Left_Top</Alignment>
+  <Alignment>Center</Alignment>
   <ItemOffset>15</ItemOffset>
   <Effect>ScalingEffect</Effect>
   <Position>
@@ -11,6 +11,7 @@
   <MenuItemImageEffect xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="ScalingEffect">
     <IsActive>false</IsActive>
     <Direction>Up</Direction>
+    <ActionType>OneWay</ActionType>
     <TotalScalingChange>0.7</TotalScalingChange>
     <ScalingPerMillisecond>0.002</ScalingPerMillisecond>
   </MenuItemImageEffect>

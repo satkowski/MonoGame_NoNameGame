@@ -50,7 +50,7 @@ namespace NoNameGame.Menus
         /// <summary>
         /// Der Name des Effektes der auf den Menü Items genutzt wird.
         /// </summary>
-        string effektName;
+        string effectName;
 
         /// <summary>
         /// Liste aller Items, die dieses Menu beinhaltet.
@@ -110,15 +110,16 @@ namespace NoNameGame.Menus
                 keysBackwards = new Keys[] { Keys.Up, Keys.W };
             }
 
-            effektName = MenuItemImageEffect.GetType().ToString().Replace("NoNameGame.Images.Effects.", "");
+            effectName = MenuItemImageEffect.GetType().ToString().Replace("NoNameGame.Images.Effects.", "");
             // Die einzelnen Menü Items laden.
             foreach(MenuItem menuItem in MenuItems)
             {
                 menuItem.LoadContent();
                 menuItem.Image.OnScaleChange += Image_OnScaleChange;
+                MenuItemImageEffect.OnEffectFinished += MenuItemImageEffect_OnEffectFinished;
                 menuItem.Image.AddEffecte(MenuItemImageEffect.Copy());
             }
-            MenuItems[CurrentItem].Image.ActivateEffect(effektName);
+            MenuItems[CurrentItem].Image.ActivateEffect(effectName);
 
             alignMenuItems();
         }
@@ -145,8 +146,15 @@ namespace NoNameGame.Menus
 
             if(lastItem != CurrentItem)
             {
-                MenuItems[lastItem].Image.DeactivateEffect(effektName);
-                MenuItems[CurrentItem].Image.ActivateEffect(effektName);
+                // Der alte Effekt wird umgeschaltet.
+                ImageEffect oldImageEffect = MenuItems[lastItem].Image.GetImageEffect(effectName);
+                oldImageEffect.RevertEffect(true);
+                // Es wird geschaut ob das neue Menü Item schon aktiv ist, wenn ja, wird dieses wieder umgeschaltet.
+                ImageEffect newImageEffect = MenuItems[CurrentItem].Image.GetImageEffect(effectName);
+                if(newImageEffect.IsActive)
+                    newImageEffect.RevertEffect(true);
+                else
+                    MenuItems[CurrentItem].Image.ActivateEffect(effectName);
             }
 
             foreach(MenuItem menuItem in MenuItems)
@@ -213,9 +221,33 @@ namespace NoNameGame.Menus
             }
         }
         
+        /// <summary>
+        /// Reagiert darauf, wenn sich die Skalierung eines Bildes eines Menü Items ändert.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_OnScaleChange(object sender, EventArgs e)
         {
+            //throw new NotImplementedException();
+        }
 
+        /// <summary>
+        /// Reagiert darauf, wenn der ImageEffekt eines Bildes fertig ist.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItemImageEffect_OnEffectFinished(object sender, EventArgs e)
+        {
+            if(sender.GetType().Equals(typeof(ScalingEffect)))
+            {
+                ScalingEffect scalingEffect = (ScalingEffect)sender;
+                if(scalingEffect.Direction == ScalingEffect.ScaleDirection.Down)
+                {
+                    scalingEffect.RevertEffect(false);
+                    scalingEffect.Image.DeactivateEffect(effectName);
+                }
+            }
+            // TODO: Andere Effekte beachten
         }
     }
 }
