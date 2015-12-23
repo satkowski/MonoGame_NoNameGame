@@ -131,6 +131,7 @@
     <None Include="Content\Entities\Shots\LaserShot_01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Fonts\Exo Bold 18.spritefont" />
     <None Include="Content\TileSheets\TileSheet_01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

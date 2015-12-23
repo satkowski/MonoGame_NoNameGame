@@ -19,3 +19,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Exo Bold 14.spritefont
 
+#begin Fonts/Exo Bold 18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Exo Bold 18.spritefont
+

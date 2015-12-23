@@ -19,18 +19,24 @@
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Bla</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>BlaBla</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>BlaBlaBla</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
@@ -38,6 +44,8 @@
     <LinkType>Menu</LinkType>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Zurueck</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 </Menu>

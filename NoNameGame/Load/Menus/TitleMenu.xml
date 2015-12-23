@@ -21,12 +21,16 @@
     <LinkSource>Load/Screens/MainGameScreen.xml</LinkSource>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Neues Spiel</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Spiel laden</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
@@ -35,12 +39,16 @@
     <LinkSource>Load/Menus/OptionMenu.xml</LinkSource>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Opionen</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
   <MenuItem>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Credits</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 
@@ -48,6 +56,8 @@
     <LinkType>Quit</LinkType>
     <Image xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="TextImage">
       <Text>Beenden</Text>
+      <FontName>Fonts/Exo Bold 18</FontName>
+      <Scale>0.65</Scale>
     </Image>
   </MenuItem>
 </Menu>
