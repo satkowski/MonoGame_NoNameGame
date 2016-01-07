@@ -95,9 +95,9 @@ namespace NoNameGame.Collisions
             ResolvingNormal = resolving;
 
             if(firstEntity.ID < secondEntity.ID)
-                ID = "E" + firstEntity.ID + "-" + "E" + secondEntity.ID;
+                ID = firstEntity.IDString + "-" + secondEntity.IDString;
             else
-                ID = "E" + secondEntity.ID + "-" + "E" + firstEntity.ID;
+                ID = secondEntity.IDString + "-" + firstEntity.IDString;
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace NoNameGame.Collisions
             Penetration = resolving.Length();
             ResolvingNormal = resolving;
 
-            ID = "E" + entity.ID + "-" + "T" + tile.ID;
+            ID = entity.IDString + "-" + tile.IDString;
         }
 
         /// <summary>

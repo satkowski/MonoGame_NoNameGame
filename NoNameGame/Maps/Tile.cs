@@ -3,6 +3,7 @@ using NoNameGame.Components;
 using NoNameGame.Components.Shapes;
 using NoNameGame.Managers;
 using System;
+using System.Xml.Serialization;
 
 namespace NoNameGame.Maps
 {
@@ -34,8 +35,15 @@ namespace NoNameGame.Maps
         /// <summary>
         /// ID des Objektes.
         /// </summary>
+        [XmlIgnore]
         public ulong ID
-        { get; private set; }        
+        { get; private set; }
+        /// <summary>
+        /// ID des Objektes als String mit dazugehörige Buchstaben für den Klassentyp.
+        /// </summary>
+        [XmlIgnore]
+        public string IDString
+        { get { return "T" + ID; } }
 
         /// <summary>
         /// Die Tilerotation.

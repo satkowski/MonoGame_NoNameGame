@@ -37,6 +37,12 @@ namespace NoNameGame.Entities
         [XmlIgnore]
         public ulong ID
         { get; private set; }
+        /// <summary>
+        /// ID des Objektes als String mit dazugehörige Buchstaben für den Klassentyp.
+        /// </summary>
+        [XmlIgnore]
+        public string IDString
+        { get { return "E" + ID; } }
 
         /// <summary>
         /// Das Bild der Entity.
