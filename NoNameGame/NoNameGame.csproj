@@ -42,6 +42,7 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collisions\Quadtree.cs" />
     <Compile Include="Components\Body.cs" />
     <Compile Include="Components\Material.cs" />
     <Compile Include="Components\Shapes\AABBShape.cs" />

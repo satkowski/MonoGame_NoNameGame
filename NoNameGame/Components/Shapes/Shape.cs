@@ -50,6 +50,63 @@ namespace NoNameGame.Components.Shapes
         public abstract float Area
         { get; }
 
+        /// <summary>
+        /// Der linkeste Wert, den diese Form einnimmt.
+        /// </summary>
+        public virtual float LeftmostSide
+        {
+            get
+            {
+                float minX = float.MaxValue;
+                foreach(Vector2 point in Vertices)
+                    if(point.X < minX)
+                        minX = point.X;
+                return minX;
+            }
+        }
+        /// <summary>
+        /// Der rechteste Wert, den diese Form einnimmt.
+        /// </summary>
+        public virtual float RightmostSide
+        {
+            get
+            {
+                float maxX = float.MinValue;
+                foreach(Vector2 point in Vertices)
+                    if(point.X > maxX)
+                        maxX = point.X;
+                return maxX;
+            }
+        }
+        /// <summary>
+        /// Der oberste Wert, den diese Form einnimmt.
+        /// </summary>
+        public virtual float UppermostSide
+        {
+            get
+            {
+                float minY = float.MaxValue;
+                foreach(Vector2 point in Vertices)
+                    if(point.Y < minY)
+                        minY = point.Y;
+                return minY;
+            }
+        }
+        /// <summary>
+        /// Der unterste Wert, den diese Form einnimmt.
+        /// </summary>
+        public virtual float LowermostSide
+        {
+            get
+            {
+                float maxY = float.MinValue;
+                foreach(Vector2 point in Vertices)
+                    if(point.Y > maxY)
+                        maxY = point.Y;
+                return maxY;
+            }
+        }
+
         public event EventHandler OnAreaChanged;
 
         /// <summary>
