@@ -43,6 +43,27 @@ namespace NoNameGame.Components.Shapes
         }
 
         /// <summary>
+        /// Der linkeste Wert, den diese Form einnimmt.
+        /// </summary>
+        public override float LeftmostSide
+        { get { return position.X - radius; } }
+        /// <summary>
+        /// Der rechteste Wert, den diese Form einnimmt.
+        /// </summary>
+        public override float RightmostSide
+        { get { return position.X + radius; } }
+        /// <summary>
+        /// Der oberste Wert, den diese Form einnimmt.
+        /// </summary>
+        public override float UppermostSide
+        { get { return position.Y - radius; } }
+        /// <summary>
+        /// Der unterste Wert, den diese Form einnimmt.
+        /// </summary>
+        public override float LowermostSide
+        { get { return position.Y + radius; } }
+
+        /// <summary>
         /// Basiskonstruktor.
         /// </summary>
         public CircleShape()
