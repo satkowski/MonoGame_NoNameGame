@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NoNameGame.Components;
-using NoNameGame.Components.Shapes;
+using NoNameGame.Components.Shapes; 
 using NoNameGame.Entities;
 using NoNameGame.Maps;
 using System;
@@ -125,6 +125,39 @@ namespace NoNameGame.Collisions
         }
 
         /// <summary>
+        /// Gibt alle Kinder an, in denen sich das Kollisionsobjekt befindet.
+        /// </summary>
+        /// <param name="objectShape">die Form eines Objektes</param>
+        /// <returns>Liste aller Kinder, in die das übergeben Objekt fällt</returns>
+        private List<int> getIndexList(Shape objectShape)
+        {
+            List<int> childIndices = new List<int>();
+
+            int midX = boundingRectangle.X + (boundingRectangle.Width / 2);
+            int midY = boundingRectangle.Y + (boundingRectangle.Height / 2);
+
+            bool topQuadrant = objectShape.UppermostSide < midY;
+            bool bottomQuadrant = objectShape.LowermostSide > midY;
+            bool rightQuadrant = objectShape.RightmostSide > midX;
+            bool leftQuadrant = objectShape.LeftmostSide < midX;
+
+            // Rechtsoben
+            if(rightQuadrant && topQuadrant)
+                childIndices.Add(0);
+            // Linksoben
+            if(leftQuadrant && topQuadrant)
+                childIndices.Add(1);
+            // Linksunten
+            if(leftQuadrant && bottomQuadrant)
+                childIndices.Add(2);
+            // Rechtsunten
+            if(rightQuadrant && bottomQuadrant)
+                childIndices.Add(3);
+
+            return childIndices;
+        }
+
+        /// <summary>
         /// Fügt ein Objekt dem Quadtree hinzu. Falls die Kapazität dadurch erschöpft wird, wird der Quadtree geteilt und die Objekte ihren
         /// zugehörigen Zweigen hinzugefügt.
         /// </summary>
@@ -200,6 +233,13 @@ namespace NoNameGame.Collisions
             // Falls das Objekt auf einer unteren Ebene liegt, füge auch diese Objekte zur Liste hinzu.
             if(childIndex != -1 && quadtreeChildren != null)
                 outputList.AddRange(quadtreeChildren[childIndex].GetObjectCollisionList(shape));
+            else if(childIndex == -1)
+            {
+                // Hinzufügen aller Kinder, in welchen die Form auch ragt.
+                List<int> childList = getIndexList(shape);
+                foreach(int child in childList)
+                    outputList.AddRange(quadtreeChildren[child].GetObjectCollisionList(shape));
+            }
 
             return objectList;
         }
